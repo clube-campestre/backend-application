@@ -22,7 +22,7 @@ public class AccountService {
     }
 
     public List<Account> getAll() {
-        return accountRepository.findAll();
+        return accountRepository.findAll();sd
     }
 
     public Account getById(String id) {
