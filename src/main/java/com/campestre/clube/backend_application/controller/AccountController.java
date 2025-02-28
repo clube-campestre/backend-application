@@ -41,4 +41,16 @@ public class AccountController {
         return account == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
                 ResponseEntity.status(HttpStatus.OK).body(account);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> update(@PathVariable String id, @RequestBody Account updateAccount){
+        Account account = accountService.update(id, updateAccount);
+        return account == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() : ResponseEntity.status(HttpStatus.OK).body(account);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        Boolean deleted = accountService.delete(id);
+        return  deleted ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
