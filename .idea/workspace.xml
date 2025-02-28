@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/BackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/model/Account.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/model/AccountRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/test/java/com/campestre/clube/backend_application/BackendApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,10 +39,10 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/REQ-006",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Clube Campestre/Backend/backend-application/backend-application",
+    "last_opened_file_path": "C:/Users/Ruth/Desktop/backend-application/pom.xml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
