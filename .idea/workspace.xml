@@ -5,26 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/BackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/model/Account.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/model/AccountRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend-application/src/test/java/com/campestre/clube/backend_application/BackendApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/NewsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,11 +48,12 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.BackendApplication.executor": "Run",
     "git-widget-placeholder": "feature/REQ-006",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Clube Campestre/Backend/backend-application/backend-application",
+    "last_opened_file_path": "C:/Users/admin/Documents/Sptech/campestre-project/backend-application",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -79,6 +77,14 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -88,6 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739833831853</updated>
       <workItem from="1739833832984" duration="1023000" />
+      <workItem from="1740705412210" duration="6441000" />
     </task>
     <servers />
   </component>
