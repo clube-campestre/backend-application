@@ -1,9 +1,9 @@
 package com.campestre.clube.backend_application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "news")
 public class News {
@@ -13,6 +13,7 @@ public class News {
     private String title;
     private String description;
     private String image;
+    @ElementCollection
     private String attachments;
 
     public Integer getId() {
@@ -47,13 +48,9 @@ public class News {
         this.image = image;
     }
 
-    public String getAttachments() {
-        return attachments;
-    }
+    public String getAttachments() { return attachments; }
 
-    public void setAttachments(String attachments) {
-        this.attachments = attachments;
-    }
+    public void setAttachments(String attachments) { this.attachments = attachments; }
 }
 
 
