@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.service;
 import com.campestre.clube.backend_application.exceptions.*;
 import com.campestre.clube.backend_application.model.MedicalData;
 import com.campestre.clube.backend_application.repository.MedicalDataRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class MedicalDataService {
     private MedicalDataRepository medicalDataRepository;
 
     public MedicalData register(MedicalData medicalData) {
-        if (medicalDataRepository.existsById(medicalData.getId()))
+        if (medicalData.getId() != null && medicalDataRepository.existsById(medicalData.getId()))
             throw new MedicalDataConfictException(medicalData.getId());
 
         return medicalDataRepository.save(medicalData);
@@ -81,7 +82,6 @@ public class MedicalDataService {
 
         medicalDataRepository.deleteById(id);
     }
-
 
 
     private void medicalDataNotFoundValidation(Optional<MedicalData> medicalData, Integer id) {
