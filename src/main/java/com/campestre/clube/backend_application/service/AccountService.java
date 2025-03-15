@@ -50,7 +50,7 @@ public class AccountService {
         Optional<Account> account = accountRepository.findById(id);
 
         userNotFoundValidation(account, id);
-        if (!accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
+        if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new EmailConfictException();
 
         account.get().setEmail(newAccount.getEmail());

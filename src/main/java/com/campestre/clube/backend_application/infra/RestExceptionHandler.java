@@ -1,8 +1,6 @@
 package com.campestre.clube.backend_application.infra;
 
-import com.campestre.clube.backend_application.exceptions.EmailConfictException;
-import com.campestre.clube.backend_application.exceptions.LoginBadRequestException;
-import com.campestre.clube.backend_application.exceptions.UserNotFoundException;
+import com.campestre.clube.backend_application.exceptions.*;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     private ResponseEntity<RestErrorMessage> userNotFoundHandler(UserNotFoundException exception){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage()));
+        return notFound(exception.getMessage());
     }
 
     @ExceptionHandler(LoginBadRequestException.class)
@@ -26,7 +24,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EmailConfictException.class)
     private ResponseEntity<RestErrorMessage> emailConflictHandler(EmailConfictException exception){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage()));
+        return conflict(exception.getMessage());
     }
 
     @ExceptionHandler(BadRequestException.class)
@@ -34,7 +32,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return badRequest(exception.getMessage());
     }
 
+    @ExceptionHandler(MedicalDataConfictException.class)
+    private ResponseEntity<RestErrorMessage> medicalDataConflictHandler(MedicalDataConfictException exception){
+        return conflict(exception.getMessage());
+    }
+
+    @ExceptionHandler(MedicalDataNotFoundException.class)
+    private ResponseEntity<RestErrorMessage> userNotFoundHandler(MedicalDataNotFoundException exception){
+        return notFound(exception.getMessage());
+    }
+
+
+
     private ResponseEntity<RestErrorMessage> badRequest(String exceptionMessage) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestErrorMessage(HttpStatus.BAD_REQUEST, exceptionMessage));
+    }
+
+    private ResponseEntity<RestErrorMessage> conflict(String exceptionMessage) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new RestErrorMessage(HttpStatus.CONFLICT, exceptionMessage));
+    }
+
+    private ResponseEntity<RestErrorMessage> notFound(String exceptionMessage) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RestErrorMessage(HttpStatus.NOT_FOUND, exceptionMessage));
     }
 }
