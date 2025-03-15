@@ -1,7 +1,12 @@
 package com.campestre.clube.backend_application.service;
 
+import com.campestre.clube.backend_application.exceptions.EmailConfictException;
+import com.campestre.clube.backend_application.exceptions.LoginBadRequestException;
+import com.campestre.clube.backend_application.exceptions.UserNotFoundException;
 import com.campestre.clube.backend_application.model.Account;
+import com.campestre.clube.backend_application.model.AccountRequest;
 import com.campestre.clube.backend_application.repository.AccountRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +19,19 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Boolean login(String email, String password) {
-        return accountRepository.findByEmailAndPassword(email, password) != null;
+    public String login(AccountRequest account) {
+        if (!accountRepository.existsByEmailAndPassword(account.getEmail(), account.getPassword()))
+            throw new LoginBadRequestException();
+
+        return "Authenticated user";
     }
 
-    public Account save(Account account) {
+    public Account register(Account account) throws BadRequestException {
+        if (accountRepository.existsByEmail(account.getEmail()))
+            throw new EmailConfictException();
+        if (!validateEmail(account.getEmail()))
+            throw new BadRequestException("Invalid email");
+
         return accountRepository.save(account);
     }
 
@@ -26,29 +39,40 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public Account getById(String id) {
-        return accountRepository.findById(id).orElse(null);
+    public Account getById(Integer id) {
+        Optional<Account> account = accountRepository.findById(id);
+        userNotFoundValidation(account, id);
+
+        return account.get();
     }
 
-    public Account update(String id,Account newAccountData){
-        Optional<Account> existingAccount = accountRepository.findById(id);
+    public Account update(Integer id, AccountRequest newAccount){
+        Optional<Account> account = accountRepository.findById(id);
 
-        if(existingAccount.isPresent()){
-            Account account = existingAccount.get();
-            account.setEmail(newAccountData.getEmail());
-            account.setPassword(newAccountData.getPassword());
-            return accountRepository.save(account);
-        }
+        userNotFoundValidation(account, id);
+        if (!accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
+            throw new EmailConfictException();
 
-        return null;
+        account.get().setEmail(newAccount.getEmail());
+        account.get().setPassword(newAccount.getPassword());
+        return accountRepository.save(account.get());
+    }
+
+    public void delete(Integer id){
+        if(!accountRepository.existsById(id))
+            throw new UserNotFoundException(id);
+
+        accountRepository.deleteById(id);
     }
 
 
-    public Boolean delete(String id){
-        if(accountRepository.existsById(id)){
-            accountRepository.deleteById(id);
-            return true;
-        }
-        return false;
+
+    private Boolean validateEmail(String email) {
+        return email.contains(".") && email.contains("@");
+    }
+
+    private void userNotFoundValidation(Optional<Account> account, Integer id) {
+        if (account.isEmpty())
+            throw new UserNotFoundException(id);
     }
 }
