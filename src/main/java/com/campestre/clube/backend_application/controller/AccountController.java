@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.controller;
 import com.campestre.clube.backend_application.model.Account;
 import com.campestre.clube.backend_application.model.AccountRequest;
 import com.campestre.clube.backend_application.service.AccountService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,39 +19,35 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody AccountRequest account){
-        return accountService.login(account.getEmail(), account.getPassword()) ?
-                ResponseEntity.status(HttpStatus.OK).build() :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity<String> login(@RequestBody AccountRequest account) {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.login(account));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Account> register(@RequestBody Account accountReceive){
-        return accountService.save(accountReceive) == null ? ResponseEntity.status(HttpStatus.BAD_REQUEST).build() :
-                ResponseEntity.status(HttpStatus.CREATED).body(accountService.save(accountReceive));
+    public ResponseEntity<Account> register(@RequestBody Account accountReceive) throws BadRequestException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountService.register(accountReceive));
     }
 
     @GetMapping
-    public ResponseEntity<List<Account>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(accountService.getAll());
+    public ResponseEntity<List<Account>> getAll() {
+        List<Account> accounts = accountService.getAll();
+        if (accounts.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.OK).body(accounts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getById(@PathVariable String id){
-        Account account = accountService.getById(id);
-        return account == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
-                ResponseEntity.status(HttpStatus.OK).body(account);
+    public ResponseEntity<Account> getById(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.getById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> update(@PathVariable String id, @RequestBody Account updateAccount){
-        Account account = accountService.update(id, updateAccount);
-        return account == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() : ResponseEntity.status(HttpStatus.OK).body(account);
+    public ResponseEntity<Account> update(@PathVariable Integer id, @RequestBody AccountRequest updateAccount) {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.update(id, updateAccount));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
-        Boolean deleted = accountService.delete(id);
-        return  deleted ? ResponseEntity.status(HttpStatus.NO_CONTENT).build() : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        accountService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
