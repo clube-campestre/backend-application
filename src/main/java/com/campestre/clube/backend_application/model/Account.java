@@ -10,6 +10,7 @@ public class Account {
     private String email;
     @Column(name = "passwd")
     private String password;
+    private String cpf;
 
     public Account() {}
 
@@ -35,5 +36,13 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

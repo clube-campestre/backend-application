@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Boolean existsByEmailAndIdNot(String email, Integer id);
     Boolean existsByEmailAndPassword(String email, String password);
-    Boolean existsByEmail(String email);
+    boolean existsByEmail(String email);
+
+    boolean existsByCpf(String cpf);
+
+    boolean existsByCpfAndIdNot(String cpf, Integer id);
 }

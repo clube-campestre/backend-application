@@ -42,6 +42,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return notFound(exception.getMessage());
     }
 
+    @ExceptionHandler(EnterpriseConfictException.class)
+    private ResponseEntity<RestErrorMessage> enterpriseConflictHandler(EnterpriseConfictException exception){
+        return conflict(exception.getMessage());
+    }
 
 
     private ResponseEntity<RestErrorMessage> badRequest(String exceptionMessage) {

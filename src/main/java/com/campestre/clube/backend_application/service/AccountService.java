@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.service;
 
+import com.campestre.clube.backend_application.exceptions.CpfConflictException;
 import com.campestre.clube.backend_application.exceptions.EmailConfictException;
 import com.campestre.clube.backend_application.exceptions.LoginBadRequestException;
 import com.campestre.clube.backend_application.exceptions.UserNotFoundException;
@@ -29,8 +30,12 @@ public class AccountService {
     public Account register(Account account) throws BadRequestException {
         if (accountRepository.existsByEmail(account.getEmail()))
             throw new EmailConfictException();
+        if (accountRepository.existsByCpf(account.getCpf()))
+            throw new CpfConflictException();
         if (!validateEmail(account.getEmail()))
             throw new BadRequestException("Invalid email");
+        if (!validateCpf(account.getCpf()))
+            throw new BadRequestException("Invalid CPF");
 
         return accountRepository.save(account);
     }
@@ -52,9 +57,12 @@ public class AccountService {
         userNotFoundValidation(account, id);
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new EmailConfictException();
+        if (accountRepository.existsByCpfAndIdNot(newAccount.getCpf(), id))
+            throw new CpfConflictException();
 
         account.get().setEmail(newAccount.getEmail());
         account.get().setPassword(newAccount.getPassword());
+        account.get().setCpf(newAccount.getCpf());
         return accountRepository.save(account.get());
     }
 
@@ -70,6 +78,7 @@ public class AccountService {
     private Boolean validateEmail(String email) {
         return email.contains(".") && email.contains("@");
     }
+    private Boolean validateCpf(String cpf) { return cpf.length() == 11;}
 
     private void userNotFoundValidation(Optional<Account> account, Integer id) {
         if (account.isEmpty())
