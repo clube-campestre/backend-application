@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.model;
+package com.campestre.clube.backend_application.entity;
 
 import jakarta.persistence.*;
 

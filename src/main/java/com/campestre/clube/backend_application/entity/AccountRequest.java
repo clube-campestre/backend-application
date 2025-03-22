@@ -1,15 +1,10 @@
-package com.campestre.clube.backend_application.model;
+package com.campestre.clube.backend_application.entity;
 
 public class AccountRequest {
     private String email;
     private String password;
 
     public AccountRequest() {}
-
-    public AccountRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;

@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.model.MedicalData;
+import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.service.MedicalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

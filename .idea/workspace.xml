@@ -5,17 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/EmailConfictException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/LoginBadRequestException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestErrorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entities/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entities/enums/AccessType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/EmailConfictException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/ConflictException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/LoginBadRequestException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/BadRequestException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/MedicalDataConfictException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/MedicalDataNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/Account.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/AccountRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entities/AccountRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/MedicalData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entities/MedicalData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/MedicalDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/MedicalDataRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MedicalDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MedicalDataService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +34,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -37,6 +46,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Murilo20H"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/clube-campestre/backend-application.git",
+    "accountId": "68ced457-4edb-495d-9a3c-f6555f1d6ec6"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -66,10 +87,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/REQ-016",
+    "git-widget-placeholder": "feature/REQ-020",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Clube Campestre/Backend",
+    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Clube Campestre/Backend/backend-application/src/main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +102,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main" />
       <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main\java\com\campestre\clube\backend_application" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -117,6 +139,7 @@
       <updated>1739833831853</updated>
       <workItem from="1739833832984" duration="1023000" />
       <workItem from="1741993407918" duration="6340000" />
+      <workItem from="1742655266158" duration="5449000" />
     </task>
     <servers />
   </component>

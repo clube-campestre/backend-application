@@ -1,9 +1,8 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.exceptions.*;
-import com.campestre.clube.backend_application.model.MedicalData;
+import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.repository.MedicalDataRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class MedicalDataService {
 
     public MedicalData register(MedicalData medicalData) {
         if (medicalData.getId() != null && medicalDataRepository.existsById(medicalData.getId()))
-            throw new MedicalDataConfictException(medicalData.getId());
+            throw new ConflictException("Medical data with this id [%s] already exists".formatted(medicalData.getId()));
 
         return medicalDataRepository.save(medicalData);
     }
@@ -78,7 +77,7 @@ public class MedicalDataService {
 
     public void delete(Integer id){
         if(!medicalDataRepository.existsById(id))
-            throw new MedicalDataNotFoundException(id);
+            throw new NotFoundException("Medical data by id [%s] not found".formatted(id));
 
         medicalDataRepository.deleteById(id);
     }
@@ -86,6 +85,6 @@ public class MedicalDataService {
 
     private void medicalDataNotFoundValidation(Optional<MedicalData> medicalData, Integer id) {
         if (medicalData.isEmpty())
-            throw new MedicalDataNotFoundException(id);
+            throw new NotFoundException("Medical data by id [%s] not found".formatted(id));
     }
 }
