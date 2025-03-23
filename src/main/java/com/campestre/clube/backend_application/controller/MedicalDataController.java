@@ -19,19 +19,19 @@ public class MedicalDataController {
         return ResponseEntity.status(HttpStatus.CREATED).body(medicalDataService.register(medicalData));
     }
 
-   @GetMapping("/{id}")
-    public ResponseEntity<MedicalData> getById(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.getById(id));
+    @GetMapping("/{cpf}")
+    public ResponseEntity<MedicalData> getByCpf(@PathVariable String cpf) {
+        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.getById(cpf));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MedicalData> update(@PathVariable Integer id, @RequestBody MedicalData medicalData) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.update(id, medicalData));
+    @PutMapping("/{cpf}")
+    public ResponseEntity<MedicalData> update(@PathVariable String cpf, @RequestBody MedicalData medicalData) {
+        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.update(cpf, medicalData));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        medicalDataService.delete(id);
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<Void> delete(@PathVariable String cpf) {
+        medicalDataService.delete(cpf);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

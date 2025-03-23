@@ -31,4 +31,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage())
         );
     }
+
+    @ExceptionHandler(InternalServerException.class)
+    private ResponseEntity<RestErrorMessage> internalServerHandler(InternalServerException exception){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage())
+        );
+    }
 }

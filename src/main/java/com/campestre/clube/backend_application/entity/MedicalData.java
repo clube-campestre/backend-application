@@ -1,12 +1,26 @@
 package com.campestre.clube.backend_application.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity(name = "medical_data")
 public class MedicalData {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @CPF
+    @Size(min = 11, max = 11)
+    private String cpf;
+    @NotNull
+    @Size(min = 15, max = 15)
+    private String cns;
+    @NotNull
+    @Size(max = 20)
+    private String agreement;
+    @NotNull
+    @Size(min = 2, max = 3)
+    private String bloodType;
+
     private Boolean catapora; //chickenpox
     private Boolean meningite; //meningitis
     private Boolean hepatite; //hepatitis
@@ -50,12 +64,36 @@ public class MedicalData {
 
     public MedicalData() {}
 
-    public Integer getId() {
-        return id;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCns() {
+        return cns;
+    }
+
+    public void setCns(String cns) {
+        this.cns = cns;
+    }
+
+    public String getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(String agreement) {
+        this.agreement = agreement;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
     public Boolean getCatapora() {
