@@ -1,33 +1,18 @@
 package com.campestre.clube.backend_application.entity;
 
-import com.campestre.clube.backend_application.entity.enums.AccessType;
+import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity(name = "user_account")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NotNull
-    @Email
     private String email;
-
     @Column(name = "passwd")
-    @Size(min = 10, max = 20)
-    @NotNull
     private String password;
-
-    @CPF
-    @NotNull
     private String cpf;
-
-    @NotNull
-    private AccessType access;
+    private AccessTypeEnum access;
 
     public Account() {}
 
@@ -63,11 +48,11 @@ public class Account {
         this.cpf = cpf;
     }
 
-    public AccessType getAccess() {
+    public AccessTypeEnum getAccess() {
         return access;
     }
 
-    public void setAccess(AccessType access) {
+    public void setAccess(AccessTypeEnum access) {
         this.access = access;
     }
 }

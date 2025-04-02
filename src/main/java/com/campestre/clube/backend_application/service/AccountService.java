@@ -4,7 +4,6 @@ import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.entity.Account;
-import com.campestre.clube.backend_application.entity.AccountRequest;
 import com.campestre.clube.backend_application.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +17,11 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account login(AccountRequest accountRequest) {
+    public Account login(Account accountRequest) {
         if (!accountRepository.existsByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword()))
             throw new BadRequestException("Incorrect email or password");
 
-        Account account = accountRepository.findByEmailAndPassword(
-                accountRequest.getEmail(), accountRequest.getPassword()
-        );
-        account.setPassword(null);
-        return account;
+        return accountRepository.findByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword());
     }
 
     public Account register(Account account) {
@@ -54,6 +49,7 @@ public class AccountService {
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
 
+        account.get().setId(id);
         account.get().setEmail(newAccount.getEmail());
         account.get().setPassword(newAccount.getPassword());
         account.get().setCpf(newAccount.getCpf());

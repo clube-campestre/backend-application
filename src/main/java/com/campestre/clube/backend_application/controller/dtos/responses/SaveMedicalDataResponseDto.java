@@ -1,69 +1,107 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.br.CPF;
+import com.campestre.clube.backend_application.entity.MedicalData;
 
-@Entity(name = "medical_data")
-public class MedicalData {
-    @Id
-    @CPF
-    @Size(min = 11, max = 11)
+public class SaveMedicalDataResponseDto {
     private String cpf;
-    @NotBlank
-    @Size(min = 15, max = 15)
     private String cns;
-    @NotBlank
-    @Size(max = 20)
     private String agreement;
-    @NotBlank
-    @Size(min = 2, max = 3)
     private String bloodType;
 
-    private Boolean catapora; //chickenpox
-    private Boolean meningite; //meningitis
-    private Boolean hepatite; //hepatitis
-    private Boolean dengue; //dengueFever
-    private Boolean pneumonia; //pneumonia
-    private Boolean malaria; //malaria
-    private Boolean febreAmarela; //yellowFever
-    private Boolean sarampo; //measles
-    private Boolean tetano; //tetanus
-    private Boolean variola; //smallpox
-    private Boolean coqueluche; //whoopingCough
-    private Boolean difteria; //diphtheria
-    private Boolean rinite; //rhinitis
-    private Boolean bronquite; //bronchitis
-    private Boolean asma; //asthma
-    private Boolean rubeola; //rubella
-    private Boolean colera; //cholera
-    private Boolean covid19; //covid19
-    private Boolean h1n1; //h1n1
-    private Boolean caxumba; //mumps
-    @NotBlank
-    private String others;
+    private Boolean catapora = false;
+    private Boolean meningite = false;
+    private Boolean hepatite = false;
+    private Boolean dengue = false;
+    private Boolean pneumonia = false;
+    private Boolean malaria = false;
+    private Boolean febreAmarela = false;
+    private Boolean sarampo = false;
+    private Boolean tetano = false;
+    private Boolean variola = false;
+    private Boolean coqueluche = false;
+    private Boolean difteria = false;
+    private Boolean rinite = false;
+    private Boolean bronquite = false;
+    private Boolean asma = false;
+    private Boolean rubeola = false;
+    private Boolean colera = false;
+    private Boolean covid19 = false;
+    private Boolean h1n1 = false;
+    private Boolean caxumba = false;
+    private String others = "";
 
-    private String heartProblems;
-    private String drugAllergy;
-    private Boolean lactoseAllergy;
-    private String deficiency;
-    private Boolean bloodTransfusion;
-    private Boolean skinAllergy;
-    private String skinAllergyMedications;
-    private Boolean faintingOrConvulsion;
-    private String faintingOrSeizuresMedications;
-    private String psychologicalDisorder;
-    private Boolean allergy;
-    private String allergyMedications;
-    private Boolean diabetic;
-    private String diabeticMedications;
-    private Boolean recentSeriousInjury;
-    private String recentFracture;
-    private String surgeries;
-    private String hospitalizationReasonLast5Years;
+    private String heartProblems = "";
+    private String drugAllergy = "";
+    private Boolean lactoseAllergy = false;
+    private String deficiency = "";
+    private Boolean bloodTransfusion = false;
+    private Boolean skinAllergy = false;
+    private String skinAllergyMedications = "";
+    private Boolean faintingOrConvulsion = false;
+    private String faintingOrSeizuresMedications = "";
+    private String psychologicalDisorder = "";
+    private Boolean allergy = false;
+    private String allergyMedications = "";
+    private Boolean diabetic = false;
+    private String diabeticMedications = "";
+    private Boolean recentSeriousInjury = false;
+    private String recentFracture = "";
+    private String surgeries = "";
+    private String hospitalizationReasonLast5Years = "";
 
-    public MedicalData() {}
+    public static SaveMedicalDataResponseDto toResponse(MedicalData medicalData) {
+        SaveMedicalDataResponseDto response = new SaveMedicalDataResponseDto();
+
+        response.setCpf(medicalData.getCpf());
+        response.setCns(medicalData.getCns());
+        response.setAgreement(medicalData.getAgreement());
+        response.setBloodType(medicalData.getBloodType());
+
+        response.setCatapora(medicalData.getCatapora());
+        response.setMeningite(medicalData.getMeningite());
+        response.setHepatite(medicalData.getHepatite());
+        response.setDengue(medicalData.getDengue());
+        response.setPneumonia(medicalData.getPneumonia());
+        response.setMalaria(medicalData.getMalaria());
+        response.setFebreAmarela(medicalData.getFebreAmarela());
+        response.setSarampo(medicalData.getSarampo());
+        response.setTetano(medicalData.getTetano());
+        response.setVariola(medicalData.getVariola());
+        response.setCoqueluche(medicalData.getCoqueluche());
+        response.setDifteria(medicalData.getDifteria());
+        response.setRinite(medicalData.getRinite());
+        response.setBronquite(medicalData.getBronquite());
+        response.setAsma(medicalData.getAsma());
+        response.setRubeola(medicalData.getRubeola());
+        response.setColera(medicalData.getColera());
+        response.setCovid19(medicalData.getCovid19());
+        response.setH1n1(medicalData.getH1n1());
+        response.setCaxumba(medicalData.getCaxumba());
+        response.setOthers(medicalData.getOthers());
+
+        response.setHeartProblems(medicalData.getHeartProblems());
+        response.setDrugAllergy(medicalData.getDrugAllergy());
+        response.setLactoseAllergy(medicalData.getLactoseAllergy());
+        response.setDeficiency(medicalData.getDeficiency());
+        response.setBloodTransfusion(medicalData.getBloodTransfusion());
+        response.setSkinAllergy(medicalData.getSkinAllergy());
+        response.setSkinAllergyMedications(medicalData.getSkinAllergyMedications());
+        response.setFaintingOrConvulsion(medicalData.getFaintingOrConvulsion());
+        response.setFaintingOrSeizuresMedications(medicalData.getFaintingOrSeizuresMedications());
+        response.setPsychologicalDisorder(medicalData.getPsychologicalDisorder());
+        response.setAllergy(medicalData.getAllergy());
+        response.setAllergyMedications(medicalData.getAllergyMedications());
+        response.setDiabetic(medicalData.getDiabetic());
+        response.setDiabeticMedications(medicalData.getDiabeticMedications());
+        response.setRecentSeriousInjury(medicalData.getRecentSeriousInjury());
+        response.setRecentFracture(medicalData.getRecentFracture());
+        response.setSurgeries(medicalData.getSurgeries());
+        response.setHospitalizationReasonLast5Years(medicalData.getHospitalizationReasonLast5Years());
+
+        return response;
+    }
+
+    public SaveMedicalDataResponseDto() {}
 
     public String getCpf() {
         return cpf;

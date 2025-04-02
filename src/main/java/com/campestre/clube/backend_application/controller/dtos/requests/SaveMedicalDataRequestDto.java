@@ -1,13 +1,11 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import jakarta.persistence.*;
+import com.campestre.clube.backend_application.entity.MedicalData;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
-@Entity(name = "medical_data")
-public class MedicalData {
-    @Id
+public class SaveMedicalDataRequestDto {
     @CPF
     @Size(min = 11, max = 11)
     private String cpf;
@@ -21,49 +19,100 @@ public class MedicalData {
     @Size(min = 2, max = 3)
     private String bloodType;
 
-    private Boolean catapora; //chickenpox
-    private Boolean meningite; //meningitis
-    private Boolean hepatite; //hepatitis
-    private Boolean dengue; //dengueFever
-    private Boolean pneumonia; //pneumonia
-    private Boolean malaria; //malaria
-    private Boolean febreAmarela; //yellowFever
-    private Boolean sarampo; //measles
-    private Boolean tetano; //tetanus
-    private Boolean variola; //smallpox
-    private Boolean coqueluche; //whoopingCough
-    private Boolean difteria; //diphtheria
-    private Boolean rinite; //rhinitis
-    private Boolean bronquite; //bronchitis
-    private Boolean asma; //asthma
-    private Boolean rubeola; //rubella
-    private Boolean colera; //cholera
-    private Boolean covid19; //covid19
-    private Boolean h1n1; //h1n1
-    private Boolean caxumba; //mumps
-    @NotBlank
-    private String others;
+    private Boolean catapora = false;
+    private Boolean meningite = false;
+    private Boolean hepatite = false;
+    private Boolean dengue = false;
+    private Boolean pneumonia = false;
+    private Boolean malaria = false;
+    private Boolean febreAmarela = false;
+    private Boolean sarampo = false;
+    private Boolean tetano = false;
+    private Boolean variola = false;
+    private Boolean coqueluche = false;
+    private Boolean difteria = false;
+    private Boolean rinite = false;
+    private Boolean bronquite = false;
+    private Boolean asma = false;
+    private Boolean rubeola = false;
+    private Boolean colera = false;
+    private Boolean covid19 = false;
+    private Boolean h1n1 = false;
+    private Boolean caxumba = false;
+    private String others = "";
 
-    private String heartProblems;
-    private String drugAllergy;
-    private Boolean lactoseAllergy;
-    private String deficiency;
-    private Boolean bloodTransfusion;
-    private Boolean skinAllergy;
-    private String skinAllergyMedications;
-    private Boolean faintingOrConvulsion;
-    private String faintingOrSeizuresMedications;
-    private String psychologicalDisorder;
-    private Boolean allergy;
-    private String allergyMedications;
-    private Boolean diabetic;
-    private String diabeticMedications;
-    private Boolean recentSeriousInjury;
-    private String recentFracture;
-    private String surgeries;
-    private String hospitalizationReasonLast5Years;
+    private String heartProblems = "";
+    private String drugAllergy = "";
+    private Boolean lactoseAllergy = false;
+    private String deficiency = "";
+    private Boolean bloodTransfusion = false;
+    private Boolean skinAllergy = false;
+    private String skinAllergyMedications = "";
+    private Boolean faintingOrConvulsion = false;
+    private String faintingOrSeizuresMedications = "";
+    private String psychologicalDisorder = "";
+    private Boolean allergy = false;
+    private String allergyMedications = "";
+    private Boolean diabetic = false;
+    private String diabeticMedications = "";
+    private Boolean recentSeriousInjury = false;
+    private String recentFracture = "";
+    private String surgeries = "";
+    private String hospitalizationReasonLast5Years = "";
 
-    public MedicalData() {}
+    public static MedicalData toEntity(SaveMedicalDataRequestDto dto) {
+        MedicalData medicalData = new MedicalData();
+
+        medicalData.setCpf(dto.getCpf());
+        medicalData.setCns(dto.getCns());
+        medicalData.setAgreement(dto.getAgreement());
+        medicalData.setBloodType(dto.getBloodType());
+
+        medicalData.setCatapora(dto.getCatapora());
+        medicalData.setMeningite(dto.getMeningite());
+        medicalData.setHepatite(dto.getHepatite());
+        medicalData.setDengue(dto.getDengue());
+        medicalData.setPneumonia(dto.getPneumonia());
+        medicalData.setMalaria(dto.getMalaria());
+        medicalData.setFebreAmarela(dto.getFebreAmarela());
+        medicalData.setSarampo(dto.getSarampo());
+        medicalData.setTetano(dto.getTetano());
+        medicalData.setVariola(dto.getVariola());
+        medicalData.setCoqueluche(dto.getCoqueluche());
+        medicalData.setDifteria(dto.getDifteria());
+        medicalData.setRinite(dto.getRinite());
+        medicalData.setBronquite(dto.getBronquite());
+        medicalData.setAsma(dto.getAsma());
+        medicalData.setRubeola(dto.getRubeola());
+        medicalData.setColera(dto.getColera());
+        medicalData.setCovid19(dto.getCovid19());
+        medicalData.setH1n1(dto.getH1n1());
+        medicalData.setCaxumba(dto.getCaxumba());
+        medicalData.setOthers(dto.getOthers());
+
+        medicalData.setHeartProblems(dto.getHeartProblems());
+        medicalData.setDrugAllergy(dto.getDrugAllergy());
+        medicalData.setLactoseAllergy(dto.getLactoseAllergy());
+        medicalData.setDeficiency(dto.getDeficiency());
+        medicalData.setBloodTransfusion(dto.getBloodTransfusion());
+        medicalData.setSkinAllergy(dto.getSkinAllergy());
+        medicalData.setSkinAllergyMedications(dto.getSkinAllergyMedications());
+        medicalData.setFaintingOrConvulsion(dto.getFaintingOrConvulsion());
+        medicalData.setFaintingOrSeizuresMedications(dto.getFaintingOrSeizuresMedications());
+        medicalData.setPsychologicalDisorder(dto.getPsychologicalDisorder());
+        medicalData.setAllergy(dto.getAllergy());
+        medicalData.setAllergyMedications(dto.getAllergyMedications());
+        medicalData.setDiabetic(dto.getDiabetic());
+        medicalData.setDiabeticMedications(dto.getDiabeticMedications());
+        medicalData.setRecentSeriousInjury(dto.getRecentSeriousInjury());
+        medicalData.setRecentFracture(dto.getRecentFracture());
+        medicalData.setSurgeries(dto.getSurgeries());
+        medicalData.setHospitalizationReasonLast5Years(dto.getHospitalizationReasonLast5Years());
+
+        return medicalData;
+    }
+
+    public SaveMedicalDataRequestDto() {}
 
     public String getCpf() {
         return cpf;

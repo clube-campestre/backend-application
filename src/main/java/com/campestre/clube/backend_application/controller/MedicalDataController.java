@@ -1,5 +1,7 @@
 package com.campestre.clube.backend_application.controller;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.SaveMedicalDataRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.SaveMedicalDataResponseDto;
 import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.service.MedicalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ public class MedicalDataController {
     private MedicalDataService medicalDataService;
 
     @PostMapping("/register")
-    public ResponseEntity<MedicalData> register(@RequestBody MedicalData medicalData) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(medicalDataService.register(medicalData));
+    public ResponseEntity<SaveMedicalDataResponseDto> register(@RequestBody SaveMedicalDataRequestDto medicalData) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(SaveMedicalDataResponseDto.toResponse(
+                medicalDataService.register(SaveMedicalDataRequestDto.toEntity(medicalData))
+        ));
     }
 
     @GetMapping("/{cpf}")
@@ -25,8 +29,12 @@ public class MedicalDataController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<MedicalData> update(@PathVariable String cpf, @RequestBody MedicalData medicalData) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.update(cpf, medicalData));
+    public ResponseEntity<SaveMedicalDataResponseDto> update(
+            @PathVariable String cpf, @RequestBody SaveMedicalDataRequestDto medicalData
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(SaveMedicalDataResponseDto.toResponse(
+                medicalDataService.update(cpf, SaveMedicalDataRequestDto.toEntity(medicalData))
+        ));
     }
 
     @DeleteMapping("/{cpf}")
