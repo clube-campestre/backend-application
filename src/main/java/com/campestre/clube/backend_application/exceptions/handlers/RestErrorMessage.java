@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.infra;
+package com.campestre.clube.backend_application.exceptions.handlers;
 
 import org.springframework.http.HttpStatus;
 

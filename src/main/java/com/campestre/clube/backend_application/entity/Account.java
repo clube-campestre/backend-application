@@ -1,5 +1,6 @@
-package com.campestre.clube.backend_application.model;
+package com.campestre.clube.backend_application.entity;
 
+import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 import jakarta.persistence.*;
 
 @Entity(name = "user_account")
@@ -11,6 +12,7 @@ public class Account {
     @Column(name = "passwd")
     private String password;
     private String cpf;
+    private AccessTypeEnum access;
 
     public Account() {}
 
@@ -44,5 +46,13 @@ public class Account {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public AccessTypeEnum getAccess() {
+        return access;
+    }
+
+    public void setAccess(AccessTypeEnum access) {
+        this.access = access;
     }
 }
