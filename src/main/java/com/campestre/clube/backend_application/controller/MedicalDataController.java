@@ -1,6 +1,8 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.model.MedicalData;
+import com.campestre.clube.backend_application.controller.dtos.requests.SaveMedicalDataRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GetMedicalDataResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.SaveMedicalDataResponseDto;
 import com.campestre.clube.backend_application.service.MedicalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,23 +17,31 @@ public class MedicalDataController {
     private MedicalDataService medicalDataService;
 
     @PostMapping("/register")
-    public ResponseEntity<MedicalData> register(@RequestBody MedicalData medicalData) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(medicalDataService.register(medicalData));
+    public ResponseEntity<SaveMedicalDataResponseDto> register(@RequestBody SaveMedicalDataRequestDto medicalData) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(SaveMedicalDataResponseDto.toResponse(
+                medicalDataService.register(SaveMedicalDataRequestDto.toEntity(medicalData))
+        ));
     }
 
-   @GetMapping("/{id}")
-    public ResponseEntity<MedicalData> getById(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.getById(id));
+    @GetMapping("/{cpf}")
+    public ResponseEntity<GetMedicalDataResponseDto> getByCpf(@PathVariable String cpf) {
+        return ResponseEntity.status(HttpStatus.OK).body(GetMedicalDataResponseDto.toResponse(
+                medicalDataService.getById(cpf)
+        ));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MedicalData> update(@PathVariable Integer id, @RequestBody MedicalData medicalData) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.update(id, medicalData));
+    @PutMapping("/{cpf}")
+    public ResponseEntity<SaveMedicalDataResponseDto> update(
+            @PathVariable String cpf, @RequestBody SaveMedicalDataRequestDto medicalData
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(SaveMedicalDataResponseDto.toResponse(
+                medicalDataService.update(cpf, SaveMedicalDataRequestDto.toEntity(medicalData))
+        ));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        medicalDataService.delete(id);
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<Void> delete(@PathVariable String cpf) {
+        medicalDataService.delete(cpf);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

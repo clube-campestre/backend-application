@@ -1,9 +1,8 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.exceptions.*;
-import com.campestre.clube.backend_application.model.MedicalData;
+import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.repository.MedicalDataRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +15,26 @@ public class MedicalDataService {
     private MedicalDataRepository medicalDataRepository;
 
     public MedicalData register(MedicalData medicalData) {
-        if (medicalData.getId() != null && medicalDataRepository.existsById(medicalData.getId()))
-            throw new MedicalDataConfictException(medicalData.getId());
+        if (medicalData.getCpf() != null && medicalDataRepository.existsById(medicalData.getCpf()))
+            throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
 
         return medicalDataRepository.save(medicalData);
     }
 
-    public MedicalData getById(Integer id) {
-        Optional<MedicalData> medicalData = medicalDataRepository.findById(id);
-        medicalDataNotFoundValidation(medicalData, id);
+    public MedicalData getById(String cpf) {
+        Optional<MedicalData> medicalData = medicalDataRepository.findById(cpf);
+        medicalDataNotFoundValidation(medicalData, cpf);
 
         return medicalData.get();
     }
 
-    public MedicalData update(Integer id, MedicalData newMedicalData){
-        Optional<MedicalData> medicalData = medicalDataRepository.findById(id);
-        medicalDataNotFoundValidation(medicalData, id);
+    public MedicalData update(String cpf, MedicalData newMedicalData){
+        Optional<MedicalData> medicalData = medicalDataRepository.findById(cpf);
+        medicalDataNotFoundValidation(medicalData, cpf);
+
+        medicalData.get().setCns(newMedicalData.getCns());
+        medicalData.get().setAgreement(newMedicalData.getAgreement());
+        medicalData.get().setBloodType(newMedicalData.getBloodType());
 
         medicalData.get().setCatapora(newMedicalData.getCatapora());
         medicalData.get().setMeningite(newMedicalData.getMeningite());
@@ -76,16 +79,16 @@ public class MedicalDataService {
         return medicalDataRepository.save(medicalData.get());
     }
 
-    public void delete(Integer id){
-        if(!medicalDataRepository.existsById(id))
-            throw new MedicalDataNotFoundException(id);
+    public void delete(String cpf){
+        if(!medicalDataRepository.existsById(cpf))
+            throw new NotFoundException("Medical data by CPF [%s] not found".formatted(cpf));
 
-        medicalDataRepository.deleteById(id);
+        medicalDataRepository.deleteById(cpf);
     }
 
 
-    private void medicalDataNotFoundValidation(Optional<MedicalData> medicalData, Integer id) {
+    private void medicalDataNotFoundValidation(Optional<MedicalData> medicalData, String cpf) {
         if (medicalData.isEmpty())
-            throw new MedicalDataNotFoundException(id);
+            throw new NotFoundException("Medical data by CPF [%s] not found".formatted(cpf));
     }
 }
