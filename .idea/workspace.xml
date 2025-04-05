@@ -4,27 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/LoginAccountRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveMedicalDataRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetAccountResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/LoginAccountResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/SaveAccountResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/SaveMedicalDataResponseDto.java" afterDir="false" />
+    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-020 Atualizando o fluxo dos dados médicos e da conta">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetMedicalDataResponseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/AccountRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/MedicalData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/MedicalData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/enums/AccessType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/enums/AccessTypeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/handlers/RestErrorMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/handlers/RestExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/MedicalDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/MedicalDataRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MedicalDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MedicalDataService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,8 +96,8 @@
       <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\src\main\java\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.campestre.clube.backend_application.controller.dtos.requests" />
       <recent name="com.campestre.clube.backend_application.controller.dtos.responses" />
+      <recent name="com.campestre.clube.backend_application.controller.dtos.requests" />
       <recent name="com.campestre.clube.backend_application.controller.dtos" />
       <recent name="com.campestre.clube.backend_application.exceptions" />
     </key>
@@ -152,6 +135,9 @@
       <workItem from="1743363994295" duration="1537000" />
       <workItem from="1743450867791" duration="49000" />
       <workItem from="1743541459525" duration="6547000" />
+      <workItem from="1743597153877" duration="166000" />
+      <workItem from="1743627944014" duration="852000" />
+      <workItem from="1743816528465" duration="1203000" />
     </task>
     <task id="LOCAL-00001" summary="REQ-020 Atualizando o fluxo da conta e as exceptions">
       <option name="closed" value="true" />
@@ -169,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742754979680</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="REQ-020 Atualizando o fluxo dos dados médicos e da conta">
+      <option name="closed" value="true" />
+      <created>1743597248075</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743597248075</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +183,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="REQ-020 Atualizando o fluxo da conta e as exceptions" />
     <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException" />
-    <option name="LAST_COMMIT_MESSAGE" value="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException" />
+    <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
+    <option name="LAST_COMMIT_MESSAGE" value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
   </component>
 </project>

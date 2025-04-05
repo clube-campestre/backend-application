@@ -1,8 +1,8 @@
 package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveMedicalDataRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GetMedicalDataResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.SaveMedicalDataResponseDto;
-import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.service.MedicalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,10 @@ public class MedicalDataController {
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<MedicalData> getByCpf(@PathVariable String cpf) {
-        return ResponseEntity.status(HttpStatus.OK).body(medicalDataService.getById(cpf));
+    public ResponseEntity<GetMedicalDataResponseDto> getByCpf(@PathVariable String cpf) {
+        return ResponseEntity.status(HttpStatus.OK).body(GetMedicalDataResponseDto.toResponse(
+                medicalDataService.getById(cpf)
+        ));
     }
 
     @PutMapping("/{cpf}")
