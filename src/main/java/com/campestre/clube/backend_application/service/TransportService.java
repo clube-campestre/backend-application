@@ -1,11 +1,9 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.exceptions.EnterpriseConfictException;
-import com.campestre.clube.backend_application.exceptions.TransportNotFoundException;
-import com.campestre.clube.backend_application.model.Transport;
-import com.campestre.clube.backend_application.repository.AccountRepository;
+import com.campestre.clube.backend_application.exceptions.ConflictException;
+import com.campestre.clube.backend_application.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.entity.Transport;
 import com.campestre.clube.backend_application.repository.TransportRepository;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +14,10 @@ import java.util.Optional;
 public class TransportService {
     @Autowired
     private TransportRepository transportRepository;
-    @Autowired
-    private AccountRepository accountRepository;
 
-    public Transport register(Transport transport) throws BadRequestException {
+    public Transport register(Transport transport) {
         if (transportRepository.existsTransportByEnterpriseContainsIgnoreCase(transport.getEnterprise()))
-            throw new EnterpriseConfictException();
+            throw new ConflictException("Enterprise already registered");
 
         return transportRepository.save(transport);
     }
@@ -41,8 +37,8 @@ public class TransportService {
         Optional<Transport> transport = transportRepository.findById(id);
 
         transportNotFoundValidation(transport, id);
-        if(transportRepository.existsTransportByEnterpriseAndIdNot(id))
-            throw new EnterpriseConfictException();
+        if(transportRepository.existsTransportByEnterpriseAndIdNot(updateTransport.getEnterprise(), id))
+            throw new ConflictException("Enterprise already registered");
 
         updateTransport.setId(id);
         return transportRepository.save(updateTransport);
@@ -50,16 +46,15 @@ public class TransportService {
 
     public void delete(Integer id){
         if(!transportRepository.existsById(id))
-            throw new TransportNotFoundException();
+            throw new NotFoundException("Transport not found");
 
         transportRepository.deleteById(id);
     }
 
 
 
-
     private void transportNotFoundValidation(Optional<Transport> transport, Integer id) {
         if (transport.isEmpty())
-            throw new TransportNotFoundException(id);
+            throw new NotFoundException("Transport by id [%s] not found".formatted(id));
     }
 }

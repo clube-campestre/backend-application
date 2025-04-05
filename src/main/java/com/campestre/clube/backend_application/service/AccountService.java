@@ -4,12 +4,6 @@ import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.entity.Account;
-import com.campestre.clube.backend_application.exceptions.CpfConflictException;
-import com.campestre.clube.backend_application.exceptions.EmailConfictException;
-import com.campestre.clube.backend_application.exceptions.LoginBadRequestException;
-import com.campestre.clube.backend_application.exceptions.UserNotFoundException;
-import com.campestre.clube.backend_application.model.Account;
-import com.campestre.clube.backend_application.model.AccountRequest;
 import com.campestre.clube.backend_application.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +27,8 @@ public class AccountService {
     public Account register(Account account) throws BadRequestException {
         if (accountRepository.existsByEmailOrCpf(account.getEmail(), account.getCpf()))
             throw new ConflictException("User with existing email or CPF");
+        if (!validateEmail(account.getEmail()))
+            throw new BadRequestException("Invalid email");
         if (!validateCpf(account.getCpf()))
             throw new BadRequestException("Invalid CPF");
 
@@ -57,14 +53,10 @@ public class AccountService {
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
         if (accountRepository.existsByCpfAndIdNot(newAccount.getCpf(), id))
-            throw new CpfConflictException();
+            throw new ConflictException("User with existing CPF");
 
-        account.get().setId(id);
-        account.get().setEmail(newAccount.getEmail());
-        account.get().setPassword(newAccount.getPassword());
-        account.get().setCpf(newAccount.getCpf());
-        account.get().setAccess(newAccount.getAccess());
-        return accountRepository.save(account.get());
+        newAccount.setId(id);
+        return accountRepository.save(newAccount);
     }
 
     public void delete(Integer id){

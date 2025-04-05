@@ -1,14 +1,8 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.campestre.clube.backend_application.entity.Transport;
 
-@Entity (name = "transport")
-public class Transport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class SaveTransportResponseDto {
     private Integer id;
     private String enterprise;
     private Double price;
@@ -17,6 +11,19 @@ public class Transport {
     private String companyContact;
     private String driverContact;
     private Integer rating;
+
+    public static SaveTransportResponseDto toResponse(Transport transport) {
+        SaveTransportResponseDto response = new SaveTransportResponseDto();
+        response.setId(transport.getId());
+        response.setEnterprise(transport.getEnterprise());
+        response.setPrice(transport.getPrice());
+        response.setTravelDistance(transport.getTravelDistance());
+        response.setCapacity(transport.getCapacity());
+        response.setCompanyContact(transport.getCompanyContact());
+        response.setDriverContact(transport.getDriverContact());
+        response.setRating(transport.getRating());
+        return response;
+    }
 
     public Integer getId() {
         return id;

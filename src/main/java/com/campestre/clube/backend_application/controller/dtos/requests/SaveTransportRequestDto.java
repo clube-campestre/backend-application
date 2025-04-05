@@ -1,29 +1,41 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.campestre.clube.backend_application.entity.Transport;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
-@Entity (name = "transport")
-public class Transport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class SaveTransportRequestDto {
+    @NotBlank
     private String enterprise;
+    @Positive
+    @NotNull
     private Double price;
+    @Positive
+    @NotNull
     private Float travelDistance;
+    @Positive
+    @NotNull
     private Integer capacity;
+    @NotBlank
     private String companyContact;
+    @NotBlank
     private String driverContact;
+    @NotNull
+    @Size(min = 0, max = 10)
     private Integer rating;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public static Transport toEntity(SaveTransportRequestDto dto) {
+        Transport transport = new Transport();
+        transport.setEnterprise(dto.getEnterprise());
+        transport.setPrice(dto.getPrice());
+        transport.setTravelDistance(dto.getTravelDistance());
+        transport.setCapacity(dto.getCapacity());
+        transport.setCompanyContact(dto.getCompanyContact());
+        transport.setDriverContact(dto.getDriverContact());
+        transport.setRating(dto.getRating());
+        return transport;
     }
 
     public String getEnterprise() {
