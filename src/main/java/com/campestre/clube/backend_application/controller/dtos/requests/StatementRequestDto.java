@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.controller.dto.requests;
+package com.campestre.clube.backend_application.controller.dtos.requests;
 
 
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
@@ -18,9 +18,6 @@ public class StatementRequestDto {
     private TransactionType transactionType;
     @NotNull
     private Integer idTag;
-
-    public StatementRequestDto() {
-    }
 
     public String getInformation() {
         return information;

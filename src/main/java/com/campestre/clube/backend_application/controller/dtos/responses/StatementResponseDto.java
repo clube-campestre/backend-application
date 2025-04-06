@@ -1,6 +1,5 @@
-package com.campestre.clube.backend_application.controller.dto.responses;
+package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
 
@@ -12,19 +11,7 @@ public class StatementResponseDto {
     private Double price;
     private LocalDateTime transactionDate;
     private TransactionType transactionType;
-    private Tag Tag;
-
-    public static StatementResponseDto toResponse(Statement statement){
-        StatementResponseDto response = new StatementResponseDto();
-        response.setId(statement.getId());
-        response.setInformation(statement.getInformation());
-        response.setPrice(statement.getPrice());
-        response.setTransactionDate(statement.getTransactionDate());
-        response.setTransactionType(statement.getTransactionType());
-        response.setTag(statement.getTag());
-
-        return response;
-    }
+    private Tag tag;
 
     public Integer getId() {
         return id;
@@ -67,10 +54,10 @@ public class StatementResponseDto {
     }
 
     public Tag getTag() {
-        return Tag;
+        return tag;
     }
 
     public void setTag(Tag tag) {
-        this.Tag = tag;
+        this.tag = tag;
     }
 }
