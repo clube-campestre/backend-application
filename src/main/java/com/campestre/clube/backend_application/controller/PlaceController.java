@@ -1,71 +1,70 @@
 package com.campestre.clube.backend_application.controller;
 
 
-import com.campestre.clube.backend_application.service.PlaceDataService;
+import com.campestre.clube.backend_application.controller.dtos.requests.SavePlaceRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GetPlaceResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.SavePlaceResponseDto;
+import com.campestre.clube.backend_application.service.PlaceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/places")
+//@Tag(name = "Place Controller", description = "Place data routes")
 public class PlaceController {
 
-
     @Autowired
-    private PlaceDataService placeDataService;
-
+    private PlaceService placeDataService;
 
     @GetMapping
-    public ResponseEntity<List<GetPlaceResponseDto>>
+//    @Operation(summary = "Endpoint for get all places")
+    public ResponseEntity<List<GetPlaceResponseDto>> getAll() {
+        return ResponseEntity.ok(placeDataService.getAll().stream().map(GetPlaceResponseDto::toResponse).toList());
+    }
 
-//      @GetMapping
-//        public ResponseEntity<List<GetPlaceResponseDto>> getAll() {
-//            return ResponseEntity.ok(
-//                    placeDataService.getAll().stream()
-//                            .map(GetPlaceResponseDto::toResponse)
-//                            .collect(Collectors.toList())
-//            );
-//        }
-//
-//        @GetMapping("/{id}")
-//        public ResponseEntity<GetPlaceResponseDto> getById(@PathVariable Long id) {
-//            return ResponseEntity.ok(
-//                    GetPlaceResponseDto.toResponse(placeDataService.getById(id))
-//            );
-//        }
-//
-//        @PostMapping("/register")
-//        public ResponseEntity<SavePlaceResponseDto> register(@RequestBody SavePlaceRequestDto placeDto) {
-//            return ResponseEntity.status(HttpStatus.CREATED).body(
-//                    SavePlaceResponseDto.toResponse(placeDataService.register(SavePlaceRequestDto.toEntity(placeDto)))
-//            );
-//        }
-//
-//        @PutMapping("/{id}")
-//        public ResponseEntity<SavePlaceResponseDto> update(@PathVariable Long id, @RequestBody SavePlaceRequestDto placeDto) {
-//            return ResponseEntity.ok(
-//                    SavePlaceResponseDto.toResponse(placeDataService.update(id, SavePlaceRequestDto.toEntity(placeDto)))
-//            );
-//        }
-//
-//        @DeleteMapping("/{id}")
-//        public ResponseEntity<Void> delete(@PathVariable Long id) {
-//            placeDataService.delete(id);
-//            return ResponseEntity.noContent().build();
-//        }
-//
-//        @GetMapping("/best-rated")
-//        public ResponseEntity<List<GetPlaceResponseDto>> getAllOrderedByRating() {
-//            return ResponseEntity.ok(
-//                    placeDataService.getAllOrderedByRating().stream()
-//                            .map(GetPlaceResponseDto::toResponse)
-//                            .collect(Collectors.toList())
-//            );
-//        }
-//    }
+    @GetMapping("/{id}")
+//    @Operation(summary = "Endpoint for get place by id")
+    public ResponseEntity<GetPlaceResponseDto> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(GetPlaceResponseDto.toResponse(placeDataService.getById(id)));
+    }
+
+    @GetMapping("/best-rated")
+//    @Operation(summary = "Endpoint to get places ranked by rating")
+    public ResponseEntity<List<GetPlaceResponseDto>> getAllOrderedByRating() {
+        List<GetPlaceResponseDto> places = placeDataService.getAllOrderedByRating().stream()
+                .map(GetPlaceResponseDto::toResponse).collect(Collectors.toList());
+        if (places.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(places);
+    }
+
+    @PostMapping
+//    @Operation(summary = "Endpoint for post place")
+    public ResponseEntity<SavePlaceResponseDto> register(@Valid @RequestBody SavePlaceRequestDto placeDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(SavePlaceResponseDto.toResponse(
+                placeDataService.save(SavePlaceRequestDto.toEntity(placeDto))
+        ));
+    }
+
+    @PutMapping("/{id}")
+//    @Operation(summary = "Endpoint for update place by id")
+    public ResponseEntity<SavePlaceResponseDto> update(
+            @PathVariable Integer id, @Valid @RequestBody SavePlaceRequestDto placeDto
+    ) {
+        return ResponseEntity.ok(SavePlaceResponseDto.toResponse(
+                placeDataService.update(id, SavePlaceRequestDto.toEntity(placeDto))
+        ));
+    }
+
+    @DeleteMapping("/{id}")
+//    @Operation(summary = "Endpoint for remove place by id")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        placeDataService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

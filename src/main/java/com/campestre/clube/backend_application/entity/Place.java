@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 
 @Entity(name = "place")
 public class Place {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,10 +19,9 @@ public class Place {
     @NotBlank
     private Integer capacity;
     @NotBlank @Size(max = 12)
-    private Integer contact;
+    private String contact;
     @NotBlank @Size(min = 1, max = 10)
     private Integer rating;
-
 
     public Integer getId() {
         return id;
@@ -65,19 +63,19 @@ public class Place {
         this.capacity = capacity;
     }
 
-    public @NotBlank @Size(max = 12) Integer getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(@NotBlank @Size(max = 12) Integer contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
-    public @NotBlank @Size(min = 1, max = 10) Integer getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(@NotBlank @Size(min = 1, max = 10) Integer rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

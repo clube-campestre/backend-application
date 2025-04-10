@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class SavePlaceRequestDto {
-
-
     @NotNull
     private Integer fkAddress;
     @NotBlank
@@ -19,11 +17,10 @@ public class SavePlaceRequestDto {
     private Integer capacity;
     @NotNull
     @Size(max = 12)
-    private Integer contact;
+    private String contact;
     @NotNull
     @Size(min = 1, max = 10)
     private Integer rating;
-
 
     public static Place toEntity(SavePlaceRequestDto dto) {
         Place place = new Place();
@@ -35,7 +32,7 @@ public class SavePlaceRequestDto {
         place.setContact(dto.getContact());
         place.setRating(dto.getRating());
 
-            return place;
+        return place;
     }
 
 
@@ -71,11 +68,11 @@ public class SavePlaceRequestDto {
         this.capacity = capacity;
     }
 
-    public @NotNull @Size(max = 12) Integer getContact() {
+    public @NotNull @Size(max = 12) String getContact() {
         return contact;
     }
 
-    public void setContact(@NotNull @Size(max = 12) Integer contact) {
+    public void setContact(@NotNull @Size(max = 12) String contact) {
         this.contact = contact;
     }
 
