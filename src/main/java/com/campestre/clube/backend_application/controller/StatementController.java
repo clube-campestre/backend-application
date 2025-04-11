@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
+import com.campestre.clube.backend_application.controller.dto.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.controller.dto.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.mapper.StatementMapper;
 import com.campestre.clube.backend_application.service.StatementService;
@@ -30,6 +30,11 @@ public class StatementController {
                 statementService.register(StatementMapper.toEntity(dto), dto.getIdTag())
         ));
     }
+
+//    @PostMapping
+//    public ResponseEntity<?> teste(@RequestBody @Valid StatementsRequestDtoTeste dto){
+//        return ResponseEntity.created(null).body(dto);
+//    }
 
     @GetMapping
     public ResponseEntity<List<StatementResponseDto>> getAll(){

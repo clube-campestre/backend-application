@@ -19,9 +19,6 @@ public class StatementRequestDto {
     @NotNull
     private Integer idTag;
 
-    public StatementRequestDto() {
-    }
-
     public String getInformation() {
         return information;
     }

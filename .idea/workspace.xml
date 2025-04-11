@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-020 Atualizando o fluxo dos dados médicos e da conta">
       <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/InitService.java" afterDir="false" />
+    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-021 Alteração de pequenos detalhes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/StatementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/StatementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/TagController.java" afterDir="false" />
@@ -20,6 +21,15 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/TagRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/TagRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/StatementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/StatementService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/TagService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/StatementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/StatementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/StatementRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/StatementRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/TagRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/StatementResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/StatementResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/TagResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/TagResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/mapper/StatementMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/StatementMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/mapper/TagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/StatementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/StatementRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +39,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="Enum" />
         <option value="Class" />
       </list>
@@ -61,6 +72,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -82,11 +96,11 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Debug",
-    "git-widget-placeholder": "feature/correcao-req-21",
+    "Spring Boot.BackendApplication.executor": "Run",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/admin/Documents/Sptech/campestre-project/mundado/backend-application/src/main/resources",
+    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Faculdade/ADS_SpTech/TerceiroSemestre/Backend/exemplo-strategy",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -155,6 +169,11 @@
       <workItem from="1743627944014" duration="852000" />
       <workItem from="1743816528465" duration="1203000" />
       <workItem from="1744158253547" duration="19772000" />
+      <workItem from="1743879888591" duration="754000" />
+      <workItem from="1743883550731" duration="160000" />
+      <workItem from="1743885695828" duration="254000" />
+      <workItem from="1743886113351" duration="613000" />
+      <workItem from="1743955518071" duration="4973000" />
     </task>
     <task id="LOCAL-00001" summary="REQ-020 Atualizando o fluxo da conta e as exceptions">
       <option name="closed" value="true" />
@@ -180,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743597248075</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Correção de arquitetura">
+      <option name="closed" value="true" />
+      <created>1743820718531</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743820718531</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,6 +228,8 @@
     <MESSAGE value="REQ-020 Atualizando o fluxo da conta e as exceptions" />
     <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException" />
     <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
-    <option name="LAST_COMMIT_MESSAGE" value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
+    <MESSAGE value="Correção de arquitetura" />
+    <MESSAGE value="REQ-021 Alteração de pequenos detalhes" />
+    <option name="LAST_COMMIT_MESSAGE" value="REQ-021 Alteração de pequenos detalhes" />
   </component>
 </project>

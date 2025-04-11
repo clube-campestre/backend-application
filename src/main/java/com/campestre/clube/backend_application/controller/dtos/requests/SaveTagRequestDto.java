@@ -1,18 +1,12 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.Tag;
 import jakarta.validation.constraints.NotNull;
 
-public class TagRequestDto {
+public class SaveTagRequestDto {
     @NotNull
     private String surname;
-
     @NotNull
     private String color;
-
-
-    public TagRequestDto() {
-    }
 
     public String getSurname() {
         return surname;
@@ -21,7 +15,6 @@ public class TagRequestDto {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-
 
     public String getColor() {
         return color;
