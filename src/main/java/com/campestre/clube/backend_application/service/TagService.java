@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TagService {
 
     @Autowired
     private TagRepository tagRepository;
+
+    @Autowired
+    private StatementService statementService;
 
     public Tag register(Tag tag){
         if(tagRepository.existsBySurnameOrColorContains(tag.getSurname(), tag.getColor()))
@@ -28,33 +30,32 @@ public class TagService {
     }
 
     public Tag getById(Integer id){
-        Optional<Tag> tag = tagRepository.findById(id);
-        tagNotFoundValidation(tag, id);
-
-        return tag.get();
+        return validateTagExists(id);
     }
 
     public Tag update(Tag tag, Integer id){
-        Optional<Tag> updateTag = tagRepository.findById(id);
-        tagNotFoundValidation(updateTag, id);
+        Tag updateTag = validateTagExists(id);
 
-        updateTag.get().setId(id);
-        updateTag.get().setSurname(tag.getSurname());
-        updateTag.get().setColor(tag.getColor());
+//        updateTag.setId(id);
+        updateTag.setSurname(tag.getSurname());
+        updateTag.setColor(tag.getColor());
 
-        return updateTag.get();
+        return tagRepository.save(updateTag);
     }
 
     public void delete(Integer id){
-        if(!tagRepository.existsById(id))
-            throw new  NotFoundException("Tag by id [%s] not found".formatted(id));
-
+        Tag tagToBeDeleted = validateTagExists(id);
+        Tag tagGenerica = validateTagExists(3);
+        statementService.updateAllForTagId(tagToBeDeleted, tagGenerica);
         tagRepository.deleteById(id);
     }
 
-    private void tagNotFoundValidation(Optional<Tag> tag, Integer id){
-        if(tag.isEmpty())
-            throw new NotFoundException("Tag by id [%s] not found".formatted(id));
+    private Tag validateGenericTag() {
+        return tagRepository.findBySurname("Outros")
+                .orElseThrow(() -> new NotFoundException("Generic Tag not Found"));
     }
-
+    private Tag validateTagExists(Integer id) {
+        return tagRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(id)));
+    }
 }
