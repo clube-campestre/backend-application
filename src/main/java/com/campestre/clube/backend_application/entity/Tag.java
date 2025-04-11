@@ -13,6 +13,14 @@ public class Tag {
     private String surname;
     private String color;
 
+    public Tag(String surname, String color) {
+        this.surname = surname;
+        this.color = color;
+    }
+
+    public Tag() {
+    }
+
     public Integer getId() {
         return id;
     }

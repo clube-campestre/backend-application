@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.mapper;
 
-import com.campestre.clube.backend_application.controller.dto.requests.TagRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.TagRequestDto;
 import com.campestre.clube.backend_application.entity.Tag;
 
 public class TagMapper {

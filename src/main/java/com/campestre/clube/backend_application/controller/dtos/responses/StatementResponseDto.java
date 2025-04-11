@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.controller.dto.responses;
+package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;

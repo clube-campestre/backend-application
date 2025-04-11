@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dto.requests.TagRequestDto;
-import com.campestre.clube.backend_application.controller.dto.responses.TagResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.TagRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.TagResponseDto;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.mapper.TagMapper;
 import com.campestre.clube.backend_application.service.TagService;
@@ -29,7 +29,7 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TagResponseDto> getById(@RequestParam Integer id){
+    public ResponseEntity<TagResponseDto> getById(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(tagService.getById(id)));
     }
 

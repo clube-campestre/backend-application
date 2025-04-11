@@ -1,11 +1,13 @@
 package com.campestre.clube.backend_application.service;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,11 @@ public class StatementService {
     private StatementRepository statementRepository;
 
     @Autowired
-    private TagService tagService;
+    private TagRepository tagRepository;
 
     public Statement register(Statement statement, Integer idTag){
-        Tag tag = tagService.getById(idTag);
+        Tag tag = tagRepository.findById(idTag)
+                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(idTag)));
 
         if(statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(
                 statement.getInformation(), statement.getPrice(), statement.getTransactionDate(), tag)
@@ -38,38 +41,41 @@ public class StatementService {
     }
 
     public Statement getById(Integer id){
-        Optional<Statement> statement = statementRepository.findById(id);
-        statementNotFoundValidation(statement, id);
-
-        return statement.get();
+        return validateStatementExists(id);
     }
 
-    public Statement update(Statement statement, Integer id){
-        Tag tag = tagService.getById(statement.getId());
+    public Statement update(StatementRequestDto dto, Integer id){
+        Statement existingStatement = validateStatementExists(id);
 
-        Optional<Statement> updateStatement = statementRepository.findById(id);
-        statementNotFoundValidation(updateStatement, id);
+        Tag tag = tagRepository.findById(dto.getIdTag())
+                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(dto.getIdTag())));// Aqui você resolve a tag real
 
-        updateStatement.get().setId(statement.getId());
-        updateStatement.get().setInformation(statement.getInformation());
-        updateStatement.get().setPrice(statement.getPrice());
-        updateStatement.get().setTransactionDate(statement.getTransactionDate());
-        updateStatement.get().setTransactionType(statement.getTransactionType());
-        updateStatement.get().setTag(tag);
+        existingStatement.setInformation(dto.getInformation());
+        existingStatement.setPrice(dto.getPrice());
+        existingStatement.setTransactionDate(dto.getTransactionDate());
+        existingStatement.setTransactionType(dto.getTransactionType());
+        existingStatement.setTag(tag); // aqui sim você seta o objeto inteiro
 
-        return updateStatement.get();
+        return statementRepository.save(existingStatement);
+    }
+
+    public void updateAllForTagId(Tag tagToBeDeleted, Tag genericTag){
+        List<Statement> statementsWithTag = statementRepository.findAllByTag(tagToBeDeleted);
+
+        for (Statement s : statementsWithTag) {
+            s.setTag(genericTag);
+        }
+        statementRepository.saveAll(statementsWithTag);
     }
 
     public void delete(Integer id){
-        if(!statementRepository.existsById(id))
-            throw new NotFoundException("Statement by id [%s] not found".formatted(id));
-
+        validateStatementExists(id);
         statementRepository.deleteById(id);
     }
 
-    private void statementNotFoundValidation(Optional<Statement> statement, Integer id){
-        if(statement.isEmpty()){
-            throw new NotFoundException("Statement by id [%s] not found".formatted(id));
-        }
+    private Statement validateStatementExists(Integer id) {
+        return statementRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Statement by id [%s] not found".formatted(id)));
     }
+
 }
