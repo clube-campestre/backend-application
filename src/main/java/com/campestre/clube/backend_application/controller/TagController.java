@@ -1,9 +1,9 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.TagRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.SaveTagRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TagResponseDto;
 import com.campestre.clube.backend_application.entity.Tag;
-import com.campestre.clube.backend_application.mapper.TagMapper;
+import com.campestre.clube.backend_application.controller.mapper.TagMapper;
 import com.campestre.clube.backend_application.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class TagController {
     public TagService tagService;
 
     @PostMapping
-    public ResponseEntity<TagResponseDto> register(@RequestBody TagRequestDto dto) {
+    public ResponseEntity<TagResponseDto> register(@RequestBody SaveTagRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(
                 tagService.register(TagMapper.toEntity(dto))
         ));
@@ -42,7 +42,7 @@ public class TagController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody TagRequestDto tag){
+    public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody SaveTagRequestDto tag){
         return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(
                 tagService.update(TagMapper.toEntity(tag), id)
         ));
