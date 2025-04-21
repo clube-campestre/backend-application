@@ -1,9 +1,6 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.Place;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class SavePlaceRequestDto {
     @NotNull
@@ -15,72 +12,59 @@ public class SavePlaceRequestDto {
     private Double price;
     @NotNull
     private Integer capacity;
-    @NotNull
+    @NotBlank
     @Size(max = 12)
     private String contact;
     @NotNull
-    @Size(min = 1, max = 10)
+    @Min(1)
+    @Max(10)
     private Integer rating;
 
-    public static Place toEntity(SavePlaceRequestDto dto) {
-        Place place = new Place();
-
-        place.setFkAddress(dto.getFkAddress());
-        place.setSirname(dto.getSirname());
-        place.setPrice(dto.getPrice());
-        place.setCapacity(dto.getCapacity());
-        place.setContact(dto.getContact());
-        place.setRating(dto.getRating());
-
-        return place;
-    }
-
-
-    public @NotNull Integer getFkAddress() {
+    public Integer getFkAddress() {
         return fkAddress;
     }
 
-    public void setFkAddress(@NotNull Integer fkAddress) {
+    public void setFkAddress(Integer fkAddress) {
         this.fkAddress = fkAddress;
     }
 
-    public @NotBlank @Size(max = 45) String getSirname() {
+    public String getSirname() {
         return sirname;
     }
 
-    public void setSirname(@NotBlank @Size(max = 45) String sirname) {
+    public void setSirname(String sirname) {
         this.sirname = sirname;
     }
 
-    public @NotNull Double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(@NotNull Double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public @NotNull Integer getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(@NotNull Integer capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
-    public @NotNull @Size(max = 12) String getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(@NotNull @Size(max = 12) String contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
-    public @NotNull @Size(min = 1, max = 10) Integer getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(@NotNull @Size(min = 1, max = 10) Integer rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

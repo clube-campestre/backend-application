@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Place;
-
 public class SavePlaceResponseDto {
     private Integer id;
     private String sirname;
@@ -9,19 +7,6 @@ public class SavePlaceResponseDto {
     private Integer capacity;
     private String contact;
     private Integer rating;
-
-    public static SavePlaceResponseDto toResponse(Place place) {
-        SavePlaceResponseDto response = new SavePlaceResponseDto();
-
-        response.setId(place.getId());
-        response.setSirname(place.getSirname());
-        response.setPrice(place.getPrice());
-        response.setCapacity(place.getCapacity());
-        response.setContact(place.getContact());
-        response.setRating(place.getRating());
-
-        return response;
-    }
 
     public Integer getId() {
         return id;
