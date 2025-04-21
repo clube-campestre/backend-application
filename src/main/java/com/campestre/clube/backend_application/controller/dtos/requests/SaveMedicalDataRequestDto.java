@@ -60,57 +60,7 @@ public class SaveMedicalDataRequestDto {
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
 
-    public static MedicalData toEntity(SaveMedicalDataRequestDto dto) {
-        MedicalData medicalData = new MedicalData();
 
-        medicalData.setCpf(dto.getCpf());
-        medicalData.setCns(dto.getCns());
-        medicalData.setAgreement(dto.getAgreement());
-        medicalData.setBloodType(dto.getBloodType());
-
-        medicalData.setCatapora(dto.getCatapora());
-        medicalData.setMeningite(dto.getMeningite());
-        medicalData.setHepatite(dto.getHepatite());
-        medicalData.setDengue(dto.getDengue());
-        medicalData.setPneumonia(dto.getPneumonia());
-        medicalData.setMalaria(dto.getMalaria());
-        medicalData.setFebreAmarela(dto.getFebreAmarela());
-        medicalData.setSarampo(dto.getSarampo());
-        medicalData.setTetano(dto.getTetano());
-        medicalData.setVariola(dto.getVariola());
-        medicalData.setCoqueluche(dto.getCoqueluche());
-        medicalData.setDifteria(dto.getDifteria());
-        medicalData.setRinite(dto.getRinite());
-        medicalData.setBronquite(dto.getBronquite());
-        medicalData.setAsma(dto.getAsma());
-        medicalData.setRubeola(dto.getRubeola());
-        medicalData.setColera(dto.getColera());
-        medicalData.setCovid19(dto.getCovid19());
-        medicalData.setH1n1(dto.getH1n1());
-        medicalData.setCaxumba(dto.getCaxumba());
-        medicalData.setOthers(dto.getOthers());
-
-        medicalData.setHeartProblems(dto.getHeartProblems());
-        medicalData.setDrugAllergy(dto.getDrugAllergy());
-        medicalData.setLactoseAllergy(dto.getLactoseAllergy());
-        medicalData.setDeficiency(dto.getDeficiency());
-        medicalData.setBloodTransfusion(dto.getBloodTransfusion());
-        medicalData.setSkinAllergy(dto.getSkinAllergy());
-        medicalData.setSkinAllergyMedications(dto.getSkinAllergyMedications());
-        medicalData.setFaintingOrConvulsion(dto.getFaintingOrConvulsion());
-        medicalData.setFaintingOrSeizuresMedications(dto.getFaintingOrSeizuresMedications());
-        medicalData.setPsychologicalDisorder(dto.getPsychologicalDisorder());
-        medicalData.setAllergy(dto.getAllergy());
-        medicalData.setAllergyMedications(dto.getAllergyMedications());
-        medicalData.setDiabetic(dto.getDiabetic());
-        medicalData.setDiabeticMedications(dto.getDiabeticMedications());
-        medicalData.setRecentSeriousInjury(dto.getRecentSeriousInjury());
-        medicalData.setRecentFracture(dto.getRecentFracture());
-        medicalData.setSurgeries(dto.getSurgeries());
-        medicalData.setHospitalizationReasonLast5Years(dto.getHospitalizationReasonLast5Years());
-
-        return medicalData;
-    }
 
     public SaveMedicalDataRequestDto() {}
 

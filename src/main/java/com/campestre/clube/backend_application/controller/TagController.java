@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.controller;
 import com.campestre.clube.backend_application.controller.dtos.requests.TagRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TagResponseDto;
 import com.campestre.clube.backend_application.entity.Tag;
-import com.campestre.clube.backend_application.mapper.TagMapper;
+import com.campestre.clube.backend_application.controller.mapper.TagMapper;
 import com.campestre.clube.backend_application.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

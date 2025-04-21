@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 public class SaveAddressRequestDto {
 
     @NotNull
-    private Integer houseNumber;
+    private String houseNumber;
     private String district;
     @NotNull
     private String city;
@@ -20,27 +20,14 @@ public class SaveAddressRequestDto {
     private String referenceHouse;
 
 
-    public static Address toEntity(SaveAddressRequestDto dto){
-        Address address = new Address();
-        address.setHouseNumber(dto.houseNumber);
-        address.setDistrict(dto.district);
-        address.setCity(dto.city);
-        address.setState(dto.state);
-        address.setCep(dto.cep);
-        address.setReferenceHouse(dto.referenceHouse);
-
-        return address;
-
-    }
-
     public SaveAddressRequestDto() {
     }
 
-    public @NotNull Integer getHouseNumber() {
+    public @NotNull String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(@NotNull Integer houseNumber) {
+    public void setHouseNumber(@NotNull String houseNumber) {
         this.houseNumber = houseNumber;
     }
 

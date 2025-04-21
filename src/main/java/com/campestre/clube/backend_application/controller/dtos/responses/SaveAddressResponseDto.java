@@ -6,28 +6,12 @@ public class SaveAddressResponseDto {
 
 
     private Integer id;
-    private Integer houseNumber;
+    private String houseNumber;
     private String district;
     private String city;
     private String state;
     private String cep;
     private String referenceHouse;
-
-
-    public static SaveAddressResponseDto toResponse(Address address){
-        SaveAddressResponseDto response = new SaveAddressResponseDto();
-        response.setId(address.getId());
-        response.setHouseNumber(address.getHouseNumber());
-        response.setDistrict(address.getDistrict());
-        response.setCity(address.getCity());
-        response.setCity(address.getCity());
-        response.setState(address.getState());
-        response.setCep(address.getCep());
-        response.setReferenceHouse(address.getReferenceHouse());
-
-        return response;
-
-    }
 
 
     public Integer getId() {
@@ -38,11 +22,11 @@ public class SaveAddressResponseDto {
         this.id = id;
     }
 
-    public Integer getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(Integer houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 

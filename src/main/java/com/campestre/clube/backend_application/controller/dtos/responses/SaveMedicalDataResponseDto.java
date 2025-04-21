@@ -49,57 +49,6 @@ public class SaveMedicalDataResponseDto {
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
 
-    public static SaveMedicalDataResponseDto toResponse(MedicalData medicalData) {
-        SaveMedicalDataResponseDto response = new SaveMedicalDataResponseDto();
-
-        response.setCpf(medicalData.getCpf());
-        response.setCns(medicalData.getCns());
-        response.setAgreement(medicalData.getAgreement());
-        response.setBloodType(medicalData.getBloodType());
-
-        response.setCatapora(medicalData.getCatapora());
-        response.setMeningite(medicalData.getMeningite());
-        response.setHepatite(medicalData.getHepatite());
-        response.setDengue(medicalData.getDengue());
-        response.setPneumonia(medicalData.getPneumonia());
-        response.setMalaria(medicalData.getMalaria());
-        response.setFebreAmarela(medicalData.getFebreAmarela());
-        response.setSarampo(medicalData.getSarampo());
-        response.setTetano(medicalData.getTetano());
-        response.setVariola(medicalData.getVariola());
-        response.setCoqueluche(medicalData.getCoqueluche());
-        response.setDifteria(medicalData.getDifteria());
-        response.setRinite(medicalData.getRinite());
-        response.setBronquite(medicalData.getBronquite());
-        response.setAsma(medicalData.getAsma());
-        response.setRubeola(medicalData.getRubeola());
-        response.setColera(medicalData.getColera());
-        response.setCovid19(medicalData.getCovid19());
-        response.setH1n1(medicalData.getH1n1());
-        response.setCaxumba(medicalData.getCaxumba());
-        response.setOthers(medicalData.getOthers());
-
-        response.setHeartProblems(medicalData.getHeartProblems());
-        response.setDrugAllergy(medicalData.getDrugAllergy());
-        response.setLactoseAllergy(medicalData.getLactoseAllergy());
-        response.setDeficiency(medicalData.getDeficiency());
-        response.setBloodTransfusion(medicalData.getBloodTransfusion());
-        response.setSkinAllergy(medicalData.getSkinAllergy());
-        response.setSkinAllergyMedications(medicalData.getSkinAllergyMedications());
-        response.setFaintingOrConvulsion(medicalData.getFaintingOrConvulsion());
-        response.setFaintingOrSeizuresMedications(medicalData.getFaintingOrSeizuresMedications());
-        response.setPsychologicalDisorder(medicalData.getPsychologicalDisorder());
-        response.setAllergy(medicalData.getAllergy());
-        response.setAllergyMedications(medicalData.getAllergyMedications());
-        response.setDiabetic(medicalData.getDiabetic());
-        response.setDiabeticMedications(medicalData.getDiabeticMedications());
-        response.setRecentSeriousInjury(medicalData.getRecentSeriousInjury());
-        response.setRecentFracture(medicalData.getRecentFracture());
-        response.setSurgeries(medicalData.getSurgeries());
-        response.setHospitalizationReasonLast5Years(medicalData.getHospitalizationReasonLast5Years());
-
-        return response;
-    }
 
     public SaveMedicalDataResponseDto() {}
 

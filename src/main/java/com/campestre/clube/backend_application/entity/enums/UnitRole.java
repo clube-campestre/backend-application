@@ -1,0 +1,5 @@
+package com.campestre.clube.backend_application.entity.enums;
+
+public enum UnitRole {
+    CONSELHEIRO, CONSELHEIRO_AUXILIAR, CAPITAO, VICE_CAPITAO, TESOUREIRO, VICE_TESOUREIRO, SECRETARIO, VICE_SECRETARIO, PADIOLEIRO, CAPELAO, ALMO_XARIFADO
+}

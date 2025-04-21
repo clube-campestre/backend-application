@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.SaveAddressResponseDto;
+import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.service.AddressService;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class AddressController {
 
 @PostMapping("/register")
     public ResponseEntity<SaveAddressResponseDto> register(@Valid @RequestBody SaveAddressRequestDto dto){
-    return ResponseEntity.status(201).body(SaveAddressResponseDto.toResponse(addressService.register(SaveAddressRequestDto.toEntity(dto))));
+    return ResponseEntity.status(201).body(AddressMapper.toResponse(addressService.register(AddressMapper.toEntity(dto))));
 }
 
 @GetMapping
@@ -31,17 +32,17 @@ public class AddressController {
     if (enderecos.isEmpty()){
         return ResponseEntity.status(204).build();
     }
-    return ResponseEntity.status(200).body(enderecos.stream().map(SaveAddressResponseDto::toResponse).toList());
+    return ResponseEntity.status(200).body(enderecos.stream().map(AddressMapper::toResponse).toList());
 }
 
 @GetMapping("/{id}")
     public ResponseEntity<SaveAddressResponseDto> getById(@PathVariable Integer id){
-    return ResponseEntity.status(200).body(SaveAddressResponseDto.toResponse(addressService.getById(id)));
+    return ResponseEntity.status(200).body(AddressMapper.toResponse(addressService.getById(id)));
 }
 
 @PutMapping("/{id}")
     public ResponseEntity<SaveAddressResponseDto> update(@PathVariable Integer id, @Valid @RequestBody SaveAddressRequestDto dto){
-    return ResponseEntity.status(200).body(SaveAddressResponseDto.toResponse(addressService.update(id, SaveAddressRequestDto.toEntity(dto))));
+    return ResponseEntity.status(200).body(AddressMapper.toResponse(addressService.update(id, dto)));
 }
 
 @DeleteMapping("/{id}")
