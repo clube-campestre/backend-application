@@ -11,7 +11,7 @@ public class Account {
     private String email;
     @Column(name = "passwd")
     private String password;
-    private String cpf;
+    private String name;
     private AccessTypeEnum access;
 
     public Account() {}
@@ -40,12 +40,12 @@ public class Account {
         this.password = password;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getName() {
+        return name;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AccessTypeEnum getAccess() {

@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.Transport;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,18 +24,6 @@ public class SaveTransportRequestDto {
     @NotNull
     @Size(min = 0, max = 10)
     private Integer rating;
-
-    public static Transport toEntity(SaveTransportRequestDto dto) {
-        Transport transport = new Transport();
-        transport.setEnterprise(dto.getEnterprise());
-        transport.setPrice(dto.getPrice());
-        transport.setTravelDistance(dto.getTravelDistance());
-        transport.setCapacity(dto.getCapacity());
-        transport.setCompanyContact(dto.getCompanyContact());
-        transport.setDriverContact(dto.getDriverContact());
-        transport.setRating(dto.getRating());
-        return transport;
-    }
 
     public String getEnterprise() {
         return enterprise;
