@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")
+@CrossOrigin(origins = "*")
 //@Tag(name = "Account Controller", description = "Member account data routes")
 public class AccountController {
 
