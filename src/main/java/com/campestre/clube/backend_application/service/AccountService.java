@@ -24,9 +24,11 @@ public class AccountService {
         return accountRepository.findByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword());
     }
 
-    public Account register(Account account) {
-        if (accountRepository.existsByEmailOrCpf(account.getEmail(), account.getCpf()))
-            throw new ConflictException("User with existing email or CPF");
+    public Account register(Account account) throws BadRequestException {
+        if (accountRepository.existsByEmail(account.getEmail()))
+            throw new ConflictException("User with existing email");
+        if (!validateEmail(account.getEmail()))
+            throw new BadRequestException("Invalid email");
 
         return accountRepository.save(account);
     }
@@ -49,12 +51,8 @@ public class AccountService {
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
 
-        account.get().setId(id);
-        account.get().setEmail(newAccount.getEmail());
-        account.get().setPassword(newAccount.getPassword());
-        account.get().setCpf(newAccount.getCpf());
-        account.get().setAccess(newAccount.getAccess());
-        return accountRepository.save(account.get());
+        newAccount.setId(id);
+        return accountRepository.save(newAccount);
     }
 
     public void delete(Integer id){
@@ -65,6 +63,10 @@ public class AccountService {
     }
 
 
+
+    private Boolean validateEmail(String email) {
+        return email.contains(".") && email.contains("@");
+    }
 
     private void userNotFoundValidation(Optional<Account> account, Integer id) {
         if (account.isEmpty())

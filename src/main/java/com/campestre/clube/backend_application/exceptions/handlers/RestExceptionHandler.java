@@ -1,15 +1,18 @@
 package com.campestre.clube.backend_application.exceptions.handlers;
 
-import com.campestre.clube.backend_application.exceptions.*;
+import com.campestre.clube.backend_application.exceptions.BadRequestException;
+import com.campestre.clube.backend_application.exceptions.ConflictException;
+import com.campestre.clube.backend_application.exceptions.InternalServerException;
+import com.campestre.clube.backend_application.exceptions.NotFoundException;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+@Hidden
+@RestControllerAdvice
+public class RestExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     private ResponseEntity<RestErrorMessage> notFoundHandler(NotFoundException exception){
