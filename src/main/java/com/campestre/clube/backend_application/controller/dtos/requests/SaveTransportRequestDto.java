@@ -1,9 +1,6 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class SaveTransportRequestDto {
     @NotBlank
@@ -22,7 +19,8 @@ public class SaveTransportRequestDto {
     @NotBlank
     private String driverContact;
     @NotNull
-    @Size(min = 0, max = 10)
+    @Min(1)
+    @Max(10)
     private Integer rating;
 
     public String getEnterprise() {

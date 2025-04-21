@@ -7,6 +7,7 @@ import com.campestre.clube.backend_application.entity.Transport;
 import com.campestre.clube.backend_application.service.TransportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class TransportController {
 
     @Operation(summary = "Endpoint for create transport")
     @PostMapping
-    public ResponseEntity<TransportResponseDto> register(@RequestBody SaveTransportRequestDto transportReceive) {
+    public ResponseEntity<TransportResponseDto> register(@Valid @RequestBody SaveTransportRequestDto transportReceive) {
         return ResponseEntity.status(HttpStatus.CREATED).body(TransportMapper.toResponse(
                 transportService.register(TransportMapper.toEntity(transportReceive))
         ));
@@ -51,7 +52,7 @@ public class TransportController {
     @Operation(summary = "Endpoint for update transport by id")
     @PutMapping("/{id}")
     public ResponseEntity<TransportResponseDto> update(
-            @PathVariable Integer id, @RequestBody SaveTransportRequestDto updateTransport
+            @PathVariable Integer id, @Valid @RequestBody SaveTransportRequestDto updateTransport
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(TransportMapper.toResponse(
                 transportService.update(id, TransportMapper.toEntity(updateTransport))
