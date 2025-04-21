@@ -14,6 +14,8 @@ import com.campestre.clube.backend_application.repository.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @Service
@@ -27,6 +29,8 @@ public class MemberDataService {
     private AddressService addressService;
     @Autowired
     private MedicalDataService medicalDataService;
+    @Autowired
+    private DriveService driveService;
 
     public MemberData register(MemberDataDtoRequest memberDto) {
         Unit unit = findUnitOrThrow(memberDto.getUnitId());
@@ -86,11 +90,12 @@ public class MemberDataService {
     }
 
 
-    public void delete(String cpf) {
+    public void delete(String cpf) throws GeneralSecurityException, IOException {
         MemberData memberToDelete = validateMemberExists(cpf);
 
         memberDataRepository.deleteById(cpf);
         medicalDataService.delete(cpf);
+        driveService.deleteFile(memberToDelete.getIdImage());
         addressService.delete(memberToDelete.getAddress().getId());
     }
 

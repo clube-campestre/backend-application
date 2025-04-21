@@ -43,10 +43,10 @@ public class DriveController {
 
     // 🔹 ATUALIZAR ARQUIVO EXISTENTE NO DRIVE
     @PutMapping("/updateFile")
-    public String updateFile(@RequestParam String fileId, @RequestParam("file") MultipartFile file) throws IOException, GeneralSecurityException {
+    public String updateFile(@RequestParam String fileId, @RequestParam("file") MultipartFile file, @RequestParam String cpf) throws IOException, GeneralSecurityException {
         File tempFile = File.createTempFile("temp", null);
         file.transferTo(tempFile);
-        return service.updateFile(fileId, tempFile);
+        return service.updateFile(fileId, tempFile, cpf);
     }
 
     // 🔹 DELETAR ARQUIVO POR ID

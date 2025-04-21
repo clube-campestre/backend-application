@@ -2,7 +2,6 @@ package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.controller.dtos.responses.DriveRes;
 import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -39,7 +38,7 @@ public class DriveService {
 
     private static String getPathToGoodleCredentials(){
         String currentDirectory = System.getProperty("user.dir");
-        Path filePath = Paths.get(currentDirectory, "credentials.json");
+        Path filePath = Paths.get(currentDirectory, "src", "main", "resources", "credentials", "credentials.json");
         return filePath.toString();
     }
 
@@ -139,8 +138,9 @@ public class DriveService {
     }
 
     // 🔹 ATUALIZAR UM ARQUIVO EXISTENTE
-    public String updateFile(String fileId, File newFile) throws GeneralSecurityException, IOException {
+    public String updateFile(String fileId, File newFile, String cpf) throws GeneralSecurityException, IOException {
         Drive drive = createDriveService();
+        MemberData member = validateMemberExists(cpf);
 
         com.google.api.services.drive.model.File fileMetaData = new com.google.api.services.drive.model.File();
         fileMetaData.setName(newFile.getName());
@@ -151,6 +151,15 @@ public class DriveService {
                 .update(fileId, fileMetaData, content)
                 .setFields("id, name")
                 .execute();
+
+        fileId = updatedFile.getId();
+        String imageUrl = "https://drive.google.com/uc?export=view&id=" + fileId;
+
+        //Salvar link no membro
+        member.setCpf(cpf);
+        member.setImagePath(imageUrl);
+        member.setIdImage(fileId);
+        memberDataRepository.save(member);
 
         return "Arquivo atualizado: " + updatedFile.getName();
     }

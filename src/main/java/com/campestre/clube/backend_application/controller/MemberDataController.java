@@ -63,7 +63,7 @@ public class MemberDataController {
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> delete(@PathVariable String cpf) {
+    public ResponseEntity<Void> delete(@PathVariable String cpf) throws GeneralSecurityException, IOException {
         memberDataService.delete(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
