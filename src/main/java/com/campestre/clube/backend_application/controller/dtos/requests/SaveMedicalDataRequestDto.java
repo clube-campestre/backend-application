@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.MedicalData;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
@@ -59,8 +58,6 @@ public class SaveMedicalDataRequestDto {
     private String recentFracture = "";
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
-
-
 
     public SaveMedicalDataRequestDto() {}
 

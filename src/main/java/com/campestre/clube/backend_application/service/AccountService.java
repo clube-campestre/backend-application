@@ -25,12 +25,10 @@ public class AccountService {
     }
 
     public Account register(Account account) throws BadRequestException {
-        if (accountRepository.existsByEmailOrCpf(account.getEmail(), account.getCpf()))
-            throw new ConflictException("User with existing email or CPF");
+        if (accountRepository.existsByEmail(account.getEmail()))
+            throw new ConflictException("User with existing email");
         if (!validateEmail(account.getEmail()))
             throw new BadRequestException("Invalid email");
-        if (!validateCpf(account.getCpf()))
-            throw new BadRequestException("Invalid CPF");
 
         return accountRepository.save(account);
     }
@@ -52,8 +50,6 @@ public class AccountService {
         userNotFoundValidation(account, id);
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
-        if (accountRepository.existsByCpfAndIdNot(newAccount.getCpf(), id))
-            throw new ConflictException("User with existing CPF");
 
         newAccount.setId(id);
         return accountRepository.save(newAccount);
@@ -71,7 +67,6 @@ public class AccountService {
     private Boolean validateEmail(String email) {
         return email.contains(".") && email.contains("@");
     }
-    private Boolean validateCpf(String cpf) { return cpf.length() == 11;}
 
     private void userNotFoundValidation(Optional<Account> account, Integer id) {
         if (account.isEmpty())

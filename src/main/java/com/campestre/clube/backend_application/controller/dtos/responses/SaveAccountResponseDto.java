@@ -1,23 +1,11 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Account;
-
 public class SaveAccountResponseDto {
     private Integer id;
     private String email;
     private String password;
-    private String cpf;
+    private String name;
     private String access;
-
-    public static SaveAccountResponseDto toResponse(Account account) {
-        SaveAccountResponseDto response = new SaveAccountResponseDto();
-        response.setId(account.getId());
-        response.setEmail(account.getEmail());
-        response.setPassword(account.getPassword());
-        response.setCpf(account.getCpf());
-        response.setAccess(account.getAccess().name());
-        return response;
-    }
 
     public SaveAccountResponseDto() {}
 
@@ -45,12 +33,12 @@ public class SaveAccountResponseDto {
         this.password = password;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getName() {
+        return name;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAccess() {

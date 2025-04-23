@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.MedicalData;
-
 public class SaveMedicalDataResponseDto {
     private String cpf;
     private String cns;
@@ -48,7 +46,6 @@ public class SaveMedicalDataResponseDto {
     private String recentFracture = "";
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
-
 
     public SaveMedicalDataResponseDto() {}
 
