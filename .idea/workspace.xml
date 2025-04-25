@@ -4,16 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-021 Alteração de pequenos detalhes">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/credentials/credentials.json" afterDir="false" />
+    <list default="true" id="f8944190-2bbb-43f0-87ed-190e7462e049" name="Changes" comment="REQ-021 Alteração de pequenos detalhes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/EntryPointAuthentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/FilterAuthentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/JwtTokenManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/ProviderAuthentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/SecurityConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/config/swagger/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/DetailsAccountDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountAuthenticationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AddressController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/TagRequestDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/LoginAccountRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/LoginAccountRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetAccountResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetAccountResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/SaveAccountResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/TokenAccountResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/AccountMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/AccountMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/enums/AccessTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/entity/enums/AccessTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/InitService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/InitService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MemberDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/MemberDataService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,17 +37,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Enum" />
-        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="feature/REQ-020" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -49,20 +55,11 @@
     &quot;accountId&quot;: &quot;68ced457-4edb-495d-9a3c-f6555f1d6ec6&quot;
   }
 }</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2tBmRC0SudBU8tnuU3awCSAJ1RR" />
+  <component name="ProjectId" id="2wEgW8BcJjveqOizKyqwwv8BSZ8" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -72,149 +69,85 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Maven.backend-application [clean].executor": "Run",
-    "Maven.backend-application [compile].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/REQ-023",
-    "ignore.virus.scanning.warn.message": "true",
+    "Spring Boot.BackendApplication.executor": "Debug",
+    "git-widget-placeholder": "Merging develop",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/admin/Documents/Sptech/campestre-project/asd/backend-application",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\asd\backend-application" />
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\mundado\backend-application\src\main\resources" />
-      <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main" />
-      <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main\java\com\campestre\clube\backend_application" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\asd\backend-application\src\main\resources\credentials" />
-      <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\src\main\java\resources" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.campestre.clube.backend_application.controller.dtos.responses" />
-      <recent name="com.campestre.clube.backend_application.controller.dtos.requests" />
-      <recent name="com.campestre.clube.backend_application.controller.dtos" />
-      <recent name="com.campestre.clube.backend_application.exceptions" />
+      <recent name="com.campestre.clube.backend_application.config.swagger" />
+      <recent name="com.campestre.clube.backend_application.config" />
+      <recent name="com.campestre.clube.backend_application.service" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="backend-application" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.campestre.clube.backend_application.BackendApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.campestre.clube.backend_application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BackendApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="StructureViewState">
-    <option name="selectedTab" value="Logical" />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="" />
-      <created>1739833831853</created>
+      <changelist id="f8944190-2bbb-43f0-87ed-190e7462e049" name="Changes" comment="" />
+      <created>1745439016197</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1739833831853</updated>
-      <workItem from="1739833832984" duration="1023000" />
-      <workItem from="1741993407918" duration="6340000" />
-      <workItem from="1742655266158" duration="5865000" />
-      <workItem from="1742748750079" duration="6321000" />
-      <workItem from="1742853612886" duration="139000" />
-      <workItem from="1743363994295" duration="1537000" />
-      <workItem from="1743450867791" duration="49000" />
-      <workItem from="1743541459525" duration="6547000" />
-      <workItem from="1743597153877" duration="166000" />
-      <workItem from="1743627944014" duration="852000" />
-      <workItem from="1743816528465" duration="1203000" />
-      <workItem from="1744158253547" duration="19772000" />
-      <workItem from="1743879888591" duration="754000" />
-      <workItem from="1743883550731" duration="160000" />
-      <workItem from="1743885695828" duration="254000" />
-      <workItem from="1743886113351" duration="613000" />
-      <workItem from="1743955518071" duration="4973000" />
+      <updated>1745439016197</updated>
+      <workItem from="1745439017708" duration="9690000" />
+      <workItem from="1745612186045" duration="8267000" />
     </task>
-    <task id="LOCAL-00001" summary="REQ-020 Atualizando o fluxo da conta e as exceptions">
+    <task id="LOCAL-00001" summary="REQ-024 Adicionando Token JWT">
       <option name="closed" value="true" />
-      <created>1742664017845</created>
+      <created>1745616245861</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1742664017845</updated>
+      <updated>1745616245861</updated>
     </task>
-    <task id="LOCAL-00002" summary="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException">
-      <option name="closed" value="true" />
-      <created>1742754979680</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1742754979680</updated>
-    </task>
-    <task id="LOCAL-00003" summary="REQ-020 Atualizando o fluxo dos dados médicos e da conta">
-      <option name="closed" value="true" />
-      <created>1743597248075</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1743597248075</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Correção de arquitetura">
-      <option name="closed" value="true" />
-      <created>1743820718531</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1743820718531</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="REQ-020 Atualizando o fluxo da conta e as exceptions" />
-    <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException" />
-    <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
-    <MESSAGE value="Correção de arquitetura" />
+    <MESSAGE value="REQ-024 Adicionando Token JWT" />
     <MESSAGE value="REQ-021 Alteração de pequenos detalhes" />
     <option name="LAST_COMMIT_MESSAGE" value="REQ-021 Alteração de pequenos detalhes" />
   </component>

@@ -11,7 +11,7 @@ public enum AccessTypeEnum {
     public static AccessTypeEnum fromString(String value) {
         AccessTypeEnum type;
         try {
-            type = AccessTypeEnum.valueOf(value);
+            type = AccessTypeEnum.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Access type of account invalid");
         }
