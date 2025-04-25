@@ -1,5 +1,8 @@
 package com.campestre.clube.backend_application.service;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
+import com.campestre.clube.backend_application.controller.dtos.requests.SaveMedicalDataRequestDto;
+import com.campestre.clube.backend_application.controller.mapper.MedicalDataMapper;
 import com.campestre.clube.backend_application.exceptions.*;
 import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.repository.MedicalDataRepository;
@@ -15,10 +18,15 @@ public class MedicalDataService {
     private MedicalDataRepository medicalDataRepository;
 
     public MedicalData register(MedicalData medicalData) {
+        return medicalDataRepository.save(medicalData);
+    }
+
+    public MedicalData createMedicalData(SaveMedicalDataRequestDto dto) {
+        MedicalData medicalData = MedicalDataMapper.toEntity(dto);
         if (medicalData.getCpf() != null && medicalDataRepository.existsById(medicalData.getCpf()))
             throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
 
-        return medicalDataRepository.save(medicalData);
+        return medicalData;
     }
 
     public MedicalData getById(String cpf) {
@@ -28,12 +36,13 @@ public class MedicalDataService {
         return medicalData.get();
     }
 
-    public MedicalData update(String cpf, MedicalData newMedicalData){
+    public MedicalData update(String cpf, SaveMedicalDataRequestDto dto){
+        MedicalData newMedicalData = MedicalDataMapper.toEntity(dto);
         Optional<MedicalData> medicalData = medicalDataRepository.findById(cpf);
         medicalDataNotFoundValidation(medicalData, cpf);
 
         newMedicalData.setCpf(cpf);
-        return medicalDataRepository.save(newMedicalData);
+        return newMedicalData;
     }
 
     public void delete(String cpf){
