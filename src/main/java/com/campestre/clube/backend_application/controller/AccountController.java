@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.TokenAccountDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.LoginAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.GetAccountResponseDto;
@@ -8,7 +8,6 @@ import com.campestre.clube.backend_application.controller.mapper.AccountMapper;
 import com.campestre.clube.backend_application.entity.Account;
 import com.campestre.clube.backend_application.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,28 +35,25 @@ public class AccountController {
 
     @Operation(summary = "Endpoint for member login")
     @PostMapping("/login")
-    public ResponseEntity<TokenAccountDto> login(@RequestBody LoginAccountRequestDto dto) {
+    public ResponseEntity<TokenAccountResponseDto> login(@RequestBody LoginAccountRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(this.accountService.authenticate(AccountMapper.of(dto)));
     }
 
     @GetMapping
     @Operation(summary = "Endpoint for list all members")
-    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<List<GetAccountResponseDto>> getAll() {
         List<Account> accounts = accountService.getAll();
         if (accounts.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(accounts.stream().map(GetAccountResponseDto::toResponse)
+        return ResponseEntity.status(HttpStatus.OK).body(accounts.stream().map(AccountMapper::of)
                 .toList());
     }
 
     @GetMapping("/{id}")
-    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<GetAccountResponseDto> getById(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(GetAccountResponseDto.toResponse(accountService.getById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(AccountMapper.of(accountService.getById(id)));
     }
 
     @PutMapping("/{id}")
-    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<Void> update(
             @PathVariable Integer id, @Valid @RequestBody SaveAccountRequestDto account
     ) {
@@ -66,7 +62,6 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         accountService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

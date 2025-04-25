@@ -56,7 +56,8 @@ public class SecurityConfiguration {
             new AntPathRequestMatcher("/usuarios/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/h2-console/**/**"),
-            new AntPathRequestMatcher("/error/**")
+            new AntPathRequestMatcher("/error/**"),
+            new AntPathRequestMatcher("/accounts/login/**")
     };
 
     @Bean
@@ -80,6 +81,38 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .headers(headers -> headers
+//                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+//                .cors(Customizer.withDefaults())
+//                .csrf(CsrfConfigurer<HttpSecurity>::disable)
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/swagger-ui/**",
+//                                "/swagger-ui.html",
+//                                "/swagger-resources/**",
+//                                "/v3/api-docs/**",
+//                                "/api/public/**",
+//                        )
+//                        .permitAll()
+//                        .anyRequest()
+//                        .authenticated()
+//                )
+//                .exceptionHandling(handling -> handling
+//                        .authenticationEntryPoint(entryPointAuthentication)
+//                )
+//                .sessionManagement(management -> management
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                );
+//
+//// Adicionar filtro de autenticação JWT
+//        http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {

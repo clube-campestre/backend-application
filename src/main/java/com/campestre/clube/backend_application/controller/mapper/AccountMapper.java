@@ -1,16 +1,19 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
-import com.campestre.clube.backend_application.controller.dtos.TokenAccountDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.LoginAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.GetAccountResponseDto;
 import com.campestre.clube.backend_application.entity.Account;
+import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 
 public abstract class AccountMapper {
     public static Account of(SaveAccountRequestDto dto){
         Account account = new Account();
         account.setEmail(dto.getEmail());
         account.setPassword(dto.getPassword());
+        account.setName(dto.getName());
+        account.setAccess(AccessTypeEnum.fromString(dto.getAccess()));
         return account;
     }
 
@@ -21,10 +24,12 @@ public abstract class AccountMapper {
         return account;
     }
 
-    public static TokenAccountDto of(Account account, String token){
-        TokenAccountDto dto = new TokenAccountDto();
+    public static TokenAccountResponseDto of(Account account, String token){
+        TokenAccountResponseDto dto = new TokenAccountResponseDto();
         dto.setUserId(account.getId());
         dto.setEmail(account.getEmail());
+        dto.setName(account.getName());
+        dto.setAccess(account.getAccess().name());
         dto.setToken(token);
         return dto;
     }

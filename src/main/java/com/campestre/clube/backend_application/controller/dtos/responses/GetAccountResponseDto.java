@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Account;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class GetAccountResponseDto {
@@ -12,15 +11,6 @@ public class GetAccountResponseDto {
     private String name;
     @Schema(description = "Account access", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
-
-    public static GetAccountResponseDto toResponse(Account account) {
-        GetAccountResponseDto response = new GetAccountResponseDto();
-        response.setId(account.getId());
-        response.setEmail(account.getEmail());
-        response.setName(account.getName());
-        response.setAccess(account.getAccess().name());
-        return response;
-    }
 
     public GetAccountResponseDto() {}
 
