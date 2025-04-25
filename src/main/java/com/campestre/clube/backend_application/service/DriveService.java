@@ -38,7 +38,8 @@ public class DriveService {
 
     private static String getPathToGoodleCredentials(){
         String currentDirectory = System.getProperty("user.dir");
-        Path filePath = Paths.get(currentDirectory, "src", "main", "resources", "credentials", "credentials.json");
+//        Path filePath = Paths.get(currentDirectory, "src", "main", "resources", "credentials", "credentials.json");
+        Path filePath = Paths.get(currentDirectory, "credentials.json");
         return filePath.toString();
     }
 

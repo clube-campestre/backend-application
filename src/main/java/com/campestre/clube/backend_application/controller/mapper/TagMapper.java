@@ -1,12 +1,11 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveTagRequestDto;
-import com.campestre.clube.backend_application.controller.dtos.requests.TagRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TagResponseDto;
 import com.campestre.clube.backend_application.entity.Tag;
 
 public abstract class TagMapper {
-    public static Tag toEntity(TagRequestDto dto){
+    public static Tag toEntity(SaveTagRequestDto dto){
         Tag tag = new Tag();
         tag.setSurname(dto.getSurname());
         tag.setColor(dto.getColor());

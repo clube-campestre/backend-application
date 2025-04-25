@@ -10,8 +10,6 @@ import java.util.Date;
 
 public class MemberDataDtoResponse {
 
-    @Id
-    private Integer id;
     @NotBlank
     @CPF
     @Size(min = 11, max = 11)
@@ -102,14 +100,6 @@ public class MemberDataDtoResponse {
 
 
     private GetMedicalDataResponseDto medicalData; // DTO dos dados médicos
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCpf() {
         return cpf;

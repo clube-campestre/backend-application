@@ -1,11 +1,11 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public class SaveTagRequestDto {
-    @NotNull
+    @NotBlank
     private String surname;
-    @NotNull
+    @NotBlank
     private String color;
 
     public String getSurname() {
