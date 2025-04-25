@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-021 Alteração de pequenos detalhes">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/credentials/credentials.json" afterDir="false" />
+    <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/EmailConfictException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/LoginBadRequestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/exceptions/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/infra/RestExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AddressController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/TagRequestDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/AccountService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,40 +26,23 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Enum" />
-        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/REQ-020" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Murilo20H&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/clube-campestre/backend-application.git&quot;,
-    &quot;accountId&quot;: &quot;68ced457-4edb-495d-9a3c-f6555f1d6ec6&quot;
-  }
-}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -81,37 +66,27 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/REQ-023",
+    "git-widget-placeholder": "feature/REQ-016",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/admin/Documents/Sptech/campestre-project/asd/backend-application",
+    "last_opened_file_path": "C:/Users/muril/OneDrive/Área de Trabalho/Programacao/Clube Campestre/Backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\asd\backend-application" />
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\mundado\backend-application\src\main\resources" />
-      <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main" />
       <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\backend-application\src\main\java\com\campestre\clube\backend_application" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\admin\Documents\Sptech\campestre-project\asd\backend-application\src\main\resources\credentials" />
       <recent name="C:\Users\muril\OneDrive\Área de Trabalho\Programacao\Clube Campestre\Backend\src\main\java\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.campestre.clube.backend_application.controller.dtos.responses" />
-      <recent name="com.campestre.clube.backend_application.controller.dtos.requests" />
-      <recent name="com.campestre.clube.backend_application.controller.dtos" />
       <recent name="com.campestre.clube.backend_application.exceptions" />
     </key>
   </component>
@@ -127,15 +102,12 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="StructureViewState">
-    <option name="selectedTab" value="Logical" />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="" />
@@ -145,55 +117,7 @@
       <updated>1739833831853</updated>
       <workItem from="1739833832984" duration="1023000" />
       <workItem from="1741993407918" duration="6340000" />
-      <workItem from="1742655266158" duration="5865000" />
-      <workItem from="1742748750079" duration="6321000" />
-      <workItem from="1742853612886" duration="139000" />
-      <workItem from="1743363994295" duration="1537000" />
-      <workItem from="1743450867791" duration="49000" />
-      <workItem from="1743541459525" duration="6547000" />
-      <workItem from="1743597153877" duration="166000" />
-      <workItem from="1743627944014" duration="852000" />
-      <workItem from="1743816528465" duration="1203000" />
-      <workItem from="1744158253547" duration="19772000" />
-      <workItem from="1743879888591" duration="754000" />
-      <workItem from="1743883550731" duration="160000" />
-      <workItem from="1743885695828" duration="254000" />
-      <workItem from="1743886113351" duration="613000" />
-      <workItem from="1743955518071" duration="4973000" />
     </task>
-    <task id="LOCAL-00001" summary="REQ-020 Atualizando o fluxo da conta e as exceptions">
-      <option name="closed" value="true" />
-      <created>1742664017845</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1742664017845</updated>
-    </task>
-    <task id="LOCAL-00002" summary="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException">
-      <option name="closed" value="true" />
-      <created>1742754979680</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1742754979680</updated>
-    </task>
-    <task id="LOCAL-00003" summary="REQ-020 Atualizando o fluxo dos dados médicos e da conta">
-      <option name="closed" value="true" />
-      <created>1743597248075</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1743597248075</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Correção de arquitetura">
-      <option name="closed" value="true" />
-      <created>1743820718531</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1743820718531</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,13 +133,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="REQ-020 Atualizando o fluxo da conta e as exceptions" />
-    <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e criando a exception InternalServerException" />
-    <MESSAGE value="REQ-020 Atualizando o fluxo dos dados médicos e da conta" />
-    <MESSAGE value="Correção de arquitetura" />
-    <MESSAGE value="REQ-021 Alteração de pequenos detalhes" />
-    <option name="LAST_COMMIT_MESSAGE" value="REQ-021 Alteração de pequenos detalhes" />
   </component>
 </project>

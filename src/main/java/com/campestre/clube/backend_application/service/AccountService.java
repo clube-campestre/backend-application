@@ -1,10 +1,12 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.entity.Account;
+import com.campestre.clube.backend_application.exceptions.EmailConfictException;
+import com.campestre.clube.backend_application.exceptions.LoginBadRequestException;
+import com.campestre.clube.backend_application.exceptions.UserNotFoundException;
+import com.campestre.clube.backend_application.model.Account;
+import com.campestre.clube.backend_application.model.AccountRequest;
 import com.campestre.clube.backend_application.repository.AccountRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +19,16 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account login(Account accountRequest) {
-        if (!accountRepository.existsByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword()))
-            throw new BadRequestException("Incorrect email or password");
+    public String login(AccountRequest account) {
+        if (!accountRepository.existsByEmailAndPassword(account.getEmail(), account.getPassword()))
+            throw new LoginBadRequestException();
 
-        return accountRepository.findByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword());
+        return "Authenticated user";
     }
 
     public Account register(Account account) throws BadRequestException {
         if (accountRepository.existsByEmail(account.getEmail()))
-            throw new ConflictException("User with existing email");
+            throw new EmailConfictException();
         if (!validateEmail(account.getEmail()))
             throw new BadRequestException("Invalid email");
 
@@ -44,20 +46,21 @@ public class AccountService {
         return account.get();
     }
 
-    public Account update(Integer id, Account newAccount){
+    public Account update(Integer id, AccountRequest newAccount){
         Optional<Account> account = accountRepository.findById(id);
 
         userNotFoundValidation(account, id);
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
-            throw new ConflictException("User with existing email");
+            throw new EmailConfictException();
 
-        newAccount.setId(id);
-        return accountRepository.save(newAccount);
+        account.get().setEmail(newAccount.getEmail());
+        account.get().setPassword(newAccount.getPassword());
+        return accountRepository.save(account.get());
     }
 
     public void delete(Integer id){
         if(!accountRepository.existsById(id))
-            throw new NotFoundException("User by id [%s] not found".formatted(id));
+            throw new UserNotFoundException(id);
 
         accountRepository.deleteById(id);
     }
@@ -70,6 +73,6 @@ public class AccountService {
 
     private void userNotFoundValidation(Optional<Account> account, Integer id) {
         if (account.isEmpty())
-            throw new NotFoundException("User by id [%s] not found".formatted(id));
+            throw new UserNotFoundException(id);
     }
 }
