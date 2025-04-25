@@ -1,6 +1,8 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.TokenAccountRequestDto;
+import com.campestre.clube.backend_application.config.JwtTokenManager;
+import com.campestre.clube.backend_application.controller.dtos.TokenAccountDto;
+import com.campestre.clube.backend_application.controller.mapper.AccountMapper;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,56 +29,45 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private GerenciadorTokenJwt gerenciadorTokenJwt;
+    private JwtTokenManager jwtTokenManager;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    public Account register(Account account) {
+        if (accountRepository.existsByEmail(account.getEmail()))
+            throw new ConflictException("User with existing email");
+        if (!validateEmail(account.getEmail()))
+            throw new BadRequestException("Invalid email");
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+
+        return accountRepository.save(account);
+    }
+
+    public TokenAccountDto authenticate(Account account) {
+        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
+                account.getEmail(), account.getPassword());
+
+        final Authentication authentication = this.authenticationManager.authenticate(credentials);
+
+        if (!accountRepository.existsByEmail(account.getEmail()))
+            throw new NotFoundException("Account email not registered");
+        Account AuthenticateAccount = accountRepository.findByEmail(account.getEmail());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        final String token = jwtTokenManager.generateToken(authentication);
+
+        return AccountMapper.of(AuthenticateAccount, token);
+    }
+
+
 
     public Account login(Account accountRequest) {
         if (!accountRepository.existsByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword()))
             throw new BadRequestException("Incorrect email or password");
 
         return accountRepository.findByEmailAndPassword(accountRequest.getEmail(), accountRequest.getPassword());
-    }
-
-//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(),
-//                        request.getPassword()
-//                )
-//        );
-//        var user = repository.findByEmail(request.getEmail())
-//                .orElseThrow();
-//        var jwtToken = jwtService.generateToken(user);
-//        var refreshToken = jwtService.generateRefreshToken(user);
-//        revokeAllUserTokens(user);
-//        saveUserToken(user, jwtToken);
-//        return AuthenticationResponse.builder()
-//                .accessToken(jwtToken)
-//                .refreshToken(refreshToken)
-//                .build();
-//    }
-
-    public Account register(Account account) {
-        if (accountRepository.existsByEmailOrCpf(account.getEmail(), account.getCpf()))
-            throw new ConflictException("User with existing email or CPF");
-        if (!validateEmail(account.getEmail()))
-            throw new BadRequestException("Invalid email");
-        if (!validateCpf(account.getCpf()))
-            throw new BadRequestException("Invalid CPF");
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-
-        return accountRepository.save(account);
-    }
-
-    public TokenAccountRequestDto autenticar(Account account) {
-        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
-                account.getEmail(), account.getPassword());
-
-        final Authentication authentication = this
-
-
     }
 
     public List<Account> getAll() {
@@ -95,8 +87,6 @@ public class AccountService {
         userNotFoundValidation(account, id);
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
-        if (accountRepository.existsByCpfAndIdNot(newAccount.getCpf(), id))
-            throw new ConflictException("User with existing CPF");
 
         newAccount.setId(id);
         return accountRepository.save(newAccount);
@@ -114,7 +104,6 @@ public class AccountService {
     private Boolean validateEmail(String email) {
         return email.contains(".") && email.contains("@");
     }
-    private Boolean validateCpf(String cpf) { return cpf.length() == 11;}
 
     private void userNotFoundValidation(Optional<Account> account, Integer id) {
         if (account.isEmpty())

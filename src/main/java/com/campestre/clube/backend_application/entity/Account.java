@@ -12,20 +12,20 @@ import java.util.List;
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String email;
     @Column(name = "passwd")
     private String password;
-    private String cpf;
+    private String name;
     private AccessTypeEnum access;
 
     public Account() {}
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,12 +76,12 @@ public class Account implements UserDetails {
         this.password = password;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getName() {
+        return name;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AccessTypeEnum getAccess() {

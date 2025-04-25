@@ -5,11 +5,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class GetAccountResponseDto {
     @Schema(description = "Account ID", example = "1")
-    private Long id;
+    private Integer id;
     @Schema(description = "Account e-mail", example = "test@email.com")
     private String email;
-    @Schema(description = "Account CPF", example = "12312312312")
-    private String cpf;
+    @Schema(description = "Account name", example = "Test")
+    private String name;
     @Schema(description = "Account access", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
 
@@ -17,18 +17,18 @@ public class GetAccountResponseDto {
         GetAccountResponseDto response = new GetAccountResponseDto();
         response.setId(account.getId());
         response.setEmail(account.getEmail());
-        response.setCpf(account.getCpf());
+        response.setName(account.getName());
         response.setAccess(account.getAccess().name());
         return response;
     }
 
     public GetAccountResponseDto() {}
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,12 +40,12 @@ public class GetAccountResponseDto {
         this.email = email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getName() {
+        return name;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAccess() {

@@ -1,18 +1,24 @@
 package com.campestre.clube.backend_application.controller.dtos;
 
+import com.campestre.clube.backend_application.entity.Account;
+import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-public class DetailsAccountRequestDto implements UserDetails {
+public class DetailsAccountDto implements UserDetails {
+    private String name;
     private String email;
     private String password;
+    private AccessTypeEnum access;
 
-    public DetailsAccountRequestDto(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public DetailsAccountDto(Account account) {
+        this.name = account.getName();
+        this.email = account.getEmail();
+        this.password = account.getPassword();
+        this.access = account.getAccess();
     }
 
     @Override

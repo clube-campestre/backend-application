@@ -1,20 +1,15 @@
 package com.campestre.clube.backend_application.controller.dtos;
 
-import com.campestre.clube.backend_application.entity.Account;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
-public class TokenAccountRequestDto {
-    private Long userId;
+public class TokenAccountDto {
+    private Integer userId;
     private String email;
     private String token;
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
