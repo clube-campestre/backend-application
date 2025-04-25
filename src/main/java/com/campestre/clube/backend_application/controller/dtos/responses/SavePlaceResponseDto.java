@@ -1,5 +1,8 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
+import com.campestre.clube.backend_application.entity.Address;
+
 public class SavePlaceResponseDto {
     private Integer id;
     private String sirname;
@@ -7,6 +10,9 @@ public class SavePlaceResponseDto {
     private Integer capacity;
     private String contact;
     private Integer rating;
+    private Integer addressId;
+
+    private SaveAddressResponseDto address;
 
     public Integer getId() {
         return id;
@@ -54,5 +60,21 @@ public class SavePlaceResponseDto {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public SaveAddressResponseDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(SaveAddressResponseDto address) {
+        this.address = address;
     }
 }

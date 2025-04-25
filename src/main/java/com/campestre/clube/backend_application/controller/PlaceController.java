@@ -5,6 +5,7 @@ import com.campestre.clube.backend_application.controller.dtos.requests.SavePlac
 import com.campestre.clube.backend_application.controller.dtos.responses.GetPlaceResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.SavePlaceResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.PlaceMapper;
+import com.campestre.clube.backend_application.entity.Place;
 import com.campestre.clube.backend_application.service.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +29,8 @@ public class PlaceController {
     @GetMapping
     @Operation(summary = "Endpoint for list all places")
     public ResponseEntity<List<GetPlaceResponseDto>> getAll() {
-        return ResponseEntity.ok(placeDataService.getAll().stream().map(PlaceMapper::toGetResponse).toList());
+        List<Place> places = placeDataService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(places.stream().map(PlaceMapper::toGetResponse).toList());
     }
 
     @GetMapping("/{id}")
@@ -49,9 +51,7 @@ public class PlaceController {
     @PostMapping
     @Operation(summary = "Endpoint for create place")
     public ResponseEntity<SavePlaceResponseDto> register(@Valid @RequestBody SavePlaceRequestDto placeDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(PlaceMapper.toSaveResponse(
-                placeDataService.save(PlaceMapper.toEntity(placeDto))
-        ));
+        return ResponseEntity.status(HttpStatus.CREATED).body(placeDataService.save(placeDto));
     }
 
     @PutMapping("/{id}")
@@ -59,9 +59,8 @@ public class PlaceController {
     public ResponseEntity<SavePlaceResponseDto> update(
             @PathVariable Integer id, @Valid @RequestBody SavePlaceRequestDto placeDto
     ) {
-        return ResponseEntity.ok(PlaceMapper.toSaveResponse(
-                placeDataService.update(id, PlaceMapper.toEntity(placeDto))
-        ));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                placeDataService.update(id, placeDto);
     }
 
     @DeleteMapping("/{id}")

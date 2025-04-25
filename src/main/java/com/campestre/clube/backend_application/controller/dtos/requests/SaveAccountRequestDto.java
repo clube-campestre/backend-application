@@ -11,10 +11,9 @@ public class SaveAccountRequestDto {
     private String email;
 
     @Column(name = "passwd")
-    @Size(min = 10, max = 20)
+    @Size(min = 6)
     @NotNull
     private String password;
-
     @NotNull
     private String name;
 

@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9908c46-2987-40fe-b988-39ebb157005d" name="Changes" comment="REQ-021 Alteração de pequenos detalhes">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/credentials/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/AddressController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/MedicalDataController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveTagRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/TagRequestDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/MemberDataDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/TagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/DriveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/PlaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/PlaceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/MemberDataDtoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/MemberDataDtoRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SavePlaceRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SavePlaceRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetPlaceResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/GetPlaceResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/SavePlaceResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/responses/SavePlaceResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/PlaceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/mapper/PlaceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/PlaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/PlaceService.java" afterDir="false" />
+    </list>
+    <list id="2b02b0c5-62a8-4b1e-9fd9-23ba4f99c1a5" name="Changes by Ruth" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/PlaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/PlaceService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +53,27 @@
     &quot;accountId&quot;: &quot;68ced457-4edb-495d-9a3c-f6555f1d6ec6&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/6.2.2/spring-web-6.2.2.jar!/org/springframework/http/ResponseEntity.class" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/StatementController.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/controller/dtos/requests/SaveAccountRequestDto.java">
+      <ranges>
+        <range start1="13" end1="14" start2="13" end2="14" changelist="c9908c46-2987-40fe-b988-39ebb157005d" />
+        <range start1="16" end1="17" start2="16" end2="16" changelist="2b02b0c5-62a8-4b1e-9fd9-23ba4f99c1a5" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/com/campestre/clube/backend_application/service/PlaceService.java">
+      <ranges>
+        <range start1="2" end1="2" start2="2" end2="7" changelist="2b02b0c5-62a8-4b1e-9fd9-23ba4f99c1a5" />
+        <range start1="17" end1="17" start2="22" end2="25" changelist="2b02b0c5-62a8-4b1e-9fd9-23ba4f99c1a5" />
+        <range start1="33" end1="34" start2="41" end2="42" changelist="c9908c46-2987-40fe-b988-39ebb157005d" />
+        <range start1="36" end1="36" start2="44" end2="45" changelist="c9908c46-2987-40fe-b988-39ebb157005d" />
+        <range start1="37" end1="38" start2="46" end2="51" changelist="c9908c46-2987-40fe-b988-39ebb157005d" />
+      </ranges>
+    </file>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -81,7 +106,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/REQ-023",
+    "git-widget-placeholder": "feature/REQ-035",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/admin/Documents/Sptech/campestre-project/asd/backend-application",

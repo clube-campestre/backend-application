@@ -1,10 +1,10 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 public class SavePlaceRequestDto {
-    @NotNull
-    private Integer fkAddress;
+    //Entidade Place
     @NotBlank
     @Size(max = 45)
     private String sirname;
@@ -20,12 +20,28 @@ public class SavePlaceRequestDto {
     @Max(10)
     private Integer rating;
 
+    //Entidade Address
+//    @NotNull
+    private Integer fkAddress;
+
+    @Valid
+    private SaveAddressRequestDto address; //DTO do endereço
+
+
     public Integer getFkAddress() {
         return fkAddress;
     }
 
     public void setFkAddress(Integer fkAddress) {
         this.fkAddress = fkAddress;
+    }
+
+    public SaveAddressRequestDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(SaveAddressRequestDto address) {
+        this.address = address;
     }
 
     public String getSirname() {
