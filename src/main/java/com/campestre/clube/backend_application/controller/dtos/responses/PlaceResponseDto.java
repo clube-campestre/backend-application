@@ -1,18 +1,13 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Address;
-
-public class GetPlaceResponseDto {
-
+public class PlaceResponseDto {
     private Integer id;
-    private String sirname;
+    private String name;
     private Double price;
     private Integer capacity;
     private String contact;
     private Integer rating;
-    private Integer addressId;
-
-    private Address address;
+    private AddressResponseDto address;
 
     public Integer getId() {
         return id;
@@ -22,12 +17,12 @@ public class GetPlaceResponseDto {
         this.id = id;
     }
 
-    public String getSirname() {
-        return sirname;
+    public String getName() {
+        return name;
     }
 
-    public void setSirname(String sirname) {
-        this.sirname = sirname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
@@ -62,19 +57,11 @@ public class GetPlaceResponseDto {
         this.rating = rating;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
-    public Address getAddress() {
+    public AddressResponseDto getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressResponseDto address) {
         this.address = address;
     }
 }

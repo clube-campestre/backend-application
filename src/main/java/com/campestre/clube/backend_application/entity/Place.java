@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.entity;
 
-
 import jakarta.persistence.*;
 
 @Entity(name = "place")
@@ -8,9 +7,11 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "fk_address")
-    private Integer fkAddress;
-    private String sirname;
+    @OneToOne
+    @JoinColumn(name = "fk_address")
+    private Address address;
+    @Column(name = "place_name")
+    private String name;
     private Double price;
     private Integer capacity;
     private String contact;
@@ -24,20 +25,20 @@ public class Place {
         this.id = id;
     }
 
-    public Integer getFkAddress() {
-        return fkAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setFkAddress(Integer fkAddress) {
-        this.fkAddress = fkAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public String getSirname() {
-        return sirname;
+    public String getName() {
+        return name;
     }
 
-    public void setSirname(String sirname) {
-        this.sirname = sirname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
