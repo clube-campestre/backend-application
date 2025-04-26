@@ -19,10 +19,6 @@ public class PlaceService {
     @Autowired
     private AddressService addressService;
 
-    public List<Place> getAll() {
-        return placeRepository.findAll();
-    }
-
     public Place getById(Integer id) {
         Optional<Place> place = placeRepository.findById(id);
         placeNotFoundValidation(place, id);

@@ -22,8 +22,8 @@ public class TransportService {
         return transportRepository.save(transport);
     }
 
-    public List<Transport> getAll() {
-        return transportRepository.findAll();
+    public List<Transport> getAllOrderedByRating() {
+        return transportRepository.findAllByOrderByRatingDesc();
     }
 
     public Transport getById(Integer id) {

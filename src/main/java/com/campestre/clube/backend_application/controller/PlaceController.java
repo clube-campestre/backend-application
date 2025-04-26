@@ -25,26 +25,18 @@ public class PlaceController {
     private PlaceService placeService;
 
     @GetMapping
-    @Operation(summary = "Endpoint for list all places")
-    public ResponseEntity<List<PlaceResponseDto>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                placeService.getAll().stream().map(PlaceMapper::toResponse).toList()
-        );
-    }
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Endpoint for get place by id")
-    public ResponseEntity<PlaceResponseDto> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(PlaceMapper.toResponse(placeService.getById(id)));
-    }
-
-    @GetMapping("/best-rated")
     @Operation(summary = "Endpoint to get places ranked by rating")
     public ResponseEntity<List<PlaceResponseDto>> getAllOrderedByRating() {
         List<PlaceResponseDto> places = placeService.getAllOrderedByRating().stream()
                 .map(PlaceMapper::toResponse).collect(Collectors.toList());
         if (places.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(places);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get place by id")
+    public ResponseEntity<PlaceResponseDto> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(PlaceMapper.toResponse(placeService.getById(id)));
     }
 
     @PostMapping
