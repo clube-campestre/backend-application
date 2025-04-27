@@ -12,16 +12,14 @@ public class SaveAccountRequestDto {
     @Email
     @Schema(description = "Account e-mail", example = "test@email.com")
     private String email;
-
     @Column(name = "passwd")
-    @Size(min = 6)
+    @Size(min = 4)
     @NotNull
     @Schema(description = "Account password", example = "ABCDE12345")
     private String password;
     @NotEmpty
     @Schema(description = "Account name", example = "Test")
     private String name;
-
     @NotNull
     @Schema(description = "Account access", example = "DIRETOR", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
