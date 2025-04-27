@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MedicalDataRepository extends JpaRepository<MedicalData, String> {}
+public interface MedicalDataRepository extends JpaRepository<MedicalData, String> {
+    boolean existsByCpf(String cpf);
+}

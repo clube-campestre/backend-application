@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.controller.dtos.responses.GetMedi
 import com.campestre.clube.backend_application.controller.dtos.responses.SaveMedicalDataResponseDto;
 import com.campestre.clube.backend_application.entity.MedicalData;
 
-public abstract class MedicalDataMapper {
+public class MedicalDataMapper {
     public static MedicalData toEntity(SaveMedicalDataRequestDto dto) {
         MedicalData medicalData = new MedicalData();
 

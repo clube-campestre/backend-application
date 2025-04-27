@@ -41,7 +41,6 @@ public class MedicalData {
     private Boolean covid19; //covid19
     private Boolean h1n1; //h1n1
     private Boolean caxumba; //mumps
-    @NotBlank
     private String others;
 
     private String heartProblems;

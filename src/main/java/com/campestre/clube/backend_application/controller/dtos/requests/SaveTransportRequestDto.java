@@ -20,7 +20,7 @@ public class SaveTransportRequestDto {
     private String driverContact;
     @NotNull
     @Min(1)
-    @Max(10)
+    @Max(5)
     private Integer rating;
 
     public String getEnterprise() {

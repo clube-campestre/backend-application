@@ -24,7 +24,7 @@ public class TagController {
     @Autowired
     public TagService tagService;
 
-    @Operation(summary = "Endpoint for create tag")
+    @Operation(summary = "Endpoint for create a new tag")
     @PostMapping
     public ResponseEntity<TagResponseDto> register(@RequestBody SaveTagRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(

@@ -1,20 +1,18 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-public class SaveAccountResponseDto {
-    private Integer id;
+public class TokenAccountResponseDto {
+    private Integer userId;
     private String email;
-    private String password;
+    private String token;
     private String name;
     private String access;
 
-    public SaveAccountResponseDto() {}
-
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -25,12 +23,12 @@ public class SaveAccountResponseDto {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getToken() {
+        return token;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {

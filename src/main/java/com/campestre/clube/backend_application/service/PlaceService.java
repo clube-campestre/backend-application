@@ -16,9 +16,8 @@ public class PlaceService {
     @Autowired
     private PlaceRepository placeRepository;
 
-    public List<Place> getAll() {
-        return placeRepository.findAll();
-    }
+    @Autowired
+    private AddressService addressService;
 
     public Place getById(Integer id) {
         Optional<Place> place = placeRepository.findById(id);
@@ -31,10 +30,14 @@ public class PlaceService {
         return placeRepository.findAllByOrderByRatingDesc();
     }
 
+    //TODO: Implementar validações na lógica de validar existencia pelo cep, já que pode ter o mesmo cep e ser de outro numero
     public Place save(Place place) {
-        if (placeRepository.existsBySirname(place.getSirname()))
-            throw new ConflictException("Place with existing sirname");
+        if (placeRepository.existsByName(place.getName()))
+            throw new ConflictException("Place with existing name");
+        if (addressService.addressAlreadyExists(place.getAddress().getCep()))
+            throw new ConflictException("Address already found for provided CEP.");
 
+        place.setAddress(addressService.register(place.getAddress()));
         return placeRepository.save(place);
     }
 
@@ -42,7 +45,7 @@ public class PlaceService {
         Optional<Place> place = placeRepository.findById(id);
 
         placeNotFoundValidation(place, id);
-        if (placeRepository.existsBySirname(newPlace.getSirname()))
+        if (placeRepository.existsByName(newPlace.getName()))
             throw new ConflictException("Place with existing sirname");
 
         newPlace.setId(id);
@@ -55,7 +58,6 @@ public class PlaceService {
 
         placeRepository.deleteById(id);
     }
-
 
 
 
