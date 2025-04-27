@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.UpdateAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.LoginAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAccountRequestDto;
@@ -12,6 +13,14 @@ public abstract class AccountMapper {
         Account account = new Account();
         account.setEmail(dto.getEmail());
         account.setPassword(dto.getPassword());
+        account.setName(dto.getName());
+        account.setAccess(AccessTypeEnum.fromString(dto.getAccess()));
+        return account;
+    }
+
+    public static Account of(UpdateAccountRequestDto dto){
+        Account account = new Account();
+        account.setEmail(dto.getEmail());
         account.setName(dto.getName());
         account.setAccess(AccessTypeEnum.fromString(dto.getAccess()));
         return account;
