@@ -1,12 +1,13 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-public class SavePlaceResponseDto {
+public class PlaceResponseDto {
     private Integer id;
-    private String sirname;
+    private String name;
     private Double price;
     private Integer capacity;
     private String contact;
     private Integer rating;
+    private AddressResponseDto address;
 
     public Integer getId() {
         return id;
@@ -16,12 +17,12 @@ public class SavePlaceResponseDto {
         this.id = id;
     }
 
-    public String getSirname() {
-        return sirname;
+    public String getName() {
+        return name;
     }
 
-    public void setSirname(String sirname) {
-        this.sirname = sirname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
@@ -54,5 +55,13 @@ public class SavePlaceResponseDto {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public AddressResponseDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressResponseDto address) {
+        this.address = address;
     }
 }

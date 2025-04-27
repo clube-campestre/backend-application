@@ -1,12 +1,10 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
 import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.AddressRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +43,12 @@ public class AddressService {
         return address.get();
     }
 
+    public Address getByCep(String cep){
+        Address address = addressRepository.findByCep(cep);
+        if(address == null) throw new NotFoundException("Address with CEP [%s] not found".formatted(cep));
+        return address;
+    }
+
     public Address update(Integer id, SaveAddressRequestDto dto){
         Address newAddress = AddressMapper.toEntity(dto);
         if(!addressRepository.existsById(id)){
@@ -53,7 +57,6 @@ public class AddressService {
         newAddress.setId(id);
         return newAddress;
     }
-
 
     public void delete(Integer id){
         if(!addressRepository.existsById(id)){

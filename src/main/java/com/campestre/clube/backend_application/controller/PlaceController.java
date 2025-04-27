@@ -1,9 +1,7 @@
 package com.campestre.clube.backend_application.controller;
 
-
 import com.campestre.clube.backend_application.controller.dtos.requests.SavePlaceRequestDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.GetPlaceResponseDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.SavePlaceResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.PlaceResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.PlaceMapper;
 import com.campestre.clube.backend_application.service.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,55 +17,50 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/places")
+@CrossOrigin("*")
 @Tag(name = "Place Controller", description = "Place data routes")
 public class PlaceController {
 
     @Autowired
-    private PlaceService placeDataService;
+    private PlaceService placeService;
 
     @GetMapping
-    @Operation(summary = "Endpoint for list all places")
-    public ResponseEntity<List<GetPlaceResponseDto>> getAll() {
-        return ResponseEntity.ok(placeDataService.getAll().stream().map(PlaceMapper::toGetResponse).toList());
-    }
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Endpoint for get place by id")
-    public ResponseEntity<GetPlaceResponseDto> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(PlaceMapper.toGetResponse(placeDataService.getById(id)));
-    }
-
-    @GetMapping("/best-rated")
     @Operation(summary = "Endpoint to get places ranked by rating")
-    public ResponseEntity<List<GetPlaceResponseDto>> getAllOrderedByRating() {
-        List<GetPlaceResponseDto> places = placeDataService.getAllOrderedByRating().stream()
-                .map(PlaceMapper::toGetResponse).collect(Collectors.toList());
+    public ResponseEntity<List<PlaceResponseDto>> getAllOrderedByRating() {
+        List<PlaceResponseDto> places = placeService.getAllOrderedByRating().stream()
+                .map(PlaceMapper::toResponse).collect(Collectors.toList());
         if (places.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(places);
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get place by id")
+    public ResponseEntity<PlaceResponseDto> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(PlaceMapper.toResponse(placeService.getById(id)));
+    }
+
     @PostMapping
     @Operation(summary = "Endpoint for create place")
-    public ResponseEntity<SavePlaceResponseDto> register(@Valid @RequestBody SavePlaceRequestDto placeDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(PlaceMapper.toSaveResponse(
-                placeDataService.save(PlaceMapper.toEntity(placeDto))
-        ));
+    public ResponseEntity<PlaceResponseDto> create(@Valid @RequestBody SavePlaceRequestDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                PlaceMapper.toResponse(placeService.save(PlaceMapper.toEntity(dto)))
+        );
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Endpoint for update place by id")
-    public ResponseEntity<SavePlaceResponseDto> update(
-            @PathVariable Integer id, @Valid @RequestBody SavePlaceRequestDto placeDto
+    public ResponseEntity<PlaceResponseDto> update(
+            @PathVariable Integer id, @Valid @RequestBody SavePlaceRequestDto dto
     ) {
-        return ResponseEntity.ok(PlaceMapper.toSaveResponse(
-                placeDataService.update(id, PlaceMapper.toEntity(placeDto))
-        ));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                PlaceMapper.toResponse(placeService.update(id, PlaceMapper.toEntity(dto)))
+        );
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Endpoint for remove place by id")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        placeDataService.delete(id);
+        placeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

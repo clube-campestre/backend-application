@@ -1,33 +1,27 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.Address;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public class SaveAddressRequestDto {
-
-    @NotNull
+    @NotBlank
     private String houseNumber;
+    @NotBlank
+    @Size(min = 2)
     private String district;
-    @NotNull
+    @NotBlank
     private String city;
-    @NotNull
+    @NotBlank
     private String state;
-    @NotNull
+    @NotBlank
+    @Size(max = 8)
     private String cep;
     private String referenceHouse;
 
-
-    public SaveAddressRequestDto() {
-    }
-
-    public @NotNull String getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(@NotNull String houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -39,27 +33,27 @@ public class SaveAddressRequestDto {
         this.district = district;
     }
 
-    public @NotNull String getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(@NotNull String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public @NotNull String getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(@NotNull String state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public @NotNull String getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(@NotNull String cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

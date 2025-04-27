@@ -1,12 +1,10 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import com.campestre.clube.backend_application.entity.enums.*;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class MemberDataDtoResponse {
 
@@ -96,7 +94,7 @@ public class MemberDataDtoResponse {
     @NotNull
     private String medicalDataId;
 
-    private SaveAddressResponseDto address; //DTO do endereço
+    private AddressResponseDto address; //DTO do endereço
 
 
     private GetMedicalDataResponseDto medicalData; // DTO dos dados médicos
@@ -301,11 +299,11 @@ public class MemberDataDtoResponse {
         this.medicalDataId = medicalDataId;
     }
 
-    public SaveAddressResponseDto getAddress() {
+    public AddressResponseDto getAddress() {
         return address;
     }
 
-    public void setAddress(SaveAddressResponseDto address) {
+    public void setAddress(AddressResponseDto address) {
         this.address = address;
     }
 

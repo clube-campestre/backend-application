@@ -1,10 +1,6 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import com.campestre.clube.backend_application.entity.Address;
-
-public class SaveAddressResponseDto {
-
-
+public class AddressResponseDto {
     private Integer id;
     private String houseNumber;
     private String district;
@@ -12,7 +8,6 @@ public class SaveAddressResponseDto {
     private String state;
     private String cep;
     private String referenceHouse;
-
 
     public Integer getId() {
         return id;

@@ -3,7 +3,6 @@ package com.campestre.clube.backend_application.controller;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveTransportRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TransportResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.TransportMapper;
-import com.campestre.clube.backend_application.entity.Transport;
 import com.campestre.clube.backend_application.service.TransportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transports")
@@ -32,13 +32,13 @@ public class TransportController {
         ));
     }
 
-    @Operation(summary = "Endpoint for list all transports")
     @GetMapping
-    public ResponseEntity<List<TransportResponseDto>> getAll() {
-        List<Transport> transports = transportService.getAll();
-        if (transports.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(transports.stream().map(TransportMapper::toResponse)
-                .toList());
+    @Operation(summary = "Endpoint to get transports ranked by rating")
+    public ResponseEntity<List<TransportResponseDto>> getAllOrderedByRating() {
+        List<TransportResponseDto> transports = transportService.getAllOrderedByRating().stream()
+                .map(TransportMapper::toResponse).collect(Collectors.toList());
+        if (transports.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(transports);
     }
 
     @Operation(summary = "Endpoint for get transport by id")

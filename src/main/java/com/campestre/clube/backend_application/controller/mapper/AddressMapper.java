@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.SaveAddressResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.AddressResponseDto;
 import com.campestre.clube.backend_application.entity.Address;
 
 public class AddressMapper {
@@ -17,8 +17,8 @@ public class AddressMapper {
         return address;
     }
 
-    public static SaveAddressResponseDto toResponse(Address address){
-        SaveAddressResponseDto response = new SaveAddressResponseDto();
+    public static AddressResponseDto toResponse(Address address){
+        AddressResponseDto response = new AddressResponseDto();
         response.setId(address.getId());
         response.setHouseNumber(address.getHouseNumber());
         response.setDistrict(address.getDistrict());

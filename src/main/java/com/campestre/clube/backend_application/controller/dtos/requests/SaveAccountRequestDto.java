@@ -14,11 +14,10 @@ public class SaveAccountRequestDto {
     private String email;
 
     @Column(name = "passwd")
-    @Size(min = 10, max = 20)
+    @Size(min = 6)
     @NotNull
     @Schema(description = "Account password", example = "ABCDE12345")
     private String password;
-
     @NotEmpty
     @Schema(description = "Account name", example = "Test")
     private String name;

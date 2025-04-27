@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
-    boolean existsBySirname(String sirname);
+    boolean existsByName(String name);
     List<Place> findAllByOrderByRatingDesc();
 }

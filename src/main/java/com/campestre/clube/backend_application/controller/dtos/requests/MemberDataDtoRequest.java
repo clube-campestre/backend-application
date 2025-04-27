@@ -98,12 +98,12 @@ public class MemberDataDtoRequest {
     @NotNull
     private String medicalDataId;
 
-    @Valid
-    private SaveAddressRequestDto address; //DTO do endereço
 
     @Valid
     private SaveMedicalDataRequestDto medicalData; // DTO dos dados médicos
 
+    @Valid
+    private SaveAddressRequestDto address; //DTO do endereço
 
     public String getCpf() {
         return cpf;

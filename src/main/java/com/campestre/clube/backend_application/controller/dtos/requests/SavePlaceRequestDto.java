@@ -3,11 +3,9 @@ package com.campestre.clube.backend_application.controller.dtos.requests;
 import jakarta.validation.constraints.*;
 
 public class SavePlaceRequestDto {
-    @NotNull
-    private Integer fkAddress;
     @NotBlank
     @Size(max = 45)
-    private String sirname;
+    private String name;
     @NotNull
     private Double price;
     @NotNull
@@ -17,23 +15,25 @@ public class SavePlaceRequestDto {
     private String contact;
     @NotNull
     @Min(1)
-    @Max(10)
+    @Max(5)
     private Integer rating;
+    @NotNull
+    private SaveAddressRequestDto address;
 
-    public Integer getFkAddress() {
-        return fkAddress;
+    public SaveAddressRequestDto getAddress() {
+        return address;
     }
 
-    public void setFkAddress(Integer fkAddress) {
-        this.fkAddress = fkAddress;
+    public void setAddress(SaveAddressRequestDto address) {
+        this.address = address;
     }
 
-    public String getSirname() {
-        return sirname;
+    public String getName() {
+        return name;
     }
 
-    public void setSirname(String sirname) {
-        this.sirname = sirname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
