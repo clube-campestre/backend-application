@@ -37,7 +37,6 @@ public class MemberDataService {
 
         MedicalData medicalData = medicalDataService.createMedicalData(memberDto.getMedicalData());
         Address address = addressService.createAddress(memberDto.getAddress());
-        System.out.println(address);
 
         if (memberDataRepository.existsByCpf(memberDto.getCpf())) {
             throw new ConflictException("Member with existing CPF [%s] or Medical Data".formatted(memberDto.getCpf()));

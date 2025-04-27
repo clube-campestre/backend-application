@@ -1,10 +1,15 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class GetAccountResponseDto {
+    @Schema(description = "Account ID", example = "1")
     private Integer id;
+    @Schema(description = "Account e-mail", example = "test@email.com")
     private String email;
-    private String password;
+    @Schema(description = "Account name", example = "Test")
     private String name;
+    @Schema(description = "Account access", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
 
     public GetAccountResponseDto() {}
@@ -23,14 +28,6 @@ public class GetAccountResponseDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

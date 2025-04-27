@@ -1,22 +1,14 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
+import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.LoginAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.GetAccountResponseDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.LoginAccountResponseDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.SaveAccountResponseDto;
 import com.campestre.clube.backend_application.entity.Account;
 import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 
 public abstract class AccountMapper {
-    public static Account toEntity(LoginAccountRequestDto dto) {
-        Account account = new Account();
-        account.setEmail(dto.getEmail());
-        account.setPassword(dto.getPassword());
-        return account;
-    }
-
-    public static Account toEntity(SaveAccountRequestDto dto) {
+    public static Account of(SaveAccountRequestDto dto){
         Account account = new Account();
         account.setEmail(dto.getEmail());
         account.setPassword(dto.getPassword());
@@ -25,30 +17,29 @@ public abstract class AccountMapper {
         return account;
     }
 
-    public static GetAccountResponseDto toGetResponse(Account account) {
-        GetAccountResponseDto response = new GetAccountResponseDto();
-        response.setId(account.getId());
-        response.setEmail(account.getEmail());
-        response.setPassword(account.getPassword());
-        response.setName(account.getName());
-        response.setAccess(account.getAccess().name());
-        return response;
+    public static Account of(LoginAccountRequestDto dto){
+        Account account = new Account();
+        account.setEmail(dto.getEmail());
+        account.setPassword(dto.getPassword());
+        return account;
     }
 
-    public static LoginAccountResponseDto toLoginResponse(Account account) {
-        LoginAccountResponseDto response = new LoginAccountResponseDto();
-        response.setEmail(account.getEmail());
-        response.setAccess(account.getAccess().name());
-        return response;
+    public static TokenAccountResponseDto of(Account account, String token){
+        TokenAccountResponseDto dto = new TokenAccountResponseDto();
+        dto.setUserId(account.getId());
+        dto.setEmail(account.getEmail());
+        dto.setName(account.getName());
+        dto.setAccess(account.getAccess().name());
+        dto.setToken(token);
+        return dto;
     }
 
-    public static SaveAccountResponseDto toSaveResponse(Account account) {
-        SaveAccountResponseDto response = new SaveAccountResponseDto();
-        response.setId(account.getId());
-        response.setEmail(account.getEmail());
-        response.setPassword(account.getPassword());
-        response.setName(account.getName());
-        response.setAccess(account.getAccess().name());
-        return response;
+    public static GetAccountResponseDto of(Account account){
+        GetAccountResponseDto dto = new GetAccountResponseDto();
+        dto.setId(account.getId());
+        dto.setEmail(account.getEmail());
+        dto.setName(account.getName());
+        dto.setAccess(account.getAccess().name());
+        return dto;
     }
 }
