@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.controller;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.UpdateAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.LoginAccountRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAccountRequestDto;
@@ -57,7 +58,7 @@ public class AccountController {
     @Operation(summary = "Endpoint for update member by id")
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(
-            @PathVariable Integer id, @Valid @RequestBody SaveAccountRequestDto account
+            @PathVariable Integer id, @Valid @RequestBody UpdateAccountRequestDto account
     ) {
         accountService.update(id, AccountMapper.of(account));
         return ResponseEntity.status(HttpStatus.OK).build();
