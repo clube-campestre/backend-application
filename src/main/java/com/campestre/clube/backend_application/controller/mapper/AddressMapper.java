@@ -11,6 +11,7 @@ public class AddressMapper {
         address.setDistrict(dto.getDistrict());
         address.setCity(dto.getCity());
         address.setState(dto.getState());
+        address.setStreet(dto.getStreet());
         address.setCep(dto.getCep());
         address.setReferenceHouse(dto.getReferenceHouse());
 
@@ -25,6 +26,7 @@ public class AddressMapper {
         response.setCity(address.getCity());
         response.setCity(address.getCity());
         response.setState(address.getState());
+        response.setStreet(address.getStreet());
         response.setCep(address.getCep());
         response.setReferenceHouse(address.getReferenceHouse());
 
