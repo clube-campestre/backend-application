@@ -13,6 +13,8 @@ public class SaveAddressRequestDto {
     @NotBlank
     private String state;
     @NotBlank
+    private String street;
+    @NotBlank
     @Size(max = 8)
     private String cep;
     private String referenceHouse;
@@ -47,6 +49,14 @@ public class SaveAddressRequestDto {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCep() {
