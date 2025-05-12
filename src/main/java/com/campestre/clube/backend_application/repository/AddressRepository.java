@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface AddressRepository extends JpaRepository<Address, Integer> {
     Optional<Address> findById(Integer id);
 
-    boolean existsByCep(String cep);
+    boolean existsByCepAndHouseNumber(String cep, String houseNumber);
 
     Address findByCep(String cep);
 }

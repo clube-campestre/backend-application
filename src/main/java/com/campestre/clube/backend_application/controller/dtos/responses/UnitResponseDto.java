@@ -1,24 +1,11 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.controller.dtos.responses;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
-public class Unit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UnitResponseDto {
     private Integer id;
     private String surname;
     private Integer score;
 
-    public Unit(String surname, Integer score, String advisor) {
-        this.surname = surname;
-        this.score = score;
-    }
-
-    public Unit() {
+    public UnitResponseDto() {
     }
 
     public Integer getId() {

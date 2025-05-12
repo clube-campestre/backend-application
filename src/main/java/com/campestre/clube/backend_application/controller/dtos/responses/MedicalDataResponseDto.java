@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-public class GetMedicalDataResponseDto {
+public class MedicalDataResponseDto {
     private String cpf;
     private String cns;
     private String agreement;
@@ -47,7 +47,7 @@ public class GetMedicalDataResponseDto {
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
 
-    public GetMedicalDataResponseDto() {}
+    public MedicalDataResponseDto() {}
 
     public String getCpf() {
         return cpf;

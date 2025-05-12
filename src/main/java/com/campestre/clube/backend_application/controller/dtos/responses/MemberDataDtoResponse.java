@@ -1,103 +1,42 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import com.campestre.clube.backend_application.entity.enums.*;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
 public class MemberDataDtoResponse {
-
-    @NotBlank
-    @CPF
-    @Size(min = 11, max = 11)
     private String cpf;
-
     private String idImage;
-
     private String imagePath;
-
-    @NotBlank
     private UnitRole unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
-
-    @NotBlank
-    @Size(max = 50)
     private String username;
-
-    @NotNull
-    @Past
     private LocalDate birthDate;
-
-    @NotBlank
     private Sex sex; // Enum: "M", "F", "OUTRO"
-
-    @NotBlank
-    @Size(max = 32)
     private String birthCertificate;
-
-    @NotBlank
-    @Size(max = 3)
     private TshirtSize tshirtSize; // Ex: "PP", "M", "G"
-
-    @NotNull
     private Boolean isBaptized;
-
-    @NotBlank
-    @Size(max = 12)
     private String contact;
-
-    @NotNull
     private Integer unitId;
-
-    @NotBlank
     private ClassCategory classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
-
-    @NotBlank
     private ClassRole classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
 
     // Informações do pai
-    @Size(max = 50)
     private String fatherName;
-
-    @Size(max = 12)
     private String fatherContact;
-
-    @Email
-    @Size(max = 50)
     private String fatherEmail;
 
     // Informações da mãe
-    @Size(max = 50)
     private String motherName;
-
-    @Size(max = 12)
     private String motherContact;
-
-    @Email
-    @Size(max = 50)
     private String motherEmail;
 
     // Responsável
-    @Size(max = 50)
     private String responsibleName;
-
-    @Size(max = 12)
     private String responsibleContact;
-
-    @Email
-    @Size(max = 50)
     private String responsibleEmail;
 
-    @NotNull
-    private Integer addressId;
-
-    @NotNull
-    private String medicalDataId;
-
     private AddressResponseDto address; //DTO do endereço
-
-
-    private GetMedicalDataResponseDto medicalData; // DTO dos dados médicos
+    private MedicalDataResponseDto medicalData; // DTO dos dados médicos
 
     public String getCpf() {
         return cpf;
@@ -283,22 +222,6 @@ public class MemberDataDtoResponse {
         this.responsibleEmail = responsibleEmail;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getMedicalDataId() {
-        return medicalDataId;
-    }
-
-    public void setMedicalDataId(String medicalDataId) {
-        this.medicalDataId = medicalDataId;
-    }
-
     public AddressResponseDto getAddress() {
         return address;
     }
@@ -307,11 +230,11 @@ public class MemberDataDtoResponse {
         this.address = address;
     }
 
-    public GetMedicalDataResponseDto getMedicalData() {
+    public MedicalDataResponseDto getMedicalData() {
         return medicalData;
     }
 
-    public void setMedicalData(GetMedicalDataResponseDto medicalData) {
+    public void setMedicalData(MedicalDataResponseDto medicalData) {
         this.medicalData = medicalData;
     }
 }

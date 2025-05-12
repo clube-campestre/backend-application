@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
-import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.AddressRepository;
@@ -16,18 +14,11 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address createAddress(SaveAddressRequestDto dto) {
-        Address address = AddressMapper.toEntity(dto);
-
+    public Address createIfNotExist(Address address) {
         // Se já existe um endereço com esse CEP, use o existente
-        if (addressRepository.existsByCep(address.getCep())) {
+        if (addressRepository.existsByCepAndHouseNumber(address.getCep(), address.getHouseNumber())) {
             return addressRepository.findByCep(address.getCep());
         }
-        return address;
-
-    }
-
-    public Address register(Address address){
         return addressRepository.save(address);
     }
 
@@ -49,8 +40,7 @@ public class AddressService {
         return address;
     }
 
-    public Address update(Integer id, SaveAddressRequestDto dto){
-        Address newAddress = AddressMapper.toEntity(dto);
+    public Address update(Integer id, Address newAddress){
         if(!addressRepository.existsById(id)){
             throw new NotFoundException("Address with id [%s] not found".formatted(id));
         }
@@ -65,8 +55,8 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
-    public Boolean addressAlreadyExists(String cep){
-        return addressRepository.existsByCep(cep);
+    public Boolean addressAlreadyExists(String cep, String houseNumber){
+        return addressRepository.existsByCepAndHouseNumber(cep, houseNumber);
     }
 
 }

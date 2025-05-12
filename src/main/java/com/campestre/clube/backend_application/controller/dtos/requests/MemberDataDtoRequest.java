@@ -1,16 +1,10 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.enums.ClassCategory;
-import com.campestre.clube.backend_application.entity.enums.Sex;
-import com.campestre.clube.backend_application.entity.enums.TshirtSize;
-import com.campestre.clube.backend_application.entity.enums.UnitRole;
-import com.campestre.clube.backend_application.entity.enums.ClassRole;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class MemberDataDtoRequest {
 
@@ -23,7 +17,11 @@ public class MemberDataDtoRequest {
     private String imagePath;
 
     @NotNull
-    private UnitRole unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
+    @Schema(description = "Member data unit role", example = "CONSELHEIRO", allowableValues = {
+            "CONSELHEIRO", "CONSELHEIRO_AUXILIAR", "CAPITAO", "VICE_CAPITAO", "TESOUREIRO", "VICE_TESOUREIRO",
+            "SECRETARIO", "VICE_SECRETARIO", "PADIOLEIRO", "CAPELAO", "ALMO_XARIFADO"
+    })
+    private String unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
 
     @NotBlank
     @Size(max = 50)
@@ -34,14 +32,18 @@ public class MemberDataDtoRequest {
     private LocalDate birthDate;
 
     @NotNull
-    private Sex sex; // Enum: "M", "F", "OUTRO"
+    @Schema(description = "Member data sex", example = "M", allowableValues = {"OUTRO", "FEMININO", "MASCULINO"})
+    private String sex; // Enum: "M", "F", "OUTRO"
 
     @NotBlank
     @Size(max = 32)
     private String birthCertificate;
 
     @NotNull
-    private TshirtSize tshirtSize; // Ex: "PP", "M", "G"
+    @Schema(description = "Member data t-shirt size", example = "M", allowableValues = {
+            "PP", "P", "M", "G", "GG", "XG", "XG1", "XG2"
+    })
+    private String tshirtSize; // Ex: "PP", "M", "G"
 
     @NotNull
     private Boolean isBaptized;
@@ -54,10 +56,17 @@ public class MemberDataDtoRequest {
     private Integer unitId;
 
     @NotNull
-    private ClassCategory classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
+    @Schema(description = "Member data class category", example = "AMIGO", allowableValues = {
+            "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
+            "DESBRAVADORES_COMPLETO", "LIDER", "LIDER_MASTER", "LIDER_MASTER_AVANCADO"
+    })
+    private String classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
 
     @NotNull
-    private ClassRole classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
+    @Schema(description = "Member data class role", example = "INSTRUTOR", allowableValues = {
+            "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
+    })
+    private String classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
 
     // Informações do pai
     @Size(max = 50)
@@ -92,12 +101,6 @@ public class MemberDataDtoRequest {
     @Size(max = 50)
     private String responsibleEmail;
 
-    @NotNull
-    private Integer addressId;
-
-    @NotNull
-    private String medicalDataId;
-
 
     @Valid
     private SaveMedicalDataRequestDto medicalData; // DTO dos dados médicos
@@ -129,11 +132,11 @@ public class MemberDataDtoRequest {
         this.imagePath = imagePath;
     }
 
-    public UnitRole getUnitRole() {
+    public String getUnitRole() {
         return unitRole;
     }
 
-    public void setUnitRole(UnitRole unitRole) {
+    public void setUnitRole(String unitRole) {
         this.unitRole = unitRole;
     }
 
@@ -153,11 +156,11 @@ public class MemberDataDtoRequest {
         this.birthDate = birthDate;
     }
 
-    public Sex getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -169,19 +172,19 @@ public class MemberDataDtoRequest {
         this.birthCertificate = birthCertificate;
     }
 
-    public TshirtSize getTshirtSize() {
+    public String getTshirtSize() {
         return tshirtSize;
     }
 
-    public void setTshirtSize(TshirtSize tshirtSize) {
+    public void setTshirtSize(String tshirtSize) {
         this.tshirtSize = tshirtSize;
     }
 
-    public Boolean getIsBaptized() {
+    public Boolean getBaptized() {
         return isBaptized;
     }
 
-    public void setIsBaptized(Boolean baptized) {
+    public void setBaptized(Boolean baptized) {
         isBaptized = baptized;
     }
 
@@ -201,19 +204,19 @@ public class MemberDataDtoRequest {
         this.unitId = unitId;
     }
 
-    public ClassCategory getClassCategory() {
+    public String getClassCategory() {
         return classCategory;
     }
 
-    public void setClassCategory(ClassCategory classCategory) {
+    public void setClassCategory(String classCategory) {
         this.classCategory = classCategory;
     }
 
-    public ClassRole getClassRole() {
+    public String getClassRole() {
         return classRole;
     }
 
-    public void setClassRole(ClassRole classRole) {
+    public void setClassRole(String classRole) {
         this.classRole = classRole;
     }
 
@@ -289,20 +292,12 @@ public class MemberDataDtoRequest {
         this.responsibleEmail = responsibleEmail;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public SaveMedicalDataRequestDto getMedicalData() {
+        return medicalData;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getMedicalDataId() {
-        return medicalDataId;
-    }
-
-    public void setMedicalDataId(String medicalDataId) {
-        this.medicalDataId = medicalDataId;
+    public void setMedicalData(SaveMedicalDataRequestDto medicalData) {
+        this.medicalData = medicalData;
     }
 
     public SaveAddressRequestDto getAddress() {
@@ -311,13 +306,5 @@ public class MemberDataDtoRequest {
 
     public void setAddress(SaveAddressRequestDto address) {
         this.address = address;
-    }
-
-    public SaveMedicalDataRequestDto getMedicalData() {
-        return medicalData;
-    }
-
-    public void setMedicalData(SaveMedicalDataRequestDto medicalData) {
-        this.medicalData = medicalData;
     }
 }

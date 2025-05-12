@@ -34,10 +34,10 @@ public class PlaceService {
     public Place save(Place place) {
         if (placeRepository.existsByName(place.getName()))
             throw new ConflictException("Place with existing name");
-        if (addressService.addressAlreadyExists(place.getAddress().getCep()))
+        if (addressService.addressAlreadyExists(place.getAddress().getCep(), place.getAddress().getHouseNumber()))
             throw new ConflictException("Address already found for provided CEP.");
 
-        place.setAddress(addressService.register(place.getAddress()));
+        place.setAddress(addressService.createIfNotExist(place.getAddress()));
         return placeRepository.save(place);
     }
 
