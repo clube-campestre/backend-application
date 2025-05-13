@@ -32,14 +32,12 @@ public class MemberDataService {
     public MemberData register(MemberData memberData) {
         Unit unit = findUnitOrThrow(memberData.getUnit().getId());
 
-        MedicalData medicalData = medicalDataService.createMedicalData(memberData.getMedicalData());
-        Address address = addressService.create(memberData.getAddress());
+        MedicalData medicalData = medicalDataService.save(memberData.getMedicalData());
+        Address address = addressService.saveIfNotExist(memberData.getAddress());
 
-        if (memberDataRepository.existsByCpf(memberData.getCpf())) {
+        if (memberDataRepository.existsByCpf(memberData.getCpf()))
             throw new ConflictException("Member with existing CPF [%s] or Medical Data".formatted(memberData.getCpf()));
-        }
 
-        medicalDataService.register(medicalData);
         memberData.setUnit(unit);
         memberData.setAddress(address);
         memberData.setMedicalData(medicalData);
@@ -66,15 +64,11 @@ public class MemberDataService {
 
         Unit unit = findUnitOrThrow(memberData.getUnit().getId());
 
-        // Atualizar ou reutilizar dados médicos
-        MedicalData updatedMedicalData = medicalDataService.update(cpf, memberData.getMedicalData());
-        // Atualizar ou reutilizar endereço
-        Address updatedAddress = addressService.update( memberData.getAddress().getId(), memberData.getAddress());
+        MedicalData updatedMedicalData =
+                medicalDataService.update(memberData.getMedicalData().getCpf(), memberData.getMedicalData());
+        Address updatedAddress = addressService.update(memberData.getAddress().getId(), memberData.getAddress());
 
-        // Salva tudo
-        medicalDataService.register(updatedMedicalData);
-        addressService.register(updatedAddress);
-
+        memberData.getMedicalData().setCpf(cpf);
         memberData.setCpf(cpf);
         memberData.setUnit(unit);
         memberData.setAddress(updatedAddress);

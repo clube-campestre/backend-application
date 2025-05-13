@@ -14,13 +14,19 @@ public class MedicalDataService {
     @Autowired
     private MedicalDataRepository medicalDataRepository;
 
-    public MedicalData register(MedicalData medicalData) {
-        return medicalDataRepository.save(medicalData);
+    public MedicalData save(MedicalData medicalData) {
+        if (medicalData.getCpf() != null)
+            throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(medicalData.getCpf()));
+
+        if (medicalDataRepository.existsById(medicalData.getCpf()))
+            throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
+
+        return medicalData;
     }
 
-    public MedicalData createMedicalData(MedicalData medicalData) {
-        if (medicalData.getCpf() != null && medicalDataRepository.existsById(medicalData.getCpf()))
-            throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
+    public MedicalData update(String cpf, MedicalData medicalData) {
+        if (cpf != null)
+            throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(cpf));
 
         return medicalData;
     }
@@ -32,12 +38,8 @@ public class MedicalDataService {
         return medicalData.get();
     }
 
-    public MedicalData update(String cpf, MedicalData newMedicalData){
-        Optional<MedicalData> medicalData = medicalDataRepository.findById(cpf);
-        medicalDataNotFoundValidation(medicalData, cpf);
-
-        newMedicalData.setCpf(cpf);
-        return newMedicalData;
+    public Boolean existByCpf(String cpf){
+        return medicalDataRepository.findById(cpf).isPresent();
     }
 
     public void delete(String cpf){

@@ -14,12 +14,19 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address createIfNotExist(Address address) {
-        // Se já existe um endereço com esse CEP, use o existente
-        if (addressRepository.existsByCepAndHouseNumber(address.getCep(), address.getHouseNumber())) {
+    public Address saveIfNotExist(Address address) {
+        if (addressRepository.existsByCepAndHouseNumber(address.getCep(), address.getHouseNumber()))
             return addressRepository.findByCep(address.getCep());
-        }
+
         return addressRepository.save(address);
+    }
+
+    public Address update(Integer id, Address newAddress) {
+        if(!addressRepository.existsById(id)){
+            throw new NotFoundException("Address with id [%s] not found".formatted(id));
+        }
+        newAddress.setId(id);
+        return newAddress;
     }
 
     public List<Address> getAll(){
@@ -40,12 +47,8 @@ public class AddressService {
         return address;
     }
 
-    public Address update(Integer id, Address newAddress){
-        if(!addressRepository.existsById(id)){
-            throw new NotFoundException("Address with id [%s] not found".formatted(id));
-        }
-        newAddress.setId(id);
-        return newAddress;
+    public Boolean existById(Integer id){
+        return addressRepository.findById(id).isPresent();
     }
 
     public void delete(Integer id){

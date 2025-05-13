@@ -37,7 +37,7 @@ public class PlaceService {
         if (addressService.addressAlreadyExists(place.getAddress().getCep(), place.getAddress().getHouseNumber()))
             throw new ConflictException("Address already found for provided CEP.");
 
-        place.setAddress(addressService.createIfNotExist(place.getAddress()));
+        place.setAddress(addressService.saveIfNotExist(place.getAddress()));
         return placeRepository.save(place);
     }
 

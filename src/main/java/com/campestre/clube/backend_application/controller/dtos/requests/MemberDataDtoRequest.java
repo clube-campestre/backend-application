@@ -32,7 +32,7 @@ public class MemberDataDtoRequest {
     private LocalDate birthDate;
 
     @NotNull
-    @Schema(description = "Member data sex", example = "M", allowableValues = {"OUTRO", "FEMININO", "MASCULINO"})
+    @Schema(description = "Member data sex", example = "MASCULINO", allowableValues = {"OUTRO", "FEMININO", "MASCULINO"})
     private String sex; // Enum: "M", "F", "OUTRO"
 
     @NotBlank
@@ -52,6 +52,7 @@ public class MemberDataDtoRequest {
     @Size(max = 12)
     private String contact;
 
+//    TODO validar se precisa
     @NotNull
     private Integer unitId;
 
