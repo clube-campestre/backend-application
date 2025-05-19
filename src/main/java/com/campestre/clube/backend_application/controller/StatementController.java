@@ -2,67 +2,108 @@ package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
-import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.controller.mapper.StatementMapper;
+import com.campestre.clube.backend_application.entity.Statement;
+import com.campestre.clube.backend_application.entity.enums.TransactionType;
 import com.campestre.clube.backend_application.service.StatementService;
-import com.campestre.clube.backend_application.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/statements")
-@CrossOrigin("*")
-@Tag(name = "Statement Controller", description = "Statement data routes")
+@RequestMapping("statements")
+@Tag(name = "Statement")
 public class StatementController {
 
-    @Autowired
-    private StatementService statementService;
+    private final StatementService statementService;
 
-    @Autowired
-    private TagService tagService;
+    public StatementController(StatementService statementService) {
+        this.statementService = statementService;
+    }
 
-    @Operation(summary = "Endpoint for create statement")
+
+    @Operation(summary = "Cria um novo statement")
     @PostMapping
-    public ResponseEntity<StatementResponseDto> register(@RequestBody @Valid StatementRequestDto dto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(StatementMapper.toResponse(
-                statementService.register(StatementMapper.toEntity(dto), dto.getIdTag())
-        ));
+    public ResponseEntity<StatementResponseDto> register(
+            @RequestBody @Valid StatementRequestDto dto) {
+
+        var saved = statementService.register(
+                StatementMapper.toEntity(dto),
+                dto.getIdTag()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(StatementMapper.toResponse(saved));
     }
 
-    @Operation(summary = "Endpoint for list all statements")
+
+
+    @Operation(summary = "Lista statements com filtros opcionais")
     @GetMapping
-    public ResponseEntity<List<StatementResponseDto>> getAll(){
-        List<Statement> statements = statementService.getAll();
-        if(statements.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(statements.stream().map(StatementMapper::toResponse)
-                .toList());
+    public ResponseEntity<List<StatementResponseDto>> getAll(
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate,
+
+            @RequestParam(required = false) Integer tagId,
+
+            @RequestParam(required = false) TransactionType type,
+
+            @RequestParam(required = false) String description) {
+
+        var statements = statementService.getAllFiltered(
+                startDate, endDate, tagId, type, description);
+
+        if (statements.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        var response = statements.stream()
+                .map(s -> StatementMapper.toResponse((Statement) s))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Endpoint for get statement by id")
+
+
+    @Operation(summary = "Obtém statement por id")
     @GetMapping("/{id}")
-    public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(StatementMapper.toResponse(statementService.getById(id)));
+    public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id) {
+        var statement = statementService.getById(id);
+        return ResponseEntity.ok(StatementMapper.toResponse(statement));
     }
 
-    @Operation(summary = "Endpoint for update statement by id")
+
+
+    @Operation(summary = "Atualiza statement por id")
     @PutMapping("/{id}")
-    public ResponseEntity<StatementResponseDto> update(@Valid @RequestBody StatementRequestDto dto, @PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(StatementMapper.toResponse(
-                statementService.update(dto, id)
-        ));
+    public ResponseEntity<StatementResponseDto> update(
+            @RequestBody @Valid StatementRequestDto dto,
+            @PathVariable Integer id) {
+
+        var updated = statementService.update(dto, id);
+        return ResponseEntity.ok(StatementMapper.toResponse(updated));
     }
 
-    @Operation(summary = "Endpoint for remove statement by id")
+
+
+    @Operation(summary = "Remove statement por id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         statementService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 }

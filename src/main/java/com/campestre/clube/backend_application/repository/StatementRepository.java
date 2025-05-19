@@ -3,13 +3,19 @@ package com.campestre.clube.backend_application.repository;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface StatementRepository extends JpaRepository<Statement, Integer> {
-    boolean existsByInformationAndPriceAndTransactionDateAndTag(String information, Double price, LocalDateTime transactionDate, Tag tag);
+@Repository
+public interface StatementRepository
+        extends JpaRepository<Statement, Integer>,
+        JpaSpecificationExecutor<Statement> {
 
-    Integer id(Integer id);
+    boolean existsByInformationAndPriceAndTransactionDateAndTag(
+            String information, Double price, LocalDateTime transactionDate, Tag tag);
+
     List<Statement> findAllByTag(Tag tag);
 }
