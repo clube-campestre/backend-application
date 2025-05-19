@@ -30,14 +30,13 @@ public class PlaceService {
         return placeRepository.findAllByOrderByRatingDesc();
     }
 
-    //TODO: Implementar validações na lógica de validar existencia pelo cep, já que pode ter o mesmo cep e ser de outro numero
     public Place save(Place place) {
         if (placeRepository.existsByName(place.getName()))
             throw new ConflictException("Place with existing name");
-        if (addressService.addressAlreadyExists(place.getAddress().getCep()))
+        if (addressService.addressAlreadyExists(place.getAddress().getCep(), place.getAddress().getHouseNumber()))
             throw new ConflictException("Address already found for provided CEP.");
 
-        place.setAddress(addressService.register(place.getAddress()));
+        place.setAddress(addressService.saveIfNotExist(place.getAddress()));
         return placeRepository.save(place);
     }
 
@@ -45,9 +44,10 @@ public class PlaceService {
         Optional<Place> place = placeRepository.findById(id);
 
         placeNotFoundValidation(place, id);
-        if (placeRepository.existsByName(newPlace.getName()))
+        if (placeRepository.existsByNameAndIdNot(newPlace.getName(), id))
             throw new ConflictException("Place with existing sirname");
 
+        newPlace.setAddress(addressService.saveIfNotExist(newPlace.getAddress()));
         newPlace.setId(id);
         return placeRepository.save(newPlace);
     }

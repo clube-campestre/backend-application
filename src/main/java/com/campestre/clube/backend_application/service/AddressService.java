@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
-import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.AddressRepository;
@@ -16,19 +14,19 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public Address createAddress(SaveAddressRequestDto dto) {
-        Address address = AddressMapper.toEntity(dto);
-
-        // Se já existe um endereço com esse CEP, use o existente
-        if (addressRepository.existsByCep(address.getCep())) {
+    public Address saveIfNotExist(Address address) {
+        if (addressRepository.existsByCepAndHouseNumber(address.getCep(), address.getHouseNumber()))
             return addressRepository.findByCep(address.getCep());
-        }
-        return address;
 
+        return addressRepository.save(address);
     }
 
-    public Address register(Address address){
-        return addressRepository.save(address);
+    public Address update(Integer id, Address newAddress) {
+        if(!addressRepository.existsById(id)){
+            throw new NotFoundException("Address with id [%s] not found".formatted(id));
+        }
+        newAddress.setId(id);
+        return newAddress;
     }
 
     public List<Address> getAll(){
@@ -49,13 +47,8 @@ public class AddressService {
         return address;
     }
 
-    public Address update(Integer id, SaveAddressRequestDto dto){
-        Address newAddress = AddressMapper.toEntity(dto);
-        if(!addressRepository.existsById(id)){
-            throw new NotFoundException("Address with id [%s] not found".formatted(id));
-        }
-        newAddress.setId(id);
-        return newAddress;
+    public Boolean existById(Integer id){
+        return addressRepository.findById(id).isPresent();
     }
 
     public void delete(Integer id){
@@ -65,8 +58,8 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
-    public Boolean addressAlreadyExists(String cep){
-        return addressRepository.existsByCep(cep);
+    public Boolean addressAlreadyExists(String cep, String houseNumber){
+        return addressRepository.existsByCepAndHouseNumber(cep, houseNumber);
     }
 
 }

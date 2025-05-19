@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataDtoResponse;
+import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.controller.mapper.MemberDataMapper;
 import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
@@ -28,7 +29,9 @@ public class MemberDataController {
 
     @PostMapping()
     public ResponseEntity<MemberDataDtoResponse> register(@RequestBody @Valid MemberDataDtoRequest dto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(MemberDataMapper.toResponse(memberDataService.register(dto)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MemberDataMapper.toResponse(
+                memberDataService.register(MemberDataMapper.toEntity(dto))
+        ));
     }
 
     @GetMapping
@@ -59,11 +62,13 @@ public class MemberDataController {
 
     @PutMapping("/{cpf}")
     public ResponseEntity<MemberDataDtoResponse> update(@Valid @RequestBody MemberDataDtoRequest dto, @PathVariable String cpf){
-        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(memberDataService.update(cpf, dto)));
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(
+                memberDataService.update(cpf, MemberDataMapper.toEntity(dto))
+        ));
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> delete(@PathVariable String cpf) throws GeneralSecurityException, IOException {
+    public ResponseEntity<Void> delete(@PathVariable String cpf) {
         memberDataService.delete(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

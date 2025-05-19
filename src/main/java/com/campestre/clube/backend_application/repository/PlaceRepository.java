@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
     boolean existsByName(String name);
+    boolean existsByNameAndIdNot(String name, Integer id);
     List<Place> findAllByOrderByRatingDesc();
 }

@@ -6,23 +6,28 @@ import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.entity.Unit;
+import com.campestre.clube.backend_application.entity.enums.ClassCategory;
+import com.campestre.clube.backend_application.entity.enums.ClassRole;
+import com.campestre.clube.backend_application.entity.enums.Sex;
+import com.campestre.clube.backend_application.entity.enums.TshirtSize;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MemberDataMapper {
 
-    public static MemberData toEntity(MemberDataDtoRequest dto, Unit unit, MedicalData medicalData, Address address) {
+    public static MemberData toEntity(MemberDataDtoRequest dto) {
         MemberData member = new MemberData();
         member.setCpf(dto.getCpf());
         member.setUsername(dto.getUsername());
         member.setBirthDate(dto.getBirthDate());
-        member.setSex(dto.getSex());
+        member.setSex(Sex.fromString(dto.getSex()));
         member.setBirthCertificate(dto.getBirthCertificate());
-        member.setTshirtSize(dto.getTshirtSize());
-        member.setIsBaptized(dto.getIsBaptized());
+        member.setTshirtSize(TshirtSize.fromString(dto.getTshirtSize()));
+        member.setIsBaptized(dto.getBaptized());
         member.setContact(dto.getContact());
-        member.setUnit(unit);
-        member.setClassCategory(dto.getClassCategory());
+        member.setUnit(UnitMapper.toEntity(dto.getUnitId()));
+        member.setClassRole(ClassRole.fromString(dto.getClassRole()));
+        member.setClassCategory(ClassCategory.fromString(dto.getClassCategory()));
         member.setFatherName(dto.getFatherName());
         member.setFatherContact(dto.getFatherContact());
         member.setFatherEmail(dto.getFatherEmail());
@@ -32,8 +37,8 @@ public class MemberDataMapper {
         member.setResponsibleName(dto.getResponsibleName());
         member.setResponsibleContact(dto.getResponsibleContact());
         member.setResponsibleEmail(dto.getResponsibleEmail());
-        member.setAddress(address);
-        member.setMedicalData(medicalData);
+        member.setAddress(AddressMapper.toEntity(dto.getAddress()));
+        member.setMedicalData(MedicalDataMapper.toEntity(dto.getMedicalData()));
         return member;
     }
 
@@ -58,10 +63,10 @@ public class MemberDataMapper {
         dto.setResponsibleName(member.getResponsibleName());
         dto.setResponsibleContact(member.getResponsibleContact());
         dto.setResponsibleEmail(member.getResponsibleEmail());
-        dto.setAddressId(member.getAddress().getId());
-        dto.setMedicalDataId(member.getMedicalData().getCpf());
         dto.setImagePath(member.getImagePath());
         dto.setIdImage(member.getIdImage());
+        dto.setAddress(AddressMapper.toResponse(member.getAddress()));
+        dto.setMedicalData(MedicalDataMapper.toResponse(member.getMedicalData()));
         return dto;
     }
 }
