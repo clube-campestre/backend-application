@@ -1,12 +1,27 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveAddressRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.UpdateAddressRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.AddressResponseDto;
 import com.campestre.clube.backend_application.entity.Address;
 
 public class AddressMapper {
     public static Address toEntity(SaveAddressRequestDto dto){
         Address address = new Address();
+        address.setHouseNumber(dto.getHouseNumber());
+        address.setDistrict(dto.getDistrict());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setStreet(dto.getStreet());
+        address.setCep(dto.getCep());
+        address.setReferenceHouse(dto.getReferenceHouse());
+
+        return address;
+    }
+
+    public static Address toEntity(UpdateAddressRequestDto dto){
+        Address address = new Address();
+        address.setId(dto.getId());
         address.setHouseNumber(dto.getHouseNumber());
         address.setDistrict(dto.getDistrict());
         address.setCity(dto.getCity());

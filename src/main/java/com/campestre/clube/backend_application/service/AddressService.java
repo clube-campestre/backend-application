@@ -22,11 +22,8 @@ public class AddressService {
     }
 
     public Address update(Integer id, Address newAddress) {
-        if(!addressRepository.existsById(id)){
-            throw new NotFoundException("Address with id [%s] not found".formatted(id));
-        }
         newAddress.setId(id);
-        return newAddress;
+        return addressRepository.save(newAddress);
     }
 
     public List<Address> getAll(){
