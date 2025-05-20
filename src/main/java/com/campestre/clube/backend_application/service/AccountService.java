@@ -87,8 +87,10 @@ public class AccountService {
         if (accountRepository.existsByEmailAndIdNot(newAccount.getEmail(), id))
             throw new ConflictException("User with existing email");
 
-        newAccount.setId(id);
-        return accountRepository.save(newAccount);
+        account.get().setName(newAccount.getName());
+        account.get().setEmail(newAccount.getEmail());
+        account.get().setAccess(newAccount.getAccess());
+        return accountRepository.save(account.get());
     }
 
     public void delete(Integer id){
