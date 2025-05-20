@@ -10,6 +10,7 @@ import com.campestre.clube.backend_application.exceptions.InternalServerExceptio
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import com.campestre.clube.backend_application.repository.UnitRepository;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,9 @@ public class MemberDataService {
 
     public MemberData getById(String cpf) { return validateMemberExists(cpf);}
 
-    public List<MemberData> getByUnit(Integer unitId) { return  memberDataRepository.findAllByUnitId(unitId);}
+    public Pair<List<MemberData>, Integer> getByUnit(Integer unitId) {
+        return new Pair(memberDataRepository.findAllByUnitId(unitId), unitRepository.findScoreById(unitId));
+    }
 
     public List<MemberData> getByClass(ClassCategory classCategory) {
         return memberDataRepository.findByClassCategory(classCategory);

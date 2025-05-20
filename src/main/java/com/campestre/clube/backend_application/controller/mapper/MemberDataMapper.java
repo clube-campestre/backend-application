@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.entity.MemberData;
@@ -11,6 +12,8 @@ import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import com.campestre.clube.backend_application.entity.enums.Sex;
 import com.campestre.clube.backend_application.entity.enums.TshirtSize;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class MemberDataMapper {
@@ -67,6 +70,13 @@ public class MemberDataMapper {
         dto.setIdImage(member.getIdImage());
         dto.setAddress(AddressMapper.toResponse(member.getAddress()));
         dto.setMedicalData(MedicalDataMapper.toResponse(member.getMedicalData()));
+        return dto;
+    }
+
+    public static MemberDataForUnitDtoResponse toResponse(List<MemberData> members, Integer score) {
+        MemberDataForUnitDtoResponse dto = new MemberDataForUnitDtoResponse();
+        dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
+        dto.setScore(score);
         return dto;
     }
 }
