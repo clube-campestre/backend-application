@@ -47,7 +47,7 @@ public class PlaceService {
         if (placeRepository.existsByNameAndIdNot(newPlace.getName(), id))
             throw new ConflictException("Place with existing sirname");
 
-        newPlace.setAddress(addressService.saveIfNotExist(newPlace.getAddress()));
+        newPlace.setAddress(addressService.update(newPlace.getAddress().getId(), newPlace.getAddress()));
         newPlace.setId(id);
         return placeRepository.save(newPlace);
     }
