@@ -3,7 +3,6 @@ package com.campestre.clube.backend_application.controller;
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.StatementMapper;
-import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
 import com.campestre.clube.backend_application.service.StatementService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("statements")
@@ -30,7 +28,7 @@ public class StatementController {
     }
 
 
-    @Operation(summary = "Cria um novo statement")
+    @Operation(summary = "Endpoint for create statement")
     @PostMapping
     public ResponseEntity<StatementResponseDto> register(
             @RequestBody @Valid StatementRequestDto dto) {
@@ -45,10 +43,9 @@ public class StatementController {
     }
 
 
-
-    @Operation(summary = "Lista statements com filtros opcionais")
+    @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
-    public ResponseEntity<List<StatementResponseDto>> getAll(
+    public ResponseEntity<List<StatementResponseDto>> getByFilterAndPagination(
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             LocalDateTime startDate,
@@ -58,28 +55,21 @@ public class StatementController {
             LocalDateTime endDate,
 
             @RequestParam(required = false) Integer tagId,
-
             @RequestParam(required = false) TransactionType type,
+            @RequestParam(required = false) String description,
 
-            @RequestParam(required = false) String description) {
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        var statements = statementService
+                .getByFilterAndPagination(startDate, endDate, tagId, type, description, page, size);
+        if (statements.isEmpty()) return ResponseEntity.noContent().build();
 
-        var statements = statementService.getAllFiltered(
-                startDate, endDate, tagId, type, description);
-
-        if (statements.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        var response = statements.stream()
-                .map(s -> StatementMapper.toResponse((Statement) s))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(StatementMapper.toResponse(statements));
     }
 
 
-
-    @Operation(summary = "Obtém statement por id")
+    @Operation(summary = "Endpoint for get statement by id")
     @GetMapping("/{id}")
     public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id) {
         var statement = statementService.getById(id);
@@ -87,8 +77,7 @@ public class StatementController {
     }
 
 
-
-    @Operation(summary = "Atualiza statement por id")
+    @Operation(summary = "Endpoint for update statement by id")
     @PutMapping("/{id}")
     public ResponseEntity<StatementResponseDto> update(
             @RequestBody @Valid StatementRequestDto dto,
@@ -99,8 +88,7 @@ public class StatementController {
     }
 
 
-
-    @Operation(summary = "Remove statement por id")
+    @Operation(summary = "Endpoint for remove statement by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         statementService.delete(id);

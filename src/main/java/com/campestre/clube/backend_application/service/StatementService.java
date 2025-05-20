@@ -10,16 +10,12 @@ import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -31,35 +27,28 @@ public class StatementService {
     @Autowired
     private TagRepository tagRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    public Statement register(Statement statement, Integer idTag) {
+        Tag tag = tagRepository.findById(idTag).orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(idTag)));
 
-    public Statement register(Statement statement, Integer idTag){
-        Tag tag = tagRepository.findById(idTag)
-                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(idTag)));
-
-        if(statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(
-                statement.getInformation(), statement.getPrice(), statement.getTransactionDate(), tag)
-        ){
+        if (statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(statement.getInformation(), statement.getPrice(), statement.getTransactionDate(), tag)) {
             throw new ConflictException("Statement with existing information, price, transaction_date and tag");
         }
         statement.setTag(tag);
         return statementRepository.save(statement);
     }
 
-    public List<Statement> getAll(){
+    public List<Statement> getAll() {
         return statementRepository.findAll();
     }
 
-    public Statement getById(Integer id){
+    public Statement getById(Integer id) {
         return validateStatementExists(id);
     }
 
-    public Statement update(StatementRequestDto dto, Integer id){
+    public Statement update(StatementRequestDto dto, Integer id) {
         Statement existingStatement = validateStatementExists(id);
 
-        Tag tag = tagRepository.findById(dto.getIdTag())
-                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(dto.getIdTag())));// Aqui você resolve a tag real
+        Tag tag = tagRepository.findById(dto.getIdTag()).orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(dto.getIdTag())));// Aqui você resolve a tag real
 
         existingStatement.setInformation(dto.getInformation());
         existingStatement.setPrice(dto.getPrice());
@@ -70,7 +59,7 @@ public class StatementService {
         return statementRepository.save(existingStatement);
     }
 
-    public void updateAllForTagId(Tag tagToBeDeleted, Tag genericTag){
+    public void updateAllForTagId(Tag tagToBeDeleted, Tag genericTag) {
         List<Statement> statementsWithTag = statementRepository.findAllByTag(tagToBeDeleted);
 
         for (Statement s : statementsWithTag) {
@@ -79,56 +68,24 @@ public class StatementService {
         statementRepository.saveAll(statementsWithTag);
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         validateStatementExists(id);
         statementRepository.deleteById(id);
     }
 
-
-
-    public List<Object> getAllFiltered(
-            LocalDateTime startDate,
-            LocalDateTime endDate,
-            Integer tagId,
-            TransactionType type,
-            String information) {
-
-
-        if (startDate == null && endDate == null && tagId == null && type == null) {
-            return Collections.singletonList(getAll());
-        }
-
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Statement> cq = cb.createQuery(Statement.class);
-        Root<Statement> root = cq.from(Statement.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (startDate != null)
-            predicates.add(cb.greaterThanOrEqualTo(root.get("transactionDate"), startDate));
-
-        if (endDate != null)
-            predicates.add(cb.lessThanOrEqualTo(root.get("transactionDate"), endDate));
-
-        if (tagId != null)
-            predicates.add(cb.equal(root.get("tag").get("id"), tagId));
-
-        if (type != null)
-            predicates.add(cb.equal(root.get("transactionType"), type));
-
-        if (information != null)
-            predicates.add(cb.equal(root.get("information"), information));
-
-        cq.where(cb.and(predicates.toArray(new Predicate[0])));
-
-        return Collections.singletonList(entityManager.createQuery(cq).getResultList());
+    public List<Statement> getByFilterAndPagination(
+            LocalDateTime startDate, LocalDateTime endDate, Integer tagId, TransactionType type, String information,
+            Integer page, Integer size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return statementRepository
+                .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable).getContent();
     }
 
-
-
     private Statement validateStatementExists(Integer id) {
-        return statementRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Statement by id [%s] not found".formatted(id)));
+        return statementRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Statement by id [%s] not found".formatted(id))
+        );
     }
 
 }
