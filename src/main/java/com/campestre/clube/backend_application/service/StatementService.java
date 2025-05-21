@@ -27,8 +27,11 @@ public class StatementService {
     @Autowired
     private TagRepository tagRepository;
 
-    public Statement register(Statement statement, Integer idTag) {
-        Tag tag = tagRepository.findById(idTag).orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(idTag)));
+    public Statement register(Statement statement, String tagName) {
+        String tagNameFormatted = tagName.toUpperCase();
+        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+                new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
+        );
 
         if (statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(statement.getInformation(), statement.getPrice(), statement.getTransactionDate(), tag)) {
             throw new ConflictException("Statement with existing information, price, transaction_date and tag");
@@ -47,14 +50,17 @@ public class StatementService {
 
     public Statement update(StatementRequestDto dto, Integer id) {
         Statement existingStatement = validateStatementExists(id);
+        String tagName = dto.getTagName().toUpperCase();
 
-        Tag tag = tagRepository.findById(dto.getIdTag()).orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(dto.getIdTag())));// Aqui você resolve a tag real
+        Tag tag = tagRepository.findBySurname(tagName).orElseThrow(() ->
+                new NotFoundException("Tag by name [%s] not found".formatted(tagName))
+        );
 
         existingStatement.setInformation(dto.getInformation());
         existingStatement.setPrice(dto.getPrice());
         existingStatement.setTransactionDate(dto.getTransactionDate());
         existingStatement.setTransactionType(dto.getTransactionType());
-        existingStatement.setTag(tag); // aqui sim você seta o objeto inteiro
+        existingStatement.setTag(tag);
 
         return statementRepository.save(existingStatement);
     }
@@ -66,6 +72,14 @@ public class StatementService {
             s.setTag(genericTag);
         }
         statementRepository.saveAll(statementsWithTag);
+    }
+
+    public void deleteByTag(String tagName) {
+        String tagNameFormatted = tagName.toUpperCase();
+        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+                new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
+        );
+        statementRepository.deleteByTag(tag);
     }
 
     public void delete(Integer id) {

@@ -1,8 +1,12 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.UnitRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.UnitResetedResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.UnitResponseDto;
 import com.campestre.clube.backend_application.entity.Unit;
+import org.antlr.v4.runtime.misc.Pair;
+
+import java.util.List;
 
 public class UnitMapper {
     public static Unit toEntity(UnitRequestDto dto){
@@ -23,6 +27,13 @@ public class UnitMapper {
         response.setId(unit.getId());
         response.setSurname(unit.getSurname());
         response.setScore(unit.getScore());
+        return response;
+    }
+
+    public static UnitResetedResponseDto toResponse(Pair<List<String>, List<String>> pair){
+        UnitResetedResponseDto response = new UnitResetedResponseDto();
+        response.setReseted(pair.a);
+        response.setNotReseted(pair.b);
         return response;
     }
 }
