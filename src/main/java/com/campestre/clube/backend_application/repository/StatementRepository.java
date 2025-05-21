@@ -38,4 +38,5 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
             String information, Double price, LocalDateTime transactionDate, Tag tag);
 
     List<Statement> findAllByTag(Tag tag);
+    void deleteByTag(Tag tag);
 }

@@ -27,21 +27,13 @@ public class StatementController {
         this.statementService = statementService;
     }
 
-
     @Operation(summary = "Endpoint for create statement")
     @PostMapping
-    public ResponseEntity<StatementResponseDto> register(
-            @RequestBody @Valid StatementRequestDto dto) {
-
-        var saved = statementService.register(
-                StatementMapper.toEntity(dto),
-                dto.getIdTag()
-        );
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(StatementMapper.toResponse(saved));
+    public ResponseEntity<StatementResponseDto> register(@RequestBody @Valid StatementRequestDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(StatementMapper.toResponse(
+                statementService.register(StatementMapper.toEntity(dto), dto.getTagName())
+        ));
     }
-
 
     @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
@@ -68,14 +60,12 @@ public class StatementController {
         return ResponseEntity.ok(StatementMapper.toResponse(statements));
     }
 
-
     @Operation(summary = "Endpoint for get statement by id")
     @GetMapping("/{id}")
     public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id) {
         var statement = statementService.getById(id);
         return ResponseEntity.ok(StatementMapper.toResponse(statement));
     }
-
 
     @Operation(summary = "Endpoint for update statement by id")
     @PutMapping("/{id}")
@@ -87,11 +77,17 @@ public class StatementController {
         return ResponseEntity.ok(StatementMapper.toResponse(updated));
     }
 
-
     @Operation(summary = "Endpoint for remove statement by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         statementService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Endpoint for remove statement by tag")
+    @DeleteMapping("/tag")
+    public ResponseEntity<Void> deleteByTag(@RequestParam String tagName) {
+        statementService.deleteByTag(tagName);
         return ResponseEntity.ok().build();
     }
 }
