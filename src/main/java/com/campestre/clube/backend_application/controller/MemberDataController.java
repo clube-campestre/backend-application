@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForClassDtoResponse;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
 import com.campestre.clube.backend_application.controller.mapper.AddressMapper;
 import com.campestre.clube.backend_application.controller.mapper.MemberDataMapper;
@@ -11,6 +12,7 @@ import com.campestre.clube.backend_application.service.MemberDataService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,16 +56,15 @@ public class MemberDataController {
     @GetMapping("unit/{unitId}")
     @Operation(summary = "Endpoint for list member data by unit")
     public ResponseEntity<MemberDataForUnitDtoResponse> getByUnit(@PathVariable Integer unitId){
-        Pair<List<MemberData>, Integer> data = memberDataService.getByUnit(unitId);
-        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(data.a, data.b));
+        Triple<List<MemberData>, Integer, String> data = memberDataService.getByUnit(unitId);
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(data.a, data.b, data.c));
     }
 
-    @GetMapping("class")
+    @GetMapping("/class")
     @Operation(summary = "Endpoint for list member data by class")
-    public ResponseEntity<List<MemberDataDtoResponse>> getByClass(@RequestBody ClassCategory classCategory) {
-        List<MemberData> members = memberDataService.getByClass(classCategory);
-        if(members.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(members.stream().map(MemberDataMapper::toResponse).toList());
+    public ResponseEntity<MemberDataForClassDtoResponse> getByClass(@RequestParam ClassCategory classCategory) {
+        Pair<List<MemberData>, String> data = memberDataService.getByClass(classCategory);
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(data.a, data.b));
     }
 
     @PutMapping("/{cpf}")

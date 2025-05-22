@@ -5,12 +5,16 @@ import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.entity.Unit;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
+import com.campestre.clube.backend_application.entity.enums.ClassRole;
+import com.campestre.clube.backend_application.entity.enums.UnitRole;
+import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import com.campestre.clube.backend_application.repository.UnitRepository;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,18 +55,37 @@ public class MemberDataService {
                 .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
     }
 
-    public List<MemberData> getAll() {return memberDataRepository.findAll();}
-
-    public MemberData getById(String cpf) { return validateMemberExists(cpf);}
-
-    public Pair<List<MemberData>, Integer> getByUnit(Integer unitId) {
-        Optional<Unit> unit = unitRepository.findById(unitId);
-        if (unit.isEmpty()) throw new NotFoundException("Unit by id [%s] not found".formatted(unitId));
-        return new Pair<>(memberDataRepository.findAllByUnitId(unitId), unit.get().getId());
+    public List<MemberData> getAll() {
+        return memberDataRepository.findAll();
     }
 
-    public List<MemberData> getByClass(ClassCategory classCategory) {
-        return memberDataRepository.findByClassCategory(classCategory);
+    public MemberData getById(String cpf) {
+        return validateMemberExists(cpf);
+    }
+
+    public Triple<List<MemberData>, Integer, String> getByUnit(Integer unitId) {
+        Optional<Unit> unit = unitRepository.findById(unitId);
+        if (unit.isEmpty()) throw new NotFoundException("Unit by id [%s] not found".formatted(unitId));
+
+        List<MemberData> counselors = memberDataRepository.findByUnitIdAndUnitRole(unitId, UnitRole.CONSELHEIRO);
+        if (counselors.isEmpty()) throw new BadRequestException("The unit with id [%s] should have at least 1 counselor".formatted(unitId));
+        if (counselors.size() > 1) throw new BadRequestException("The unit with id [%s] should not have more than one counselor".formatted(unitId));
+
+        return new Triple<>(
+                memberDataRepository.findByUnitIdAndUnitRoleNot(unitId, UnitRole.CONSELHEIRO),
+                unit.get().getId(),
+                counselors.getFirst().getUsername()
+        );
+    }
+
+    public Pair<List<MemberData>, String> getByClass(ClassCategory classCategory) {
+        List<MemberData> instructors = memberDataRepository.findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
+        if (instructors.isEmpty()) throw new BadRequestException("The [%s] class should have at least 1 instructor".formatted(classCategory.name()));
+        if (instructors.size() > 1) throw new BadRequestException("The [%s] class should not have more than one instructor".formatted(classCategory.name()));
+        return new Pair<List<MemberData>, String>(
+                memberDataRepository.findByClassCategoryAndClassRoleNot(classCategory, ClassRole.INSTRUTOR),
+                instructors.getFirst().getUsername()
+        );
     }
 
     public MemberData update(String cpf, MemberData memberData) {
