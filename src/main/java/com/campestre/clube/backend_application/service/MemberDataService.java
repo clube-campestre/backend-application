@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberDataService {
@@ -55,7 +56,9 @@ public class MemberDataService {
     public MemberData getById(String cpf) { return validateMemberExists(cpf);}
 
     public Pair<List<MemberData>, Integer> getByUnit(Integer unitId) {
-        return new Pair(memberDataRepository.findAllByUnitId(unitId), unitRepository.findScoreById(unitId));
+        Optional<Unit> unit = unitRepository.findById(unitId);
+        if (unit.isEmpty()) throw new NotFoundException("Unit by id [%s] not found".formatted(unitId));
+        return new Pair<>(memberDataRepository.findAllByUnitId(unitId), unit.get().getId());
     }
 
     public List<MemberData> getByClass(ClassCategory classCategory) {
