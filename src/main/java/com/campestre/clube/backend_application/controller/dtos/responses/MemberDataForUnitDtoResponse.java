@@ -4,6 +4,7 @@ import java.util.List;
 
 public class MemberDataForUnitDtoResponse {
     private Integer score;
+    private String counselorName;
     private List<MemberDataDtoResponse> members;
 
     public Integer getScore() {
@@ -12,6 +13,14 @@ public class MemberDataForUnitDtoResponse {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getCounselorName() {
+        return counselorName;
+    }
+
+    public void setCounselorName(String counselorName) {
+        this.counselorName = counselorName;
     }
 
     public List<MemberDataDtoResponse> getMembers() {

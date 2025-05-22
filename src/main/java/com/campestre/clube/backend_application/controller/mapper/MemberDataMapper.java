@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForClassDtoResponse;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
 import com.campestre.clube.backend_application.entity.Address;
 import com.campestre.clube.backend_application.entity.MedicalData;
@@ -73,10 +74,18 @@ public class MemberDataMapper {
         return dto;
     }
 
-    public static MemberDataForUnitDtoResponse toResponse(List<MemberData> members, Integer score) {
+    public static MemberDataForUnitDtoResponse toResponse(List<MemberData> members, Integer score, String counselorName) {
         MemberDataForUnitDtoResponse dto = new MemberDataForUnitDtoResponse();
         dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
         dto.setScore(score);
+        dto.setCounselorName(counselorName);
+        return dto;
+    }
+
+    public static MemberDataForClassDtoResponse toResponse(List<MemberData> members, String instructorName) {
+        MemberDataForClassDtoResponse dto = new MemberDataForClassDtoResponse();
+        dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
+        dto.setInstructorName(instructorName);
         return dto;
     }
 }
