@@ -1,13 +1,17 @@
 package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GetByFilterAndPaginationStatementResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.StatementMapper;
+import com.campestre.clube.backend_application.entity.Pagination;
+import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
 import com.campestre.clube.backend_application.service.StatementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +41,7 @@ public class StatementController {
 
     @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
-    public ResponseEntity<List<StatementResponseDto>> getByFilterAndPagination(
+    public ResponseEntity<GetByFilterAndPaginationStatementResponseDto> getByFilterAndPagination(
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             LocalDateTime startDate,
@@ -53,11 +57,11 @@ public class StatementController {
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        var statements = statementService
+        Pair<List<Statement>, Pagination> data = statementService
                 .getByFilterAndPagination(startDate, endDate, tagId, type, description, page, size);
-        if (statements.isEmpty()) return ResponseEntity.noContent().build();
-
-        return ResponseEntity.ok(StatementMapper.toResponse(statements));
+        return ResponseEntity.ok(StatementMapper.toResponse(
+                data.a, data.b.getPageNumber(), data.b.getPageSize(), data.b.getTotalItems(), data.b.getTotalPages()
+        ));
     }
 
     @Operation(summary = "Endpoint for get statement by id")
