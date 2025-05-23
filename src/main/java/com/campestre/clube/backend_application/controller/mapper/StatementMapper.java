@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GetByFilterAndPaginationStatementResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.entity.Statement;
 
@@ -30,5 +31,17 @@ public abstract class StatementMapper {
 
     public static List<StatementResponseDto> toResponse(List<Statement> statements){
         return statements.stream().map(StatementMapper::toResponse).toList();
+    }
+
+    public static GetByFilterAndPaginationStatementResponseDto toResponse(
+            List<Statement> statements, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages
+    ){
+        GetByFilterAndPaginationStatementResponseDto response = new GetByFilterAndPaginationStatementResponseDto();
+        response.setItems(StatementMapper.toResponse(statements));
+        response.setPageNumber(pageNumber);
+        response.setPageSize(pageSize);
+        response.setTotalItems(totalItems);
+        response.setTotalPages(totalPages);
+        return response;
     }
 }

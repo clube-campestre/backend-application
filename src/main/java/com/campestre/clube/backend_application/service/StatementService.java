@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.entity.Pagination;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
@@ -10,9 +11,12 @@ import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -87,13 +91,16 @@ public class StatementService {
         statementRepository.deleteById(id);
     }
 
-    public List<Statement> getByFilterAndPagination(
+    public Pair<List<Statement>, Pagination> getByFilterAndPagination(
             LocalDateTime startDate, LocalDateTime endDate, Integer tagId, TransactionType type, String information,
             Integer page, Integer size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        return statementRepository
-                .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable).getContent();
+        Page<Statement> result = statementRepository
+                .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable);
+        return new Pair<>(result.getContent(), new Pagination(
+                result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
+        ));
     }
 
     private Statement validateStatementExists(Integer id) {
