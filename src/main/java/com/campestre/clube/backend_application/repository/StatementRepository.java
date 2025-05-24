@@ -34,6 +34,9 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
             Pageable pageable
     );
 
+    @Query("SELECT SUM(s.price) FROM Statement s")
+    Double findAllPrices();
+
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, Double price, LocalDateTime transactionDate, Tag tag);
 

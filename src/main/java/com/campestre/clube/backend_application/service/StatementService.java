@@ -12,6 +12,7 @@ import com.campestre.clube.backend_application.repository.TagRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -91,16 +92,17 @@ public class StatementService {
         statementRepository.deleteById(id);
     }
 
-    public Pair<List<Statement>, Pagination> getByFilterAndPagination(
+    public Triple<List<Statement>, Pagination, Double> getByFilterAndPagination(
             LocalDateTime startDate, LocalDateTime endDate, Integer tagId, TransactionType type, String information,
             Integer page, Integer size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Statement> result = statementRepository
                 .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable);
-        return new Pair<>(result.getContent(), new Pagination(
+        Double totalPrice = statementRepository.findAllPrices();
+        return new Triple<>(result.getContent(), new Pagination(
                 result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
-        ));
+        ), totalPrice);
     }
 
     private Statement validateStatementExists(Integer id) {

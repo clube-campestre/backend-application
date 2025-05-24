@@ -7,6 +7,7 @@ public class GetByFilterAndPaginationStatementResponseDto {
     private Integer pageSize;
     private Long totalItems;
     private Integer totalPages;
+    private Double totalPrice;
     private List<StatementResponseDto> items;
 
     public Integer getPageNumber() {
@@ -39,6 +40,14 @@ public class GetByFilterAndPaginationStatementResponseDto {
 
     public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public List<StatementResponseDto> getItems() {

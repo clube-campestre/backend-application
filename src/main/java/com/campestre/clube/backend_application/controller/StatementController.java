@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,10 +58,15 @@ public class StatementController {
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        Pair<List<Statement>, Pagination> data = statementService
+        Triple<List<Statement>, Pagination, Double> data = statementService
                 .getByFilterAndPagination(startDate, endDate, tagId, type, description, page, size);
         return ResponseEntity.ok(StatementMapper.toResponse(
-                data.a, data.b.getPageNumber(), data.b.getPageSize(), data.b.getTotalItems(), data.b.getTotalPages()
+                data.a,
+                data.b.getPageNumber(),
+                data.b.getPageSize(),
+                data.b.getTotalItems(),
+                data.b.getTotalPages(),
+                data.c
         ));
     }
 
