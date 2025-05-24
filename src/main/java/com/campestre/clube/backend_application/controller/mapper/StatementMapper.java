@@ -34,7 +34,12 @@ public abstract class StatementMapper {
     }
 
     public static GetByFilterAndPaginationStatementResponseDto toResponse(
-            List<Statement> statements, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages
+            List<Statement> statements,
+            Integer pageNumber,
+            Integer pageSize,
+            Long totalItems,
+            Integer totalPages,
+            Double totalPrice
     ){
         GetByFilterAndPaginationStatementResponseDto response = new GetByFilterAndPaginationStatementResponseDto();
         response.setItems(StatementMapper.toResponse(statements));
@@ -42,6 +47,7 @@ public abstract class StatementMapper {
         response.setPageSize(pageSize);
         response.setTotalItems(totalItems);
         response.setTotalPages(totalPages);
+        response.setTotalPrice(totalPrice);
         return response;
     }
 }
