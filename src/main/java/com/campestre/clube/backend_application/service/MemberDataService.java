@@ -12,14 +12,12 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
-import com.campestre.clube.backend_application.repository.UnitRepository;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberDataService {
