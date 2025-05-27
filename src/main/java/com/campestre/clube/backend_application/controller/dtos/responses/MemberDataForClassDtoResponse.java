@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MemberDataForClassDtoResponse {
     private String instructorName;
-    private List<MemberDataDtoResponse> members;
+    private List<MemberDataResponseDto> members;
 
     public String getInstructorName() {
         return instructorName;
@@ -14,11 +14,11 @@ public class MemberDataForClassDtoResponse {
         this.instructorName = instructorName;
     }
 
-    public List<MemberDataDtoResponse> getMembers() {
+    public List<MemberDataResponseDto> getMembers() {
         return members;
     }
 
-    public void setMembers(List<MemberDataDtoResponse> members) {
+    public void setMembers(List<MemberDataResponseDto> members) {
         this.members = members;
     }
 }

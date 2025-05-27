@@ -38,8 +38,12 @@ public class MedicalDataService {
         return medicalData.get();
     }
 
-    public Boolean existByCpf(String cpf){
-        return medicalDataRepository.findById(cpf).isPresent();
+    public Boolean existsByCpf(String cpf){
+        return medicalDataRepository.existsByCpf(cpf);
+    }
+
+    public Boolean existsByCns(String cns){
+        return medicalDataRepository.existsByCns(cns);
     }
 
     public void delete(String cpf){
