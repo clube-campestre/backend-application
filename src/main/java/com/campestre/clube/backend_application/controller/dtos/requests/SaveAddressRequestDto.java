@@ -15,7 +15,7 @@ public class SaveAddressRequestDto {
     @NotBlank
     private String street;
     @NotBlank
-    @Size(max = 8)
+    @Size(min = 8, max = 8)
     private String cep;
     private String referenceHouse;
 

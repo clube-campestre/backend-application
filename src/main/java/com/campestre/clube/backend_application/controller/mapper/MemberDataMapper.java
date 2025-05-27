@@ -1,13 +1,10 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForClassDtoResponse;
 import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
-import com.campestre.clube.backend_application.entity.Address;
-import com.campestre.clube.backend_application.entity.MedicalData;
 import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.Unit;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import com.campestre.clube.backend_application.entity.enums.Sex;
@@ -29,7 +26,7 @@ public class MemberDataMapper {
         member.setTshirtSize(TshirtSize.fromString(dto.getTshirtSize()));
         member.setIsBaptized(dto.getBaptized());
         member.setContact(dto.getContact());
-        member.setUnit(UnitMapper.toEntity(dto.getUnitId()));
+        member.setUnit(UnitMapper.toEntity(dto.getUnit()));
         member.setClassRole(ClassRole.fromString(dto.getClassRole()));
         member.setClassCategory(ClassCategory.fromString(dto.getClassCategory()));
         member.setFatherName(dto.getFatherName());
@@ -43,20 +40,21 @@ public class MemberDataMapper {
         member.setResponsibleEmail(dto.getResponsibleEmail());
         member.setAddress(AddressMapper.toEntity(dto.getAddress()));
         member.setMedicalData(MedicalDataMapper.toEntity(dto.getMedicalData()));
+        member.setIssuingAuthority(dto.getIssuingAuthority());
         return member;
     }
 
-    public static MemberDataDtoResponse toResponse(MemberData member) {
-        MemberDataDtoResponse dto = new MemberDataDtoResponse();
+    public static MemberDataResponseDto toResponse(MemberData member) {
+        MemberDataResponseDto dto = new MemberDataResponseDto();
         dto.setCpf(member.getCpf());
         dto.setUsername(member.getUsername());
         dto.setBirthDate(member.getBirthDate());
         dto.setSex(member.getSex());
         dto.setBirthCertificate(member.getBirthCertificate());
         dto.setTshirtSize(member.getTshirtSize());
-        dto.setIsBaptized(member.getIsBaptized());
+        dto.setBaptized(member.getBaptized());
         dto.setContact(member.getContact());
-        dto.setUnitId(member.getUnit().getId());
+        dto.setUnit(UnitMapper.toResponse(member.getUnit()));
         dto.setClassCategory(member.getClassCategory());
         dto.setFatherName(member.getFatherName());
         dto.setFatherContact(member.getFatherContact());
@@ -71,6 +69,7 @@ public class MemberDataMapper {
         dto.setIdImage(member.getIdImage());
         dto.setAddress(AddressMapper.toResponse(member.getAddress()));
         dto.setMedicalData(MedicalDataMapper.toResponse(member.getMedicalData()));
+        dto.setIssuingAuthority(member.getIssuingAuthority());
         return dto;
     }
 
