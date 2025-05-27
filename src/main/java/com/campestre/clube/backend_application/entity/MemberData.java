@@ -8,15 +8,11 @@ import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CPF;
 
-
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity(name= "member_data")
 public class MemberData {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
     @CPF
     private String cpf;
     private String idImage;
@@ -30,6 +26,7 @@ public class MemberData {
     private TshirtSize tshirtSize;
     private Boolean isBaptized;
     private String contact;
+    private String issuingAuthority;
 
     @ManyToOne
     @JoinColumn(name = "fk_unit")
@@ -55,7 +52,6 @@ public class MemberData {
     private Address address;
 
     @OneToOne
-//    @MapsId
     @JoinColumn(name = "fk_medical_data")
     private MedicalData medicalData;
 
@@ -257,5 +253,21 @@ public class MemberData {
 
     public void setMedicalData(MedicalData medicalData) {
         this.medicalData = medicalData;
+    }
+
+    public Boolean getBaptized() {
+        return isBaptized;
+    }
+
+    public void setBaptized(Boolean baptized) {
+        isBaptized = baptized;
+    }
+
+    public String getIssuingAuthority() {
+        return issuingAuthority;
+    }
+
+    public void setIssuingAuthority(String issuingAuthority) {
+        this.issuingAuthority = issuingAuthority;
     }
 }

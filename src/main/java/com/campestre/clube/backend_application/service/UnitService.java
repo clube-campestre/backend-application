@@ -52,4 +52,8 @@ public class UnitService {
         return unitRepository.findAllByOrderByScoreDesc();
     }
 
+    Unit findByIdOrThrow(Integer unitId) {
+        return unitRepository.findById(unitId)
+                .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
+    }
 }

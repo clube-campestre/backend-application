@@ -5,7 +5,7 @@ import java.util.List;
 public class MemberDataForUnitDtoResponse {
     private Integer score;
     private String counselorName;
-    private List<MemberDataDtoResponse> members;
+    private List<MemberDataResponseDto> members;
 
     public Integer getScore() {
         return score;
@@ -23,11 +23,11 @@ public class MemberDataForUnitDtoResponse {
         this.counselorName = counselorName;
     }
 
-    public List<MemberDataDtoResponse> getMembers() {
+    public List<MemberDataResponseDto> getMembers() {
         return members;
     }
 
-    public void setMembers(List<MemberDataDtoResponse> members) {
+    public void setMembers(List<MemberDataResponseDto> members) {
         this.members = members;
     }
 }
