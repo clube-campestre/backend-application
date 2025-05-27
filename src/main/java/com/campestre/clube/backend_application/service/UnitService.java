@@ -48,4 +48,8 @@ public class UnitService {
         return pair;
     }
 
+    public List<Unit> getRanked() {
+        return unitRepository.findAllByOrderByScoreDesc();
+    }
+
 }
