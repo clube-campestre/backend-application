@@ -48,6 +48,10 @@ public class UnitService {
         return pair;
     }
 
+    public List<Unit> getRanked() {
+        return unitRepository.findAllByOrderByScoreDesc();
+    }
+
     Unit findByIdOrThrow(Integer unitId) {
         return unitRepository.findById(unitId)
                 .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));

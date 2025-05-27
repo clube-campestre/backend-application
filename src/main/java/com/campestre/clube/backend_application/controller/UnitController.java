@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/units")
 @CrossOrigin("*")
@@ -30,5 +32,11 @@ public class UnitController {
     @Operation(summary = "Endpoint for reset all unit score")
     public ResponseEntity<UnitResetedResponseDto> resetAllScores() {
         return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.resetAllScores()));
+    }
+
+    @GetMapping("/ranking")
+    @Operation(summary = "Endpoint for get units by ranking")
+    public ResponseEntity<List<UnitResponseDto>> getRanked() {
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.getRanked()));
     }
 }

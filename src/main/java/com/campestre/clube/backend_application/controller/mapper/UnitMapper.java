@@ -30,6 +30,10 @@ public class UnitMapper {
         return response;
     }
 
+    public static List<UnitResponseDto> toResponse(List<Unit> units){
+        return units.stream().map(UnitMapper::toResponse).toList();
+    }
+
     public static UnitResetedResponseDto toResponse(Pair<List<String>, List<String>> pair){
         UnitResetedResponseDto response = new UnitResetedResponseDto();
         response.setReseted(pair.a);
