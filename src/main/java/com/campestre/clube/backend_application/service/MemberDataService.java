@@ -12,14 +12,12 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
-import com.campestre.clube.backend_application.repository.UnitRepository;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberDataService {
@@ -27,7 +25,7 @@ public class MemberDataService {
     @Autowired
     private MemberDataRepository memberDataRepository;
     @Autowired
-    private UnitRepository unitRepository;
+    private UnitService unitService;
     @Autowired
     private AddressService addressService;
     @Autowired
@@ -36,13 +34,17 @@ public class MemberDataService {
     private DriveService driveService;
 
     public MemberData register(MemberData memberData) {
-        Unit unit = findUnitOrThrow(memberData.getUnit().getId());
+        validateMemberExists(memberData.getCpf());
+        if (medicalDataService.existsByCns(memberData.getMedicalData().getCns()))
+            throw new ConflictException(
+                    "Medical data with this CNS [%s] already exists".formatted(memberData.getMedicalData().getCns())
+            );
 
+        Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
+
+        memberData.getMedicalData().setCpf(memberData.getCpf());
         MedicalData medicalData = medicalDataService.save(memberData.getMedicalData());
         Address address = addressService.saveIfNotExist(memberData.getAddress());
-
-        if (memberDataRepository.existsByCpf(memberData.getCpf()))
-            throw new ConflictException("Member with existing CPF [%s] or Medical Data".formatted(memberData.getCpf()));
 
         memberData.setUnit(unit);
         memberData.setAddress(address);
@@ -50,10 +52,7 @@ public class MemberDataService {
         return memberDataRepository.save(memberData);
     }
 
-    private Unit findUnitOrThrow(Integer unitId) {
-        return unitRepository.findById(unitId)
-                .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
-    }
+
 
     public List<MemberData> getAll() {
         return memberDataRepository.findAll();
@@ -64,8 +63,7 @@ public class MemberDataService {
     }
 
     public Triple<List<MemberData>, Integer, String> getByUnit(Integer unitId) {
-        Optional<Unit> unit = unitRepository.findById(unitId);
-        if (unit.isEmpty()) throw new NotFoundException("Unit by id [%s] not found".formatted(unitId));
+        Unit unit = unitService.findByIdOrThrow(unitId);
 
         List<MemberData> counselors = memberDataRepository.findByUnitIdAndUnitRole(unitId, UnitRole.CONSELHEIRO);
         if (counselors.isEmpty()) throw new BadRequestException("The unit with id [%s] should have at least 1 counselor".formatted(unitId));
@@ -73,7 +71,7 @@ public class MemberDataService {
 
         return new Triple<>(
                 memberDataRepository.findByUnitIdAndUnitRoleNot(unitId, UnitRole.CONSELHEIRO),
-                unit.get().getId(),
+                unit.getId(),
                 counselors.getFirst().getUsername()
         );
     }
@@ -91,7 +89,7 @@ public class MemberDataService {
     public MemberData update(String cpf, MemberData memberData) {
         validateMemberExists(cpf);
 
-        Unit unit = findUnitOrThrow(memberData.getUnit().getId());
+        Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
 
         MedicalData updatedMedicalData =
                 medicalDataService.update(memberData.getMedicalData().getCpf(), memberData.getMedicalData());
