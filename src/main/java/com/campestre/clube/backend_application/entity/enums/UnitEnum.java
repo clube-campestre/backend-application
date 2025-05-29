@@ -4,9 +4,9 @@ import com.campestre.clube.backend_application.exceptions.BadRequestException;
 
 public enum UnitEnum {
     PANDA,
-    FALCÃO,
+    FALCAO,
     LINCE,
-    LEÃO,
+    LEAO,
     AGUIA_REAL,
     TIGRE,
     RAPOSA,
@@ -17,7 +17,7 @@ public enum UnitEnum {
     public static UnitEnum fromString(String value) {
         UnitEnum unit;
         try {
-            unit = UnitEnum.valueOf(value.toUpperCase());
+            unit = UnitEnum.valueOf(value.toUpperCase().replace(" ", "_"));
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Unit of member data invalid");
         }
