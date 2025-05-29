@@ -1,5 +1,4 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
-import com.campestre.clube.backend_application.entity.Tag;
 
 import java.math.BigDecimal;
 
