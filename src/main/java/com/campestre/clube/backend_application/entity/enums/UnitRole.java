@@ -18,7 +18,7 @@ public enum UnitRole {
     public static UnitRole fromString(String value) {
         UnitRole unitRole;
         try {
-            unitRole = UnitRole.valueOf(value.toUpperCase());
+            unitRole = UnitRole.valueOf(value.toUpperCase().replace(" ", "_"));
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Unit role of member data invalid");
         }

@@ -18,7 +18,7 @@ public enum ClassCategory {
     public static ClassCategory fromString(String value) {
         ClassCategory classCategory;
         try {
-            classCategory = ClassCategory.valueOf(value.toUpperCase());
+            classCategory = ClassCategory.valueOf(value.toUpperCase().replace(" ", "_"));
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Class category of member data invalid");
         }

@@ -26,22 +26,22 @@ public class InitService {
 
     @PostConstruct
     public void generateGenericTag() {
-        Optional<Tag> genericTag = tagRepository.findBySurnameIgnoreCase("Outros");
-            if (genericTag.isEmpty()) tagRepository.save(new Tag("Outros", "FFFFFF", null, null));
+        Optional<Tag> genericTag = tagRepository.findBySurnameIgnoreCase("OUTROS");
+            if (genericTag.isEmpty()) tagRepository.save(new Tag("OUTROS", "FFFFFF", null, null));
     }
 
     @PostConstruct
     public void generateUnits() {
         Optional<Unit> panda = unitRepository.findBySurnameIgnoreCase("PANDA");
             if (panda.isEmpty()) unitRepository.save(new Unit("PANDA", 0, ""));
-        Optional<Unit> falcao = unitRepository.findBySurnameIgnoreCase("FALCÃO");
-            if (falcao.isEmpty()) unitRepository.save(new Unit("FALCÃO", 0, ""));
+        Optional<Unit> falcao = unitRepository.findBySurnameIgnoreCase("FALCAO");
+            if (falcao.isEmpty()) unitRepository.save(new Unit("FALCAO", 0, ""));
         Optional<Unit> lince = unitRepository.findBySurnameIgnoreCase("LINCE");
             if (lince.isEmpty()) unitRepository.save(new Unit("LINCE", 0, ""));
-        Optional<Unit> leao = unitRepository.findBySurnameIgnoreCase("LEÃO");
-            if (leao.isEmpty()) unitRepository.save(new Unit("LEÃO", 0, ""));
-        Optional<Unit> aguiaReal = unitRepository.findBySurnameIgnoreCase("AGUIA REAL");
-            if (aguiaReal.isEmpty()) unitRepository.save(new Unit("AGUIA REAL", 0, ""));
+        Optional<Unit> leao = unitRepository.findBySurnameIgnoreCase("LEAO");
+            if (leao.isEmpty()) unitRepository.save(new Unit("LEAO", 0, ""));
+        Optional<Unit> aguiaReal = unitRepository.findBySurnameIgnoreCase("AGUIA_REAL");
+            if (aguiaReal.isEmpty()) unitRepository.save(new Unit("AGUIA_REAL", 0, ""));
         Optional<Unit> tigre = unitRepository.findBySurnameIgnoreCase("TIGRE");
             if (tigre.isEmpty()) unitRepository.save(new Unit("TIGRE", 0, ""));
         Optional<Unit> raposa = unitRepository.findBySurnameIgnoreCase("RAPOSA");
