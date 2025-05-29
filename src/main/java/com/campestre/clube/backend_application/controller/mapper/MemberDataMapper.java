@@ -3,7 +3,6 @@ package com.campestre.clube.backend_application.controller.mapper;
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import com.campestre.clube.backend_application.entity.enums.Sex;
