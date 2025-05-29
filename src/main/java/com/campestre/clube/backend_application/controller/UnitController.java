@@ -22,10 +22,12 @@ public class UnitController {
     @Autowired
     private UnitService unitService;
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Endpoint for update unit score by id")
-    public ResponseEntity<UnitResponseDto> updateScoreById(@PathVariable Integer id, @RequestParam Integer newScore) {
-        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.update(id, newScore)));
+    @PutMapping
+    @Operation(summary = "Endpoint for update unit score by unit name")
+    public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String unitName, @RequestParam Integer newScore) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                UnitMapper.toResponse(unitService.updateByUnitName(unitName, newScore))
+        );
     }
 
     @PostMapping("/reseted")
