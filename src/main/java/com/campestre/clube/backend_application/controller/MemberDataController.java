@@ -1,11 +1,10 @@
 package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataResponseDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForClassDtoResponse;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.controller.mapper.MemberDataMapper;
 import com.campestre.clube.backend_application.entity.MemberData;
+import com.campestre.clube.backend_application.entity.Pagination;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.service.MemberDataService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -76,5 +76,29 @@ public class MemberDataController {
     public ResponseEntity<Void> delete(@PathVariable String cpf) {
         memberDataService.delete(cpf);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(summary = "Endpoint for get member data by filter and pagination")
+    @GetMapping("/filter")
+    public ResponseEntity<GetByFilterAndPaginationMemberDataResponseDto> getByFilterAndPagination(
+            @RequestParam(required = false)
+            String unit,
+            @RequestParam(required = false)
+            String classCategory,
+            @RequestParam(required = false)
+            String name,
+
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        Pair<List<MemberData>, Pagination> data = memberDataService
+                .getByFilterAndPagination(unit, classCategory, name, page, size);
+        return ResponseEntity.ok(MemberDataMapper.toResponse(
+                data.a,
+                data.b.getPageNumber(),
+                data.b.getPageSize(),
+                data.b.getTotalItems(),
+                data.b.getTotalPages()
+        ));
     }
 }

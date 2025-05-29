@@ -1,18 +1,20 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
-import com.campestre.clube.backend_application.entity.Tag;
+
+import java.math.BigDecimal;
 
 public class TagResponseDto {
     private Integer id;
     private String surname;
     private String color;
+    private BigDecimal goal;
+    private Boolean privateGoal;
 
-
-    public static TagResponseDto toResponse(Tag tag){
-        TagResponseDto response = new TagResponseDto();
-        response.setId(tag.getId());
-        response.setSurname(tag.getSurname());
-        response.setColor(tag.getColor());
-        return response;
+    public TagResponseDto(Integer id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
+        this.id = id;
+        this.surname = surname;
+        this.color = color;
+        this.goal = goal;
+        this.privateGoal = privateGoal;
     }
 
     public TagResponseDto() {
@@ -40,5 +42,21 @@ public class TagResponseDto {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public BigDecimal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(BigDecimal goal) {
+        this.goal = goal;
+    }
+
+    public Boolean getPrivateGoal() {
+        return privateGoal;
+    }
+
+    public void setPrivateGoal(Boolean privateGoal) {
+        this.privateGoal = privateGoal;
     }
 }

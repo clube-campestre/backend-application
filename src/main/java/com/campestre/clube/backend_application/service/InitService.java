@@ -26,32 +26,32 @@ public class InitService {
 
     @PostConstruct
     public void generateGenericTag() {
-        Optional<Tag> genericTag = tagRepository.findBySurname("Outros");
-            if (genericTag.isEmpty()) tagRepository.save(new Tag("Outros", "FFFFFF"));
+        Optional<Tag> genericTag = tagRepository.findBySurnameIgnoreCase("Outros");
+            if (genericTag.isEmpty()) tagRepository.save(new Tag("Outros", "FFFFFF", null, null));
     }
 
     @PostConstruct
     public void generateUnits() {
-        Optional<Unit> panda = unitRepository.findBySurname("Panda");
-            if (panda.isEmpty()) unitRepository.save(new Unit("Panda", 0, ""));
-        Optional<Unit> falcao = unitRepository.findBySurname("Falcão");
-            if (falcao.isEmpty()) unitRepository.save(new Unit("Falcão", 0, ""));
-        Optional<Unit> lince = unitRepository.findBySurname("Lince");
-            if (lince.isEmpty()) unitRepository.save(new Unit("Lince", 0, ""));
-        Optional<Unit> leao = unitRepository.findBySurname("Leão");
-            if (leao.isEmpty()) unitRepository.save(new Unit("Leão", 0, ""));
-        Optional<Unit> aguiaReal = unitRepository.findBySurname("Aguia Real");
-            if (aguiaReal.isEmpty()) unitRepository.save(new Unit("Aguia Real", 0, ""));
-        Optional<Unit> tigre = unitRepository.findBySurname("Tigre");
-            if (tigre.isEmpty()) unitRepository.save(new Unit("Tigre", 0, ""));
-        Optional<Unit> raposa = unitRepository.findBySurname("Raposa");
-            if (raposa.isEmpty()) unitRepository.save(new Unit("Raposa", 0, ""));
-        Optional<Unit> urso = unitRepository.findBySurname("Urso");
-            if (urso.isEmpty()) unitRepository.save(new Unit("Urso", 0, ""));
-        Optional<Unit> pantera = unitRepository.findBySurname("Pantera");
-            if (pantera.isEmpty()) unitRepository.save(new Unit("Pantera", 0, ""));
-        Optional<Unit> lobo = unitRepository.findBySurname("Lobo");
-            if (lobo.isEmpty()) unitRepository.save(new Unit("Lobo", 0, ""));
+        Optional<Unit> panda = unitRepository.findBySurnameIgnoreCase("PANDA");
+            if (panda.isEmpty()) unitRepository.save(new Unit("PANDA", 0, ""));
+        Optional<Unit> falcao = unitRepository.findBySurnameIgnoreCase("FALCÃO");
+            if (falcao.isEmpty()) unitRepository.save(new Unit("FALCÃO", 0, ""));
+        Optional<Unit> lince = unitRepository.findBySurnameIgnoreCase("LINCE");
+            if (lince.isEmpty()) unitRepository.save(new Unit("LINCE", 0, ""));
+        Optional<Unit> leao = unitRepository.findBySurnameIgnoreCase("LEÃO");
+            if (leao.isEmpty()) unitRepository.save(new Unit("LEÃO", 0, ""));
+        Optional<Unit> aguiaReal = unitRepository.findBySurnameIgnoreCase("AGUIA REAL");
+            if (aguiaReal.isEmpty()) unitRepository.save(new Unit("AGUIA REAL", 0, ""));
+        Optional<Unit> tigre = unitRepository.findBySurnameIgnoreCase("TIGRE");
+            if (tigre.isEmpty()) unitRepository.save(new Unit("TIGRE", 0, ""));
+        Optional<Unit> raposa = unitRepository.findBySurnameIgnoreCase("RAPOSA");
+            if (raposa.isEmpty()) unitRepository.save(new Unit("RAPOSA", 0, ""));
+        Optional<Unit> urso = unitRepository.findBySurnameIgnoreCase("URSO");
+            if (urso.isEmpty()) unitRepository.save(new Unit("URSO", 0, ""));
+        Optional<Unit> pantera = unitRepository.findBySurnameIgnoreCase("PANTERA");
+            if (pantera.isEmpty()) unitRepository.save(new Unit("PANTERA", 0, ""));
+        Optional<Unit> lobo = unitRepository.findBySurnameIgnoreCase("LOBO");
+            if (lobo.isEmpty()) unitRepository.save(new Unit("LOBO", 0, ""));
     }
 
     @PostConstruct

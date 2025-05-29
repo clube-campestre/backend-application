@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UnitRepository extends JpaRepository<Unit, Integer> {
-    Optional<Unit> findBySurname(String unidade);
+    Optional<Unit> findBySurnameIgnoreCase(String unidade);
     List<Unit> findAllByOrderByScoreDesc();
 }

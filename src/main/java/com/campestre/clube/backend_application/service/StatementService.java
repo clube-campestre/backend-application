@@ -9,15 +9,11 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,7 +30,7 @@ public class StatementService {
 
     public Statement register(Statement statement, String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
 
@@ -57,7 +53,7 @@ public class StatementService {
         Statement existingStatement = validateStatementExists(id);
         String tagName = dto.getTagName().toUpperCase();
 
-        Tag tag = tagRepository.findBySurname(tagName).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagName).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagName))
         );
 
@@ -81,7 +77,7 @@ public class StatementService {
 
     public void deleteByTag(String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
         statementRepository.deleteByTag(tag);

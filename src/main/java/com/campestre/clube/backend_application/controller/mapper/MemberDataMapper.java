@@ -1,9 +1,7 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataResponseDto;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForClassDtoResponse;
-import com.campestre.clube.backend_application.controller.dtos.responses.MemberDataForUnitDtoResponse;
+import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.entity.enums.ClassRole;
@@ -86,5 +84,21 @@ public class MemberDataMapper {
         dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
         dto.setInstructorName(instructorName);
         return dto;
+    }
+
+    public static List<MemberDataResponseDto> toResponse(List<MemberData> memberData){
+        return memberData.stream().map(MemberDataMapper::toResponse).toList();
+    }
+
+    public static GetByFilterAndPaginationMemberDataResponseDto toResponse(
+            List<MemberData> memberData, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages
+    ){
+        GetByFilterAndPaginationMemberDataResponseDto response = new GetByFilterAndPaginationMemberDataResponseDto();
+        response.setItems(MemberDataMapper.toResponse(memberData));
+        response.setPageNumber(pageNumber);
+        response.setPageSize(pageSize);
+        response.setTotalItems(totalItems);
+        response.setTotalPages(totalPages);
+        return response;
     }
 }

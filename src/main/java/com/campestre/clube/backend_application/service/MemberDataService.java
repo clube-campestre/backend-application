@@ -1,12 +1,7 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Address;
-import com.campestre.clube.backend_application.entity.MedicalData;
-import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.Unit;
-import com.campestre.clube.backend_application.entity.enums.ClassCategory;
-import com.campestre.clube.backend_application.entity.enums.ClassRole;
-import com.campestre.clube.backend_application.entity.enums.UnitRole;
+import com.campestre.clube.backend_application.entity.*;
+import com.campestre.clube.backend_application.entity.enums.*;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
@@ -15,6 +10,8 @@ import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -116,6 +113,18 @@ public class MemberDataService {
         medicalDataService.delete(cpf);
         addressService.delete(memberToDelete.getAddress().getId());
     }
+
+    public Pair<List<MemberData>, Pagination> getByFilterAndPagination(
+            String unit, String classCategory, String name, Integer page, Integer size
+    ) {
+        Page<MemberData> result = memberDataRepository.findByFilterAndPagination(
+                UnitEnum.fromString(unit), ClassCategory.fromString(classCategory), name, PageRequest.of(page, size)
+        );
+        return new Pair<>(result.getContent(), new Pagination(
+                result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
+        ));
+    }
+
 
 
     private MemberData validateMemberExists(String cpf) {
