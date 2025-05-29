@@ -34,7 +34,7 @@ public class StatementService {
 
     public Statement register(Statement statement, String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
 
@@ -57,7 +57,7 @@ public class StatementService {
         Statement existingStatement = validateStatementExists(id);
         String tagName = dto.getTagName().toUpperCase();
 
-        Tag tag = tagRepository.findBySurname(tagName).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagName).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagName))
         );
 
@@ -81,7 +81,7 @@ public class StatementService {
 
     public void deleteByTag(String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
         statementRepository.deleteByTag(tag);

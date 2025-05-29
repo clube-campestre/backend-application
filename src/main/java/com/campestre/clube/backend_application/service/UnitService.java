@@ -36,7 +36,7 @@ public class UnitService {
 
         Arrays.stream(UnitEnum.values()).forEach(unitEnum -> {
             String name = unitEnum.name().replace("_", " ");
-            Optional<Unit> unit = unitRepository.findBySurname(name);
+            Optional<Unit> unit = unitRepository.findBySurnameIgnoreCase(name);
             if (unit.isEmpty()) {
                 pair.b.add(name);
             } else {
