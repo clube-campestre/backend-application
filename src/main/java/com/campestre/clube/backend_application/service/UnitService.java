@@ -20,10 +20,10 @@ public class UnitService {
     @Autowired
     private UnitRepository unitRepository;
 
-     public Unit update(Integer id, Integer score){
-        Optional<Unit> unit = unitRepository.findById(id);
+     public Unit updateByUnitName(String unitName, Integer score){
+         Optional<Unit> unit = unitRepository.findBySurnameIgnoreCase(unitName);
          if (unit.isEmpty())
-             throw new NotFoundException("Unit by id [%s] not found".formatted(id));
+             throw new NotFoundException("Unit by name [%s] not found".formatted(unitName));
          if (score == null || score < 0)
              throw new BadRequestException("The unit score cannot be negative or zero");
 
