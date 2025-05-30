@@ -13,7 +13,7 @@ public class Unit {
     private String surname;
     private Integer score;
 
-    public Unit(String surname, Integer score, String advisor) {
+    public Unit(String surname, Integer score) {
         this.surname = surname;
         this.score = score;
     }

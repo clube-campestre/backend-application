@@ -9,24 +9,14 @@ import java.util.List;
 
 public abstract class StatementMapper {
     public static Statement toEntity(StatementRequestDto dto){
-        Statement statement = new Statement();
-        statement.setInformation(dto.getInformation());
-        statement.setPrice(dto.getPrice());
-        statement.setTransactionDate(dto.getTransactionDate());
-        statement.setTransactionType(dto.getTransactionType());
-        return statement;
+        return new Statement(dto.getInformation(), dto.getPrice(), dto.getTransactionDate(), dto.getTransactionType());
     }
 
     public static StatementResponseDto toResponse(Statement statement){
-        StatementResponseDto response = new StatementResponseDto();
-        response.setId(statement.getId());
-        response.setInformation(statement.getInformation());
-        response.setPrice(statement.getPrice());
-        response.setTransactionDate(statement.getTransactionDate());
-        response.setTransactionType(statement.getTransactionType());
-        response.setTag(statement.getTag());
-
-        return response;
+        return new StatementResponseDto(
+                statement.getId(), statement.getInformation(), statement.getPrice(), statement.getTransactionDate(),
+                statement.getTransactionType(), statement.getTag()
+        );
     }
 
     public static List<StatementResponseDto> toResponse(List<Statement> statements){
@@ -41,13 +31,8 @@ public abstract class StatementMapper {
             Integer totalPages,
             Double totalPrice
     ){
-        GetByFilterAndPaginationStatementResponseDto response = new GetByFilterAndPaginationStatementResponseDto();
-        response.setItems(StatementMapper.toResponse(statements));
-        response.setPageNumber(pageNumber);
-        response.setPageSize(pageSize);
-        response.setTotalItems(totalItems);
-        response.setTotalPages(totalPages);
-        response.setTotalPrice(totalPrice);
-        return response;
+        return new GetByFilterAndPaginationStatementResponseDto(
+                pageNumber, pageSize, totalItems, totalPages, totalPrice, StatementMapper.toResponse(statements)
+        );
     }
 }

@@ -13,6 +13,18 @@ public class StatementResponseDto {
     private TransactionType transactionType;
     private Tag tag;
 
+    public StatementResponseDto(Integer id, String information, Double price, LocalDateTime transactionDate, TransactionType transactionType, Tag tag) {
+        this.id = id;
+        this.information = information;
+        this.price = price;
+        this.transactionDate = transactionDate;
+        this.transactionType = transactionType;
+        this.tag = tag;
+    }
+
+    public StatementResponseDto() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -17,6 +17,18 @@ public class Place {
     private String contact;
     private Integer rating;
 
+    public Place(Address address, String name, Double price, Integer capacity, String contact, Integer rating) {
+        this.address = address;
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
+        this.contact = contact;
+        this.rating = rating;
+    }
+
+    public Place() {
+    }
+
     public Integer getId() {
         return id;
     }

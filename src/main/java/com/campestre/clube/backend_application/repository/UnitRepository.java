@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface UnitRepository extends JpaRepository<Unit, Integer> {
     Optional<Unit> findBySurnameIgnoreCase(String unidade);
+    Boolean existsBySurnameIgnoreCase(String unidade);
     List<Unit> findAllByOrderByScoreDesc();
 }

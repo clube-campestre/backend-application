@@ -39,7 +39,7 @@ public class MemberDataController {
     public ResponseEntity<List<MemberDataResponseDto>> getAll(){
         List<MemberData> members = memberDataService.getAll();
         if(members.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(members.stream().map(MemberDataMapper::toResponse).toList());
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(members));
     }
 
     @GetMapping("/{cpf}")

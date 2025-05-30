@@ -45,8 +45,7 @@ public class AccountController {
     public ResponseEntity<List<GetAccountResponseDto>> getAll() {
         List<Account> accounts = accountService.getAll();
         if (accounts.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(accounts.stream().map(AccountMapper::of)
-                .toList());
+        return ResponseEntity.status(HttpStatus.OK).body(AccountMapper.of(accounts));
     }
 
     @Operation(summary = "Endpoint for get member by id")

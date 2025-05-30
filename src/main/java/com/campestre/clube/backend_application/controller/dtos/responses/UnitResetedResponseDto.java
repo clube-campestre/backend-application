@@ -6,6 +6,14 @@ public class UnitResetedResponseDto {
     private List<String> reseted;
     private List<String> notReseted;
 
+    public UnitResetedResponseDto(List<String> reseted, List<String> notReseted) {
+        this.reseted = reseted;
+        this.notReseted = notReseted;
+    }
+
+    public UnitResetedResponseDto() {
+    }
+
     public List<String> getReseted() {
         return reseted;
     }

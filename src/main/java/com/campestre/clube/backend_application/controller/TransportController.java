@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.controller;
 import com.campestre.clube.backend_application.controller.dtos.requests.SaveTransportRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.TransportResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.TransportMapper;
+import com.campestre.clube.backend_application.entity.Transport;
 import com.campestre.clube.backend_application.service.TransportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transports")
@@ -35,10 +35,9 @@ public class TransportController {
     @GetMapping
     @Operation(summary = "Endpoint to get transports ranked by rating")
     public ResponseEntity<List<TransportResponseDto>> getAllOrderedByRating() {
-        List<TransportResponseDto> transports = transportService.getAllOrderedByRating().stream()
-                .map(TransportMapper::toResponse).collect(Collectors.toList());
+        List<Transport> transports = transportService.getAllOrderedByRating();
         if (transports.isEmpty()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(transports);
+        return ResponseEntity.ok(TransportMapper.toResponse(transports));
     }
 
     @Operation(summary = "Endpoint for get transport by id")

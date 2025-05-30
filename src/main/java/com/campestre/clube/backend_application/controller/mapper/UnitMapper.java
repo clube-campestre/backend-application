@@ -10,24 +10,11 @@ import java.util.List;
 
 public class UnitMapper {
     public static Unit toEntity(UnitRequestDto dto){
-        Unit unit = new Unit();
-        unit.setSurname(dto.getSurname());
-        unit.setScore(dto.getScore());
-        return unit;
-    }
-
-    public static Unit toEntity(Integer unitId){
-        Unit unit = new Unit();
-        unit.setId(unitId);
-        return unit;
+        return new Unit(dto.getSurname(), dto.getScore());
     }
 
     public static UnitResponseDto toResponse(Unit unit){
-        UnitResponseDto response = new UnitResponseDto();
-        response.setId(unit.getId());
-        response.setSurname(unit.getSurname());
-        response.setScore(unit.getScore());
-        return response;
+        return new UnitResponseDto(unit.getId(), unit.getSurname(), unit.getScore());
     }
 
     public static List<UnitResponseDto> toResponse(List<Unit> units){
@@ -35,9 +22,6 @@ public class UnitMapper {
     }
 
     public static UnitResetedResponseDto toResponse(Pair<List<String>, List<String>> pair){
-        UnitResetedResponseDto response = new UnitResetedResponseDto();
-        response.setReseted(pair.a);
-        response.setNotReseted(pair.b);
-        return response;
+        return new UnitResetedResponseDto(pair.a, pair.b);
     }
 }

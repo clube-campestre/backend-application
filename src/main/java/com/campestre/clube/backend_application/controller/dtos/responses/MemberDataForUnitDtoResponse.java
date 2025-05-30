@@ -7,6 +7,15 @@ public class MemberDataForUnitDtoResponse {
     private String counselorName;
     private List<MemberDataResponseDto> members;
 
+    public MemberDataForUnitDtoResponse(Integer score, String counselorName, List<MemberDataResponseDto> members) {
+        this.score = score;
+        this.counselorName = counselorName;
+        this.members = members;
+    }
+
+    public MemberDataForUnitDtoResponse() {
+    }
+
     public Integer getScore() {
         return score;
     }

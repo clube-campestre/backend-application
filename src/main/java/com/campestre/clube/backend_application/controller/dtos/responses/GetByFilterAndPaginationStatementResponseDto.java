@@ -10,6 +10,18 @@ public class GetByFilterAndPaginationStatementResponseDto {
     private Double totalPrice;
     private List<StatementResponseDto> items;
 
+    public GetByFilterAndPaginationStatementResponseDto(Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages, Double totalPrice, List<StatementResponseDto> items) {
+        this.pageNumber = pageNumber;
+        this.pageSize = pageSize;
+        this.totalItems = totalItems;
+        this.totalPages = totalPages;
+        this.totalPrice = totalPrice;
+        this.items = items;
+    }
+
+    public GetByFilterAndPaginationStatementResponseDto() {
+    }
+
     public Integer getPageNumber() {
         return pageNumber;
     }

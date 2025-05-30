@@ -18,6 +18,30 @@ public class Address {
     private String cep;
     private String referenceHouse;
 
+    public Address(Integer id, String street, String houseNumber, String district, String state, String city, String cep, String referenceHouse) {
+        this.id = id;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.district = district;
+        this.state = state;
+        this.city = city;
+        this.cep = cep;
+        this.referenceHouse = referenceHouse;
+    }
+
+    public Address(String street, String houseNumber, String district, String state, String city, String cep, String referenceHouse) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.district = district;
+        this.state = state;
+        this.city = city;
+        this.cep = cep;
+        this.referenceHouse = referenceHouse;
+    }
+
+    public Address() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -18,6 +18,19 @@ public class Transport {
     private String driverContact;
     private Integer rating;
 
+    public Transport(String enterprise, Double price, Float travelDistance, Integer capacity, String companyContact, String driverContact, Integer rating) {
+        this.enterprise = enterprise;
+        this.price = price;
+        this.travelDistance = travelDistance;
+        this.capacity = capacity;
+        this.companyContact = companyContact;
+        this.driverContact = driverContact;
+        this.rating = rating;
+    }
+
+    public Transport() {
+    }
+
     public Integer getId() {
         return id;
     }
