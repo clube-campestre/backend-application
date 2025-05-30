@@ -3,10 +3,7 @@ package com.campestre.clube.backend_application.controller.mapper;
 import com.campestre.clube.backend_application.controller.dtos.requests.MemberDataDtoRequest;
 import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.enums.ClassCategory;
-import com.campestre.clube.backend_application.entity.enums.ClassRole;
-import com.campestre.clube.backend_application.entity.enums.Sex;
-import com.campestre.clube.backend_application.entity.enums.TshirtSize;
+import com.campestre.clube.backend_application.entity.enums.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,75 +12,39 @@ import java.util.List;
 public class MemberDataMapper {
 
     public static MemberData toEntity(MemberDataDtoRequest dto) {
-        MemberData member = new MemberData();
-        member.setCpf(dto.getCpf());
-        member.setUsername(dto.getUsername());
-        member.setBirthDate(dto.getBirthDate());
-        member.setSex(Sex.fromString(dto.getSex()));
-        member.setBirthCertificate(dto.getBirthCertificate());
-        member.setTshirtSize(TshirtSize.fromString(dto.getTshirtSize()));
-        member.setIsBaptized(dto.getBaptized());
-        member.setContact(dto.getContact());
-        member.setUnit(UnitMapper.toEntity(dto.getUnit()));
-        member.setClassRole(ClassRole.fromString(dto.getClassRole()));
-        member.setClassCategory(ClassCategory.fromString(dto.getClassCategory()));
-        member.setFatherName(dto.getFatherName());
-        member.setFatherContact(dto.getFatherContact());
-        member.setFatherEmail(dto.getFatherEmail());
-        member.setMotherName(dto.getMotherName());
-        member.setMotherContact(dto.getMotherContact());
-        member.setMotherEmail(dto.getMotherEmail());
-        member.setResponsibleName(dto.getResponsibleName());
-        member.setResponsibleContact(dto.getResponsibleContact());
-        member.setResponsibleEmail(dto.getResponsibleEmail());
-        member.setAddress(AddressMapper.toEntity(dto.getAddress()));
-        member.setMedicalData(MedicalDataMapper.toEntity(dto.getMedicalData()));
-        member.setIssuingAuthority(dto.getIssuingAuthority());
-        return member;
+        return new MemberData(
+                dto.getCpf(), dto.getIdImage(), dto.getImagePath(), dto.getUsername(), dto.getBirthDate(),
+                Sex.fromString(dto.getSex()), dto.getBirthCertificate(), TshirtSize.fromString(dto.getTshirtSize()),
+                dto.getBaptized(), dto.getContact(), dto.getIssuingAuthority(), UnitMapper.toEntity(dto.getUnit()),
+                UnitRole.fromString(dto.getUnitRole()), ClassCategory.fromString(dto.getClassCategory()),
+                ClassRole.fromString(dto.getClassRole()), dto.getFatherName(), dto.getFatherContact(),
+                dto.getFatherEmail(), dto.getMotherName(), dto.getMotherContact(), dto.getMotherEmail(),
+                dto.getResponsibleName(), dto.getResponsibleContact(), dto.getResponsibleEmail(),
+                AddressMapper.toEntity(dto.getAddress()), MedicalDataMapper.toEntity(dto.getMedicalData())
+        );
     }
 
     public static MemberDataResponseDto toResponse(MemberData member) {
-        MemberDataResponseDto dto = new MemberDataResponseDto();
-        dto.setCpf(member.getCpf());
-        dto.setUsername(member.getUsername());
-        dto.setBirthDate(member.getBirthDate());
-        dto.setSex(member.getSex());
-        dto.setBirthCertificate(member.getBirthCertificate());
-        dto.setTshirtSize(member.getTshirtSize());
-        dto.setBaptized(member.getBaptized());
-        dto.setContact(member.getContact());
-        dto.setUnit(UnitMapper.toResponse(member.getUnit()));
-        dto.setClassCategory(member.getClassCategory());
-        dto.setFatherName(member.getFatherName());
-        dto.setFatherContact(member.getFatherContact());
-        dto.setFatherEmail(member.getFatherEmail());
-        dto.setMotherName(member.getMotherName());
-        dto.setMotherContact(member.getMotherContact());
-        dto.setMotherEmail(member.getMotherEmail());
-        dto.setResponsibleName(member.getResponsibleName());
-        dto.setResponsibleContact(member.getResponsibleContact());
-        dto.setResponsibleEmail(member.getResponsibleEmail());
-        dto.setImagePath(member.getImagePath());
-        dto.setIdImage(member.getIdImage());
-        dto.setAddress(AddressMapper.toResponse(member.getAddress()));
-        dto.setMedicalData(MedicalDataMapper.toResponse(member.getMedicalData()));
-        dto.setIssuingAuthority(member.getIssuingAuthority());
-        return dto;
+        return new MemberDataResponseDto(
+                member.getCpf(), member.getIdImage(), member.getImagePath(), member.getUsername(),
+                member.getBirthDate(), member.getSex(), member.getBirthCertificate(), member.getTshirtSize(),
+                member.getBaptized(), member.getContact(), member.getIssuingAuthority(),
+                UnitMapper.toResponse(member.getUnit()), member.getUnitRole(), member.getClassCategory(),
+                member.getClassRole(), member.getFatherName(), member.getFatherContact(), member.getFatherEmail(),
+                member.getMotherName(), member.getMotherContact(), member.getMotherEmail(), member.getResponsibleName(),
+                member.getResponsibleContact(), member.getResponsibleEmail(),
+                AddressMapper.toResponse(member.getAddress()), MedicalDataMapper.toResponse(member.getMedicalData())
+        );
     }
 
-    public static MemberDataForUnitDtoResponse toResponse(List<MemberData> members, Integer score, String counselorName) {
-        MemberDataForUnitDtoResponse dto = new MemberDataForUnitDtoResponse();
-        dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
-        dto.setScore(score);
-        dto.setCounselorName(counselorName);
-        return dto;
+    public static MemberDataForUnitDtoResponse toResponse(
+            List<MemberData> members, Integer score, String counselorName
+    ) {
+        return new MemberDataForUnitDtoResponse(score, counselorName, MemberDataMapper.toResponse(members));
     }
 
     public static MemberDataForClassDtoResponse toResponse(List<MemberData> members, String instructorName) {
-        MemberDataForClassDtoResponse dto = new MemberDataForClassDtoResponse();
-        dto.setMembers(members.stream().map(MemberDataMapper::toResponse).toList());
-        dto.setInstructorName(instructorName);
-        return dto;
+        return new MemberDataForClassDtoResponse(instructorName, MemberDataMapper.toResponse(members));
     }
 
     public static List<MemberDataResponseDto> toResponse(List<MemberData> memberData){
@@ -93,12 +54,8 @@ public class MemberDataMapper {
     public static GetByFilterAndPaginationMemberDataResponseDto toResponse(
             List<MemberData> memberData, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages
     ){
-        GetByFilterAndPaginationMemberDataResponseDto response = new GetByFilterAndPaginationMemberDataResponseDto();
-        response.setItems(MemberDataMapper.toResponse(memberData));
-        response.setPageNumber(pageNumber);
-        response.setPageSize(pageSize);
-        response.setTotalItems(totalItems);
-        response.setTotalPages(totalPages);
-        return response;
+        return new GetByFilterAndPaginationMemberDataResponseDto(
+                pageNumber, pageSize, totalItems, totalPages, MemberDataMapper.toResponse(memberData)
+        );
     }
 }

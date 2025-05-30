@@ -7,44 +7,23 @@ import com.campestre.clube.backend_application.entity.Address;
 
 public class AddressMapper {
     public static Address toEntity(SaveAddressRequestDto dto){
-        Address address = new Address();
-        address.setHouseNumber(dto.getHouseNumber());
-        address.setDistrict(dto.getDistrict());
-        address.setCity(dto.getCity());
-        address.setState(dto.getState());
-        address.setStreet(dto.getStreet());
-        address.setCep(dto.getCep());
-        address.setReferenceHouse(dto.getReferenceHouse());
-
-        return address;
+        return new Address(
+                dto.getHouseNumber(), dto.getDistrict(), dto.getCity(), dto.getState(), dto.getStreet(), dto.getCep(),
+                dto.getReferenceHouse()
+        );
     }
 
     public static Address toEntity(UpdateAddressRequestDto dto){
-        Address address = new Address();
-        address.setId(dto.getId());
-        address.setHouseNumber(dto.getHouseNumber());
-        address.setDistrict(dto.getDistrict());
-        address.setCity(dto.getCity());
-        address.setState(dto.getState());
-        address.setStreet(dto.getStreet());
-        address.setCep(dto.getCep());
-        address.setReferenceHouse(dto.getReferenceHouse());
-
-        return address;
+        return new Address(
+                dto.getId(), dto.getHouseNumber(), dto.getDistrict(), dto.getCity(), dto.getState(), dto.getStreet(),
+                dto.getCep(), dto.getReferenceHouse()
+        );
     }
 
     public static AddressResponseDto toResponse(Address address){
-        AddressResponseDto response = new AddressResponseDto();
-        response.setId(address.getId());
-        response.setHouseNumber(address.getHouseNumber());
-        response.setDistrict(address.getDistrict());
-        response.setCity(address.getCity());
-        response.setCity(address.getCity());
-        response.setState(address.getState());
-        response.setStreet(address.getStreet());
-        response.setCep(address.getCep());
-        response.setReferenceHouse(address.getReferenceHouse());
-
-        return response;
+        return new AddressResponseDto(
+                address.getId(), address.getHouseNumber(), address.getDistrict(), address.getCity(), address.getState(),
+                address.getStreet(), address.getCep(), address.getReferenceHouse()
+        );
     }
 }

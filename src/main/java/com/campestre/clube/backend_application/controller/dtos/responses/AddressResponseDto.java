@@ -10,6 +10,20 @@ public class AddressResponseDto {
     private String cep;
     private String referenceHouse;
 
+    public AddressResponseDto(Integer id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
+        this.id = id;
+        this.houseNumber = houseNumber;
+        this.district = district;
+        this.city = city;
+        this.state = state;
+        this.street = street;
+        this.cep = cep;
+        this.referenceHouse = referenceHouse;
+    }
+
+    public AddressResponseDto() {
+    }
+
     public Integer getId() {
         return id;
     }

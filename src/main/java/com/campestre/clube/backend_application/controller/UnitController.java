@@ -22,7 +22,7 @@ public class UnitController {
     @Autowired
     private UnitService unitService;
 
-    @PutMapping
+    @PutMapping("/score")
     @Operation(summary = "Endpoint for update unit score by unit name")
     public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String unitName, @RequestParam Integer newScore) {
         return ResponseEntity.status(HttpStatus.OK).body(

@@ -43,8 +43,7 @@ public class TagController {
     public ResponseEntity<List<TagResponseDto>> getAll() {
         List<Tag> tags = tagService.getAll();
         if(tags.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(tags.stream().map(TagMapper::toResponse)
-                .toList());
+        return ResponseEntity.status(HttpStatus.OK).body(TagMapper.toResponse(tags));
     }
 
     @Operation(summary = "Endpoint for update tag by id")

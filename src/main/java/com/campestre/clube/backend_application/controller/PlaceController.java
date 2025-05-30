@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.controller.dtos.requests.SavePlac
 import com.campestre.clube.backend_application.controller.dtos.requests.UpdatePlaceRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.PlaceResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.PlaceMapper;
+import com.campestre.clube.backend_application.entity.Place;
 import com.campestre.clube.backend_application.service.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,10 +29,9 @@ public class PlaceController {
     @GetMapping
     @Operation(summary = "Endpoint to get places ranked by rating")
     public ResponseEntity<List<PlaceResponseDto>> getAllOrderedByRating() {
-        List<PlaceResponseDto> places = placeService.getAllOrderedByRating().stream()
-                .map(PlaceMapper::toResponse).collect(Collectors.toList());
+        List<Place> places = placeService.getAllOrderedByRating();
         if (places.isEmpty()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(places);
+        return ResponseEntity.ok(PlaceMapper.toResponse(places));
     }
 
     @GetMapping("/{id}")

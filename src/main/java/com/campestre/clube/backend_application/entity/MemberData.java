@@ -55,6 +55,38 @@ public class MemberData {
     @JoinColumn(name = "fk_medical_data")
     private MedicalData medicalData;
 
+    public MemberData(String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex, String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole, String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail, Address address, MedicalData medicalData) {
+        this.cpf = cpf;
+        this.idImage = idImage;
+        this.imagePath = imagePath;
+        this.username = username;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.birthCertificate = birthCertificate;
+        this.tshirtSize = tshirtSize;
+        this.isBaptized = isBaptized;
+        this.contact = contact;
+        this.issuingAuthority = issuingAuthority;
+        this.unit = unit;
+        this.unitRole = unitRole;
+        this.classCategory = classCategory;
+        this.classRole = classRole;
+        this.fatherName = fatherName;
+        this.fatherContact = fatherContact;
+        this.fatherEmail = fatherEmail;
+        this.motherName = motherName;
+        this.motherContact = motherContact;
+        this.motherEmail = motherEmail;
+        this.responsibleName = responsibleName;
+        this.responsibleContact = responsibleContact;
+        this.responsibleEmail = responsibleEmail;
+        this.address = address;
+        this.medicalData = medicalData;
+    }
+
+    public MemberData() {
+    }
+
     public String getCpf() {
         return cpf;
     }

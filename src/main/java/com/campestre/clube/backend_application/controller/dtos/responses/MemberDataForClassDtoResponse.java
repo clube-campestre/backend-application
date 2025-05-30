@@ -6,6 +6,14 @@ public class MemberDataForClassDtoResponse {
     private String instructorName;
     private List<MemberDataResponseDto> members;
 
+    public MemberDataForClassDtoResponse(String instructorName, List<MemberDataResponseDto> members) {
+        this.instructorName = instructorName;
+        this.members = members;
+    }
+
+    public MemberDataForClassDtoResponse() {
+    }
+
     public String getInstructorName() {
         return instructorName;
     }
