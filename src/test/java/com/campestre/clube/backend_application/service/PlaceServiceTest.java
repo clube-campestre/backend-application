@@ -61,7 +61,8 @@ class PlaceServiceTest {
     }
 
     @Test
-    @DisplayName("should save the Place successfully") //TODO fazer cenário ruim e depois update e delete
+    @DisplayName("should save the Place successfully")
+        //TODO fazer cenário ruim e depois update e delete
     void save() {
         Address address = new Address(1, "1", "1", "1", "1", "1", "1", "1");
         Place place = new Place(1, address, "name", 1.0, 1, "123", 1);
@@ -79,10 +80,52 @@ class PlaceServiceTest {
     }
 
     @Test
-    void update() {
+    @DisplayName("deve atualizar o Place com sucesso")
+    void updateSuccessfully() {
+        Address address = new Address(1, "1", "1", "1", "1", "1", "1", "1");
+        Place oldPlace = new Place(1, address, "oldName", 1.0, 1, "123", 1);
+        Place newPlace = new Place(1, address, "newName", 2.0, 2, "456", 2);
+
+        when(placeRepository.findById(any())).thenReturn(Optional.of(oldPlace));
+        when(placeRepository.existsByNameAndIdNot(any(), anyInt())).thenReturn(false);
+        when(addressService.update(anyInt(), any())).thenReturn(address);
+        when(placeRepository.save(any())).thenReturn(newPlace);
+
+        Place result = placeService.update(1, newPlace);
+
+        assertEquals(newPlace, result);
+        verify(placeRepository, times(1)).findById(1);
+        verify(placeRepository, times(1)).existsByNameAndIdNot(newPlace.getName(), 1);
+        verify(addressService, times(1)).update(address.getId(), address);
+        verify(placeRepository, times(1)).save(newPlace);
+    }
+
+
+    @Test
+    @DisplayName("deve lançar exceção ao tentar atualizar Place com nome já existente em outro id")
+    void updatePlaceWithExistingName() {
+        Address address = new Address(1, "1", "1", "1", "1", "1", "1", "1");
+        Place oldPlace = new Place(1, address, "oldName", 1.0, 1, "123", 1);
+        Place newPlace = new Place(1, address, "newName", 2.0, 2, "456", 2);
+
+        when(placeRepository.findById(anyInt())).thenReturn(Optional.of(oldPlace));
+        when(placeRepository.existsByNameAndIdNot(any(), anyInt())).thenReturn(true);
+
+        assertThrows(com.campestre.clube.backend_application.exceptions.ConflictException.class, () -> placeService.update(1, newPlace));
+        verify(placeRepository, times(1)).findById(1);
+        verify(placeRepository, times(1)).existsByNameAndIdNot(newPlace.getName(), 1);
+        verify(addressService, never()).update(anyInt(), any());
+        verify(placeRepository, never()).save(any());
     }
 
     @Test
-    void delete() {
+    @DisplayName("deve lançar exceção ao tentar deletar Place inexistente")
+    void deletePlaceNotFound() {
+        when(placeRepository.existsById(anyInt())).thenReturn(false);
+
+        assertThrows(NotFoundException.class, () -> placeService.delete(1));
+        verify(placeRepository, times(1)).existsById(1);
+        verify(placeRepository, never()).deleteById(anyInt());
     }
 }
+

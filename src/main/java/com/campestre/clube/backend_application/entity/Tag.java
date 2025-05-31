@@ -44,4 +44,7 @@ public class Tag {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public void setName(String doacoes) {
+    }
 }
