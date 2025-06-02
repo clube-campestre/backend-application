@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.responses.DriveRes;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.service.DriveService;
 import io.swagger.v3.oas.annotations.Operation;

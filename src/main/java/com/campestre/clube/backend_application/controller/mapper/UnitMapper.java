@@ -24,7 +24,7 @@ public class UnitMapper {
 
     public static Unit toEntity(GetUnitRequestDto dto){
         Unit unit = new Unit();
-        unit.setSurname(dto.getSurname());
+        unit.setId(dto.getId());
         return unit;
     }
 
