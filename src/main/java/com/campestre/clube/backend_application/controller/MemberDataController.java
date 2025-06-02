@@ -8,6 +8,7 @@ import com.campestre.clube.backend_application.entity.Pagination;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.service.MemberDataService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @CrossOrigin("*")
+@Tag(name = "Member data Controller", description = "Member data routes")
 public class MemberDataController {
 
     @Autowired
