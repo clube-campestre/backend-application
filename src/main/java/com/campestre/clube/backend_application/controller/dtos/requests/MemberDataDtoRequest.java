@@ -28,7 +28,7 @@ public class MemberDataDtoRequest {
     private String issuingAuthority;
 
     @NotBlank
-    @Size(min = 12, max = 12)
+    @Size(min = 11, max = 13)
     private String contact;
 
     @NotNull
@@ -54,28 +54,28 @@ public class MemberDataDtoRequest {
     @Valid
     private SaveMedicalDataRequestDto medicalData;
 
-    @Size(max = 50)
+    @Size(max = 255)
     private String fatherName;
-    @Size(max = 12)
+    @Size(min = 11, max = 13)
     private String fatherContact;
     @Email
-    @Size(max = 50)
+    @Size(max = 255)
     private String fatherEmail;
 
-    @Size(max = 50)
+    @Size(max = 255)
     private String motherName;
-    @Size(max = 12)
+    @Size(min = 11, max = 13)
     private String motherContact;
     @Email
-    @Size(max = 50)
+    @Size(max = 255)
     private String motherEmail;
 
-    @Size(max = 50)
+    @Size(max = 255)
     private String responsibleName;
-    @Size(max = 12)
+    @Size(min = 11, max = 13)
     private String responsibleContact;
     @Email
-    @Size(max = 50)
+    @Size(max = 255)
     private String responsibleEmail;
 
     @NotNull
