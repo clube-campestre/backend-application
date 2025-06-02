@@ -49,7 +49,11 @@ public class UnitService {
     }
 
     public List<Unit> getRanked() {
-        return unitRepository.findAllByOrderByScoreDesc();
+        List<Unit> units = unitRepository.findAllByOrderByScoreDesc();
+        for (Unit unit : units) {
+            unit.setSurname(UnitEnum.fromString(unit.getSurname()).getFormattedValue());
+        }
+        return units;
     }
 
     Unit findByIdOrThrow(Integer unitId) {

@@ -1,8 +1,11 @@
 package com.campestre.clube.backend_application.controller;
 
+import com.campestre.clube.backend_application.controller.dtos.responses.UnitEnumResponseDto;
+import com.campestre.clube.backend_application.controller.mapper.UnitMapper;
 import com.campestre.clube.backend_application.service.EnumerationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +43,10 @@ public class EnumerationController {
 
     @Operation(summary = "Endpoint for list all units")
     @GetMapping("/unit")
-    public ResponseEntity<List<String>> getAllUnit() {
-        List<String> units = enumerationService.getAllUnits();
+    public ResponseEntity<List<UnitEnumResponseDto>> getAllUnit() {
+        List<Pair<String, String>> units = enumerationService.getAllUnits();
         if(units.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(units);
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toEnumResponse(units));
     }
 
     @Operation(summary = "Endpoint for list all units role")

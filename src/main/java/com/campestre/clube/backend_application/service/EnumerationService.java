@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import com.campestre.clube.backend_application.entity.enums.UnitEnum;
 import com.campestre.clube.backend_application.entity.enums.UnitRole;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,8 +21,10 @@ public class EnumerationService {
         return Arrays.stream(ClassRole.values()).map(Enum::name).toList();
     }
 
-    public List<String> getAllUnits() {
-        return Arrays.stream(UnitEnum.values()).map(Enum::name).toList();
+    public List<Pair<String, String>> getAllUnits() {
+        return Arrays.stream(UnitEnum.values()).map(unitEnum ->
+                new Pair<>(unitEnum.name(), unitEnum.getFormattedValue())
+        ).toList();
     }
 
     public List<String> getAllUnitsRole() {
