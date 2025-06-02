@@ -23,7 +23,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("statements")
-@Tag(name = "Statement")
+@CrossOrigin("*")
+@Tag(name = "Statement Controller", description = "Statement data routes")
 public class StatementController {
 
     private final StatementService statementService;

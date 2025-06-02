@@ -213,12 +213,12 @@ public class MemberDataDtoRequest {
         this.tshirtSize = tshirtSize;
     }
 
-    public Boolean getBaptized() {
+    public Boolean getIsBaptized() {
         return isBaptized;
     }
 
-    public void setBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIsBaptized(Boolean isBaptized) {
+        isBaptized = isBaptized;
     }
 
     public SaveAddressRequestDto getAddress() {
