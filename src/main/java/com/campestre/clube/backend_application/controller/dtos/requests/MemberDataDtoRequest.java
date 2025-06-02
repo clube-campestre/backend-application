@@ -54,28 +54,16 @@ public class MemberDataDtoRequest {
     @Valid
     private SaveMedicalDataRequestDto medicalData;
 
-    @Size(max = 255)
     private String fatherName;
-    @Size(min = 11, max = 13)
     private String fatherContact;
-    @Email
-    @Size(max = 255)
     private String fatherEmail;
 
-    @Size(max = 255)
     private String motherName;
-    @Size(min = 11, max = 13)
     private String motherContact;
-    @Email
-    @Size(max = 255)
     private String motherEmail;
 
-    @Size(max = 255)
     private String responsibleName;
-    @Size(min = 11, max = 13)
     private String responsibleContact;
-    @Email
-    @Size(max = 255)
     private String responsibleEmail;
 
     @NotNull
@@ -90,14 +78,14 @@ public class MemberDataDtoRequest {
 
     @NotNull
     @Schema(description = "Member data class category", example = "AMIGO", allowableValues = {
-            "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
+            "NENHUM", "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
             "DESBRAVADORES_COMPLETO", "LIDER", "LIDER_MASTER", "LIDER_MASTER_AVANCADO"
     })
     private String classCategory;
 
     @NotNull
     @Schema(description = "Member data class role", example = "INSTRUTOR", allowableValues = {
-            "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
+            "NENHUM", "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
     })
     private String classRole;
 
@@ -218,7 +206,7 @@ public class MemberDataDtoRequest {
     }
 
     public void setIsBaptized(Boolean isBaptized) {
-        isBaptized = isBaptized;
+        this.isBaptized = isBaptized;
     }
 
     public SaveAddressRequestDto getAddress() {

@@ -26,7 +26,9 @@ public class DriveController {
 
     @PostMapping("/upload")
     @Operation(summary = "Endpoint for upload file to Google Drive")
-    public Object handleFileUpload(@RequestParam("image") MultipartFile file, @RequestParam("cpf") String cpf) throws IOException, GeneralSecurityException {
+    public Object handleFileUpload(
+            @RequestParam("image") MultipartFile file, @RequestParam("cpf") String cpf
+    ) throws IOException, GeneralSecurityException {
         if (file.isEmpty()) {
             return "O arquivo está vazio";
         }

@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.entity.enums;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 
 public enum ClassRole {
+    NENHUMA,
     INSTRUTOR,
     INSTRUTOR_AUXILIAR,
     MEMBRO;
