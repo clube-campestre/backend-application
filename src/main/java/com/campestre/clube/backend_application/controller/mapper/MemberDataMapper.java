@@ -15,7 +15,7 @@ public class MemberDataMapper {
         return new MemberData(
                 dto.getCpf(), dto.getIdImage(), dto.getImagePath(), dto.getUsername(), dto.getBirthDate(),
                 Sex.fromString(dto.getSex()), dto.getBirthCertificate(), TshirtSize.fromString(dto.getTshirtSize()),
-                dto.getBaptized(), dto.getContact(), dto.getIssuingAuthority(), UnitMapper.toEntity(dto.getUnit()),
+                dto.getIsBaptized(), dto.getContact(), dto.getIssuingAuthority(), UnitMapper.toEntity(dto.getUnit()),
                 UnitRole.fromString(dto.getUnitRole()), ClassCategory.fromString(dto.getClassCategory()),
                 ClassRole.fromString(dto.getClassRole()), dto.getFatherName(), dto.getFatherContact(),
                 dto.getFatherEmail(), dto.getMotherName(), dto.getMotherContact(), dto.getMotherEmail(),
@@ -28,7 +28,7 @@ public class MemberDataMapper {
         return new MemberDataResponseDto(
                 member.getCpf(), member.getIdImage(), member.getImagePath(), member.getUsername(),
                 member.getBirthDate(), member.getSex(), member.getBirthCertificate(), member.getTshirtSize(),
-                member.getBaptized(), member.getContact(), member.getIssuingAuthority(),
+                member.getIsBaptized(), member.getContact(), member.getIssuingAuthority(),
                 UnitMapper.toResponse(member.getUnit()), member.getUnitRole(), member.getClassCategory(),
                 member.getClassRole(), member.getFatherName(), member.getFatherContact(), member.getFatherEmail(),
                 member.getMotherName(), member.getMotherContact(), member.getMotherEmail(), member.getResponsibleName(),

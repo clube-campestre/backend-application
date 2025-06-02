@@ -151,14 +151,6 @@ public class MemberData {
         this.tshirtSize = tshirtSize;
     }
 
-    public Boolean getIsBaptized() {
-        return isBaptized;
-    }
-
-    public void setIsBaptized(Boolean baptized) {
-        isBaptized = baptized;
-    }
-
     public String getContact() {
         return contact;
     }
@@ -287,12 +279,12 @@ public class MemberData {
         this.medicalData = medicalData;
     }
 
-    public Boolean getBaptized() {
+    public Boolean getIsBaptized() {
         return isBaptized;
     }
 
-    public void setBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
     }
 
     public String getIssuingAuthority() {
