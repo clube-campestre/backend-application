@@ -37,7 +37,7 @@ public class MemberDataService {
                     "Medical data with this CNS [%s] already exists".formatted(memberData.getMedicalData().getCns())
             );
 
-        Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
+        Unit unit = unitService.findBySurnameOrThrow(memberData.getUnit().getSurname());
 
         memberData.getMedicalData().setCpf(memberData.getCpf());
         MedicalData medicalData = medicalDataService.save(memberData.getMedicalData());

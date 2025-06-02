@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.GetUnitRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.UnitRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.UnitResetedResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.UnitResponseDto;
@@ -19,6 +20,12 @@ public class UnitMapper {
 
     public static List<UnitResponseDto> toResponse(List<Unit> units){
         return units.stream().map(UnitMapper::toResponse).toList();
+    }
+
+    public static Unit toEntity(GetUnitRequestDto dto){
+        Unit unit = new Unit();
+        unit.setSurname(dto.getSurname());
+        return unit;
     }
 
     public static UnitResetedResponseDto toResponse(Pair<List<String>, List<String>> pair){
