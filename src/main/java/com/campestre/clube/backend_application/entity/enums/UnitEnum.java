@@ -3,16 +3,25 @@ package com.campestre.clube.backend_application.entity.enums;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 
 public enum UnitEnum {
-    PANDA,
-    FALCAO,
-    LINCE,
-    LEAO,
-    AGUIA_REAL,
-    TIGRE,
-    RAPOSA,
-    URSO,
-    PANTERA,
-    LOBO;
+    PANDA("Panda"),
+    FALCAO("Falcão"),
+    LINCE("Lince"),
+    LEAO("Leão"),
+    AGUIA_REAL("Águia Real"),
+    TIGRE("Tigre"),
+    RAPOSA("Raposa"),
+    URSO("Urso"),
+    PANTERA("Pantera"),
+    LOBO("Lobo");
+
+    private String formattedValue;
+
+    UnitEnum(String formattedValue) {
+    }
+
+    public String getFormattedValue() {
+        return formattedValue;
+    }
 
     public static UnitEnum fromString(String value) {
         UnitEnum unit;

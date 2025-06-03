@@ -77,7 +77,7 @@ public class MemberDataService {
         List<MemberData> instructors = memberDataRepository.findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
         if (instructors.isEmpty()) throw new BadRequestException("The [%s] class should have at least 1 instructor".formatted(classCategory.name()));
         if (instructors.size() > 1) throw new BadRequestException("The [%s] class should not have more than one instructor".formatted(classCategory.name()));
-        return new Pair<List<MemberData>, String>(
+        return new Pair<>(
                 memberDataRepository.findByClassCategoryAndClassRoleNot(classCategory, ClassRole.INSTRUTOR),
                 instructors.getFirst().getUsername()
         );

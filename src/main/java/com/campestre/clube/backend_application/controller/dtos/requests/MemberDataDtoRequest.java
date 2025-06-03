@@ -74,7 +74,7 @@ public class MemberDataDtoRequest {
     private String unitRole;
 
     @Valid
-    private UnitRequestDto unit;
+    private GetUnitRequestDto unit;
 
     @NotNull
     @Schema(description = "Member data class category", example = "AMIGO", allowableValues = {
@@ -92,7 +92,14 @@ public class MemberDataDtoRequest {
     public MemberDataDtoRequest() {
     }
 
-    public MemberDataDtoRequest(String idImage, String imagePath, String username, String birthCertificate, String cpf, String issuingAuthority, String contact, LocalDate birthDate, String sex, String tshirtSize, Boolean isBaptized, SaveAddressRequestDto address, SaveMedicalDataRequestDto medicalData, String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail, String unitRole, UnitRequestDto unit, String classCategory, String classRole) {
+    public MemberDataDtoRequest(
+            String idImage, String imagePath, String username, String birthCertificate, String cpf,
+            String issuingAuthority, String contact, LocalDate birthDate, String sex, String tshirtSize,
+            Boolean isBaptized, SaveAddressRequestDto address, SaveMedicalDataRequestDto medicalData, String fatherName,
+            String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail,
+            String responsibleName, String responsibleContact, String responsibleEmail, String unitRole,
+            GetUnitRequestDto unit, String classCategory, String classRole
+    ) {
         this.idImage = idImage;
         this.imagePath = imagePath;
         this.username = username;
@@ -305,11 +312,11 @@ public class MemberDataDtoRequest {
         this.unitRole = unitRole;
     }
 
-    public UnitRequestDto getUnit() {
+    public GetUnitRequestDto getUnit() {
         return unit;
     }
 
-    public void setUnit(UnitRequestDto unit) {
+    public void setUnit(GetUnitRequestDto unit) {
         this.unit = unit;
     }
 

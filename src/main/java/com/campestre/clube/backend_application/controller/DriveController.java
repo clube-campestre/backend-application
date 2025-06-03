@@ -1,10 +1,10 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.responses.DriveRes;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.service.DriveService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,13 +29,10 @@ public class DriveController {
     public Object handleFileUpload(
             @RequestParam("image") MultipartFile file, @RequestParam("cpf") String cpf
     ) throws IOException, GeneralSecurityException {
-        if (file.isEmpty()) {
-            return "O arquivo está vazio";
-        }
+        if (file.isEmpty()) throw new BadRequestException("The file is empty");
         File tempFile = File.createTempFile("temp", null);
         file.transferTo(tempFile);
-        DriveRes res = service.uploadImageToDrive(tempFile, cpf);
-        return res;
+        return service.uploadImageToDrive(tempFile, cpf);
     }
 
 
