@@ -21,7 +21,7 @@ public class MedicalDataService {
         if (medicalDataRepository.existsByCpf(medicalData.getCpf()))
             throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
 
-        return medicalData;
+        return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData update(String cpf, MedicalData medicalData) {
