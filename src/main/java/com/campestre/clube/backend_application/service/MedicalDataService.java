@@ -21,14 +21,14 @@ public class MedicalDataService {
         if (medicalDataRepository.existsByCpf(medicalData.getCpf()))
             throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
 
-        return medicalData;
+        return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData update(String cpf, MedicalData medicalData) {
         if (cpf != null)
             throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(cpf));
 
-        return medicalData;
+        return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData getById(String cpf) {
