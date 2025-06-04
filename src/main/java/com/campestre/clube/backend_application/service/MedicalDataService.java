@@ -15,8 +15,8 @@ public class MedicalDataService {
     private MedicalDataRepository medicalDataRepository;
 
     public MedicalData save(MedicalData medicalData) {
-        if (medicalData.getCpf() != null)
-            throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(medicalData.getCpf()));
+        if (medicalData.getCpf() == null)
+            throw new InternalServerException("The CPF [%s] by medical data is null".formatted(medicalData.getCpf()));
 
         if (medicalDataRepository.existsById(medicalData.getCpf()))
             throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));

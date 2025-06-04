@@ -24,7 +24,15 @@ public class AddressService {
                 address.getCep(),
                 address.getReferenceHouse()
         ))
-            return addressRepository.findByCep(address.getCep());
+            return addressRepository.findByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                    address.getStreet(),
+                    address.getHouseNumber(),
+                    address.getDistrict(),
+                    address.getState(),
+                    address.getCity(),
+                    address.getCep(),
+                    address.getReferenceHouse()
+            );
 
         return addressRepository.save(address);
     }
