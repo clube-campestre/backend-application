@@ -18,7 +18,7 @@ public class MedicalDataService {
         if (medicalData.getCpf() == null)
             throw new InternalServerException("The CPF [%s] by medical data is null".formatted(medicalData.getCpf()));
 
-        if (medicalDataRepository.existsById(medicalData.getCpf()))
+        if (medicalDataRepository.existsByCpf(medicalData.getCpf()))
             throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
 
         return medicalData;
