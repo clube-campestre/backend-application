@@ -12,4 +12,5 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     Address findByCep(String cep);
 
     boolean existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(String street, String houseNumber, String district, String state, String city, String cep, String referenceHouse);
+    Address findByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(String street, String houseNumber, String district, String state, String city, String cep, String referenceHouse);
 }
