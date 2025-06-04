@@ -28,7 +28,7 @@ public class MedicalDataService {
         if (cpf != null)
             throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(cpf));
 
-        return medicalData;
+        return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData getById(String cpf) {
