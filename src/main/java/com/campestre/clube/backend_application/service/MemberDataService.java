@@ -1,7 +1,10 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.entity.*;
-import com.campestre.clube.backend_application.entity.enums.*;
+import com.campestre.clube.backend_application.entity.enums.ClassCategory;
+import com.campestre.clube.backend_application.entity.enums.ClassRole;
+import com.campestre.clube.backend_application.entity.enums.UnitEnum;
+import com.campestre.clube.backend_application.entity.enums.UnitRole;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
@@ -31,7 +34,8 @@ public class MemberDataService {
     private DriveService driveService;
 
     public MemberData register(MemberData memberData) {
-        validateMemberExists(memberData.getCpf());
+        if(memberDataRepository.existsByCpf(memberData.getCpf()))
+            throw new NotFoundException("Member by cpf [%s] already exists".formatted(memberData.getCpf()));
         if (medicalDataService.existsByCns(memberData.getMedicalData().getCns()))
             throw new ConflictException(
                     "Medical data with this CNS [%s] already exists".formatted(memberData.getMedicalData().getCns())
@@ -50,21 +54,26 @@ public class MemberDataService {
     }
 
 
-
     public List<MemberData> getAll() {
         return memberDataRepository.findAll();
     }
 
     public MemberData getById(String cpf) {
-        return validateMemberExists(cpf);
+        return findOrThrow(cpf);
     }
 
     public Triple<List<MemberData>, Integer, String> getByUnit(Integer unitId) {
         Unit unit = unitService.findByIdOrThrow(unitId);
 
         List<MemberData> counselors = memberDataRepository.findByUnitIdAndUnitRole(unitId, UnitRole.CONSELHEIRO);
-        if (counselors.isEmpty()) throw new BadRequestException("The unit with id [%s] should have at least 1 counselor".formatted(unitId));
-        if (counselors.size() > 1) throw new BadRequestException("The unit with id [%s] should not have more than one counselor".formatted(unitId));
+        if (counselors.isEmpty())
+            throw new BadRequestException(
+                    "The unit with id [%s] should have at least 1 counselor".formatted(unitId)
+            );
+        if (counselors.size() > 1)
+            throw new BadRequestException(
+                    "The unit with id [%s] should not have more than one counselor".formatted(unitId)
+            );
 
         return new Triple<>(
                 memberDataRepository.findByUnitIdAndUnitRoleNot(unitId, UnitRole.CONSELHEIRO),
@@ -74,9 +83,16 @@ public class MemberDataService {
     }
 
     public Pair<List<MemberData>, String> getByClass(ClassCategory classCategory) {
-        List<MemberData> instructors = memberDataRepository.findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
-        if (instructors.isEmpty()) throw new BadRequestException("The [%s] class should have at least 1 instructor".formatted(classCategory.name()));
-        if (instructors.size() > 1) throw new BadRequestException("The [%s] class should not have more than one instructor".formatted(classCategory.name()));
+        List<MemberData> instructors = memberDataRepository
+                .findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
+        if (instructors.isEmpty())
+            throw new BadRequestException(
+                    "The [%s] class should have at least 1 instructor".formatted(classCategory.name())
+            );
+        if (instructors.size() > 1)
+            throw new BadRequestException(
+                    "The [%s] class should not have more than one instructor".formatted(classCategory.name())
+            );
         return new Pair<>(
                 memberDataRepository.findByClassCategoryAndClassRoleNot(classCategory, ClassRole.INSTRUTOR),
                 instructors.getFirst().getUsername()
@@ -84,7 +100,7 @@ public class MemberDataService {
     }
 
     public MemberData update(String cpf, MemberData memberData) {
-        validateMemberExists(cpf);
+        findOrThrow(cpf);
 
         Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
 
@@ -102,7 +118,7 @@ public class MemberDataService {
 
 
     public void delete(String cpf) {
-        MemberData memberToDelete = validateMemberExists(cpf);
+        MemberData memberToDelete = findOrThrow(cpf);
 
         try {
             driveService.deleteFile(memberToDelete.getIdImage());
@@ -126,8 +142,7 @@ public class MemberDataService {
     }
 
 
-
-    private MemberData validateMemberExists(String cpf) {
+    private MemberData findOrThrow(String cpf) {
         return memberDataRepository.findByCpf(cpf)
                 .orElseThrow(() -> new NotFoundException("Member by cpf [%s] not found".formatted(cpf)));
     }
