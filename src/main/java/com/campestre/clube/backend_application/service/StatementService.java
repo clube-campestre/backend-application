@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
-import com.campestre.clube.backend_application.entity.Pagination;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;

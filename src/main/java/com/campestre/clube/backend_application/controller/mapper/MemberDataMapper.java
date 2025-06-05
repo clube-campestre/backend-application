@@ -4,6 +4,8 @@ import com.campestre.clube.backend_application.controller.dtos.requests.MemberDa
 import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.entity.enums.*;
+import com.campestre.clube.backend_application.entity.models.MemberDataForClass;
+import com.campestre.clube.backend_application.entity.models.MemberDataForUnit;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,14 +39,27 @@ public class MemberDataMapper {
         );
     }
 
-    public static MemberDataForUnitDtoResponse toResponse(
-            List<MemberData> members, Integer score, String counselorName
-    ) {
-        return new MemberDataForUnitDtoResponse(score, counselorName, MemberDataMapper.toResponse(members));
+    public static MemberDataForUnitDtoResponse toResponse(MemberDataForUnit memberDataForUnit) {
+        return new MemberDataForUnitDtoResponse(
+                memberDataForUnit.getScore(),
+                memberDataForUnit.getCounselorName(),
+                memberDataForUnit.getPagination().getPageNumber(),
+                memberDataForUnit.getPagination().getPageSize(),
+                memberDataForUnit.getPagination().getTotalItems(),
+                memberDataForUnit.getPagination().getTotalPages(),
+                MemberDataMapper.toResponse(memberDataForUnit.getMembers())
+        );
     }
 
-    public static MemberDataForClassDtoResponse toResponse(List<MemberData> members, String instructorName) {
-        return new MemberDataForClassDtoResponse(instructorName, MemberDataMapper.toResponse(members));
+    public static MemberDataForClassDtoResponse toResponse(MemberDataForClass memberDataForClass) {
+        return new MemberDataForClassDtoResponse(
+                memberDataForClass.getInstructorName(),
+                memberDataForClass.getPagination().getPageNumber(),
+                memberDataForClass.getPagination().getPageSize(),
+                memberDataForClass.getPagination().getTotalItems(),
+                memberDataForClass.getPagination().getTotalPages(),
+                MemberDataMapper.toResponse(memberDataForClass.getMembers())
+        );
     }
 
     public static List<MemberDataResponseDto> toResponse(List<MemberData> memberData){

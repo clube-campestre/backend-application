@@ -34,11 +34,11 @@ public class InitService {
 
     @PostConstruct
     public void generateUnits() {
-        Arrays.stream(UnitEnum.values()).forEach(unit -> saveUnitIfNotExist(unit.name()));
+        Arrays.stream(UnitEnum.values()).forEach(unit -> saveUnitIfNotExist(unit.getId(), unit.name()));
     }
 
-    private void saveUnitIfNotExist(String name) {
-        if (!unitRepository.existsBySurnameIgnoreCase(name)) unitRepository.save(new Unit(name, 0));
+    private void saveUnitIfNotExist(Integer id, String name) {
+        if (!unitRepository.existsBySurnameIgnoreCase(name)) unitRepository.save(new Unit(id, name, 0));
     }
 
     @PostConstruct

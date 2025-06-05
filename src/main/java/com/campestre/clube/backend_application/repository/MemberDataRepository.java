@@ -15,11 +15,7 @@ import java.util.Optional;
 public interface MemberDataRepository extends JpaRepository<MemberData, String> {
     boolean existsByCpf(String cpf);
     Optional<MemberData> findByCpf(@CPF String cpf);
-
-    List<MemberData> findByUnitIdAndUnitRoleNot(Integer unitId, UnitRole unitRole);
     List<MemberData> findByUnitIdAndUnitRole(Integer unitId, UnitRole unitRole);
-
-    List<MemberData> findByClassCategoryAndClassRoleNot(ClassCategory classCategory, ClassRole classRole);
     List<MemberData> findByClassCategoryAndClassRole(ClassCategory classCategory, ClassRole classRole);
 
     @Query("""
@@ -33,6 +29,30 @@ public interface MemberDataRepository extends JpaRepository<MemberData, String> 
             @Param("unit") UnitEnum unit,
             @Param("classCategory") ClassCategory classCategory,
             @Param("username") String username,
+            Pageable pageable
+    );
+
+    @Query("""
+                SELECT m FROM member_data m
+                WHERE (:unitId IS NULL OR m.unit.id = :unitId)
+                  AND (:unitRole IS NULL OR m.unitRole = :unitRole)
+                ORDER BY m.username ASC
+            """)
+    Page<MemberData> findByUnitAndPagination(
+            @Param("unitId") Integer unitId,
+            @Param("unitRole") UnitRole unitRole,
+            Pageable pageable
+    );
+
+    @Query("""
+                SELECT m FROM member_data m
+                WHERE (:classCategory IS NULL OR m.classCategory = :classCategory)
+                  AND (:classRole IS NULL OR m.classRole = :classRole)
+                ORDER BY m.username ASC
+            """)
+    Page<MemberData> findByClassAndPagination(
+            @Param("classCategory") ClassCategory classCategory,
+            @Param("classRole") ClassRole classRole,
             Pageable pageable
     );
 }

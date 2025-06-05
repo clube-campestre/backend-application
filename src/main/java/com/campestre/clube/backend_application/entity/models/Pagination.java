@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.entity;
+package com.campestre.clube.backend_application.entity.models;
 
 public class Pagination {
     private Integer pageNumber;
