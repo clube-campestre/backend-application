@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.controller;
 
-import com.campestre.clube.backend_application.controller.dtos.responses.UnitEnumResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.UnitOrClassEnumResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.UnitMapper;
 import com.campestre.clube.backend_application.service.EnumerationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,23 +27,23 @@ public class EnumerationController {
 
     @Operation(summary = "Endpoint for list all classes")
     @GetMapping("/class")
-    public ResponseEntity<List<String>> getAllClassesCategory() {
-        List<String> classesCategory = enumerationService.getAllClassesCategory();
+    public ResponseEntity<List<UnitOrClassEnumResponseDto>> getAllClassesCategory() {
+        List<Pair<String, String>> classesCategory = enumerationService.getAllClassesCategory();
         if(classesCategory.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(classesCategory);
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toEnumResponse(classesCategory));
     }
 
     @Operation(summary = "Endpoint for list all classes role")
     @GetMapping("/class-role")
-    public ResponseEntity<List<String>> getAllClassRole() {
-        List<String> classesRole = enumerationService.getAllClassesRole();
+    public ResponseEntity<List<UnitOrClassEnumResponseDto>> getAllClassRole() {
+        List<Pair<String, String>> classesRole = enumerationService.getAllClassesRole();
         if(classesRole.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(classesRole);
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toEnumResponse(classesRole));
     }
 
     @Operation(summary = "Endpoint for list all units")
     @GetMapping("/unit")
-    public ResponseEntity<List<UnitEnumResponseDto>> getAllUnit() {
+    public ResponseEntity<List<UnitOrClassEnumResponseDto>> getAllUnit() {
         List<Pair<String, String>> units = enumerationService.getAllUnits();
         if(units.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toEnumResponse(units));
@@ -51,9 +51,9 @@ public class EnumerationController {
 
     @Operation(summary = "Endpoint for list all units role")
     @GetMapping("/unit-role")
-    public ResponseEntity<List<String>> getAllUnitsRole() {
-        List<String> unitsRole = enumerationService.getAllUnitsRole();
+    public ResponseEntity<List<UnitOrClassEnumResponseDto>> getAllUnitsRole() {
+        List<Pair<String, String>> unitsRole = enumerationService.getAllUnitsRole();
         if(unitsRole.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(unitsRole);
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toEnumResponse(unitsRole));
     }
 }

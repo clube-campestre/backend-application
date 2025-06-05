@@ -4,14 +4,15 @@ import com.campestre.clube.backend_application.controller.dtos.requests.MemberDa
 import com.campestre.clube.backend_application.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.controller.mapper.MemberDataMapper;
 import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.entity.Pagination;
+import com.campestre.clube.backend_application.entity.models.MemberDataForClass;
+import com.campestre.clube.backend_application.entity.models.MemberDataForUnit;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.service.MemberDataService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.Pair;
-import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,18 +51,22 @@ public class MemberDataController {
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(memberDataService.getById(cpf)));
     }
 
-    @GetMapping("unit/{unitId}")
+    @GetMapping("/unit")
     @Operation(summary = "Endpoint for list member data by unit")
-    public ResponseEntity<MemberDataForUnitDtoResponse> getByUnit(@PathVariable Integer unitId){
-        Triple<List<MemberData>, Integer, String> data = memberDataService.getByUnit(unitId);
-        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(data.a, data.b, data.c));
+    public ResponseEntity<MemberDataForUnitDtoResponse> getByUnit(
+            @RequestParam(required = false) Integer unitId, @RequestParam Integer page, @RequestParam Integer size
+    ){
+        MemberDataForUnit memberDataForUnit = memberDataService.getByUnitAndPagination(unitId, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(memberDataForUnit));
     }
 
     @GetMapping("/class")
     @Operation(summary = "Endpoint for list member data by class")
-    public ResponseEntity<MemberDataForClassDtoResponse> getByClass(@RequestParam ClassCategory classCategory) {
-        Pair<List<MemberData>, String> data = memberDataService.getByClass(classCategory);
-        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(data.a, data.b));
+    public ResponseEntity<MemberDataForClassDtoResponse> getByClass(
+            @RequestParam(required = false) ClassCategory classCategory, @RequestParam Integer page, @RequestParam Integer size
+    ) {
+        MemberDataForClass memberDataForClass = memberDataService.getByClassAndPagination(classCategory, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataMapper.toResponse(memberDataForClass));
     }
 
     @PutMapping("/{cpf}")

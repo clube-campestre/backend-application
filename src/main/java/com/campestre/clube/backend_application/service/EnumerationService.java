@@ -13,12 +13,16 @@ import java.util.List;
 @Service
 public class EnumerationService {
 
-    public List<String> getAllClassesCategory() {
-        return Arrays.stream(ClassCategory.values()).map(Enum::name).toList();
+    public List<Pair<String, String>> getAllClassesCategory() {
+        return Arrays.stream(ClassCategory.values()).map(classCategory ->
+                new Pair<>(classCategory.name(), classCategory.getFormattedValue())
+        ).toList();
     }
 
-    public List<String> getAllClassesRole() {
-        return Arrays.stream(ClassRole.values()).map(Enum::name).toList();
+    public List<Pair<String, String>> getAllClassesRole() {
+        return Arrays.stream(ClassRole.values()).map(classRole ->
+                new Pair<>(classRole.name(), classRole.getFormattedValue())
+        ).toList();
     }
 
     public List<Pair<String, String>> getAllUnits() {
@@ -27,7 +31,9 @@ public class EnumerationService {
         ).toList();
     }
 
-    public List<String> getAllUnitsRole() {
-        return Arrays.stream(UnitRole.values()).map(Enum::name).toList();
+    public List<Pair<String, String>> getAllUnitsRole() {
+        return Arrays.stream(UnitRole.values()).map(unitRole ->
+                new Pair<>(unitRole.name(), unitRole.getFormattedValue())
+        ).toList();
     }
 }

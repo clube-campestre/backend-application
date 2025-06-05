@@ -3,10 +3,19 @@ package com.campestre.clube.backend_application.entity.enums;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 
 public enum ClassRole {
-    NENHUMA,
-    INSTRUTOR,
-    INSTRUTOR_AUXILIAR,
-    MEMBRO;
+    NENHUMA("Nenhuma"),
+    INSTRUTOR("Instrutor"),
+    INSTRUTOR_AUXILIAR("Instrutor Auxiliar"),
+    MEMBRO("Membro");
+
+    private String formattedValue;
+
+    ClassRole(String formattedValue) {
+    }
+
+    public String getFormattedValue() {
+        return formattedValue;
+    }
 
     public static ClassRole fromString(String value) {
         ClassRole classRole;

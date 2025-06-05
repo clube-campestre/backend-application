@@ -5,13 +5,15 @@ import com.campestre.clube.backend_application.entity.enums.ClassCategory;
 import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import com.campestre.clube.backend_application.entity.enums.UnitEnum;
 import com.campestre.clube.backend_application.entity.enums.UnitRole;
+import com.campestre.clube.backend_application.entity.models.MemberDataForClass;
+import com.campestre.clube.backend_application.entity.models.MemberDataForUnit;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.InternalServerException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import org.antlr.v4.runtime.misc.Pair;
-import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,7 +64,7 @@ public class MemberDataService {
         return findOrThrow(cpf);
     }
 
-    public Triple<List<MemberData>, Integer, String> getByUnit(Integer unitId) {
+    public MemberDataForUnit getByUnitAndPagination(Integer unitId, Integer page, Integer size) {
         Unit unit = unitService.findByIdOrThrow(unitId);
 
         List<MemberData> counselors = memberDataRepository.findByUnitIdAndUnitRole(unitId, UnitRole.CONSELHEIRO);
@@ -75,14 +77,15 @@ public class MemberDataService {
                     "The unit with id [%s] should not have more than one counselor".formatted(unitId)
             );
 
-        return new Triple<>(
-                memberDataRepository.findByUnitIdAndUnitRoleNot(unitId, UnitRole.CONSELHEIRO),
-                unit.getId(),
-                counselors.getFirst().getUsername()
+        Page<MemberData> result = memberDataRepository
+                .findByUnitAndPagination(unitId, UnitRole.CONSELHEIRO, PageRequest.of(page, size));
+
+        return new MemberDataForUnit(
+                unit.getId(), counselors.getFirst().getUsername(), createPagination(result), result.getContent()
         );
     }
 
-    public Pair<List<MemberData>, String> getByClass(ClassCategory classCategory) {
+    public MemberDataForClass getByClassAndPagination(ClassCategory classCategory, Integer page, Integer size) {
         List<MemberData> instructors = memberDataRepository
                 .findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
         if (instructors.isEmpty())
@@ -93,9 +96,12 @@ public class MemberDataService {
             throw new BadRequestException(
                     "The [%s] class should not have more than one instructor".formatted(classCategory.name())
             );
-        return new Pair<>(
-                memberDataRepository.findByClassCategoryAndClassRoleNot(classCategory, ClassRole.INSTRUTOR),
-                instructors.getFirst().getUsername()
+
+        Page<MemberData> result = memberDataRepository
+                .findByClassAndPagination(classCategory, ClassRole.INSTRUTOR, PageRequest.of(page, size));
+
+        return new MemberDataForClass(
+                classCategory.getFormattedValue(), createPagination(result), result.getContent()
         );
     }
 
@@ -133,14 +139,18 @@ public class MemberDataService {
     public Pair<List<MemberData>, Pagination> getByFilterAndPagination(
             String unit, String classCategory, String name, Integer page, Integer size
     ) {
+        UnitEnum unitEnum = unit != null ? UnitEnum.fromString(unit) : null;
+        ClassCategory classCategoryEnum = classCategory != null ? ClassCategory.fromString(classCategory) : null;
+
         Page<MemberData> result = memberDataRepository.findByFilterAndPagination(
-                UnitEnum.fromString(unit), ClassCategory.fromString(classCategory), name, PageRequest.of(page, size)
+                unitEnum, classCategoryEnum, name, PageRequest.of(page, size)
         );
-        return new Pair<>(result.getContent(), new Pagination(
-                result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
-        ));
+        return new Pair<>(result.getContent(), createPagination(result));
     }
 
+    private <T> Pagination createPagination(Page<T> result) {
+        return new Pagination(result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages());
+    }
 
     private MemberData findOrThrow(String cpf) {
         return memberDataRepository.findByCpf(cpf)

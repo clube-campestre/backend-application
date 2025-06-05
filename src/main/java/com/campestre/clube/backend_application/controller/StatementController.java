@@ -4,14 +4,13 @@ import com.campestre.clube.backend_application.controller.dtos.requests.Statemen
 import com.campestre.clube.backend_application.controller.dtos.responses.GetByFilterAndPaginationStatementResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.StatementMapper;
-import com.campestre.clube.backend_application.entity.Pagination;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
 import com.campestre.clube.backend_application.service.StatementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
