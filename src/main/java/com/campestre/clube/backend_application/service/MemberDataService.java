@@ -14,7 +14,6 @@ import com.campestre.clube.backend_application.exceptions.InternalServerExceptio
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import org.antlr.v4.runtime.misc.Pair;
-import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.entity.enums;
 
-import com.campestre.clube.backend_application.entity.Unit;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 
