@@ -124,10 +124,10 @@ public class StatementService {
         );
     }
 
-    public List<Statement> findByTag(String barraca) {
-        Tag tag = tagRepository.findBySurname(barraca.toUpperCase()).orElseThrow(() ->
-                new NotFoundException("Tag by name [%s] not found".formatted(barraca))
-        );
-        return statementRepository.findAllByTag(tag);
-    }
+//    public List<Statement> findByTag(String barraca) {
+//        Tag tag = tagRepository.findBySurname(barraca.toUpperCase()).orElseThrow(() ->
+//                new NotFoundException("Tag by name [%s] not found".formatted(barraca))
+//        );
+//        return statementRepository.findAllByTag(tag);
+//    }
 }
