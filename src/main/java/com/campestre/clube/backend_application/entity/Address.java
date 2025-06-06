@@ -38,7 +38,7 @@ public class Address {
         this.cep = cep;
         this.referenceHouse = referenceHouse;
     }
-
+  
     public Address() {
     }
 
