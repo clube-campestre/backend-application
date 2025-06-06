@@ -8,9 +8,10 @@ public enum ClassRole {
     INSTRUTOR_AUXILIAR("Instrutor Auxiliar"),
     MEMBRO("Membro");
 
-    private String formattedValue;
+    private final String formattedValue;
 
     ClassRole(String formattedValue) {
+        this.formattedValue = formattedValue;
     }
 
     public String getFormattedValue() {

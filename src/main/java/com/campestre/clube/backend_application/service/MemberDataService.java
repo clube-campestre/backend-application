@@ -140,10 +140,11 @@ public class MemberDataService {
             String unit, String classCategory, String name, Integer page, Integer size
     ) {
         UnitEnum unitEnum = unit != null ? UnitEnum.fromString(unit) : null;
+        Unit unitEntity = unit != null ? unitService.findByIdOrThrow(unitEnum.getId()) : null;
         ClassCategory classCategoryEnum = classCategory != null ? ClassCategory.fromString(classCategory) : null;
 
         Page<MemberData> result = memberDataRepository.findByFilterAndPagination(
-                unitEnum, classCategoryEnum, name, PageRequest.of(page, size)
+                unitEntity, classCategoryEnum, name, PageRequest.of(page, size)
         );
         return new Pair<>(result.getContent(), createPagination(result));
     }

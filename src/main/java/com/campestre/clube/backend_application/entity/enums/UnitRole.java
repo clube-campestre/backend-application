@@ -15,9 +15,10 @@ public enum UnitRole {
     CAPELAO("Capelão"),
     ALMOXARIFADO("Almoxarifado");
 
-    private String formattedValue;
+    private final String formattedValue;
 
     UnitRole(String formattedValue) {
+        this.formattedValue = formattedValue;
     }
 
     public String getFormattedValue() {

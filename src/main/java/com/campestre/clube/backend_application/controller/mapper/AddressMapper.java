@@ -8,14 +8,14 @@ import com.campestre.clube.backend_application.entity.Address;
 public class AddressMapper {
     public static Address toEntity(SaveAddressRequestDto dto){
         return new Address(
-                dto.getHouseNumber(), dto.getDistrict(), dto.getCity(), dto.getState(), dto.getStreet(), dto.getCep(),
+                dto.getStreet(), dto.getHouseNumber(), dto.getDistrict(), dto.getState(), dto.getCity(), dto.getCep(),
                 dto.getReferenceHouse()
         );
     }
 
     public static Address toEntity(UpdateAddressRequestDto dto){
         return new Address(
-                dto.getId(), dto.getHouseNumber(), dto.getDistrict(), dto.getCity(), dto.getState(), dto.getStreet(),
+                dto.getId(), dto.getStreet(), dto.getHouseNumber(), dto.getDistrict(), dto.getState(), dto.getCity(),
                 dto.getCep(), dto.getReferenceHouse()
         );
     }

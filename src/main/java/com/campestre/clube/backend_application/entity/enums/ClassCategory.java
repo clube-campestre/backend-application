@@ -16,9 +16,10 @@ public enum ClassCategory {
     LIDER_MASTER("Líder Master"),
     LIDER_MASTER_AVANCADO("Líder Master Avançado");
 
-    private String formattedValue;
+    private final String formattedValue;
 
     ClassCategory(String formattedValue) {
+        this.formattedValue = formattedValue;
     }
 
     public String getFormattedValue() {
