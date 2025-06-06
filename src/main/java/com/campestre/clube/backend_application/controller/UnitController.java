@@ -23,10 +23,20 @@ public class UnitController {
     private UnitService unitService;
 
     @PutMapping("/score")
-    @Operation(summary = "Endpoint for update unit score by unit name")
-    public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String unitName, @RequestParam Integer newScore) {
+    @Operation(summary = "Endpoint for update unit score by unit id")
+    public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam Integer id, @RequestParam Integer newScore) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                UnitMapper.toResponse(unitService.updateByUnitName(unitName, newScore))
+                UnitMapper.toResponse(unitService.updateScoreById(id, newScore))
+        );
+    }
+
+    @PostMapping("/score")
+    @Operation(summary = "Endpoint for increase or descrease unit score by unit id")
+    public ResponseEntity<UnitResponseDto> increaseOrDecreaseTheScoreById(
+            @RequestParam Integer id, @RequestParam Integer score, @RequestParam Boolean isSum
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                UnitMapper.toResponse(unitService.increaseOrDecreaseTheScoreById(id, score, isSum))
         );
     }
 
