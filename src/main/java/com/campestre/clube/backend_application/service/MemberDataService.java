@@ -81,7 +81,7 @@ public class MemberDataService {
                 .findByUnitAndPagination(unitId, UnitRole.CONSELHEIRO, PageRequest.of(page, size));
 
         return new MemberDataForUnit(
-                unit.getId(), counselors.getFirst().getUsername(), createPagination(result), result.getContent()
+                unit.getScore(), counselors.getFirst().getUsername(), createPagination(result), result.getContent()
         );
     }
 
