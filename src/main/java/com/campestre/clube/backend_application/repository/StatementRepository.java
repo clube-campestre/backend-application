@@ -43,5 +43,5 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
     List<Statement> findAllByTag(Tag tag);
     void deleteByTag(Tag tag);
 
-    Object findByTagNameIgnoreCase(String barraca);
+//    Object findByTagNameIgnoreCase(String barraca);
 }

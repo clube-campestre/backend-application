@@ -78,7 +78,7 @@ public class MemberDataService {
             );
 
         Page<MemberData> result = memberDataRepository
-                .findByUnitAndPagination(unitId, UnitRole.CONSELHEIRO, PageRequest.of(page, size));
+                .findByUnitAndPagination(unitId, PageRequest.of(page, size));
 
         return new MemberDataForUnit(
                 unit.getScore(), counselors.getFirst().getUsername(), createPagination(result), result.getContent()
@@ -98,7 +98,7 @@ public class MemberDataService {
             );
 
         Page<MemberData> result = memberDataRepository
-                .findByClassAndPagination(classCategory, ClassRole.INSTRUTOR, PageRequest.of(page, size));
+                .findByClassAndPagination(classCategory, PageRequest.of(page, size));
 
         return new MemberDataForClass(
                 classCategory.getFormattedValue(), createPagination(result), result.getContent()
