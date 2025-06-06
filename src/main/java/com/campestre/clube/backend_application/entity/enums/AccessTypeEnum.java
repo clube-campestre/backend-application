@@ -8,9 +8,10 @@ public enum AccessTypeEnum {
     TESOURARIA("Tesouraria"),
     SUPERVISOR("Supervisor");
 
-    private String formattedValue;
+    private final String formattedValue;
 
     AccessTypeEnum(String formattedValue) {
+        this.formattedValue = formattedValue;
     }
 
     public String getFormattedValue() {
