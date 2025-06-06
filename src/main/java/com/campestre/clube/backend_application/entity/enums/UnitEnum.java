@@ -18,10 +18,12 @@ public enum UnitEnum {
     PANTERA("Pantera", 9),
     LOBO("Lobo", 10);
 
-    private String formattedValue;
-    private Integer id;
+    private final String formattedValue;
+    private final Integer id;
 
     UnitEnum(String formattedValue, Integer id) {
+        this.formattedValue = formattedValue;
+        this.id = id;
     }
 
     public String getFormattedValue() {

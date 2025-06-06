@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.repository;
 
 import com.campestre.clube.backend_application.entity.MemberData;
+import com.campestre.clube.backend_application.entity.Unit;
 import com.campestre.clube.backend_application.entity.enums.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.domain.Page;
@@ -26,7 +27,7 @@ public interface MemberDataRepository extends JpaRepository<MemberData, String> 
                 ORDER BY m.username ASC
             """)
     Page<MemberData> findByFilterAndPagination(
-            @Param("unit") UnitEnum unit,
+            @Param("unit") Unit unit,
             @Param("classCategory") ClassCategory classCategory,
             @Param("username") String username,
             Pageable pageable
