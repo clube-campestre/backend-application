@@ -101,7 +101,7 @@ public class MemberDataService {
                 .findByClassAndPagination(classCategory, PageRequest.of(page, size));
 
         return new MemberDataForClass(
-                classCategory.getFormattedValue(), createPagination(result), result.getContent()
+                instructors.getFirst().getUsername(), createPagination(result), result.getContent()
         );
     }
 
