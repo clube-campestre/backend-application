@@ -20,10 +20,10 @@ public class UnitService {
     @Autowired
     private UnitRepository unitRepository;
 
-     public Unit update(Integer id, Integer score){
-        Optional<Unit> unit = unitRepository.findById(id);
+     public Unit updateByUnitName(String unitName, Integer score){
+         Optional<Unit> unit = unitRepository.findBySurnameIgnoreCase(unitName);
          if (unit.isEmpty())
-             throw new NotFoundException("Unit by id [%s] not found".formatted(id));
+             throw new NotFoundException("Unit by name [%s] not found".formatted(unitName));
          if (score == null || score < 0)
              throw new BadRequestException("The unit score cannot be negative or zero");
 
@@ -36,7 +36,7 @@ public class UnitService {
 
         Arrays.stream(UnitEnum.values()).forEach(unitEnum -> {
             String name = unitEnum.name().replace("_", " ");
-            Optional<Unit> unit = unitRepository.findBySurname(name);
+            Optional<Unit> unit = unitRepository.findBySurnameIgnoreCase(name);
             if (unit.isEmpty()) {
                 pair.b.add(name);
             } else {
@@ -48,4 +48,21 @@ public class UnitService {
         return pair;
     }
 
+    public List<Unit> getRanked() {
+        List<Unit> units = unitRepository.findAllByOrderByScoreDesc();
+        for (Unit unit : units) {
+            unit.setSurname(UnitEnum.fromString(unit.getSurname()).getFormattedValue());
+        }
+        return units;
+    }
+
+    Unit findByIdOrThrow(Integer unitId) {
+        return unitRepository.findById(unitId)
+                .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
+    }
+
+    Unit findBySurnameOrThrow(String surname) {
+        return unitRepository.findBySurnameIgnoreCase(surname)
+                .orElseThrow(() -> new NotFoundException("Unit by surname [%s] not found".formatted(surname)));
+    }
 }

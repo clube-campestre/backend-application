@@ -4,29 +4,25 @@ import com.campestre.clube.backend_application.controller.dtos.requests.SaveTran
 import com.campestre.clube.backend_application.controller.dtos.responses.TransportResponseDto;
 import com.campestre.clube.backend_application.entity.Transport;
 
+import java.util.List;
+
 public abstract class TransportMapper {
     public static TransportResponseDto toResponse(Transport transport) {
-        TransportResponseDto response = new TransportResponseDto();
-        response.setId(transport.getId());
-        response.setEnterprise(transport.getEnterprise());
-        response.setPrice(transport.getPrice());
-        response.setTravelDistance(transport.getTravelDistance());
-        response.setCapacity(transport.getCapacity());
-        response.setCompanyContact(transport.getCompanyContact());
-        response.setDriverContact(transport.getDriverContact());
-        response.setRating(transport.getRating());
-        return response;
+        return new TransportResponseDto(
+                transport.getId(), transport.getEnterprise(), transport.getPrice(), transport.getTravelDistance(),
+                transport.getCapacity(), transport.getCompanyContact(), transport.getDriverContact(),
+                transport.getRating()
+        );
+    }
+
+    public static List<TransportResponseDto> toResponse(List<Transport> transports) {
+        return transports.stream().map(TransportMapper::toResponse).toList();
     }
 
     public static Transport toEntity(SaveTransportRequestDto dto) {
-        Transport transport = new Transport();
-        transport.setEnterprise(dto.getEnterprise());
-        transport.setPrice(dto.getPrice());
-        transport.setTravelDistance(dto.getTravelDistance());
-        transport.setCapacity(dto.getCapacity());
-        transport.setCompanyContact(dto.getCompanyContact());
-        transport.setDriverContact(dto.getDriverContact());
-        transport.setRating(dto.getRating());
-        return transport;
+        return new Transport(
+                dto.getEnterprise(), dto.getPrice(), dto.getTravelDistance(), dto.getCapacity(),
+                dto.getCompanyContact(), dto.getDriverContact(), dto.getRating()
+        );
     }
 }

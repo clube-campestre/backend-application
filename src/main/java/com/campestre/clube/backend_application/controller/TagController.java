@@ -27,7 +27,7 @@ public class TagController {
     @Operation(summary = "Endpoint for create a new tag")
     @PostMapping
     public ResponseEntity<TagResponseDto> register(@RequestBody SaveTagRequestDto dto) {
-        return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(
+        return ResponseEntity.status(HttpStatus.OK).body(TagMapper.toResponse(
                 tagService.register(TagMapper.toEntity(dto))
         ));
     }
@@ -35,7 +35,7 @@ public class TagController {
     @Operation(summary = "Endpoint for get tag by id")
     @GetMapping("/{id}")
     public ResponseEntity<TagResponseDto> getById(@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(tagService.getById(id)));
+        return ResponseEntity.status(HttpStatus.OK).body(TagMapper.toResponse(tagService.getById(id)));
     }
 
     @Operation(summary = "Endpoint for list all tags")
@@ -43,14 +43,13 @@ public class TagController {
     public ResponseEntity<List<TagResponseDto>> getAll() {
         List<Tag> tags = tagService.getAll();
         if(tags.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.status(HttpStatus.OK).body(tags.stream().map(TagResponseDto::toResponse)
-                .toList());
+        return ResponseEntity.status(HttpStatus.OK).body(TagMapper.toResponse(tags));
     }
 
     @Operation(summary = "Endpoint for update tag by id")
     @PutMapping("/{id}")
     public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody SaveTagRequestDto tag){
-        return ResponseEntity.status(HttpStatus.OK).body(TagResponseDto.toResponse(
+        return ResponseEntity.status(HttpStatus.OK).body(TagMapper.toResponse(
                 tagService.update(TagMapper.toEntity(tag), id)
         ));
     }

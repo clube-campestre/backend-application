@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/units")
 @CrossOrigin("*")
@@ -20,15 +22,23 @@ public class UnitController {
     @Autowired
     private UnitService unitService;
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Endpoint for update unit score by id")
-    public ResponseEntity<UnitResponseDto> updateScoreById(@PathVariable Integer id, @RequestParam Integer newScore) {
-        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.update(id, newScore)));
+    @PutMapping("/score")
+    @Operation(summary = "Endpoint for update unit score by unit name")
+    public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String unitName, @RequestParam Integer newScore) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                UnitMapper.toResponse(unitService.updateByUnitName(unitName, newScore))
+        );
     }
 
     @PostMapping("/reseted")
     @Operation(summary = "Endpoint for reset all unit score")
     public ResponseEntity<UnitResetedResponseDto> resetAllScores() {
         return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.resetAllScores()));
+    }
+
+    @GetMapping("/ranking")
+    @Operation(summary = "Endpoint for get units by ranking")
+    public ResponseEntity<List<UnitResponseDto>> getRanked() {
+        return ResponseEntity.status(HttpStatus.OK).body(UnitMapper.toResponse(unitService.getRanked()));
     }
 }

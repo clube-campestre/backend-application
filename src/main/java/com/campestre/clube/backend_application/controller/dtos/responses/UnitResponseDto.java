@@ -5,6 +5,12 @@ public class UnitResponseDto {
     private String surname;
     private Integer score;
 
+    public UnitResponseDto(Integer id, String surname, Integer score) {
+        this.id = id;
+        this.surname = surname;
+        this.score = score;
+    }
+
     public UnitResponseDto() {
     }
 

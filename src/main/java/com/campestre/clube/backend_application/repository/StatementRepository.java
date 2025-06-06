@@ -22,7 +22,7 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
                   AND (:endDate IS NULL OR s.transactionDate <= :endDate)
                   AND (:tagId IS NULL OR s.tag.id = :tagId)
                   AND (:type IS NULL OR s.transactionType = :type)
-                  AND (:info IS NULL OR s.information = :info)
+                  AND (:info IS NULL OR LOWER(s.information) LIKE LOWER(CONCAT('%', :info, '%')))
                 ORDER BY s.transactionDate DESC
             """)
     Page<Statement> findByFilterAndPagination(
@@ -33,6 +33,9 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
             @Param("info") String info,
             Pageable pageable
     );
+
+    @Query("SELECT SUM(CASE WHEN s.transactionType = 'SAIDA' THEN -s.price ELSE s.price END) FROM Statement s")
+    Double findAllPrices();
 
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, Double price, LocalDateTime transactionDate, Tag tag);

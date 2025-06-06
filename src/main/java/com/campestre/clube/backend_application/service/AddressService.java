@@ -15,8 +15,24 @@ public class AddressService {
     private AddressRepository addressRepository;
 
     public Address saveIfNotExist(Address address) {
-        if (addressRepository.existsByCepAndHouseNumber(address.getCep(), address.getHouseNumber()))
-            return addressRepository.findByCep(address.getCep());
+        if (addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                address.getStreet(),
+                address.getHouseNumber(),
+                address.getDistrict(),
+                address.getState(),
+                address.getCity(),
+                address.getCep(),
+                address.getReferenceHouse()
+        ))
+            return addressRepository.findByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                    address.getStreet(),
+                    address.getHouseNumber(),
+                    address.getDistrict(),
+                    address.getState(),
+                    address.getCity(),
+                    address.getCep(),
+                    address.getReferenceHouse()
+            );
 
         return addressRepository.save(address);
     }
@@ -55,8 +71,16 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
-    public Boolean addressAlreadyExists(String cep, String houseNumber){
-        return addressRepository.existsByCepAndHouseNumber(cep, houseNumber);
+    public Boolean addressAlreadyExists(Address address){
+        return addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                address.getStreet(),
+                address.getHouseNumber(),
+                address.getDistrict(),
+                address.getState(),
+                address.getCity(),
+                address.getCep(),
+                address.getReferenceHouse()
+        );
     }
 
 }

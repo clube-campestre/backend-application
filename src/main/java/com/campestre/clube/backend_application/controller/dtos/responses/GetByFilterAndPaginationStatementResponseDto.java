@@ -2,26 +2,24 @@ package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import java.util.List;
 
-public class MemberDataForUnitDtoResponse {
-    private Integer score;
-    private String counselorName;
+public class GetByFilterAndPaginationStatementResponseDto {
     private Integer pageNumber;
     private Integer pageSize;
     private Long totalItems;
     private Integer totalPages;
-    private List<MemberDataResponseDto> members;
+    private Double totalPrice;
+    private List<StatementResponseDto> items;
 
-    public MemberDataForUnitDtoResponse(Integer score, String counselorName, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages, List<MemberDataResponseDto> members) {
-        this.score = score;
-        this.counselorName = counselorName;
+    public GetByFilterAndPaginationStatementResponseDto(Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages, Double totalPrice, List<StatementResponseDto> items) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
         this.totalItems = totalItems;
         this.totalPages = totalPages;
-        this.members = members;
+        this.totalPrice = totalPrice;
+        this.items = items;
     }
 
-    public MemberDataForUnitDtoResponse() {
+    public GetByFilterAndPaginationStatementResponseDto() {
     }
 
     public Integer getPageNumber() {
@@ -56,27 +54,19 @@ public class MemberDataForUnitDtoResponse {
         this.totalPages = totalPages;
     }
 
-    public Integer getScore() {
-        return score;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public String getCounselorName() {
-        return counselorName;
+    public List<StatementResponseDto> getItems() {
+        return items;
     }
 
-    public void setCounselorName(String counselorName) {
-        this.counselorName = counselorName;
-    }
-
-    public List<MemberDataResponseDto> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<MemberDataResponseDto> members) {
-        this.members = members;
+    public void setItems(List<StatementResponseDto> items) {
+        this.items = items;
     }
 }

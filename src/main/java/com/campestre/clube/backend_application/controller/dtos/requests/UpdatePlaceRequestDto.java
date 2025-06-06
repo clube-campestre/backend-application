@@ -20,6 +20,18 @@ public class UpdatePlaceRequestDto {
     @NotNull
     private UpdateAddressRequestDto address;
 
+    public UpdatePlaceRequestDto(String name, Double price, Integer capacity, String contact, Integer rating, UpdateAddressRequestDto address) {
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
+        this.contact = contact;
+        this.rating = rating;
+        this.address = address;
+    }
+
+    public UpdatePlaceRequestDto() {
+    }
+
     public UpdateAddressRequestDto getAddress() {
         return address;
     }

@@ -3,10 +3,20 @@ package com.campestre.clube.backend_application.entity.enums;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 
 public enum AccessTypeEnum {
-    DIRETOR,
-    EXECUTIVO,
-    TESOURARIA,
-    SUPERVISOR;
+    DIRETOR("Diretor"),
+    EXECUTIVO("Executivo"),
+    TESOURARIA("Tesouraria"),
+    SUPERVISOR("Supervisor");
+
+    private final String formattedValue;
+
+    AccessTypeEnum(String formattedValue) {
+        this.formattedValue = formattedValue;
+    }
+
+    public String getFormattedValue() {
+        return formattedValue;
+    }
 
     public static AccessTypeEnum fromString(String value) {
         AccessTypeEnum type;

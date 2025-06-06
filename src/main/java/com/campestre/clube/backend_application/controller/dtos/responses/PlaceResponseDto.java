@@ -9,6 +9,19 @@ public class PlaceResponseDto {
     private Integer rating;
     private AddressResponseDto address;
 
+    public PlaceResponseDto(Integer id, String name, Double price, Integer capacity, String contact, Integer rating, AddressResponseDto address) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
+        this.contact = contact;
+        this.rating = rating;
+        this.address = address;
+    }
+
+    public PlaceResponseDto() {
+    }
+
     public Integer getId() {
         return id;
     }

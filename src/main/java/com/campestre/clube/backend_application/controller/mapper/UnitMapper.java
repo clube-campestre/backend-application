@@ -1,6 +1,8 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
+import com.campestre.clube.backend_application.controller.dtos.requests.GetUnitRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.requests.UnitRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.UnitOrClassEnumResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.UnitResetedResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.UnitResponseDto;
 import com.campestre.clube.backend_application.entity.Unit;
@@ -10,30 +12,28 @@ import java.util.List;
 
 public class UnitMapper {
     public static Unit toEntity(UnitRequestDto dto){
-        Unit unit = new Unit();
-        unit.setSurname(dto.getSurname());
-        unit.setScore(dto.getScore());
-        return unit;
-    }
-
-    public static Unit toEntity(Integer unitId){
-        Unit unit = new Unit();
-        unit.setId(unitId);
-        return unit;
+        return new Unit(dto.getSurname(), dto.getScore());
     }
 
     public static UnitResponseDto toResponse(Unit unit){
-        UnitResponseDto response = new UnitResponseDto();
-        response.setId(unit.getId());
-        response.setSurname(unit.getSurname());
-        response.setScore(unit.getScore());
-        return response;
+        return new UnitResponseDto(unit.getId(), unit.getSurname(), unit.getScore());
+    }
+
+    public static List<UnitResponseDto> toResponse(List<Unit> units){
+        return units.stream().map(UnitMapper::toResponse).toList();
+    }
+
+    public static Unit toEntity(GetUnitRequestDto dto){
+        Unit unit = new Unit();
+        unit.setId(dto.getId());
+        return unit;
     }
 
     public static UnitResetedResponseDto toResponse(Pair<List<String>, List<String>> pair){
-        UnitResetedResponseDto response = new UnitResetedResponseDto();
-        response.setReseted(pair.a);
-        response.setNotReseted(pair.b);
-        return response;
+        return new UnitResetedResponseDto(pair.a, pair.b);
+    }
+
+    public static List<UnitOrClassEnumResponseDto> toEnumResponse(List<Pair<String, String>> pair){
+        return pair.stream().map(unit -> new UnitOrClassEnumResponseDto(unit.a, unit.b)).toList();
     }
 }

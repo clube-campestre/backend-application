@@ -2,18 +2,16 @@ package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import java.util.List;
 
-public class MemberDataForUnitDtoResponse {
-    private Integer score;
-    private String counselorName;
+public class MemberDataForClassDtoResponse {
+    private String instructorName;
     private Integer pageNumber;
     private Integer pageSize;
     private Long totalItems;
     private Integer totalPages;
     private List<MemberDataResponseDto> members;
 
-    public MemberDataForUnitDtoResponse(Integer score, String counselorName, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages, List<MemberDataResponseDto> members) {
-        this.score = score;
-        this.counselorName = counselorName;
+    public MemberDataForClassDtoResponse(String instructorName, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages, List<MemberDataResponseDto> members) {
+        this.instructorName = instructorName;
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
         this.totalItems = totalItems;
@@ -21,7 +19,7 @@ public class MemberDataForUnitDtoResponse {
         this.members = members;
     }
 
-    public MemberDataForUnitDtoResponse() {
+    public MemberDataForClassDtoResponse() {
     }
 
     public Integer getPageNumber() {
@@ -56,20 +54,12 @@ public class MemberDataForUnitDtoResponse {
         this.totalPages = totalPages;
     }
 
-    public Integer getScore() {
-        return score;
+    public String getInstructorName() {
+        return instructorName;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public String getCounselorName() {
-        return counselorName;
-    }
-
-    public void setCounselorName(String counselorName) {
-        this.counselorName = counselorName;
+    public void setInstructorName(String instructorName) {
+        this.instructorName = instructorName;
     }
 
     public List<MemberDataResponseDto> getMembers() {

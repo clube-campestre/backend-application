@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
@@ -8,9 +9,9 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class StatementService {
 
     public Statement register(Statement statement, String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
 
@@ -52,7 +53,7 @@ public class StatementService {
         Statement existingStatement = validateStatementExists(id);
         String tagName = dto.getTagName().toUpperCase();
 
-        Tag tag = tagRepository.findBySurname(tagName).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagName).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagName))
         );
 
@@ -76,7 +77,7 @@ public class StatementService {
 
     public void deleteByTag(String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
-        Tag tag = tagRepository.findBySurname(tagNameFormatted).orElseThrow(() ->
+        Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
                 new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
         );
         statementRepository.deleteByTag(tag);
@@ -87,13 +88,17 @@ public class StatementService {
         statementRepository.deleteById(id);
     }
 
-    public List<Statement> getByFilterAndPagination(
+    public Triple<List<Statement>, Pagination, Double> getByFilterAndPagination(
             LocalDateTime startDate, LocalDateTime endDate, Integer tagId, TransactionType type, String information,
             Integer page, Integer size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        return statementRepository
-                .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable).getContent();
+        Page<Statement> result = statementRepository
+                .findByFilterAndPagination(startDate, endDate, tagId, type, information, pageable);
+        Double totalPrice = statementRepository.findAllPrices();
+        return new Triple<>(result.getContent(), new Pagination(
+                result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
+        ), totalPrice);
     }
 
     private Statement validateStatementExists(Integer id) {

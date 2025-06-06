@@ -4,39 +4,68 @@ import com.campestre.clube.backend_application.entity.enums.*;
 
 import java.time.LocalDate;
 
-public class MemberDataDtoResponse {
+public class MemberDataResponseDto {
     private String cpf;
     private String idImage;
     private String imagePath;
-    private UnitRole unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
     private String username;
     private LocalDate birthDate;
-    private Sex sex; // Enum: "M", "F", "OUTRO"
+    private Sex sex;
     private String birthCertificate;
-    private TshirtSize tshirtSize; // Ex: "PP", "M", "G"
+    private TshirtSize tshirtSize;
     private Boolean isBaptized;
     private String contact;
-    private Integer unitId;
-    private ClassCategory classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
-    private ClassRole classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
+    private String issuingAuthority;
 
-    // Informações do pai
+    private UnitResponseDto unit;
+    private UnitRole unitRole;
+    private ClassCategory classCategory;
+    private ClassRole classRole;
+
     private String fatherName;
     private String fatherContact;
     private String fatherEmail;
-
-    // Informações da mãe
     private String motherName;
     private String motherContact;
     private String motherEmail;
-
-    // Responsável
     private String responsibleName;
     private String responsibleContact;
     private String responsibleEmail;
 
-    private AddressResponseDto address; //DTO do endereço
-    private MedicalDataResponseDto medicalData; // DTO dos dados médicos
+    private AddressResponseDto address;
+    private MedicalDataResponseDto medicalData;
+
+    public MemberDataResponseDto() {
+    }
+
+    public MemberDataResponseDto(String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex, String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority, UnitResponseDto unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole, String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail, AddressResponseDto address, MedicalDataResponseDto medicalData) {
+        this.cpf = cpf;
+        this.idImage = idImage;
+        this.imagePath = imagePath;
+        this.username = username;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.birthCertificate = birthCertificate;
+        this.tshirtSize = tshirtSize;
+        this.isBaptized = isBaptized;
+        this.contact = contact;
+        this.issuingAuthority = issuingAuthority;
+        this.unit = unit;
+        this.unitRole = unitRole;
+        this.classCategory = classCategory;
+        this.classRole = classRole;
+        this.fatherName = fatherName;
+        this.fatherContact = fatherContact;
+        this.fatherEmail = fatherEmail;
+        this.motherName = motherName;
+        this.motherContact = motherContact;
+        this.motherEmail = motherEmail;
+        this.responsibleName = responsibleName;
+        this.responsibleContact = responsibleContact;
+        this.responsibleEmail = responsibleEmail;
+        this.address = address;
+        this.medicalData = medicalData;
+    }
 
     public String getCpf() {
         return cpf;
@@ -60,14 +89,6 @@ public class MemberDataDtoResponse {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public UnitRole getUnitRole() {
-        return unitRole;
-    }
-
-    public void setUnitRole(UnitRole unitRole) {
-        this.unitRole = unitRole;
     }
 
     public String getUsername() {
@@ -114,8 +135,8 @@ public class MemberDataDtoResponse {
         return isBaptized;
     }
 
-    public void setIsBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
     }
 
     public String getContact() {
@@ -126,12 +147,28 @@ public class MemberDataDtoResponse {
         this.contact = contact;
     }
 
-    public Integer getUnitId() {
-        return unitId;
+    public String getIssuingAuthority() {
+        return issuingAuthority;
     }
 
-    public void setUnitId(Integer unitId) {
-        this.unitId = unitId;
+    public void setIssuingAuthority(String issuingAuthority) {
+        this.issuingAuthority = issuingAuthority;
+    }
+
+    public UnitResponseDto getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitResponseDto unit) {
+        this.unit = unit;
+    }
+
+    public UnitRole getUnitRole() {
+        return unitRole;
+    }
+
+    public void setUnitRole(UnitRole unitRole) {
+        this.unitRole = unitRole;
     }
 
     public ClassCategory getClassCategory() {

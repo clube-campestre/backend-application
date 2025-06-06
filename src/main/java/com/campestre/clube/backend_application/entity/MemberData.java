@@ -8,15 +8,11 @@ import com.campestre.clube.backend_application.entity.enums.ClassRole;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CPF;
 
-
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity(name= "member_data")
 public class MemberData {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
     @CPF
     private String cpf;
     private String idImage;
@@ -30,6 +26,7 @@ public class MemberData {
     private TshirtSize tshirtSize;
     private Boolean isBaptized;
     private String contact;
+    private String issuingAuthority;
 
     @ManyToOne
     @JoinColumn(name = "fk_unit")
@@ -55,9 +52,40 @@ public class MemberData {
     private Address address;
 
     @OneToOne
-//    @MapsId
     @JoinColumn(name = "fk_medical_data")
     private MedicalData medicalData;
+
+    public MemberData(String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex, String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole, String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail, Address address, MedicalData medicalData) {
+        this.cpf = cpf;
+        this.idImage = idImage;
+        this.imagePath = imagePath;
+        this.username = username;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.birthCertificate = birthCertificate;
+        this.tshirtSize = tshirtSize;
+        this.isBaptized = isBaptized;
+        this.contact = contact;
+        this.issuingAuthority = issuingAuthority;
+        this.unit = unit;
+        this.unitRole = unitRole;
+        this.classCategory = classCategory;
+        this.classRole = classRole;
+        this.fatherName = fatherName;
+        this.fatherContact = fatherContact;
+        this.fatherEmail = fatherEmail;
+        this.motherName = motherName;
+        this.motherContact = motherContact;
+        this.motherEmail = motherEmail;
+        this.responsibleName = responsibleName;
+        this.responsibleContact = responsibleContact;
+        this.responsibleEmail = responsibleEmail;
+        this.address = address;
+        this.medicalData = medicalData;
+    }
+
+    public MemberData() {
+    }
 
     public String getCpf() {
         return cpf;
@@ -121,14 +149,6 @@ public class MemberData {
 
     public void setTshirtSize(TshirtSize tshirtSize) {
         this.tshirtSize = tshirtSize;
-    }
-
-    public Boolean getIsBaptized() {
-        return isBaptized;
-    }
-
-    public void setIsBaptized(Boolean baptized) {
-        isBaptized = baptized;
     }
 
     public String getContact() {
@@ -257,5 +277,21 @@ public class MemberData {
 
     public void setMedicalData(MedicalData medicalData) {
         this.medicalData = medicalData;
+    }
+
+    public Boolean getIsBaptized() {
+        return isBaptized;
+    }
+
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
+    }
+
+    public String getIssuingAuthority() {
+        return issuingAuthority;
+    }
+
+    public void setIssuingAuthority(String issuingAuthority) {
+        this.issuingAuthority = issuingAuthority;
     }
 }
