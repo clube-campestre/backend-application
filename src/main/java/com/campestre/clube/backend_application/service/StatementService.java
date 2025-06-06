@@ -107,4 +107,27 @@ public class StatementService {
         );
     }
 
+    public Statement save(Statement entradaFerramentas) {
+        if (entradaFerramentas == null) {
+            throw new IllegalArgumentException("Statement cannot be null");
+        }
+        return statementRepository.save(entradaFerramentas);
+    }
+
+    public List<Statement> findAll() {
+        return statementRepository.findAll();
+    }
+
+    public Statement findById(int i) {
+        return statementRepository.findById(i).orElseThrow(() ->
+                new NotFoundException("Statement by id [%s] not found".formatted(i))
+        );
+    }
+
+    public List<Statement> findByTag(String barraca) {
+        Tag tag = tagRepository.findBySurname(barraca.toUpperCase()).orElseThrow(() ->
+                new NotFoundException("Tag by name [%s] not found".formatted(barraca))
+        );
+        return statementRepository.findAllByTag(tag);
+    }
 }
