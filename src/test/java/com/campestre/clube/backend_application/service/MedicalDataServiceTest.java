@@ -86,14 +86,14 @@ class MedicalDataServiceTest {
     @DisplayName("deve retornar true se existir por CPF")
     void existByCpfTrue() {
         when(repository.findById("123")).thenReturn(Optional.of(new MedicalData()));
-        assertTrue(service.existByCpf("123"));
+        assertTrue(service.existsByCpf("123"));
     }
 
     @Test
     @DisplayName("deve retornar false se não existir por CPF")
     void existByCpfFalse() {
         when(repository.findById("123")).thenReturn(Optional.empty());
-        assertFalse(service.existByCpf("123"));
+        assertFalse(service.existsByCpf("123"));
     }
 
     @Test

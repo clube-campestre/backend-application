@@ -1,14 +1,17 @@
 package com.campestre.clube.backend_application.service;
 
 
+import ch.qos.logback.core.joran.sanity.Pair;
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.enums.TransactionType;
+import com.campestre.clube.backend_application.entity.models.Pagination;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
+import org.antlr.v4.runtime.misc.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,31 +66,31 @@ class StatementServiceTest {
     @Test
     @DisplayName("Deve registrar Statement com sucesso")
     void registerSuccessfully() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.of(tag));
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.of(tag));
         when(statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(anyString(), anyDouble(), any(), any())).thenReturn(false);
         when(statementRepository.save(any())).thenReturn(statement);
 
         Statement result = statementService.register(statement, "barraca");
 
         assertEquals(statement, result);
-        verify(tagRepository).findBySurname("BARRACA");
+        verify(tagRepository).findBySurnameIgnoreCase("BARRACA");
         verify(statementRepository).save(statement);
     }
 
     @Test
     @DisplayName("Deve lançar exceção ao registrar Statement com tag inexistente")
     void registerTagNotFound() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.empty());
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> statementService.register(statement, "barraca"));
-        verify(tagRepository).findBySurname("BARRACA");
+        verify(tagRepository).findBySurnameIgnoreCase("BARRACA");
         verify(statementRepository, never()).save(any());
     }
 
     @Test
     @DisplayName("Deve lançar exceção ao registrar Statement duplicado")
     void registerStatementDuplicate() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.of(tag));
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.of(tag));
         when(statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(anyString(), anyDouble(), any(), any())).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> statementService.register(statement, "barraca"));
@@ -133,14 +136,14 @@ class StatementServiceTest {
         when(dto.getTransactionType()).thenReturn(TransactionType.SAIDA);
 
         when(statementRepository.findById(anyInt())).thenReturn(Optional.of(statement));
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.of(tag));
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.of(tag));
         when(statementRepository.save(any())).thenReturn(statement);
 
         Statement result = statementService.update(dto, 1);
 
         assertEquals(statement, result);
         verify(statementRepository).findById(1);
-        verify(tagRepository).findBySurname("BARRACA");
+        verify(tagRepository).findBySurnameIgnoreCase("BARRACA");
         verify(statementRepository).save(any());
     }
 
@@ -152,7 +155,7 @@ class StatementServiceTest {
 
         assertThrows(NotFoundException.class, () -> statementService.update(dto, 1));
         verify(statementRepository).findById(1);
-        verify(tagRepository, never()).findBySurname(anyString());
+        verify(tagRepository, never()).findBySurnameIgnoreCase(anyString());
         verify(statementRepository, never()).save(any());
     }
 
@@ -162,10 +165,10 @@ class StatementServiceTest {
         StatementRequestDto dto = mock(StatementRequestDto.class);
         when(dto.getTagName()).thenReturn("barraca");
         when(statementRepository.findById(anyInt())).thenReturn(Optional.of(statement));
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.empty());
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> statementService.update(dto, 1));
-        verify(tagRepository).findBySurname("BARRACA");
+        verify(tagRepository).findBySurnameIgnoreCase("BARRACA");
         verify(statementRepository, never()).save(any());
     }
 
@@ -186,19 +189,19 @@ class StatementServiceTest {
     @Test
     @DisplayName("Deve deletar todos os Statements de uma Tag")
     void deleteByTagSuccessfully() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.of(tag));
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.of(tag));
         doNothing().when(statementRepository).deleteByTag(tag);
 
         statementService.deleteByTag("barraca");
 
-        verify(tagRepository).findBySurname("BARRACA");
+        verify(tagRepository).findBySurnameIgnoreCase("BARRACA");
         verify(statementRepository).deleteByTag(tag);
     }
 
     @Test
     @DisplayName("Deve lançar exceção ao deletar Statements de Tag inexistente")
     void deleteByTagNotFound() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.empty());
+        when(tagRepository.findBySurnameIgnoreCase(anyString())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> statementService.deleteByTag("barraca"));
         verify(statementRepository, never()).deleteByTag(any());
@@ -233,7 +236,8 @@ class StatementServiceTest {
         Page<Statement> page = new PageImpl<>(list);
         when(statementRepository.findByFilterAndPagination(any(), any(), any(), any(), any(), any(Pageable.class))).thenReturn(page);
 
-        List<Statement> result = statementService.getByFilterAndPagination(null, null, null, null, null, 0, 10);
+        Triple<List<Statement>, Pagination, Double> result =
+                statementService.getByFilterAndPagination(null, null, null, null, null, 0, 10);
 
         assertEquals(list, result);
         verify(statementRepository).findByFilterAndPagination(any(), any(), any(), any(), any(), any(Pageable.class));
@@ -284,30 +288,4 @@ class StatementServiceTest {
         assertThrows(NotFoundException.class, () -> statementService.findById(1));
         verify(statementRepository).findById(1);
     }
-
-    @Test
-    @DisplayName("Deve buscar Statements por Tag com sucesso")
-    void findByTagSuccessfully() {
-        List<Statement> list = List.of(statement);
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.of(tag));
-        when(statementRepository.findAllByTag(tag)).thenReturn(list);
-
-        List<Statement> result = statementService.findByTag("barraca");
-
-        assertEquals(list, result);
-        verify(tagRepository).findBySurname("BARRACA");
-        verify(statementRepository).findAllByTag(tag);
-    }
-
-    @Test
-    @DisplayName("Deve lançar exceção ao buscar Statements por Tag inexistente")
-    void findByTagNotFound() {
-        when(tagRepository.findBySurname(anyString())).thenReturn(Optional.empty());
-
-        assertThrows(NotFoundException.class, () -> statementService.findByTag("barraca"));
-        verify(tagRepository).findBySurname("BARRACA");
-        verify(statementRepository, never()).findAllByTag(any());
-    }
-
-
 }

@@ -37,7 +37,9 @@ class AddressServiceTest {
     @Test
     @DisplayName("deve salvar Address se não existir")
     void saveIfNotExistWhenNotExists() {
-        when(addressRepository.existsByCepAndHouseNumber("12345-678", "10")).thenReturn(false);
+        when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                "12345-678", "10", "", "", "", "", ""
+        )).thenReturn(false);
         when(addressRepository.save(address)).thenReturn(address);
 
         Address result = addressService.saveIfNotExist(address);
@@ -49,7 +51,9 @@ class AddressServiceTest {
     @Test
     @DisplayName("deve retornar Address existente se já existir")
     void saveIfNotExistWhenExists() {
-        when(addressRepository.existsByCepAndHouseNumber("12345-678", "10")).thenReturn(true);
+        when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                "12345-678", "10", "", "", "", "", ""
+        )).thenReturn(true);
         when(addressRepository.findByCep("12345-678")).thenReturn(address);
 
         Address result = addressService.saveIfNotExist(address);
@@ -160,14 +164,18 @@ class AddressServiceTest {
     @Test
     @DisplayName("deve retornar true se Address já existir pelo cep e número")
     void addressAlreadyExistsTrue() {
-        when(addressRepository.existsByCepAndHouseNumber("12345-678", "10")).thenReturn(true);
-        assertTrue(addressService.addressAlreadyExists("12345-678", "10"));
+        when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                "12345-678", "10", "", "", "", "", ""
+        )).thenReturn(true);
+        assertTrue(addressService.addressAlreadyExists(new Address()));
     }
 
     @Test
     @DisplayName("deve retornar false se Address não existir pelo cep e número")
     void addressAlreadyExistsFalse() {
-        when(addressRepository.existsByCepAndHouseNumber("12345-678", "10")).thenReturn(false);
-        assertFalse(addressService.addressAlreadyExists("12345-678", "10"));
+        when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                "12345-678", "10", "", "", "", "", ""
+        )).thenReturn(false);
+        assertFalse(addressService.addressAlreadyExists(new Address()));
     }
 }

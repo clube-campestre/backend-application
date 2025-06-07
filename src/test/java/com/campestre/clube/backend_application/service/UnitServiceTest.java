@@ -48,7 +48,7 @@ class UnitServiceTest {
         when(unitRepository.findById(1)).thenReturn(Optional.of(unit));
         when(unitRepository.save(any())).thenReturn(unit);
 
-        Unit result = unitService.update(1, 20);
+        Unit result = unitService.updateByUnitName("PANDA", 20);
 
         assertEquals(20, result.getScore());
         verify(unitRepository).findById(1);
@@ -60,7 +60,7 @@ class UnitServiceTest {
     void updateUnitNotFound() {
         when(unitRepository.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> unitService.update(1, 10));
+        assertThrows(NotFoundException.class, () -> unitService.updateByUnitName("PANDA", 10));
         verify(unitRepository).findById(1);
         verify(unitRepository, never()).save(any());
     }
@@ -70,7 +70,7 @@ class UnitServiceTest {
     void updateWithNullScore() {
         when(unitRepository.findById(1)).thenReturn(Optional.of(unit));
 
-        assertThrows(BadRequestException.class, () -> unitService.update(1, null));
+        assertThrows(BadRequestException.class, () -> unitService.updateByUnitName("PANDA", null));
         verify(unitRepository).findById(1);
         verify(unitRepository, never()).save(any());
     }
@@ -80,7 +80,7 @@ class UnitServiceTest {
     void updateWithNegativeScore() {
         when(unitRepository.findById(1)).thenReturn(Optional.of(unit));
 
-        assertThrows(BadRequestException.class, () -> unitService.update(1, -5));
+        assertThrows(BadRequestException.class, () -> unitService.updateByUnitName("PANDA", -5));
         verify(unitRepository).findById(1);
         verify(unitRepository, never()).save(any());
     }
@@ -92,7 +92,7 @@ class UnitServiceTest {
         UnitEnum[] values = UnitEnum.values();
         for (UnitEnum unitEnum : values) {
             String name = unitEnum.name().replace("_", " ");
-            when(unitRepository.findBySurname(name)).thenReturn(Optional.of(unit));
+            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.of(unit));
         }
         when(unitRepository.save(any())).thenReturn(unit);
 
@@ -100,7 +100,7 @@ class UnitServiceTest {
 
         assertEquals(values.length, result.a.size());
         assertEquals(0, result.b.size());
-        verify(unitRepository, atLeastOnce()).findBySurname(anyString());
+        verify(unitRepository, atLeastOnce()).findBySurnameIgnoreCase(anyString());
         verify(unitRepository, atLeastOnce()).save(any());
     }
 
@@ -111,14 +111,14 @@ class UnitServiceTest {
         // Simula que nenhuma UnitEnum existe no banco
         for (UnitEnum unitEnum : values) {
             String name = unitEnum.name().replace("_", " ");
-            when(unitRepository.findBySurname(name)).thenReturn(Optional.empty());
+            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.empty());
         }
 
         Pair<List<String>, List<String>> result = unitService.resetAllScores();
 
         assertEquals(0, result.a.size());
         assertEquals(values.length, result.b.size());
-        verify(unitRepository, atLeastOnce()).findBySurname(anyString());
+        verify(unitRepository, atLeastOnce()).findBySurnameIgnoreCase(anyString());
         verify(unitRepository, never()).save(any());
     }
 

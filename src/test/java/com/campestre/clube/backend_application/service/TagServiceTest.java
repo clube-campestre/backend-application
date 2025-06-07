@@ -35,11 +35,11 @@ class TagServiceTest {
         tag.setSurname("Tag1");
         tag.setColor("Azul");
 
-        when(tagRepository.existsBySurnameOrColorContains(anyString(), anyString())).thenReturn(false);
+        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains(anyString(), anyString())).thenReturn(false);
         when(tagRepository.save(any())).thenReturn(tag);
 
         assertEquals(tag, tagService.register(tag));
-        verify(tagRepository, times(1)).existsBySurnameOrColorContains("Tag1", "Azul");
+        verify(tagRepository, times(1)).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
         verify(tagRepository, times(1)).save(tag);
     }
 
@@ -50,10 +50,10 @@ class TagServiceTest {
         tag.setSurname("Tag1");
         tag.setColor("Azul");
 
-        when(tagRepository.existsBySurnameOrColorContains(anyString(), anyString())).thenReturn(true);
+        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains(anyString(), anyString())).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> tagService.register(tag));
-        verify(tagRepository, times(1)).existsBySurnameOrColorContains("Tag1", "Azul");
+        verify(tagRepository, times(1)).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
         verify(tagRepository, never()).save(any());
     }
 

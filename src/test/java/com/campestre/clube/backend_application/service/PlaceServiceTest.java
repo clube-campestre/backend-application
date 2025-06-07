@@ -68,13 +68,13 @@ class PlaceServiceTest {
         Place place = new Place(1, address, "name", 1.0, 1, "123", 1);
 
         when(placeRepository.existsByName(any())).thenReturn(false);
-        when(addressService.addressAlreadyExists(any(), any())).thenReturn(false);
+        when(addressService.addressAlreadyExists(any())).thenReturn(false);
         when(addressService.saveIfNotExist(any())).thenReturn(address);
         when(placeRepository.save(any())).thenReturn(place);
 
         assertEquals(place, placeService.save(place));
         verify(placeRepository, Mockito.times(1)).existsByName(place.getName());
-        verify(addressService, Mockito.times(1)).addressAlreadyExists(place.getAddress().getCep(), place.getAddress().getHouseNumber());
+        verify(addressService, Mockito.times(1)).addressAlreadyExists(place.getAddress());
         verify(addressService, Mockito.times(1)).saveIfNotExist(place.getAddress());
         verify(placeRepository, Mockito.times(1)).save(place);
     }
@@ -111,7 +111,8 @@ class PlaceServiceTest {
         when(placeRepository.findById(anyInt())).thenReturn(Optional.of(oldPlace));
         when(placeRepository.existsByNameAndIdNot(any(), anyInt())).thenReturn(true);
 
-        assertThrows(com.campestre.clube.backend_application.exceptions.ConflictException.class, () -> placeService.update(1, newPlace));
+        assertThrows(com.campestre.clube.backend_application.exceptions.ConflictException.class, () ->
+                placeService.update(1, newPlace));
         verify(placeRepository, times(1)).findById(1);
         verify(placeRepository, times(1)).existsByNameAndIdNot(newPlace.getName(), 1);
         verify(addressService, never()).update(anyInt(), any());

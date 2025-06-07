@@ -60,9 +60,4 @@ public class UnitService {
         return unitRepository.findById(unitId)
                 .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
     }
-
-    Unit findBySurnameOrThrow(String surname) {
-        return unitRepository.findBySurnameIgnoreCase(surname)
-                .orElseThrow(() -> new NotFoundException("Unit by surname [%s] not found".formatted(surname)));
-    }
 }

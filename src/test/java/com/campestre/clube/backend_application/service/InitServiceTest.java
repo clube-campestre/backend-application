@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -33,23 +34,23 @@ class InitServiceTest {
     @Test
     @DisplayName("deve criar Tag genérica se não existir")
     void generateGenericTagWhenNotExists() {
-        when(tagRepository.findBySurname("Outros")).thenReturn(Optional.empty());
-        when(tagRepository.save(any())).thenReturn(new Tag("Outros", "FFFFFF"));
+        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.empty());
+        when(tagRepository.save(any())).thenReturn(new Tag("Outros", "FFFFFF", new BigDecimal(0.0), true));
 
         initService.generateGenericTag();
 
-        verify(tagRepository).findBySurname("Outros");
+        verify(tagRepository).findBySurnameIgnoreCase("Outros");
         verify(tagRepository).save(any(Tag.class));
     }
 
     @Test
     @DisplayName("não deve criar Tag genérica se já existir")
     void generateGenericTagWhenExists() {
-        when(tagRepository.findBySurname("Outros")).thenReturn(Optional.of(new Tag("Outros", "FFFFFF")));
+        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.of(new Tag("Outros", "FFFFFF", new BigDecimal(0.0), true)));
 
         initService.generateGenericTag();
 
-        verify(tagRepository).findBySurname("Outros");
+        verify(tagRepository).findBySurnameIgnoreCase("Outros");
         verify(tagRepository, never()).save(any());
     }
 
@@ -58,14 +59,14 @@ class InitServiceTest {
     void generateUnitsWhenNotExists() {
         String[] units = {"Panda", "Falcão", "Lince", "Leão", "Aguia Real", "Tigre", "Raposa", "Urso", "Pantera", "Lobo"};
         for (String name : units) {
-            when(unitRepository.findBySurname(name)).thenReturn(Optional.empty());
-            when(unitRepository.save(any())).thenReturn(new Unit(name, 0, ""));
+            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.empty());
+            when(unitRepository.save(any())).thenReturn(new Unit(0, name, 0));
         }
 
         initService.generateUnits();
 
         for (String name : units) {
-            verify(unitRepository).findBySurname(name);
+            verify(unitRepository).findBySurnameIgnoreCase(name);
             verify(unitRepository).save(argThat(u -> u.getSurname().equals(name)));
         }
     }
@@ -75,13 +76,13 @@ class InitServiceTest {
     void generateUnitsWhenExists() {
         String[] units = {"Panda", "Falcão", "Lince", "Leão", "Aguia Real", "Tigre", "Raposa", "Urso", "Pantera", "Lobo"};
         for (String name : units) {
-            when(unitRepository.findBySurname(name)).thenReturn(Optional.of(new Unit(name, 0, "")));
+            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.of(new Unit(0, name, 0)));
         }
 
         initService.generateUnits();
 
         for (String name : units) {
-            verify(unitRepository).findBySurname(name);
+            verify(unitRepository).findBySurnameIgnoreCase(name);
         }
         verify(unitRepository, never()).save(any());
     }
@@ -90,7 +91,8 @@ class InitServiceTest {
     @DisplayName("deve criar conta root se não existir nenhuma conta")
     void generateFirstAccountWhenNoAccounts() {
         when(accountService.getAll()).thenReturn(Collections.emptyList());
-        when(accountService.register(any())).thenReturn(new Account("root@email.com", "1234", "Root", AccessTypeEnum.DIRETOR));
+        when(accountService.register(any()))
+                .thenReturn(new Account("root@email.com", "1234", "Root", AccessTypeEnum.DIRETOR));
 
         initService.generateFirstAccount();
 
