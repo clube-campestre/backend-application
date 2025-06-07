@@ -24,9 +24,15 @@ public class MedicalDataService {
         return medicalDataRepository.save(medicalData);
     }
 
-    public MedicalData update(String cpf, MedicalData medicalData) {
-        if (cpf != null)
-            throw new NotFoundException("Medical data with this CPF [%s] not found".formatted(cpf));
+    public MedicalData update(MedicalData medicalData) {
+        if (medicalData.getCpf() == null)
+            throw new BadRequestException(
+                    "Medical data with this CPF [%s] should not be null".formatted(medicalData.getCpf())
+            );
+        if (!medicalDataRepository.existsByCpf(medicalData.getCpf()))
+            throw new NotFoundException(
+                    "Medical data with this CPF [%s] not found".formatted(medicalData.getCpf())
+            );
 
         return medicalDataRepository.save(medicalData);
     }

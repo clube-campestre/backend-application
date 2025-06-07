@@ -110,11 +110,10 @@ public class MemberDataService {
 
         Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
 
-        MedicalData updatedMedicalData =
-                medicalDataService.update(memberData.getMedicalData().getCpf(), memberData.getMedicalData());
+        memberData.getMedicalData().setCpf(cpf);
+        MedicalData updatedMedicalData = medicalDataService.update(memberData.getMedicalData());
         Address updatedAddress = addressService.update(memberData.getAddress().getId(), memberData.getAddress());
 
-        memberData.getMedicalData().setCpf(cpf);
         memberData.setCpf(cpf);
         memberData.setUnit(unit);
         memberData.setAddress(updatedAddress);
