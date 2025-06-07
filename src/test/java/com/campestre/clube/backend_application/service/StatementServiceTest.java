@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.service;
 
-
-import ch.qos.logback.core.joran.sanity.Pair;
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.entity.Statement;
 import com.campestre.clube.backend_application.entity.Tag;
