@@ -20,14 +20,23 @@ public class UnitService {
     @Autowired
     private UnitRepository unitRepository;
 
-     public Unit updateByUnitName(String unitName, Integer score){
-         Optional<Unit> unit = unitRepository.findBySurnameIgnoreCase(unitName);
-         if (unit.isEmpty())
-             throw new NotFoundException("Unit by name [%s] not found".formatted(unitName));
-         if (score == null || score < 0)
-             throw new BadRequestException("The unit score cannot be negative or zero");
+     public Unit updateScoreById(Integer id, Integer score){
+         UnitEnum.findByIdOrThrow(id);
+         Optional<Unit> unit = unitRepository.findById(id);
+         if (score == null)
+             throw new BadRequestException("The unit score cannot be null");
 
         unit.get().setScore(score);
+        return unitRepository.save(unit.get());
+    }
+
+    public Unit increaseOrDecreaseTheScoreById(Integer id, Integer score, Boolean isSum){
+        UnitEnum.findByIdOrThrow(id);
+        Optional<Unit> unit = unitRepository.findById(id);
+        if (score == null)
+            throw new BadRequestException("The unit score cannot be null");
+
+        unit.get().setScore(isSum ? (unit.get().getScore() + score) : (unit.get().getScore() - score));
         return unitRepository.save(unit.get());
     }
 

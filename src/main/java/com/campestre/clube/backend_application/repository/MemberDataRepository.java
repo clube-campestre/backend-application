@@ -36,24 +36,20 @@ public interface MemberDataRepository extends JpaRepository<MemberData, String> 
     @Query("""
                 SELECT m FROM member_data m
                 WHERE (:unitId IS NULL OR m.unit.id = :unitId)
-                  AND (:unitRole IS NULL OR m.unitRole = :unitRole)
                 ORDER BY m.username ASC
             """)
     Page<MemberData> findByUnitAndPagination(
             @Param("unitId") Integer unitId,
-            @Param("unitRole") UnitRole unitRole,
             Pageable pageable
     );
 
     @Query("""
                 SELECT m FROM member_data m
                 WHERE (:classCategory IS NULL OR m.classCategory = :classCategory)
-                  AND (:classRole IS NULL OR m.classRole = :classRole)
                 ORDER BY m.username ASC
             """)
     Page<MemberData> findByClassAndPagination(
             @Param("classCategory") ClassCategory classCategory,
-            @Param("classRole") ClassRole classRole,
             Pageable pageable
     );
 }
