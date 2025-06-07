@@ -123,11 +123,4 @@ public class StatementService {
                 new NotFoundException("Statement by id [%s] not found".formatted(i))
         );
     }
-
-//    public List<Statement> findByTag(String barraca) {
-//        Tag tag = tagRepository.findBySurname(barraca.toUpperCase()).orElseThrow(() ->
-//                new NotFoundException("Tag by name [%s] not found".formatted(barraca))
-//        );
-//        return statementRepository.findAllByTag(tag);
-//    }
 }
