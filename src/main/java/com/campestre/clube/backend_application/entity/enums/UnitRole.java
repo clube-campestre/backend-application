@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.entity.enums;
 
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-
 public enum UnitRole {
     CONSELHEIRO("Conselheiro"),
     CONSELHEIRO_AUXILIAR("Conselheiro Auxiliar"),
@@ -26,12 +24,6 @@ public enum UnitRole {
     }
 
     public static UnitRole fromString(String value) {
-        UnitRole unitRole;
-        try {
-            unitRole = UnitRole.valueOf(value.toUpperCase().replace(" ", "_"));
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Unit role of member data invalid");
-        }
-        return unitRole;
+        return EnumUtils.fromString(UnitRole.class, value, "Papel da unidade do membro inválido.");
     }
 }

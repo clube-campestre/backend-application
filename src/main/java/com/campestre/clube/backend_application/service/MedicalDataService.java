@@ -6,8 +6,6 @@ import com.campestre.clube.backend_application.repository.MedicalDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class MedicalDataService {
 
@@ -16,36 +14,25 @@ public class MedicalDataService {
 
     public MedicalData save(MedicalData medicalData) {
         if (medicalData.getCpf() == null)
-            throw new InternalServerException("The CPF [%s] by medical data is null".formatted(medicalData.getCpf()));
+            throw new BadRequestException("Não foi possível salvar os dados médicos: CPF não informado.");
 
         if (medicalDataRepository.existsByCpf(medicalData.getCpf()))
-            throw new ConflictException("Medical data with this CPF [%s] already exists".formatted(medicalData.getCpf()));
+            throw new ConflictException("Já existem dados médicos cadastrados com o CPF informado.");
 
         return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData update(MedicalData medicalData) {
         if (medicalData.getCpf() == null)
-            throw new BadRequestException(
-                    "Medical data with this CPF [%s] should not be null".formatted(medicalData.getCpf())
-            );
-        if (!medicalDataRepository.existsByCpf(medicalData.getCpf()))
-            throw new NotFoundException(
-                    "Medical data with this CPF [%s] not found".formatted(medicalData.getCpf())
-            );
+            throw new BadRequestException("Não é possível atualizar os dados médicos: CPF não informado.");
+        existsByCpfOrThrow(medicalData.getCpf());
 
         return medicalDataRepository.save(medicalData);
     }
 
     public MedicalData getById(String cpf) {
-        Optional<MedicalData> medicalData = medicalDataRepository.findById(cpf);
-        medicalDataNotFoundValidation(medicalData, cpf);
-
-        return medicalData.get();
-    }
-
-    public Boolean existsByCpf(String cpf){
-        return medicalDataRepository.existsByCpf(cpf);
+        existsByCpfOrThrow(cpf);
+        return medicalDataRepository.findById(cpf).get();
     }
 
     public Boolean existsByCns(String cns){
@@ -53,15 +40,14 @@ public class MedicalDataService {
     }
 
     public void delete(String cpf){
-        if(!medicalDataRepository.existsById(cpf))
-            throw new NotFoundException("Medical data by CPF [%s] not found".formatted(cpf));
-
+        existsByCpfOrThrow(cpf);
         medicalDataRepository.deleteById(cpf);
     }
 
 
-    private void medicalDataNotFoundValidation(Optional<MedicalData> medicalData, String cpf) {
-        if (medicalData.isEmpty())
-            throw new NotFoundException("Medical data by CPF [%s] not found".formatted(cpf));
+
+    private void existsByCpfOrThrow(String cpf) {
+        if (!medicalDataRepository.existsById(cpf))
+            throw new NotFoundException("Não encontramos os dados médicos solicitados.");
     }
 }

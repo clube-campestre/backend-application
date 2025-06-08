@@ -35,20 +35,14 @@ public enum UnitEnum {
     }
 
     public static UnitEnum findByIdOrThrow(Integer unitId) {
-        if (unitId == null) throw new BadRequestException("Unit id cannot be null");
+        if (unitId == null) throw new BadRequestException("ID da unidade não informado.");
         return Arrays.stream(values())
                 .filter(unit -> Objects.equals(unit.id, unitId))
                 .findFirst()
-                .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
+                .orElseThrow(() -> new NotFoundException("Não encontramos o usuário solicitado."));
     }
 
     public static UnitEnum fromString(String value) {
-        UnitEnum unit;
-        try {
-            unit = UnitEnum.valueOf(value.toUpperCase().replace(" ", "_"));
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Unit of member data invalid");
-        }
-        return unit;
+        return EnumUtils.fromString(UnitEnum.class, value, "Unidade do membro inválida.");
     }
 }

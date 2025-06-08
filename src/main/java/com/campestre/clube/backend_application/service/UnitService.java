@@ -22,9 +22,8 @@ public class UnitService {
 
      public Unit updateScoreById(Integer id, Integer score){
          UnitEnum.findByIdOrThrow(id);
+         validateScore(score);
          Optional<Unit> unit = unitRepository.findById(id);
-         if (score == null)
-             throw new BadRequestException("The unit score cannot be null");
 
         unit.get().setScore(score);
         return unitRepository.save(unit.get());
@@ -32,9 +31,8 @@ public class UnitService {
 
     public Unit increaseOrDecreaseTheScoreById(Integer id, Integer score, Boolean isSum){
         UnitEnum.findByIdOrThrow(id);
+        validateScore(score);
         Optional<Unit> unit = unitRepository.findById(id);
-        if (score == null)
-            throw new BadRequestException("The unit score cannot be null");
 
         unit.get().setScore(isSum ? (unit.get().getScore() + score) : (unit.get().getScore() - score));
         return unitRepository.save(unit.get());
@@ -65,8 +63,18 @@ public class UnitService {
         return units;
     }
 
+    private void validateScore(Integer score) {
+        if (score == null)
+            throw new BadRequestException("O valor da pontuação não pode ser nulo.");
+    }
+
     Unit findByIdOrThrow(Integer unitId) {
         return unitRepository.findById(unitId)
-                .orElseThrow(() -> new NotFoundException("Unit by id [%s] not found".formatted(unitId)));
+                .orElseThrow(() -> new NotFoundException("Não encontramos a unidade solicitada."));
+    }
+
+    Unit findBySurnameOrThrow(String surname) {
+        return unitRepository.findBySurnameIgnoreCase(surname)
+                .orElseThrow(() -> new NotFoundException("Não encontramos a unidade solicitada."));
     }
 }

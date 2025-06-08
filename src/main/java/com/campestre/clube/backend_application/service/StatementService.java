@@ -31,11 +31,11 @@ public class StatementService {
     public Statement register(Statement statement, String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
         Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
-                new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
+                new NotFoundException("Não encontramos a tag solicitada.")
         );
 
         if (statementRepository.existsByInformationAndPriceAndTransactionDateAndTag(statement.getInformation(), statement.getPrice(), statement.getTransactionDate(), tag)) {
-            throw new ConflictException("Statement with existing information, price, transaction_date and tag");
+            throw new ConflictException("Já existe um lançamento com as mesmas informações, valor, data e tag.");
         }
         statement.setTag(tag);
         return statementRepository.save(statement);
@@ -46,15 +46,15 @@ public class StatementService {
     }
 
     public Statement getById(Integer id) {
-        return validateStatementExists(id);
+        return findByIdOrThrow(id);
     }
 
     public Statement update(StatementRequestDto dto, Integer id) {
-        Statement existingStatement = validateStatementExists(id);
+        Statement existingStatement = findByIdOrThrow(id);
         String tagName = dto.getTagName().toUpperCase();
 
         Tag tag = tagRepository.findBySurnameIgnoreCase(tagName).orElseThrow(() ->
-                new NotFoundException("Tag by name [%s] not found".formatted(tagName))
+                new NotFoundException("Não encontramos a tag com o nome informado.")
         );
 
         existingStatement.setInformation(dto.getInformation());
@@ -78,13 +78,13 @@ public class StatementService {
     public void deleteByTag(String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
         Tag tag = tagRepository.findBySurnameIgnoreCase(tagNameFormatted).orElseThrow(() ->
-                new NotFoundException("Tag by name [%s] not found".formatted(tagNameFormatted))
+                new NotFoundException("Não foi possível encontrar a tag informada.")
         );
         statementRepository.deleteByTag(tag);
     }
 
     public void delete(Integer id) {
-        validateStatementExists(id);
+        existsByIdOrThrow(id);
         statementRepository.deleteById(id);
     }
 
@@ -101,26 +101,20 @@ public class StatementService {
         ), totalPrice);
     }
 
-    private Statement validateStatementExists(Integer id) {
-        return statementRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("Statement by id [%s] not found".formatted(id))
-        );
-    }
-
-    public Statement save(Statement entradaFerramentas) {
-        if (entradaFerramentas == null) {
-            throw new IllegalArgumentException("Statement cannot be null");
-        }
-        return statementRepository.save(entradaFerramentas);
-    }
-
     public List<Statement> findAll() {
         return statementRepository.findAll();
     }
 
-    public Statement findById(int i) {
-        return statementRepository.findById(i).orElseThrow(() ->
-                new NotFoundException("Statement by id [%s] not found".formatted(i))
+
+
+    private void existsByIdOrThrow(Integer id) {
+        if (!statementRepository.existsById(id))
+            throw new NotFoundException("Não encontramos o extrato solicitado.");
+    }
+
+    private Statement findByIdOrThrow(Integer id) {
+        return statementRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Não encontramos o extrato solicitado.")
         );
     }
 }

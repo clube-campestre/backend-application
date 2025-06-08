@@ -54,7 +54,7 @@ public class DriveService {
 
         var files = request.execute().getFiles();
         if (!files.isEmpty()) {
-            return files.get(0).getId(); // Retorna o ID da pasta existente
+            return files.getFirst().getId(); // Retorna o ID da pasta existente
         }
 
         // Se não existir, cria a pasta nova
@@ -73,7 +73,7 @@ public class DriveService {
 
     public DriveRes uploadImageToDrive(File file, String cpf) throws GeneralSecurityException, IOException {
         DriveRes res = new DriveRes();
-        MemberData member = validateMemberExists(cpf);
+        MemberData member = findByCpfOrThrow(cpf);
 
         try {
             Drive drive = createDriveService();
@@ -141,7 +141,7 @@ public class DriveService {
     // 🔹 ATUALIZAR UM ARQUIVO EXISTENTE
     public String updateFile(String fileId, File newFile, String cpf) throws GeneralSecurityException, IOException {
         Drive drive = createDriveService();
-        MemberData member = validateMemberExists(cpf);
+        MemberData member = findByCpfOrThrow(cpf);
 
         com.google.api.services.drive.model.File fileMetaData = new com.google.api.services.drive.model.File();
         fileMetaData.setName(newFile.getName());
@@ -186,8 +186,8 @@ public class DriveService {
                 .build();
     }
 
-    private MemberData validateMemberExists(String cpf) {
+    private MemberData findByCpfOrThrow(String cpf) {
         return memberDataRepository.findByCpf(cpf)
-                .orElseThrow(() -> new NotFoundException("MemberData by cpf [%s] not found".formatted(cpf)));
+                .orElseThrow(() -> new NotFoundException("Não encontramos um usuário com o CPF informado."));
     }
 }

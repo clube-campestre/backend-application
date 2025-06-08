@@ -29,7 +29,7 @@ public class DriveController {
     public Object handleFileUpload(
             @RequestParam("image") MultipartFile file, @RequestParam("cpf") String cpf
     ) throws IOException, GeneralSecurityException {
-        if (file.isEmpty()) throw new BadRequestException("The file is empty");
+        if (file.isEmpty()) throw new BadRequestException("O arquivo está vazio.");
         File tempFile = File.createTempFile("temp", null);
         file.transferTo(tempFile);
         return service.uploadImageToDrive(tempFile, cpf);
@@ -60,10 +60,10 @@ public class DriveController {
         file.transferTo(tempFile);
         try {
             return service.updateFile(fileId, tempFile, cpf);
-        } catch (IOException e) {
-            throw new InternalServerException("IOException: "+e.getMessage());
-        } catch (GeneralSecurityException e) {
-            throw new InternalServerException("GeneralSecurityException: "+e.getMessage());
+        } catch (IOException | GeneralSecurityException e) {
+            throw new InternalServerException(
+                    "Não foi possível processar o arquivo no momento. Tente novamente mais tarde."
+            );
         }
     }
 

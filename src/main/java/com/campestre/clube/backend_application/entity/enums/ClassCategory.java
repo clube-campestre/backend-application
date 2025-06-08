@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.entity.enums;
 
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-
 public enum ClassCategory {
     NENHUMA("Nenhuma"),
     AMIGO("Amigo"),
@@ -27,12 +25,6 @@ public enum ClassCategory {
     }
 
     public static ClassCategory fromString(String value) {
-        ClassCategory classCategory;
-        try {
-            classCategory = ClassCategory.valueOf(value.toUpperCase().replace(" ", "_"));
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Class category of member data invalid");
-        }
-        return classCategory;
+        return EnumUtils.fromString(ClassCategory.class, value, "Classe do membro inválida.");
     }
 }
