@@ -53,7 +53,7 @@ public class DriveService {
 
         var files = request.execute().getFiles();
         if (!files.isEmpty()) {
-            return files.get(0).getId(); // Retorna o ID da pasta existente
+            return files.getFirst().getId(); // Retorna o ID da pasta existente
         }
 
         // Se não existir, cria a pasta nova
