@@ -2,8 +2,11 @@ package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.GetByFilterAndPaginationStatementResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GoalResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.entity.Statement;
+import com.campestre.clube.backend_application.entity.Tag;
+import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.List;
 
@@ -34,5 +37,9 @@ public abstract class StatementMapper {
         return new GetByFilterAndPaginationStatementResponseDto(
                 pageNumber, pageSize, totalItems, totalPages, totalPrice, StatementMapper.toResponse(statements)
         );
+    }
+
+    public static GoalResponseDto toResponse(Pair<Double, Tag> result){
+        return new GoalResponseDto(result.a, result.b);
     }
 }

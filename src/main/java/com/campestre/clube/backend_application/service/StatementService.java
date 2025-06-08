@@ -9,6 +9,7 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -99,6 +100,12 @@ public class StatementService {
         return new Triple<>(result.getContent(), new Pagination(
                 result.getNumber(), result.getSize(), result.getTotalElements(), result.getTotalPages()
         ), totalPrice);
+    }
+
+    public Pair<Double, Tag> getGoalByTagId(Integer id) {
+        return new Pair<>(statementRepository.findAllPrices(), tagRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não encontramos a tag solicitada."))
+        );
     }
 
     public List<Statement> findAll() {
