@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.GetByFilterAndPaginationStatementResponseDto;
+import com.campestre.clube.backend_application.controller.dtos.responses.GoalResponseDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.StatementResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.StatementMapper;
 import com.campestre.clube.backend_application.entity.models.Pagination;
@@ -75,6 +76,12 @@ public class StatementController {
     public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id) {
         var statement = statementService.getById(id);
         return ResponseEntity.ok(StatementMapper.toResponse(statement));
+    }
+
+    @Operation(summary = "Endpoint for get goal by tag id")
+    @GetMapping("/goal")
+    public ResponseEntity<GoalResponseDto> getGoalByTagId(@RequestParam Integer tagId) {
+        return ResponseEntity.ok(StatementMapper.toResponse(statementService.getGoalByTagId(tagId)));
     }
 
     @Operation(summary = "Endpoint for update statement by id")
