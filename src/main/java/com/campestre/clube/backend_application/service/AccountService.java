@@ -3,7 +3,6 @@ package com.campestre.clube.backend_application.service;
 import com.campestre.clube.backend_application.config.JwtTokenManager;
 import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.AccountMapper;
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.entity.Account;

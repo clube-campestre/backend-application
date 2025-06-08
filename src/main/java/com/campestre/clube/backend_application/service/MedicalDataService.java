@@ -6,8 +6,6 @@ import com.campestre.clube.backend_application.repository.MedicalDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class MedicalDataService {
 

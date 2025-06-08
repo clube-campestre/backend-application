@@ -5,7 +5,6 @@ import com.campestre.clube.backend_application.entity.enums.UnitEnum;
 import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.UnitRepository;
-import com.fasterxml.jackson.core.JsonpCharacterEscapes;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
