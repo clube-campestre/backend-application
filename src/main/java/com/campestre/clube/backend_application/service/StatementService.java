@@ -28,8 +28,6 @@ public class StatementService {
 
     @Autowired
     private TagRepository tagRepository;
-    @Autowired
-    private TagService tagService;
 
     public Statement register(Statement statement, String tagName) {
         String tagNameFormatted = tagName.toUpperCase();
@@ -105,7 +103,9 @@ public class StatementService {
     }
 
     public Pair<Double, Tag> getGoalByTagId(Integer id) {
-        return new Pair<>(statementRepository.findAllPrices(), tagService.getById(id));
+        return new Pair<>(statementRepository.findAllPrices(), tagRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não encontramos a tag solicitada."))
+        );
     }
 
     public List<Statement> findAll() {
