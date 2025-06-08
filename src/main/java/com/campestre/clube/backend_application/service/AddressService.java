@@ -47,17 +47,9 @@ public class AddressService {
     }
 
     public Address getById(Integer id){
+        existsByIdOrThrow(id);
         Optional<Address> address = addressRepository.findById(id);
-        if(address.isEmpty()){
-            throw new NotFoundException("Address with id [%s] not found".formatted(id));
-        }
         return address.get();
-    }
-
-    public Address getByCep(String cep){
-        Address address = addressRepository.findByCep(cep);
-        if(address == null) throw new NotFoundException("Address with CEP [%s] not found".formatted(cep));
-        return address;
     }
 
     public Boolean existById(Integer id){
@@ -65,10 +57,13 @@ public class AddressService {
     }
 
     public void delete(Integer id){
-        if(!addressRepository.existsById(id)){
-            throw new NotFoundException("Address with id [%s] not found".formatted(id));
-        }
+        existsByIdOrThrow(id);
         addressRepository.deleteById(id);
+    }
+
+    private void existsByIdOrThrow(Integer id) {
+        if (!addressRepository.existsById(id))
+            throw new NotFoundException("Não encontramos o endereço solicitado.");
     }
 
     public Boolean addressAlreadyExists(Address address){

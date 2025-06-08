@@ -20,7 +20,7 @@ public class TagService {
 
     public Tag register(Tag tag) {
         if (tagRepository.existsBySurnameIgnoreCaseOrColorContains(tag.getSurname(), tag.getColor()))
-            throw new ConflictException("Tag with existing surname or color");
+            throw new ConflictException("Já existe uma tag com este nome ou cor.");
 
         return tagRepository.save(tag);
     }
@@ -46,16 +46,16 @@ public class TagService {
 
     private Tag findGenericTagOrThrow() {
         return tagRepository.findBySurnameIgnoreCase("Outros")
-                .orElseThrow(() -> new NotFoundException("Generic Tag not Found"));
+                .orElseThrow(() -> new NotFoundException("Tag genérica não encontrada."));
     }
 
     private Tag findByIdOrThrow(Integer id) {
         return tagRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Tag by id [%s] not found".formatted(id)));
+                .orElseThrow(() -> new NotFoundException("Não encontramos a tag solicitada."));
     }
 
     private void existsByIdOrThrow(Integer id) {
         if (!tagRepository.existsById(id))
-            throw new NotFoundException("Tag by id [%s] not found".formatted(id));
+            throw new NotFoundException("Não encontramos a tag solicitada.");
     }
 }

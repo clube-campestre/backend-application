@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.entity.enums;
 
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-
 public enum TshirtSize {
     PP,
     P,
@@ -13,12 +11,6 @@ public enum TshirtSize {
     XG2;
 
     public static TshirtSize fromString(String value) {
-        TshirtSize tshirtSize;
-        try {
-            tshirtSize = TshirtSize.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("T-shirt size of member data invalid");
-        }
-        return tshirtSize;
+        return EnumUtils.fromString(TshirtSize.class, value, "Tamanho da camiseta do membro inválido.");
     }
 }

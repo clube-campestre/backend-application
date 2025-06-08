@@ -20,10 +20,8 @@ public class PlaceService {
     private AddressService addressService;
 
     public Place getById(Integer id) {
-        Optional<Place> place = placeRepository.findById(id);
-        placeNotFoundValidation(place, id);
-
-        return place.get();
+        existsByIdOrThrow(id);
+        return placeRepository.findById(id).get();
     }
 
     public List<Place> getAllOrderedByRating() {
@@ -32,20 +30,18 @@ public class PlaceService {
 
     public Place save(Place place) {
         if (placeRepository.existsByName(place.getName()))
-            throw new ConflictException("Place with existing name");
+            throw new ConflictException("Já existe um local cadastrado com esse nome.");
         if (addressService.addressAlreadyExists(place.getAddress()))
-            throw new ConflictException("Address already found for provided CEP.");
+            throw new ConflictException("Este endereço já está cadastrado em nosso sistema.");
 
         place.setAddress(addressService.saveIfNotExist(place.getAddress()));
         return placeRepository.save(place);
     }
 
     public Place update(Integer id, Place newPlace){
-        Optional<Place> place = placeRepository.findById(id);
-
-        placeNotFoundValidation(place, id);
+        existsByIdOrThrow(id);
         if (placeRepository.existsByNameAndIdNot(newPlace.getName(), id))
-            throw new ConflictException("Place with existing sirname");
+            throw new ConflictException("Já existe um local cadastrado com esse nome.");
 
         newPlace.setAddress(addressService.update(newPlace.getAddress().getId(), newPlace.getAddress()));
         newPlace.setId(id);
@@ -53,16 +49,14 @@ public class PlaceService {
     }
 
     public void delete(Integer id){
-        if(!placeRepository.existsById(id))
-            throw new NotFoundException("User by id [%s] not found".formatted(id));
-
+        existsByIdOrThrow(id);
         placeRepository.deleteById(id);
     }
 
 
 
-    private void placeNotFoundValidation(Optional<Place> place, Integer id) {
-        if (place.isEmpty())
-            throw new NotFoundException("Place by id [%s] not found".formatted(id));
+    private void existsByIdOrThrow(Integer id) {
+        if (!placeRepository.existsById(id))
+            throw new NotFoundException("Não encontramos o local solicitado.");
     }
 }

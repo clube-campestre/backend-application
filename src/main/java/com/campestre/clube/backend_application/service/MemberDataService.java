@@ -37,11 +37,9 @@ public class MemberDataService {
 
     public MemberData register(MemberData memberData) {
         if(memberDataRepository.existsByCpf(memberData.getCpf()))
-            throw new NotFoundException("Member by cpf [%s] already exists".formatted(memberData.getCpf()));
+            throw new ConflictException("Já existe um membro cadastrado com o CPF informado.");
         if (medicalDataService.existsByCns(memberData.getMedicalData().getCns()))
-            throw new ConflictException(
-                    "Medical data with this CNS [%s] already exists".formatted(memberData.getMedicalData().getCns())
-            );
+            throw new ConflictException("Já existe um membro cadastrado com CNS informado.");
 
         Unit unit = unitService.findByIdOrThrow(memberData.getUnit().getId());
 
@@ -70,11 +68,11 @@ public class MemberDataService {
         List<MemberData> counselors = memberDataRepository.findByUnitIdAndUnitRole(unitId, UnitRole.CONSELHEIRO);
         if (counselors.isEmpty())
             throw new BadRequestException(
-                    "The unit with id [%s] should have at least 1 counselor".formatted(unitId)
+                    "A unidade %s deve ter pelo menos um conselheiro.".formatted(unit.getSurname())
             );
         if (counselors.size() > 1)
             throw new BadRequestException(
-                    "The unit with id [%s] should not have more than one counselor".formatted(unitId)
+                    "A unidade %s não pode ter mais de um conselheiro.".formatted(unit.getSurname())
             );
 
         Page<MemberData> result = memberDataRepository
@@ -90,11 +88,11 @@ public class MemberDataService {
                 .findByClassCategoryAndClassRole(classCategory, ClassRole.INSTRUTOR);
         if (instructors.isEmpty())
             throw new BadRequestException(
-                    "The [%s] class should have at least 1 instructor".formatted(classCategory.name())
+                    "A classe %s deve ter pelo menos um instrutor.".formatted(classCategory.name())
             );
         if (instructors.size() > 1)
             throw new BadRequestException(
-                    "The [%s] class should not have more than one instructor".formatted(classCategory.name())
+                    "A classe %s não pode ter mais de um instrutor.".formatted(classCategory.name())
             );
 
         Page<MemberData> result = memberDataRepository
@@ -128,7 +126,7 @@ public class MemberDataService {
         try {
             driveService.deleteFile(memberToDelete.getIdImage());
         } catch (Exception e) {
-            throw new InternalServerException("Error deleting profile image of member with CPF [%s]".formatted(cpf));
+            throw new InternalServerException("Não foi possível excluir a foto de perfil. Tente novamente mais tarde.");
         }
         memberDataRepository.deleteById(cpf);
         medicalDataService.delete(cpf);
@@ -154,6 +152,6 @@ public class MemberDataService {
 
     private MemberData findOrThrow(String cpf) {
         return memberDataRepository.findByCpf(cpf)
-                .orElseThrow(() -> new NotFoundException("Member by cpf [%s] not found".formatted(cpf)));
+                .orElseThrow(() -> new NotFoundException("Não encontramos um usuário com o CPF informado."));
     }
 }
