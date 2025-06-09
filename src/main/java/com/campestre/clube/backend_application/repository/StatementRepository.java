@@ -37,6 +37,9 @@ public interface StatementRepository extends JpaRepository<Statement, Integer> {
     @Query("SELECT SUM(CASE WHEN s.transactionType = 'SAIDA' THEN -s.price ELSE s.price END) FROM Statement s")
     Double findAllPrices();
 
+    @Query("SELECT SUM(CASE WHEN s.transactionType = 'SAIDA' THEN -s.price ELSE s.price END) FROM Statement s WHERE s.tag.id = :tagId")
+    Double findAllPricesByTagId(@Param("tagId") Integer tagId);
+
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, Double price, LocalDateTime transactionDate, Tag tag);
 

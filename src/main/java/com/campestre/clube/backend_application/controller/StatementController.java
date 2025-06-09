@@ -40,6 +40,11 @@ public class StatementController {
                 statementService.register(StatementMapper.toEntity(dto), dto.getTagName())
         ));
     }
+    //tem dois lince na unidades
+    //adicionar botão de zerar ranking na home
+    //ao criar uma tag ele pode querer alterar a cor por texto, alterar o hexa
+    //passar a hora no extrato, adiciona um campo separado para criar e editar, ai voce chumba os dois e manda pro back
+    //usuario padrao pode acessar o extrato? (ta funcionando permissoes?)
 
     @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping

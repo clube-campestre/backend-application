@@ -103,7 +103,7 @@ public class StatementService {
     }
 
     public Pair<Double, Tag> getGoalByTagId(Integer id) {
-        return new Pair<>(statementRepository.findAllPrices(), tagRepository.findById(id)
+        return new Pair<>(statementRepository.findAllPricesByTagId(id), tagRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Não encontramos a tag solicitada."))
         );
     }
