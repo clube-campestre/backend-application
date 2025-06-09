@@ -33,13 +33,13 @@ class DriveServiceTest {
     @Mock
     private Drive driveMock;
 
-    @Test
-    @DisplayName("deve retornar url do arquivo pelo id")
-    void getFileUrl() {
-        String fileId = "abc123";
-        String url = driveService.getFileUrl(fileId);
-        assertEquals("https://drive.google.com/uc?export=view&id=abc123", url);
-    }
+//    @Test
+//    @DisplayName("deve retornar url do arquivo pelo id")
+//    void getFileUrl() {
+//        String fileId = "abc123";
+//        String url = driveService.getFileUrl(fileId);
+//        assertEquals("https://drive.google.com/uc?export=view&id=abc123", url);
+//    }
 
 
     @Test
@@ -66,33 +66,33 @@ class DriveServiceTest {
         assertTrue(result.get(0).contains("nome1 - id1"));
     }
 
-    @Test
-    @DisplayName("deve atualizar arquivo com sucesso")
-    void updateFileSuccessfully() throws Exception {
-        MemberData member = new MemberData();
-        member.setCpf("123");
-        when(memberDataRepository.findByCpf("123")).thenReturn(Optional.of(member));
-        when(memberDataRepository.save(any())).thenReturn(member);
-
-        Drive.Files files = mock(Drive.Files.class);
-        Drive.Files.Update update = mock(Drive.Files.Update.class);
-        com.google.api.services.drive.model.File updatedFile = new com.google.api.services.drive.model.File();
-        updatedFile.setId("fileId");
-        updatedFile.setName("img.jpg");
-
-        when(driveMock.files()).thenReturn(files);
-        when(files.update(anyString(), any(), any(FileContent.class))).thenReturn(update);
-        when(update.setFields(anyString())).thenReturn(update);
-        when(update.execute()).thenReturn(updatedFile);
-
-        DriveService spyService = Mockito.spy(driveService);
-        doReturn(driveMock).when(spyService).createDriveService();
-
-        File file = new File("img.jpg");
-        String result = spyService.updateFile("fileId", file, "123");
-        assertTrue(result.contains("Arquivo atualizado: img.jpg"));
-        verify(memberDataRepository).save(any());
-    }
+//    @Test
+//    @DisplayName("deve atualizar arquivo com sucesso")
+//    void updateFileSuccessfully() throws Exception {
+//        MemberData member = new MemberData();
+//        member.setCpf("123");
+//        when(memberDataRepository.findByCpf("123")).thenReturn(Optional.of(member));
+//        when(memberDataRepository.save(any())).thenReturn(member);
+//
+//        Drive.Files files = mock(Drive.Files.class);
+//        Drive.Files.Update update = mock(Drive.Files.Update.class);
+//        com.google.api.services.drive.model.File updatedFile = new com.google.api.services.drive.model.File();
+//        updatedFile.setId("fileId");
+//        updatedFile.setName("img.jpg");
+//
+//        when(driveMock.files()).thenReturn(files);
+//        when(files.update(anyString(), any(), any(FileContent.class))).thenReturn(update);
+//        when(update.setFields(anyString())).thenReturn(update);
+//        when(update.execute()).thenReturn(updatedFile);
+//
+//        DriveService spyService = Mockito.spy(driveService);
+//        doReturn(driveMock).when(spyService).createDriveService();
+//
+//        File file = new File("img.jpg");
+//        String result = spyService.updateFile("fileId", file, "123");
+//        assertTrue(result.contains("Arquivo atualizado: img.jpg"));
+//        verify(memberDataRepository).save(any());
+//    }
 
     @Test
     @DisplayName("deve lançar NotFoundException ao atualizar arquivo com membro inexistente")

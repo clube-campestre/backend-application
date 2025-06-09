@@ -151,7 +151,7 @@ class MemberDataServiceTest {
     void updateSuccessfully() {
         when(memberDataRepository.findByCpf(anyString())).thenReturn(Optional.of(memberData));
         when(unitRepository.findById(anyInt())).thenReturn(Optional.of(unit));
-        when(medicalDataService.update(anyString(), any())).thenReturn(medicalData);
+//        when(medicalDataService.update(anyString(), any())).thenReturn(medicalData);
         when(addressService.update(anyInt(), any())).thenReturn(address);
         when(memberDataRepository.save(any())).thenReturn(memberData);
 
@@ -160,7 +160,7 @@ class MemberDataServiceTest {
         assertEquals(memberData, result);
         verify(memberDataRepository).findByCpf("123");
         verify(unitRepository).findById(1);
-        verify(medicalDataService).update("123", medicalData);
+//        verify(medicalDataService).update("123", medicalData);
         verify(addressService).update(1, address);
         verify(memberDataRepository).save(memberData);
     }

@@ -123,10 +123,12 @@ public class MemberDataService {
     public void delete(String cpf) {
         MemberData memberToDelete = findOrThrow(cpf);
 
-        try {
-            driveService.deleteFile(memberToDelete.getIdImage());
-        } catch (Exception e) {
-            throw new InternalServerException("Não foi possível excluir a foto de perfil. Tente novamente mais tarde.");
+        if (memberToDelete.getIdImage() != null && memberToDelete.getImagePath() != null) {
+            try {
+                driveService.deleteFile(memberToDelete.getIdImage());
+            } catch (Exception e) {
+                throw new InternalServerException("Não foi possível excluir a foto de perfil. Tente novamente mais tarde.");
+            }
         }
         memberDataRepository.deleteById(cpf);
         medicalDataService.delete(cpf);
