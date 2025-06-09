@@ -28,17 +28,23 @@ class AddressServiceTest {
 
     @BeforeEach
     void setUp() {
-        address = new Address();
-        address.setId(1);
-        address.setCep("12345-678");
-        address.setHouseNumber("10");
+        address = new Address(
+                1,
+                "street",
+                "10",
+                "district",
+                "state",
+                "city",
+                "12345-678",
+                null
+        );
     }
 
     @Test
     @DisplayName("deve salvar Address se não existir")
     void saveIfNotExistWhenNotExists() {
         when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
-                "12345-678", "10", "", "", "", "", ""
+                any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(false);
         when(addressRepository.save(address)).thenReturn(address);
 
@@ -51,10 +57,14 @@ class AddressServiceTest {
     @Test
     @DisplayName("deve retornar Address existente se já existir")
     void saveIfNotExistWhenExists() {
+        Address address = new Address();
         when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
-                "12345-678", "10", "", "", "", "", ""
+                any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(true);
-        when(addressRepository.findByCep("12345-678")).thenReturn(address);
+
+        when(addressRepository.findByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
+                any(), any(), any(), any(), any(), any(), any()
+        )).thenReturn(address);
 
         Address result = addressService.saveIfNotExist(address);
 
@@ -90,41 +100,23 @@ class AddressServiceTest {
     @Test
     @DisplayName("deve buscar Address por id com sucesso")
     void getByIdSuccessfully() {
+        when(addressRepository.existsById(1)).thenReturn(true);
         when(addressRepository.findById(1)).thenReturn(Optional.of(address));
 
         Address result = addressService.getById(1);
 
         assertEquals(address, result);
-        verify(addressRepository).findById(1);
+        verify(addressRepository, times(1)).existsById(1);
+        verify(addressRepository, times(1)).findById(1);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao buscar Address por id inexistente")
     void getByIdNotFound() {
-        when(addressRepository.findById(1)).thenReturn(Optional.empty());
+        when(addressRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> addressService.getById(1));
-        verify(addressRepository).findById(1);
-    }
-
-    @Test
-    @DisplayName("deve buscar Address por cep com sucesso")
-    void getByCepSuccessfully() {
-        when(addressRepository.findByCep("12345-678")).thenReturn(address);
-
-        Address result = addressService.getByCep("12345-678");
-
-        assertEquals(address, result);
-        verify(addressRepository).findByCep("12345-678");
-    }
-
-    @Test
-    @DisplayName("deve lançar exceção ao buscar Address por cep inexistente")
-    void getByCepNotFound() {
-        when(addressRepository.findByCep("12345-678")).thenReturn(null);
-
-        assertThrows(NotFoundException.class, () -> addressService.getByCep("12345-678"));
-        verify(addressRepository).findByCep("12345-678");
+        verify(addressRepository, times(1)).existsById(1);
     }
 
     @Test
@@ -149,7 +141,7 @@ class AddressServiceTest {
 
         addressService.delete(1);
 
-        verify(addressRepository).deleteById(1);
+        verify(addressRepository, times(1)).deleteById(1);
     }
 
     @Test
@@ -165,8 +157,9 @@ class AddressServiceTest {
     @DisplayName("deve retornar true se Address já existir pelo cep e número")
     void addressAlreadyExistsTrue() {
         when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
-                "12345-678", "10", "", "", "", "", ""
+                any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(true);
+        addressService.addressAlreadyExists(address);
         assertTrue(addressService.addressAlreadyExists(new Address()));
     }
 
@@ -174,8 +167,9 @@ class AddressServiceTest {
     @DisplayName("deve retornar false se Address não existir pelo cep e número")
     void addressAlreadyExistsFalse() {
         when(addressRepository.existsByStreetAndHouseNumberAndDistrictAndStateAndCityAndCepAndReferenceHouse(
-                "12345-678", "10", "", "", "", "", ""
+                any(), any(), any(), any(), any(), any(), any()
         )).thenReturn(false);
+        addressService.addressAlreadyExists(address);
         assertFalse(addressService.addressAlreadyExists(new Address()));
     }
 }

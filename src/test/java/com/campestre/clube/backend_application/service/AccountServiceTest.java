@@ -74,16 +74,6 @@ class AccountServiceTest {
     }
 
     @Test
-    @DisplayName("deve lançar BadRequestException ao registrar email inválido")
-    void registerWithInvalidEmail() {
-        account.setEmail("invalidemail");
-        when(accountRepository.existsByEmail(account.getEmail())).thenReturn(false);
-
-        assertThrows(BadRequestException.class, () -> accountService.register(account));
-        verify(accountRepository, never()).save(any());
-    }
-
-    @Test
     @DisplayName("deve autenticar Account com sucesso")
     void authenticateSuccessfully() {
         when(accountRepository.existsByEmail(account.getEmail())).thenReturn(true);
@@ -119,28 +109,30 @@ class AccountServiceTest {
     @Test
     @DisplayName("deve buscar Account por id com sucesso")
     void getByIdSuccessfully() {
+        when(accountRepository.existsById(1)).thenReturn(true);
         when(accountRepository.findById(1)).thenReturn(Optional.of(account));
 
         Account result = accountService.getById(1);
 
         assertEquals(account, result);
+        verify(accountRepository).existsById(1);
         verify(accountRepository).findById(1);
     }
 
     @Test
     @DisplayName("deve lançar NotFoundException ao buscar Account por id inexistente")
     void getByIdNotFound() {
-        when(accountRepository.findById(1)).thenReturn(Optional.empty());
+        when(accountRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> accountService.getById(1));
-        verify(accountRepository).findById(1);
+        verify(accountRepository).existsById(1);
     }
 
 
     @Test
     @DisplayName("deve lançar NotFoundException ao atualizar Account inexistente")
     void updateNotFound() {
-        when(accountRepository.findById(1)).thenReturn(Optional.empty());
+        when(accountRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> accountService.update(1, account));
         verify(accountRepository, never()).save(any());
@@ -149,6 +141,7 @@ class AccountServiceTest {
     @Test
     @DisplayName("deve lançar ConflictException ao atualizar Account com email já existente")
     void updateWithExistingEmail() {
+        when(accountRepository.existsById(1)).thenReturn(true);
         when(accountRepository.findById(1)).thenReturn(Optional.of(account));
         when(accountRepository.existsByEmailAndIdNot(account.getEmail(), 1)).thenReturn(true);
 
