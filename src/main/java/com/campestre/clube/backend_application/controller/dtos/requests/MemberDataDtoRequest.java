@@ -1,116 +1,131 @@
 package com.campestre.clube.backend_application.controller.dtos.requests;
 
-import com.campestre.clube.backend_application.entity.enums.ClassCategory;
-import com.campestre.clube.backend_application.entity.enums.Sex;
-import com.campestre.clube.backend_application.entity.enums.TshirtSize;
-import com.campestre.clube.backend_application.entity.enums.UnitRole;
-import com.campestre.clube.backend_application.entity.enums.ClassRole;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class MemberDataDtoRequest {
-
-    @NotBlank
-    @Size(min = 11, max = 11)
-    private String cpf;
 
     private String idImage;
 
     private String imagePath;
 
-    @NotNull
-    private UnitRole unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
+    @NotBlank
+    @Size(max = 255)
+    private String username;
 
     @NotBlank
-    @Size(max = 50)
-    private String username;
+    @Size(max = 32)
+    private String birthCertificate;
+
+    @NotBlank
+    @Size(min = 11, max = 11)
+    private String cpf;
+
+    @NotBlank
+    private String issuingAuthority;
+
+    @NotBlank
+    @Size(min = 11, max = 13)
+    private String contact;
 
     @NotNull
     @Past
     private LocalDate birthDate;
 
     @NotNull
-    private Sex sex; // Enum: "M", "F", "OUTRO"
-
-    @NotBlank
-    @Size(max = 32)
-    private String birthCertificate;
+    @Schema(description = "Member data sex", example = "MASCULINO", allowableValues = {"OUTRO", "FEMININO", "MASCULINO"})
+    private String sex;
 
     @NotNull
-    private TshirtSize tshirtSize; // Ex: "PP", "M", "G"
+    @Schema(description = "Member data t-shirt size", example = "M", allowableValues = {
+            "PP", "P", "M", "G", "GG", "XG", "XG1", "XG2"
+    })
+    private String tshirtSize;
 
     @NotNull
     private Boolean isBaptized;
 
-    @NotBlank
-    @Size(max = 12)
-    private String contact;
+    @Valid
+    private SaveAddressRequestDto address;
 
-    @NotNull
-    private Integer unitId;
+    @Valid
+    private SaveMedicalDataRequestDto medicalData;
 
-    @NotNull
-    private ClassCategory classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
-
-    @NotNull
-    private ClassRole classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
-
-    // Informações do pai
-    @Size(max = 50)
     private String fatherName;
-
-    @Size(max = 12)
     private String fatherContact;
-
-    @Email
-    @Size(max = 50)
     private String fatherEmail;
 
-    // Informações da mãe
-    @Size(max = 50)
     private String motherName;
-
-    @Size(max = 12)
     private String motherContact;
-
-    @Email
-    @Size(max = 50)
     private String motherEmail;
 
-    // Responsável
-    @Size(max = 50)
     private String responsibleName;
-
-    @Size(max = 12)
     private String responsibleContact;
-
-    @Email
-    @Size(max = 50)
     private String responsibleEmail;
 
     @NotNull
-    private Integer addressId;
+    @Schema(description = "Member data unit role", example = "CONSELHEIRO", allowableValues = {
+            "CONSELHEIRO", "CONSELHEIRO_AUXILIAR", "CAPITAO", "VICE_CAPITAO", "TESOUREIRO", "VICE_TESOUREIRO",
+            "SECRETARIO", "VICE_SECRETARIO", "PADIOLEIRO", "CAPELAO", "ALMO_XARIFADO"
+    })
+    private String unitRole;
+
+    @Valid
+    private GetUnitRequestDto unit;
 
     @NotNull
-    private String medicalDataId;
+    @Schema(description = "Member data class category", example = "AMIGO", allowableValues = {
+            "NENHUM", "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
+            "DESBRAVADORES_COMPLETO", "LIDER", "LIDER_MASTER", "LIDER_MASTER_AVANCADO"
+    })
+    private String classCategory;
 
+    @NotNull
+    @Schema(description = "Member data class role", example = "INSTRUTOR", allowableValues = {
+            "NENHUM", "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
+    })
+    private String classRole;
 
-    @Valid
-    private SaveMedicalDataRequestDto medicalData; // DTO dos dados médicos
-
-    @Valid
-    private SaveAddressRequestDto address; //DTO do endereço
-
-    public String getCpf() {
-        return cpf;
+    public MemberDataDtoRequest() {
     }
 
-    public void setCpf(String cpf) {
+    public MemberDataDtoRequest(
+            String idImage, String imagePath, String username, String birthCertificate, String cpf,
+            String issuingAuthority, String contact, LocalDate birthDate, String sex, String tshirtSize,
+            Boolean isBaptized, SaveAddressRequestDto address, SaveMedicalDataRequestDto medicalData, String fatherName,
+            String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail,
+            String responsibleName, String responsibleContact, String responsibleEmail, String unitRole,
+            GetUnitRequestDto unit, String classCategory, String classRole
+    ) {
+        this.idImage = idImage;
+        this.imagePath = imagePath;
+        this.username = username;
+        this.birthCertificate = birthCertificate;
         this.cpf = cpf;
+        this.issuingAuthority = issuingAuthority;
+        this.contact = contact;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.tshirtSize = tshirtSize;
+        this.isBaptized = isBaptized;
+        this.address = address;
+        this.medicalData = medicalData;
+        this.fatherName = fatherName;
+        this.fatherContact = fatherContact;
+        this.fatherEmail = fatherEmail;
+        this.motherName = motherName;
+        this.motherContact = motherContact;
+        this.motherEmail = motherEmail;
+        this.responsibleName = responsibleName;
+        this.responsibleContact = responsibleContact;
+        this.responsibleEmail = responsibleEmail;
+        this.unitRole = unitRole;
+        this.unit = unit;
+        this.classCategory = classCategory;
+        this.classRole = classRole;
     }
 
     public String getIdImage() {
@@ -129,36 +144,12 @@ public class MemberDataDtoRequest {
         this.imagePath = imagePath;
     }
 
-    public UnitRole getUnitRole() {
-        return unitRole;
-    }
-
-    public void setUnitRole(UnitRole unitRole) {
-        this.unitRole = unitRole;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
     }
 
     public String getBirthCertificate() {
@@ -169,20 +160,20 @@ public class MemberDataDtoRequest {
         this.birthCertificate = birthCertificate;
     }
 
-    public TshirtSize getTshirtSize() {
-        return tshirtSize;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setTshirtSize(TshirtSize tshirtSize) {
-        this.tshirtSize = tshirtSize;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public Boolean getIsBaptized() {
-        return isBaptized;
+    public String getIssuingAuthority() {
+        return issuingAuthority;
     }
 
-    public void setIsBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIssuingAuthority(String issuingAuthority) {
+        this.issuingAuthority = issuingAuthority;
     }
 
     public String getContact() {
@@ -193,28 +184,52 @@ public class MemberDataDtoRequest {
         this.contact = contact;
     }
 
-    public Integer getUnitId() {
-        return unitId;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setUnitId(Integer unitId) {
-        this.unitId = unitId;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public ClassCategory getClassCategory() {
-        return classCategory;
+    public String getSex() {
+        return sex;
     }
 
-    public void setClassCategory(ClassCategory classCategory) {
-        this.classCategory = classCategory;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public ClassRole getClassRole() {
-        return classRole;
+    public String getTshirtSize() {
+        return tshirtSize;
     }
 
-    public void setClassRole(ClassRole classRole) {
-        this.classRole = classRole;
+    public void setTshirtSize(String tshirtSize) {
+        this.tshirtSize = tshirtSize;
+    }
+
+    public Boolean getIsBaptized() {
+        return isBaptized;
+    }
+
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
+    }
+
+    public SaveAddressRequestDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(SaveAddressRequestDto address) {
+        this.address = address;
+    }
+
+    public SaveMedicalDataRequestDto getMedicalData() {
+        return medicalData;
+    }
+
+    public void setMedicalData(SaveMedicalDataRequestDto medicalData) {
+        this.medicalData = medicalData;
     }
 
     public String getFatherName() {
@@ -289,35 +304,35 @@ public class MemberDataDtoRequest {
         this.responsibleEmail = responsibleEmail;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public String getUnitRole() {
+        return unitRole;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setUnitRole(String unitRole) {
+        this.unitRole = unitRole;
     }
 
-    public String getMedicalDataId() {
-        return medicalDataId;
+    public GetUnitRequestDto getUnit() {
+        return unit;
     }
 
-    public void setMedicalDataId(String medicalDataId) {
-        this.medicalDataId = medicalDataId;
+    public void setUnit(GetUnitRequestDto unit) {
+        this.unit = unit;
     }
 
-    public SaveAddressRequestDto getAddress() {
-        return address;
+    public String getClassCategory() {
+        return classCategory;
     }
 
-    public void setAddress(SaveAddressRequestDto address) {
-        this.address = address;
+    public void setClassCategory(String classCategory) {
+        this.classCategory = classCategory;
     }
 
-    public SaveMedicalDataRequestDto getMedicalData() {
-        return medicalData;
+    public String getClassRole() {
+        return classRole;
     }
 
-    public void setMedicalData(SaveMedicalDataRequestDto medicalData) {
-        this.medicalData = medicalData;
+    public void setClassRole(String classRole) {
+        this.classRole = classRole;
     }
 }

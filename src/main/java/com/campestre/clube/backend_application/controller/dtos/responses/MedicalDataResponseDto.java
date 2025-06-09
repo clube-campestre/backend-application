@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
-public class GetMedicalDataResponseDto {
+public class MedicalDataResponseDto {
     private String cpf;
     private String cns;
     private String agreement;
@@ -47,7 +47,53 @@ public class GetMedicalDataResponseDto {
     private String surgeries = "";
     private String hospitalizationReasonLast5Years = "";
 
-    public GetMedicalDataResponseDto() {}
+    public MedicalDataResponseDto(String cpf, String cns, String agreement, String bloodType, Boolean catapora, Boolean meningite, Boolean hepatite, Boolean dengue, Boolean pneumonia, Boolean malaria, Boolean febreAmarela, Boolean sarampo, Boolean tetano, Boolean variola, Boolean coqueluche, Boolean difteria, Boolean rinite, Boolean bronquite, Boolean asma, Boolean rubeola, Boolean colera, Boolean covid19, Boolean h1n1, Boolean caxumba, String others, String heartProblems, String drugAllergy, Boolean lactoseAllergy, String deficiency, Boolean bloodTransfusion, Boolean skinAllergy, String skinAllergyMedications, Boolean faintingOrConvulsion, String faintingOrSeizuresMedications, String psychologicalDisorder, Boolean allergy, String allergyMedications, Boolean diabetic, String diabeticMedications, Boolean recentSeriousInjury, String recentFracture, String surgeries, String hospitalizationReasonLast5Years) {
+        this.cpf = cpf;
+        this.cns = cns;
+        this.agreement = agreement;
+        this.bloodType = bloodType;
+        this.catapora = catapora;
+        this.meningite = meningite;
+        this.hepatite = hepatite;
+        this.dengue = dengue;
+        this.pneumonia = pneumonia;
+        this.malaria = malaria;
+        this.febreAmarela = febreAmarela;
+        this.sarampo = sarampo;
+        this.tetano = tetano;
+        this.variola = variola;
+        this.coqueluche = coqueluche;
+        this.difteria = difteria;
+        this.rinite = rinite;
+        this.bronquite = bronquite;
+        this.asma = asma;
+        this.rubeola = rubeola;
+        this.colera = colera;
+        this.covid19 = covid19;
+        this.h1n1 = h1n1;
+        this.caxumba = caxumba;
+        this.others = others;
+        this.heartProblems = heartProblems;
+        this.drugAllergy = drugAllergy;
+        this.lactoseAllergy = lactoseAllergy;
+        this.deficiency = deficiency;
+        this.bloodTransfusion = bloodTransfusion;
+        this.skinAllergy = skinAllergy;
+        this.skinAllergyMedications = skinAllergyMedications;
+        this.faintingOrConvulsion = faintingOrConvulsion;
+        this.faintingOrSeizuresMedications = faintingOrSeizuresMedications;
+        this.psychologicalDisorder = psychologicalDisorder;
+        this.allergy = allergy;
+        this.allergyMedications = allergyMedications;
+        this.diabetic = diabetic;
+        this.diabeticMedications = diabeticMedications;
+        this.recentSeriousInjury = recentSeriousInjury;
+        this.recentFracture = recentFracture;
+        this.surgeries = surgeries;
+        this.hospitalizationReasonLast5Years = hospitalizationReasonLast5Years;
+    }
+
+    public MedicalDataResponseDto() {}
 
     public String getCpf() {
         return cpf;

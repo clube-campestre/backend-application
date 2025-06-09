@@ -16,8 +16,8 @@ public class StatementRequestDto {
     private LocalDateTime transactionDate;
     @NotNull
     private TransactionType transactionType;
-    @NotNull
-    private Integer idTag;
+    @NotBlank
+    private String tagName;
 
     public String getInformation() {
         return information;
@@ -51,11 +51,11 @@ public class StatementRequestDto {
         this.transactionType = transactionType;
     }
 
-    public Integer getIdTag() {
-        return idTag;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setIdTag(Integer idTag) {
-        this.idTag = idTag;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 }

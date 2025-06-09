@@ -7,10 +7,10 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginAccountRequestDto {
     @NotBlank
     @Email
-    @Schema(description = "Account e-mail", example = "test@email.com")
+    @Schema(description = "Account e-mail", example = "root@email.com")
     private String email;
     @NotBlank
-    @Schema(description = "Account password", example = "ABCDE12345")
+    @Schema(description = "Account password", example = "1234")
     private String password;
 
     public String getEmail() {

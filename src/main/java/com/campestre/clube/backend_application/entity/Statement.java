@@ -31,7 +31,15 @@ public class Statement {
     @JoinColumn(name = "fk_tags", nullable = false)
     private Tag tag;
 
+    public Statement(String information, Double price, LocalDateTime transactionDate, TransactionType transactionType) {
+        this.information = information;
+        this.price = price;
+        this.transactionDate = transactionDate;
+        this.transactionType = transactionType;
+    }
 
+    public Statement() {
+    }
 
     public Integer getId() {
         return id;
