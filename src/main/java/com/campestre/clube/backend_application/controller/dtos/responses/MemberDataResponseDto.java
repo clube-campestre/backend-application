@@ -1,103 +1,71 @@
 package com.campestre.clube.backend_application.controller.dtos.responses;
 
 import com.campestre.clube.backend_application.entity.enums.*;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
-public class MemberDataDtoResponse {
-
-    @NotBlank
-    @CPF
-    @Size(min = 11, max = 11)
+public class MemberDataResponseDto {
     private String cpf;
-
     private String idImage;
-
     private String imagePath;
-
-    @NotBlank
-    private UnitRole unitRole; // Enum: função dentro da unidade (ex: CONSELHEIRO, INSTRUTOR)
-
-    @NotBlank
-    @Size(max = 50)
     private String username;
-
-    @NotNull
-    @Past
     private LocalDate birthDate;
-
-    @NotBlank
-    private Sex sex; // Enum: "M", "F", "OUTRO"
-
-    @NotBlank
-    @Size(max = 32)
+    private Sex sex;
     private String birthCertificate;
-
-    @NotBlank
-    @Size(max = 3)
-    private TshirtSize tshirtSize; // Ex: "PP", "M", "G"
-
-    @NotNull
+    private TshirtSize tshirtSize;
     private Boolean isBaptized;
-
-    @NotBlank
-    @Size(max = 12)
     private String contact;
+    private String issuingAuthority;
 
-    @NotNull
-    private Integer unitId;
+    private UnitResponseDto unit;
+    private UnitRole unitRole;
+    private ClassCategory classCategory;
+    private ClassRole classRole;
 
-    @NotBlank
-    private ClassCategory classCategory; // Enum: AMIGO, COMPANHEIRO, etc.
-
-    @NotBlank
-    private ClassRole classRole; // Enum: INSTRUTOR, INSTRUTOR_AUXILIAR, MEMBRO
-
-    // Informações do pai
-    @Size(max = 50)
     private String fatherName;
-
-    @Size(max = 12)
     private String fatherContact;
-
-    @Email
-    @Size(max = 50)
     private String fatherEmail;
-
-    // Informações da mãe
-    @Size(max = 50)
     private String motherName;
-
-    @Size(max = 12)
     private String motherContact;
-
-    @Email
-    @Size(max = 50)
     private String motherEmail;
-
-    // Responsável
-    @Size(max = 50)
     private String responsibleName;
-
-    @Size(max = 12)
     private String responsibleContact;
-
-    @Email
-    @Size(max = 50)
     private String responsibleEmail;
 
-    @NotNull
-    private Integer addressId;
+    private AddressResponseDto address;
+    private MedicalDataResponseDto medicalData;
 
-    @NotNull
-    private String medicalDataId;
+    public MemberDataResponseDto() {
+    }
 
-    private AddressResponseDto address; //DTO do endereço
-
-
-    private GetMedicalDataResponseDto medicalData; // DTO dos dados médicos
+    public MemberDataResponseDto(String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex, String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority, UnitResponseDto unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole, String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail, AddressResponseDto address, MedicalDataResponseDto medicalData) {
+        this.cpf = cpf;
+        this.idImage = idImage;
+        this.imagePath = imagePath;
+        this.username = username;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.birthCertificate = birthCertificate;
+        this.tshirtSize = tshirtSize;
+        this.isBaptized = isBaptized;
+        this.contact = contact;
+        this.issuingAuthority = issuingAuthority;
+        this.unit = unit;
+        this.unitRole = unitRole;
+        this.classCategory = classCategory;
+        this.classRole = classRole;
+        this.fatherName = fatherName;
+        this.fatherContact = fatherContact;
+        this.fatherEmail = fatherEmail;
+        this.motherName = motherName;
+        this.motherContact = motherContact;
+        this.motherEmail = motherEmail;
+        this.responsibleName = responsibleName;
+        this.responsibleContact = responsibleContact;
+        this.responsibleEmail = responsibleEmail;
+        this.address = address;
+        this.medicalData = medicalData;
+    }
 
     public String getCpf() {
         return cpf;
@@ -121,14 +89,6 @@ public class MemberDataDtoResponse {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public UnitRole getUnitRole() {
-        return unitRole;
-    }
-
-    public void setUnitRole(UnitRole unitRole) {
-        this.unitRole = unitRole;
     }
 
     public String getUsername() {
@@ -175,8 +135,8 @@ public class MemberDataDtoResponse {
         return isBaptized;
     }
 
-    public void setIsBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
     }
 
     public String getContact() {
@@ -187,12 +147,28 @@ public class MemberDataDtoResponse {
         this.contact = contact;
     }
 
-    public Integer getUnitId() {
-        return unitId;
+    public String getIssuingAuthority() {
+        return issuingAuthority;
     }
 
-    public void setUnitId(Integer unitId) {
-        this.unitId = unitId;
+    public void setIssuingAuthority(String issuingAuthority) {
+        this.issuingAuthority = issuingAuthority;
+    }
+
+    public UnitResponseDto getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitResponseDto unit) {
+        this.unit = unit;
+    }
+
+    public UnitRole getUnitRole() {
+        return unitRole;
+    }
+
+    public void setUnitRole(UnitRole unitRole) {
+        this.unitRole = unitRole;
     }
 
     public ClassCategory getClassCategory() {
@@ -283,22 +259,6 @@ public class MemberDataDtoResponse {
         this.responsibleEmail = responsibleEmail;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getMedicalDataId() {
-        return medicalDataId;
-    }
-
-    public void setMedicalDataId(String medicalDataId) {
-        this.medicalDataId = medicalDataId;
-    }
-
     public AddressResponseDto getAddress() {
         return address;
     }
@@ -307,11 +267,11 @@ public class MemberDataDtoResponse {
         this.address = address;
     }
 
-    public GetMedicalDataResponseDto getMedicalData() {
+    public MedicalDataResponseDto getMedicalData() {
         return medicalData;
     }
 
-    public void setMedicalData(GetMedicalDataResponseDto medicalData) {
+    public void setMedicalData(MedicalDataResponseDto medicalData) {
         this.medicalData = medicalData;
     }
 }

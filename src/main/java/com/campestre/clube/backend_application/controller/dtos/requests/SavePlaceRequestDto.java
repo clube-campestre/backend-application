@@ -20,6 +20,18 @@ public class SavePlaceRequestDto {
     @NotNull
     private SaveAddressRequestDto address;
 
+    public SavePlaceRequestDto(String name, Double price, Integer capacity, String contact, Integer rating, SaveAddressRequestDto address) {
+        this.name = name;
+        this.price = price;
+        this.capacity = capacity;
+        this.contact = contact;
+        this.rating = rating;
+        this.address = address;
+    }
+
+    public SavePlaceRequestDto() {
+    }
+
     public SaveAddressRequestDto getAddress() {
         return address;
     }

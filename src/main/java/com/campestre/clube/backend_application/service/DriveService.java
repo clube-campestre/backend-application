@@ -5,7 +5,6 @@ import com.campestre.clube.backend_application.entity.MemberData;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MemberDataRepository;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.AbstractInputStreamContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -54,7 +53,7 @@ public class DriveService {
 
         var files = request.execute().getFiles();
         if (!files.isEmpty()) {
-            return files.get(0).getId(); // Retorna o ID da pasta existente
+            return files.getFirst().getId(); // Retorna o ID da pasta existente
         }
 
         // Se não existir, cria a pasta nova
@@ -92,7 +91,7 @@ public class DriveService {
                     .execute();
 
             String fileId = uploadedFile.getId();
-            String imageUrl = "https://drive.google.com/uc?export=view&id=" + fileId;
+            String imageUrl = "https://drive.google.com/thumbnail?id=" + fileId;
 
             //Salvar link no membro
             member.setCpf(cpf);
@@ -135,35 +134,47 @@ public class DriveService {
 
     // 🔹 OBTER URL DO ARQUIVO PELO ID
     public String getFileUrl(String fileId) {
-        return "https://drive.google.com/uc?export=view&id=" + fileId;
+        return "https://drive.google.com/thumbnail?id=" + fileId;
     }
 
     // 🔹 ATUALIZAR UM ARQUIVO EXISTENTE
-    public String updateFile(String fileId, File newFile, String cpf) throws GeneralSecurityException, IOException {
+    public String updateFile(String oldFileId, File newFile, String cpf) throws GeneralSecurityException, IOException {
         Drive drive = createDriveService();
         MemberData member = validateMemberExists(cpf);
 
+        // 1. Deleta o arquivo antigo (se existir)
+        if (oldFileId != null && !oldFileId.isEmpty()) {
+            try {
+                drive.files().delete(oldFileId).execute();
+            } catch (IOException e) {
+                System.out.println("Erro ao deletar imagem antiga: " + e.getMessage());
+                // continua mesmo que falhe, para tentar subir a nova
+            }
+        }
+
+        // 2. Upload do novo arquivo
+        String folderId = getOrCreateUserFolder(cpf);
+
         com.google.api.services.drive.model.File fileMetaData = new com.google.api.services.drive.model.File();
         fileMetaData.setName(newFile.getName());
+        fileMetaData.setParents(Collections.singletonList(folderId));
 
-        AbstractInputStreamContent content = new FileContent("image/jpeg", newFile);
-
-        com.google.api.services.drive.model.File updatedFile = drive.files()
-                .update(fileId, fileMetaData, content)
-                .setFields("id, name")
+        FileContent mediaContent = new FileContent("image/jpeg", newFile);
+        com.google.api.services.drive.model.File uploadedFile = drive.files().create(fileMetaData, mediaContent)
+                .setFields("id")
                 .execute();
 
-        fileId = updatedFile.getId();
-        String imageUrl = "https://drive.google.com/uc?export=view&id=" + fileId;
+        String newFileId = uploadedFile.getId();
+        String newImageUrl = "https://drive.google.com/thumbnail?id=" + newFileId;
 
-        //Salvar link no membro
-        member.setCpf(cpf);
-        member.setImagePath(imageUrl);
-        member.setIdImage(fileId);
+        // 3. Atualiza dados do membro
+        member.setImagePath(newImageUrl);
+        member.setIdImage(newFileId);
         memberDataRepository.save(member);
 
-        return "Arquivo atualizado: " + updatedFile.getName();
+        return "Arquivo atualizado com novo ID: " + newFileId;
     }
+
 
     // 🔹 EXCLUIR ARQUIVO DO DRIVE PELO ID
     public String deleteFile(String fileId) throws GeneralSecurityException, IOException {

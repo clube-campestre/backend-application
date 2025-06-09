@@ -8,6 +8,8 @@ import com.campestre.clube.backend_application.controller.dtos.responses.GetAcco
 import com.campestre.clube.backend_application.entity.Account;
 import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
 
+import java.util.List;
+
 public abstract class AccountMapper {
     public static Account of(SaveAccountRequestDto dto){
         Account account = new Account();
@@ -50,5 +52,9 @@ public abstract class AccountMapper {
         dto.setName(account.getName());
         dto.setAccess(account.getAccess().name());
         return dto;
+    }
+
+    public static List<GetAccountResponseDto> of(List<Account> accounts){
+        return accounts.stream().map(AccountMapper::of).toList();
     }
 }

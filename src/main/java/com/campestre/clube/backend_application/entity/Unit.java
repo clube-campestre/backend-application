@@ -1,23 +1,23 @@
 package com.campestre.clube.backend_application.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Unit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String surname;
-    private Integer score;
-    private String advisor; //cpf do conselheiro
+    private Integer score = 0;
 
-    public Unit(String surname, Integer score, String advisor) {
+    public Unit(Integer id, String surname, Integer score) {
+        this.id = id;
         this.surname = surname;
         this.score = score;
-        this.advisor = advisor;
+    }
+
+    public Unit(String surname, Integer score) {
+        this.surname = surname;
+        this.score = score;
     }
 
     public Unit() {
@@ -45,13 +45,5 @@ public class Unit {
 
     public void setScore(Integer score) {
         this.score = score;
-    }
-
-    public String getAdvisor() {
-        return advisor;
-    }
-
-    public void setAdvisor(String advisor) {
-        this.advisor = advisor;
     }
 }

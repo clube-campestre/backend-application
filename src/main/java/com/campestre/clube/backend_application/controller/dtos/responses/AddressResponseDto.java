@@ -6,8 +6,23 @@ public class AddressResponseDto {
     private String district;
     private String city;
     private String state;
+    private String street;
     private String cep;
     private String referenceHouse;
+
+    public AddressResponseDto(Integer id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
+        this.id = id;
+        this.houseNumber = houseNumber;
+        this.district = district;
+        this.city = city;
+        this.state = state;
+        this.street = street;
+        this.cep = cep;
+        this.referenceHouse = referenceHouse;
+    }
+
+    public AddressResponseDto() {
+    }
 
     public Integer getId() {
         return id;
@@ -47,6 +62,14 @@ public class AddressResponseDto {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCep() {

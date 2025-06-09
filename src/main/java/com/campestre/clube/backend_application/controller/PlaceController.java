@@ -1,8 +1,10 @@
 package com.campestre.clube.backend_application.controller;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SavePlaceRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.UpdatePlaceRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.PlaceResponseDto;
 import com.campestre.clube.backend_application.controller.mapper.PlaceMapper;
+import com.campestre.clube.backend_application.entity.Place;
 import com.campestre.clube.backend_application.service.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/places")
@@ -27,10 +28,9 @@ public class PlaceController {
     @GetMapping
     @Operation(summary = "Endpoint to get places ranked by rating")
     public ResponseEntity<List<PlaceResponseDto>> getAllOrderedByRating() {
-        List<PlaceResponseDto> places = placeService.getAllOrderedByRating().stream()
-                .map(PlaceMapper::toResponse).collect(Collectors.toList());
+        List<Place> places = placeService.getAllOrderedByRating();
         if (places.isEmpty()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(places);
+        return ResponseEntity.ok(PlaceMapper.toResponse(places));
     }
 
     @GetMapping("/{id}")
@@ -50,7 +50,7 @@ public class PlaceController {
     @PutMapping("/{id}")
     @Operation(summary = "Endpoint for update place by id")
     public ResponseEntity<PlaceResponseDto> update(
-            @PathVariable Integer id, @Valid @RequestBody SavePlaceRequestDto dto
+            @PathVariable Integer id, @Valid @RequestBody UpdatePlaceRequestDto dto
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 PlaceMapper.toResponse(placeService.update(id, PlaceMapper.toEntity(dto)))

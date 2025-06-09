@@ -1,30 +1,35 @@
 package com.campestre.clube.backend_application.controller.mapper;
 
 import com.campestre.clube.backend_application.controller.dtos.requests.SavePlaceRequestDto;
+import com.campestre.clube.backend_application.controller.dtos.requests.UpdatePlaceRequestDto;
 import com.campestre.clube.backend_application.controller.dtos.responses.PlaceResponseDto;
 import com.campestre.clube.backend_application.entity.Place;
 
+import java.util.List;
+
 public abstract class PlaceMapper {
     public static Place toEntity(SavePlaceRequestDto dto) {
-        Place place = new Place();
-        place.setAddress(AddressMapper.toEntity(dto.getAddress()));
-        place.setName(dto.getName());
-        place.setPrice(dto.getPrice());
-        place.setCapacity(dto.getCapacity());
-        place.setContact(dto.getContact());
-        place.setRating(dto.getRating());
-        return place;
+        return new Place(
+                AddressMapper.toEntity(dto.getAddress()), dto.getName(), dto.getPrice(), dto.getCapacity(),
+                dto.getContact(), dto.getRating()
+        );
+    }
+
+    public static Place toEntity(UpdatePlaceRequestDto dto) {
+        return new Place(
+                AddressMapper.toEntity(dto.getAddress()), dto.getName(), dto.getPrice(), dto.getCapacity(),
+                dto.getContact(), dto.getRating()
+        );
     }
 
     public static PlaceResponseDto toResponse(Place place) {
-        PlaceResponseDto response = new PlaceResponseDto();
-        response.setId(place.getId());
-        response.setName(place.getName());
-        response.setPrice(place.getPrice());
-        response.setCapacity(place.getCapacity());
-        response.setContact(place.getContact());
-        response.setRating(place.getRating());
-        response.setAddress(AddressMapper.toResponse(place.getAddress()));
-        return response;
+        return new PlaceResponseDto(
+                place.getId(), place.getName(), place.getPrice(), place.getCapacity(), place.getContact(),
+                place.getRating(), AddressMapper.toResponse(place.getAddress())
+        );
+    }
+
+    public static List<PlaceResponseDto> toResponse(List<Place> places) {
+        return places.stream().map(PlaceMapper::toResponse).toList();
     }
 }

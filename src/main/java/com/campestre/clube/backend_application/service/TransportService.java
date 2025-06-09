@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransportService {
@@ -17,7 +16,7 @@ public class TransportService {
 
     public Transport register(Transport transport) {
         if (transportRepository.existsTransportByEnterpriseContainsIgnoreCase(transport.getEnterprise()))
-            throw new ConflictException("Enterprise already registered");
+            throw new ConflictException("Já existe um transporte cadastrado para esta empresa.");
 
         return transportRepository.save(transport);
     }
@@ -27,34 +26,29 @@ public class TransportService {
     }
 
     public Transport getById(Integer id) {
-        Optional<Transport> transport = transportRepository.findById(id);
-        transportNotFoundValidation(transport, id);
-
-        return transport.get();
+        existsByIdOrThrow(id);
+        return transportRepository.findById(id).get();
     }
 
     public Transport update(Integer id, Transport updateTransport){
-        Optional<Transport> transport = transportRepository.findById(id);
+        existsByIdOrThrow(id);
 
-        transportNotFoundValidation(transport, id);
         if(transportRepository.existsTransportByEnterpriseAndIdNot(updateTransport.getEnterprise(), id))
-            throw new ConflictException("Enterprise already registered");
+            throw new ConflictException("Já existe um transporte cadastrado para esta empresa.");
 
         updateTransport.setId(id);
         return transportRepository.save(updateTransport);
     }
 
     public void delete(Integer id){
-        if(!transportRepository.existsById(id))
-            throw new NotFoundException("Transport not found");
-
+        existsByIdOrThrow(id);
         transportRepository.deleteById(id);
     }
 
 
 
-    private void transportNotFoundValidation(Optional<Transport> transport, Integer id) {
-        if (transport.isEmpty())
-            throw new NotFoundException("Transport by id [%s] not found".formatted(id));
+    private void existsByIdOrThrow(Integer id) {
+        if (!transportRepository.existsById(id))
+            throw new NotFoundException("Não encontramos o transporte solicitado.");
     }
 }

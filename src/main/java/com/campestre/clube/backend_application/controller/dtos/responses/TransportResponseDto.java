@@ -10,6 +10,20 @@ public class TransportResponseDto {
     private String driverContact;
     private Integer rating;
 
+    public TransportResponseDto(Integer id, String enterprise, Double price, Float travelDistance, Integer capacity, String companyContact, String driverContact, Integer rating) {
+        this.id = id;
+        this.enterprise = enterprise;
+        this.price = price;
+        this.travelDistance = travelDistance;
+        this.capacity = capacity;
+        this.companyContact = companyContact;
+        this.driverContact = driverContact;
+        this.rating = rating;
+    }
+
+    public TransportResponseDto() {
+    }
+
     public Integer getId() {
         return id;
     }
