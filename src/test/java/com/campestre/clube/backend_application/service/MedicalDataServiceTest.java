@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.service;
 
 import com.campestre.clube.backend_application.entity.MedicalData;
+import com.campestre.clube.backend_application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.MedicalDataRepository;
@@ -24,11 +25,11 @@ class MedicalDataServiceTest {
     private MedicalDataRepository repository;
 
     @Test
-    @DisplayName("deve lançar NotFoundException ao salvar se CPF não for nulo")
-    void saveThrowsIfCpfNotNull() {
+    @DisplayName("deve lançar BadRequestException ao salvar se CPF for nulo")
+    void saveThrowsIfCpfNull() {
         MedicalData data = new MedicalData();
-        data.setCpf("123");
-        assertThrows(NotFoundException.class, () -> service.save(data));
+        data.setCpf(null);
+        assertThrows(BadRequestException.class, () -> service.save(data));
         verify(repository, never()).save(any());
     }
 
@@ -36,40 +37,60 @@ class MedicalDataServiceTest {
     @DisplayName("deve lançar ConflictException ao salvar se CPF já existir")
     void saveThrowsIfCpfExists() {
         MedicalData data = new MedicalData();
-        data.setCpf(null);
-        when(repository.existsById(null)).thenReturn(true);
+        data.setCpf("123");
+        when(repository.existsByCpf("123")).thenReturn(true);
         assertThrows(ConflictException.class, () -> service.save(data));
+        verify(repository, never()).save(any());
     }
 
     @Test
     @DisplayName("deve retornar MedicalData ao salvar se não houver conflito")
     void saveSuccessfully() {
         MedicalData data = new MedicalData();
-        data.setCpf(null);
-        when(repository.existsById(null)).thenReturn(false);
+        data.setCpf("123");
+        when(repository.existsByCpf("123")).thenReturn(false);
+        when(repository.save(data)).thenReturn(data);
         MedicalData result = service.save(data);
         assertEquals(data, result);
+        verify(repository).save(data);
     }
 
-//    @Test
-//    @DisplayName("deve lançar NotFoundException ao atualizar se CPF não for nulo")
-//    void updateThrowsIfCpfNotNull() {
-//        MedicalData data = new MedicalData();
-//        assertThrows(NotFoundException.class, () -> service.update("123", data));
-//    }
-//
-//    @Test
-//    @DisplayName("deve retornar MedicalData ao atualizar se CPF for nulo")
-//    void updateSuccessfully() {
-//        MedicalData data = new MedicalData();
-//        MedicalData result = service.update(null, data);
-//        assertEquals(data, result);
-//    }
+    @Test
+    @DisplayName("deve lançar BadRequestException ao atualizar se CPF for nulo")
+    void updateThrowsIfCpfNull() {
+        MedicalData data = new MedicalData();
+        data.setCpf(null);
+        assertThrows(BadRequestException.class, () -> service.update(data));
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("deve lançar NotFoundException ao atualizar se CPF não existir")
+    void updateThrowsIfCpfNotFound() {
+        MedicalData data = new MedicalData();
+        data.setCpf("123");
+        when(repository.existsById("123")).thenReturn(false);
+        assertThrows(NotFoundException.class, () -> service.update(data));
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("deve atualizar MedicalData com sucesso")
+    void updateSuccessfully() {
+        MedicalData data = new MedicalData();
+        data.setCpf("123");
+        when(repository.existsById("123")).thenReturn(true);
+        when(repository.save(data)).thenReturn(data);
+        MedicalData result = service.update(data);
+        assertEquals(data, result);
+        verify(repository).save(data);
+    }
 
     @Test
     @DisplayName("deve retornar MedicalData ao buscar por id existente")
     void getByIdSuccessfully() {
         MedicalData data = new MedicalData();
+        when(repository.existsById("123")).thenReturn(true);
         when(repository.findById("123")).thenReturn(Optional.of(data));
         MedicalData result = service.getById("123");
         assertEquals(data, result);
@@ -78,23 +99,24 @@ class MedicalDataServiceTest {
     @Test
     @DisplayName("deve lançar NotFoundException ao buscar por id inexistente")
     void getByIdNotFound() {
-        when(repository.findById("123")).thenReturn(Optional.empty());
+        when(repository.existsById("123")).thenReturn(false);
         assertThrows(NotFoundException.class, () -> service.getById("123"));
+        verify(repository, never()).findById(any());
     }
 
-//    @Test
-//    @DisplayName("deve retornar true se existir por CPF")
-//    void existByCpfTrue() {
-//        when(repository.findById("123")).thenReturn(Optional.of(new MedicalData()));
-//        assertTrue(service.existsByCpf("123"));
-//    }
-//
-//    @Test
-//    @DisplayName("deve retornar false se não existir por CPF")
-//    void existByCpfFalse() {
-//        when(repository.findById("123")).thenReturn(Optional.empty());
-//        assertFalse(service.existsByCpf("123"));
-//    }
+    @Test
+    @DisplayName("deve retornar true se existir por CNS")
+    void existsByCnsTrue() {
+        when(repository.existsByCns("cns123")).thenReturn(true);
+        assertTrue(service.existsByCns("cns123"));
+    }
+
+    @Test
+    @DisplayName("deve retornar false se não existir por CNS")
+    void existsByCnsFalse() {
+        when(repository.existsByCns("cns123")).thenReturn(false);
+        assertFalse(service.existsByCns("cns123"));
+    }
 
     @Test
     @DisplayName("deve deletar com sucesso se existir")
