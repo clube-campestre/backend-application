@@ -1,4 +1,5 @@
 package com.campestre.clube.backend_application.service;
+
 import com.campestre.clube.backend_application.entity.Transport;
 import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -29,19 +29,22 @@ class TransportServiceTest {
     @DisplayName("deve buscar Transport por id com sucesso")
     void getByIdSuccessfully() {
         Transport transport = new Transport();
-        when(transportRepository.findById(anyInt())).thenReturn(Optional.of(transport));
+        when(transportRepository.existsById(1)).thenReturn(true);
+        when(transportRepository.findById(1)).thenReturn(Optional.of(transport));
 
         assertEquals(transport, transportService.getById(1));
-        verify(transportRepository, times(1)).findById(anyInt());
+        verify(transportRepository).existsById(1);
+        verify(transportRepository).findById(1);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao buscar Transport por id inexistente")
     void getByIdNotFound() {
-        when(transportRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(transportRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> transportService.getById(1));
-        verify(transportRepository, times(1)).findById(anyInt());
+        verify(transportRepository).existsById(1);
+        verify(transportRepository, never()).findById(anyInt());
     }
 
     @Test
@@ -51,7 +54,7 @@ class TransportServiceTest {
         when(transportRepository.findAllByOrderByRatingDesc()).thenReturn(transports);
 
         assertEquals(transports, transportService.getAllOrderedByRating());
-        verify(transportRepository, times(1)).findAllByOrderByRatingDesc();
+        verify(transportRepository).findAllByOrderByRatingDesc();
     }
 
     @Test
@@ -59,12 +62,12 @@ class TransportServiceTest {
     void registerSuccessfully() {
         Transport transport = new Transport();
         transport.setEnterprise("Empresa");
-        when(transportRepository.existsTransportByEnterpriseContainsIgnoreCase(anyString())).thenReturn(false);
-        when(transportRepository.save(any())).thenReturn(transport);
+        when(transportRepository.existsTransportByEnterpriseContainsIgnoreCase("Empresa")).thenReturn(false);
+        when(transportRepository.save(transport)).thenReturn(transport);
 
         assertEquals(transport, transportService.register(transport));
-        verify(transportRepository, times(1)).existsTransportByEnterpriseContainsIgnoreCase("Empresa");
-        verify(transportRepository, times(1)).save(transport);
+        verify(transportRepository).existsTransportByEnterpriseContainsIgnoreCase("Empresa");
+        verify(transportRepository).save(transport);
     }
 
     @Test
@@ -72,44 +75,40 @@ class TransportServiceTest {
     void registerWithExistingEnterprise() {
         Transport transport = new Transport();
         transport.setEnterprise("Empresa");
-        when(transportRepository.existsTransportByEnterpriseContainsIgnoreCase(anyString())).thenReturn(true);
+        when(transportRepository.existsTransportByEnterpriseContainsIgnoreCase("Empresa")).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> transportService.register(transport));
-        verify(transportRepository, times(1)).existsTransportByEnterpriseContainsIgnoreCase("Empresa");
+        verify(transportRepository).existsTransportByEnterpriseContainsIgnoreCase("Empresa");
         verify(transportRepository, never()).save(any());
     }
 
     @Test
     @DisplayName("deve atualizar Transport com sucesso")
     void updateSuccessfully() {
-        Transport oldTransport = new Transport();
-        oldTransport.setId(1);
-        oldTransport.setEnterprise("Empresa Antiga");
-
         Transport newTransport = new Transport();
         newTransport.setEnterprise("Empresa Nova");
 
-        when(transportRepository.findById(anyInt())).thenReturn(Optional.of(oldTransport));
-        when(transportRepository.existsTransportByEnterpriseAndIdNot(anyString(), anyInt())).thenReturn(false);
-        when(transportRepository.save(any())).thenReturn(newTransport);
+        when(transportRepository.existsById(1)).thenReturn(true);
+        when(transportRepository.existsTransportByEnterpriseAndIdNot("Empresa Nova", 1)).thenReturn(false);
+        when(transportRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         Transport result = transportService.update(1, newTransport);
 
-        assertEquals(newTransport, result);
-        assertEquals(1, newTransport.getId());
-        verify(transportRepository, times(1)).findById(1);
-        verify(transportRepository, times(1)).existsTransportByEnterpriseAndIdNot("Empresa Nova", 1);
-        verify(transportRepository, times(1)).save(newTransport);
+        assertEquals("Empresa Nova", result.getEnterprise());
+        assertEquals(1, result.getId());
+        verify(transportRepository).existsById(1);
+        verify(transportRepository).existsTransportByEnterpriseAndIdNot("Empresa Nova", 1);
+        verify(transportRepository).save(newTransport);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao atualizar Transport inexistente")
     void updateNotFound() {
         Transport newTransport = new Transport();
-        when(transportRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(transportRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> transportService.update(1, newTransport));
-        verify(transportRepository, times(1)).findById(1);
+        verify(transportRepository).existsById(1);
         verify(transportRepository, never()).existsTransportByEnterpriseAndIdNot(anyString(), anyInt());
         verify(transportRepository, never()).save(any());
     }
@@ -117,41 +116,37 @@ class TransportServiceTest {
     @Test
     @DisplayName("deve lançar exceção ao atualizar Transport com enterprise já existente em outro id")
     void updateWithExistingEnterprise() {
-        Transport oldTransport = new Transport();
-        oldTransport.setId(1);
-        oldTransport.setEnterprise("Empresa Antiga");
-
         Transport newTransport = new Transport();
         newTransport.setEnterprise("Empresa Nova");
 
-        when(transportRepository.findById(anyInt())).thenReturn(Optional.of(oldTransport));
-        when(transportRepository.existsTransportByEnterpriseAndIdNot(anyString(), anyInt())).thenReturn(true);
+        when(transportRepository.existsById(1)).thenReturn(true);
+        when(transportRepository.existsTransportByEnterpriseAndIdNot("Empresa Nova", 1)).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> transportService.update(1, newTransport));
-        verify(transportRepository, times(1)).findById(1);
-        verify(transportRepository, times(1)).existsTransportByEnterpriseAndIdNot("Empresa Nova", 1);
+        verify(transportRepository).existsById(1);
+        verify(transportRepository).existsTransportByEnterpriseAndIdNot("Empresa Nova", 1);
         verify(transportRepository, never()).save(any());
     }
 
     @Test
     @DisplayName("deve deletar Transport com sucesso")
     void deleteSuccessfully() {
-        when(transportRepository.existsById(anyInt())).thenReturn(true);
-        doNothing().when(transportRepository).deleteById(anyInt());
+        when(transportRepository.existsById(1)).thenReturn(true);
+        doNothing().when(transportRepository).deleteById(1);
 
         transportService.delete(1);
 
-        verify(transportRepository, times(1)).existsById(1);
-        verify(transportRepository, times(1)).deleteById(1);
+        verify(transportRepository).existsById(1);
+        verify(transportRepository).deleteById(1);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao deletar Transport inexistente")
     void deleteNotFound() {
-        when(transportRepository.existsById(anyInt())).thenReturn(false);
+        when(transportRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> transportService.delete(1));
-        verify(transportRepository, times(1)).existsById(1);
+        verify(transportRepository).existsById(1);
         verify(transportRepository, never()).deleteById(anyInt());
     }
 }

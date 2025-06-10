@@ -9,6 +9,7 @@ import com.campestre.clube.backend_application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.repository.StatementRepository;
 import com.campestre.clube.backend_application.repository.TagRepository;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,14 +20,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -208,55 +208,47 @@ class StatementServiceTest {
     @Test
     @DisplayName("Deve deletar Statement por id com sucesso")
     void deleteSuccessfully() {
-        when(statementRepository.findById(anyInt())).thenReturn(Optional.of(statement));
+        when(statementRepository.existsById(anyInt())).thenReturn(true);
         doNothing().when(statementRepository).deleteById(anyInt());
 
         statementService.delete(1);
 
-        verify(statementRepository).findById(1);
+        verify(statementRepository).existsById(1);
         verify(statementRepository).deleteById(1);
     }
 
     @Test
     @DisplayName("Deve lançar exceção ao deletar Statement inexistente")
     void deleteNotFound() {
-        when(statementRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(statementRepository.existsById(anyInt())).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> statementService.delete(1));
-        verify(statementRepository).findById(1);
+        verify(statementRepository).existsById(1);
         verify(statementRepository, never()).deleteById(anyInt());
     }
 
     @Test
-    @DisplayName("Deve buscar Statements por filtro e paginação")
-    void getByFilterAndPagination() {
-        List<Statement> list = List.of(statement);
-        Page<Statement> page = new PageImpl<>(list);
-        when(statementRepository.findByFilterAndPagination(any(), any(), any(), any(), any(), any(Pageable.class))).thenReturn(page);
+    @DisplayName("Deve retornar Pair de valor total e Tag em getGoalByTagId")
+    void getGoalByTagIdSuccessfully() {
+        when(statementRepository.findAllPricesByTagId(1)).thenReturn(50.0);
+        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
 
-        Triple<List<Statement>, Pagination, Double> result =
-                statementService.getByFilterAndPagination(null, null, null, null, null, 0, 10);
+        Pair<Double, Tag> result = statementService.getGoalByTagId(1);
 
-        assertEquals(list, result);
-        verify(statementRepository).findByFilterAndPagination(any(), any(), any(), any(), any(), any(Pageable.class));
+        assertEquals(50.0, result.a);
+        assertEquals(tag, result.b);
+        verify(statementRepository).findAllPricesByTagId(1);
+        verify(tagRepository).findById(1);
     }
 
     @Test
-    @DisplayName("Deve lançar exceção ao salvar Statement nulo")
-    void saveNullThrowsException() {
-//        assertThrows(IllegalArgumentException.class, () -> statementService.save(null));
-        verify(statementRepository, never()).save(any());
-    }
+    @DisplayName("Deve lançar NotFoundException em getGoalByTagId com tag inexistente")
+    void getGoalByTagIdTagNotFound() {
+        when(statementRepository.findAllPricesByTagId(1)).thenReturn(50.0);
+        when(tagRepository.findById(1)).thenReturn(Optional.empty());
 
-    @Test
-    @DisplayName("Deve salvar Statement com sucesso")
-    void saveSuccessfully() {
-        when(statementRepository.save(any())).thenReturn(statement);
-
-//        Statement result = statementService.save(statement);
-
-//        assertEquals(statement, result);
-        verify(statementRepository).save(statement);
+        assertThrows(NotFoundException.class, () -> statementService.getGoalByTagId(1));
+        verify(tagRepository).findById(1);
     }
 
     @Test
@@ -267,23 +259,5 @@ class StatementServiceTest {
 
         assertEquals(list, statementService.findAll());
         verify(statementRepository).findAll();
-    }
-
-    @Test
-    @DisplayName("Deve buscar Statement por id (findById) com sucesso")
-    void findByIdSuccessfully() {
-        when(statementRepository.findById(anyInt())).thenReturn(Optional.of(statement));
-
-//        assertEquals(statement, statementService.findById(1));
-        verify(statementRepository).findById(1);
-    }
-
-    @Test
-    @DisplayName("Deve lançar exceção ao buscar Statement por id inexistente (findById)")
-    void findByIdNotFound() {
-        when(statementRepository.findById(anyInt())).thenReturn(Optional.empty());
-
-//        assertThrows(NotFoundException.class, () -> statementService.findById(1));
-        verify(statementRepository).findById(1);
     }
 }
