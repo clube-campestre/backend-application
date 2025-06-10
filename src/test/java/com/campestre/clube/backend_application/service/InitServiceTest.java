@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.entity.Account;
 import com.campestre.clube.backend_application.entity.Tag;
 import com.campestre.clube.backend_application.entity.Unit;
 import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
+import com.campestre.clube.backend_application.entity.enums.UnitEnum;
 import com.campestre.clube.backend_application.repository.TagRepository;
 import com.campestre.clube.backend_application.repository.UnitRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -34,55 +34,53 @@ class InitServiceTest {
     @Test
     @DisplayName("deve criar Tag genérica se não existir")
     void generateGenericTagWhenNotExists() {
-        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.empty());
-        when(tagRepository.save(any())).thenReturn(new Tag("Outros", "FFFFFF", new BigDecimal(0.0), true));
+        when(tagRepository.findBySurnameIgnoreCase("OUTROS")).thenReturn(Optional.empty());
+        when(tagRepository.save(any())).thenReturn(new Tag("OUTROS", "FFFFFF", null, null));
 
         initService.generateGenericTag();
 
-        verify(tagRepository).findBySurnameIgnoreCase("Outros");
+        verify(tagRepository).findBySurnameIgnoreCase("OUTROS");
         verify(tagRepository).save(any(Tag.class));
     }
 
     @Test
     @DisplayName("não deve criar Tag genérica se já existir")
     void generateGenericTagWhenExists() {
-        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.of(new Tag("Outros", "FFFFFF", new BigDecimal(0.0), true)));
+        when(tagRepository.findBySurnameIgnoreCase("OUTROS")).thenReturn(Optional.of(new Tag("OUTROS", "FFFFFF", null, null)));
 
         initService.generateGenericTag();
 
-        verify(tagRepository).findBySurnameIgnoreCase("Outros");
+        verify(tagRepository).findBySurnameIgnoreCase("OUTROS");
         verify(tagRepository, never()).save(any());
     }
 
     @Test
     @DisplayName("deve criar todas as Units que não existem")
     void generateUnitsWhenNotExists() {
-        String[] units = {"Panda", "Falcão", "Lince", "Leão", "Aguia Real", "Tigre", "Raposa", "Urso", "Pantera", "Lobo"};
-        for (String name : units) {
-            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.empty());
-            when(unitRepository.save(any())).thenReturn(new Unit(0, name, 0));
+        for (UnitEnum unitEnum : UnitEnum.values()) {
+            when(unitRepository.existsBySurnameIgnoreCase(unitEnum.name())).thenReturn(false);
+            when(unitRepository.save(any())).thenReturn(new Unit(unitEnum.getId(), unitEnum.name(), 0));
         }
 
         initService.generateUnits();
 
-        for (String name : units) {
-            verify(unitRepository).findBySurnameIgnoreCase(name);
-            verify(unitRepository).save(argThat(u -> u.getSurname().equals(name)));
+        for (UnitEnum unitEnum : UnitEnum.values()) {
+            verify(unitRepository).existsBySurnameIgnoreCase(unitEnum.name());
+            verify(unitRepository).save(argThat(u -> u.getSurname().equals(unitEnum.name())));
         }
     }
 
     @Test
     @DisplayName("não deve criar Units que já existem")
     void generateUnitsWhenExists() {
-        String[] units = {"Panda", "Falcão", "Lince", "Leão", "Aguia Real", "Tigre", "Raposa", "Urso", "Pantera", "Lobo"};
-        for (String name : units) {
-            when(unitRepository.findBySurnameIgnoreCase(name)).thenReturn(Optional.of(new Unit(0, name, 0)));
+        for (UnitEnum unitEnum : UnitEnum.values()) {
+            when(unitRepository.existsBySurnameIgnoreCase(unitEnum.name())).thenReturn(true);
         }
 
         initService.generateUnits();
 
-        for (String name : units) {
-            verify(unitRepository).findBySurnameIgnoreCase(name);
+        for (UnitEnum unitEnum : UnitEnum.values()) {
+            verify(unitRepository).existsBySurnameIgnoreCase(unitEnum.name());
         }
         verify(unitRepository, never()).save(any());
     }

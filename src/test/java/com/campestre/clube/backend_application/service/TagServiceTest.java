@@ -34,12 +34,12 @@ class TagServiceTest {
         tag.setSurname("Tag1");
         tag.setColor("Azul");
 
-        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains(anyString(), anyString())).thenReturn(false);
-        when(tagRepository.save(any())).thenReturn(tag);
+        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul")).thenReturn(false);
+        when(tagRepository.save(tag)).thenReturn(tag);
 
         assertEquals(tag, tagService.register(tag));
-        verify(tagRepository, times(1)).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
-        verify(tagRepository, times(1)).save(tag);
+        verify(tagRepository).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
+        verify(tagRepository).save(tag);
     }
 
     @Test
@@ -49,10 +49,10 @@ class TagServiceTest {
         tag.setSurname("Tag1");
         tag.setColor("Azul");
 
-        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains(anyString(), anyString())).thenReturn(true);
+        when(tagRepository.existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul")).thenReturn(true);
 
         assertThrows(ConflictException.class, () -> tagService.register(tag));
-        verify(tagRepository, times(1)).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
+        verify(tagRepository).existsBySurnameIgnoreCaseOrColorContains("Tag1", "Azul");
         verify(tagRepository, never()).save(any());
     }
 
@@ -63,59 +63,55 @@ class TagServiceTest {
         when(tagRepository.findAll()).thenReturn(tags);
 
         assertEquals(tags, tagService.getAll());
-        verify(tagRepository, times(1)).findAll();
+        verify(tagRepository).findAll();
     }
 
     @Test
     @DisplayName("deve buscar Tag por id com sucesso")
     void getByIdSuccessfully() {
         Tag tag = new Tag();
-        when(tagRepository.findById(anyInt())).thenReturn(Optional.of(tag));
+        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
 
         assertEquals(tag, tagService.getById(1));
-        verify(tagRepository, times(1)).findById(1);
+        verify(tagRepository).findById(1);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao buscar Tag por id inexistente")
     void getByIdNotFound() {
-        when(tagRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(tagRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> tagService.getById(1));
-        verify(tagRepository, times(1)).findById(1);
+        verify(tagRepository).findById(1);
     }
 
     @Test
     @DisplayName("deve atualizar Tag com sucesso")
     void updateSuccessfully() {
-        Tag oldTag = new Tag();
-        oldTag.setId(1);
-        oldTag.setSurname("Antiga");
-        oldTag.setColor("Azul");
-
         Tag newTag = new Tag();
         newTag.setSurname("Nova");
         newTag.setColor("Vermelha");
 
-        when(tagRepository.findById(anyInt())).thenReturn(Optional.of(oldTag));
-        when(tagRepository.save(any())).thenReturn(oldTag);
+        when(tagRepository.existsById(1)).thenReturn(true);
+        when(tagRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         Tag result = tagService.update(newTag, 1);
 
         assertEquals("Nova", result.getSurname());
         assertEquals("Vermelha", result.getColor());
-        verify(tagRepository, times(1)).findById(1);
-        verify(tagRepository, times(1)).save(oldTag);
+        assertEquals(1, result.getId());
+        verify(tagRepository).existsById(1);
+        verify(tagRepository).save(newTag);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao atualizar Tag inexistente")
     void updateNotFound() {
         Tag newTag = new Tag();
-        when(tagRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(tagRepository.existsById(1)).thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> tagService.update(newTag, 1));
-        verify(tagRepository, times(1)).findById(1);
+        verify(tagRepository).existsById(1);
         verify(tagRepository, never()).save(any());
     }
 
@@ -125,29 +121,45 @@ class TagServiceTest {
         Tag tagToBeDeleted = new Tag();
         tagToBeDeleted.setId(1);
         Tag tagGenerica = new Tag();
-        tagGenerica.setId(3);
+        tagGenerica.setId(99);
 
         when(tagRepository.findById(1)).thenReturn(Optional.of(tagToBeDeleted));
-        when(tagRepository.findById(3)).thenReturn(Optional.of(tagGenerica));
+        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.of(tagGenerica));
         doNothing().when(statementService).updateAllForTagId(tagToBeDeleted, tagGenerica);
         doNothing().when(tagRepository).deleteById(1);
 
         tagService.delete(1);
 
-        verify(tagRepository, times(1)).findById(1);
-        verify(tagRepository, times(1)).findById(3);
-        verify(statementService, times(1)).updateAllForTagId(tagToBeDeleted, tagGenerica);
-        verify(tagRepository, times(1)).deleteById(1);
+        verify(tagRepository).findById(1);
+        verify(tagRepository).findBySurnameIgnoreCase("Outros");
+        verify(statementService).updateAllForTagId(tagToBeDeleted, tagGenerica);
+        verify(tagRepository).deleteById(1);
     }
 
     @Test
     @DisplayName("deve lançar exceção ao deletar Tag inexistente")
     void deleteNotFound() {
-        when(tagRepository.findById(anyInt())).thenReturn(Optional.empty());
+        when(tagRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> tagService.delete(1));
-        verify(tagRepository, times(1)).findById(1);
+        verify(tagRepository).findById(1);
         verify(tagRepository, never()).deleteById(anyInt());
         verify(statementService, never()).updateAllForTagId(any(), any());
+    }
+
+    @Test
+    @DisplayName("deve lançar exceção ao deletar quando tag genérica não existe")
+    void deleteGenericTagNotFound() {
+        Tag tagToBeDeleted = new Tag();
+        tagToBeDeleted.setId(1);
+
+        when(tagRepository.findById(1)).thenReturn(Optional.of(tagToBeDeleted));
+        when(tagRepository.findBySurnameIgnoreCase("Outros")).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> tagService.delete(1));
+        verify(tagRepository).findById(1);
+        verify(tagRepository).findBySurnameIgnoreCase("Outros");
+        verify(statementService, never()).updateAllForTagId(any(), any());
+        verify(tagRepository, never()).deleteById(anyInt());
     }
 }
