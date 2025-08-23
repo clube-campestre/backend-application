@@ -1,16 +1,15 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.requests.StatementRequestDto;
-import com.campestre.clube.backend_application.entity.Statement;
-import com.campestre.clube.backend_application.entity.Tag;
-import com.campestre.clube.backend_application.entity.enums.TransactionType;
-import com.campestre.clube.backend_application.entity.models.Pagination;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.StatementRepository;
-import com.campestre.clube.backend_application.repository.TagRepository;
+import com.campestre.clube.backend_application.deprecated.controller.dtos.requests.StatementRequestDto;
+import com.campestre.clube.backend_application.deprecated.entity.Statement;
+import com.campestre.clube.backend_application.deprecated.entity.Tag;
+import com.campestre.clube.backend_application.deprecated.entity.enums.TransactionType;
+import com.campestre.clube.backend_application.deprecated.exceptions.ConflictException;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.StatementRepository;
+import com.campestre.clube.backend_application.deprecated.repository.TagRepository;
+import com.campestre.clube.backend_application.deprecated.service.StatementService;
 import org.antlr.v4.runtime.misc.Pair;
-import org.antlr.v4.runtime.misc.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;

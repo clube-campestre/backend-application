@@ -1,9 +1,11 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Tag;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.TagRepository;
+import com.campestre.clube.backend_application.deprecated.entity.Tag;
+import com.campestre.clube.backend_application.deprecated.exceptions.ConflictException;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.TagRepository;
+import com.campestre.clube.backend_application.deprecated.service.StatementService;
+import com.campestre.clube.backend_application.deprecated.service.TagService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

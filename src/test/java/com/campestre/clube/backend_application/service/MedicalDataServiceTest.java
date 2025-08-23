@@ -1,10 +1,11 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.MedicalData;
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.MedicalDataRepository;
+import com.campestre.clube.backend_application.deprecated.entity.MedicalData;
+import com.campestre.clube.backend_application.deprecated.exceptions.BadRequestException;
+import com.campestre.clube.backend_application.deprecated.exceptions.ConflictException;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.MedicalDataRepository;
+import com.campestre.clube.backend_application.deprecated.service.MedicalDataService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

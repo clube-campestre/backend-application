@@ -1,10 +1,8 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.responses.DriveRes;
-import com.campestre.clube.backend_application.entity.MemberData;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.MemberDataRepository;
-import com.google.api.client.http.FileContent;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.MemberDataRepository;
+import com.campestre.clube.backend_application.deprecated.service.DriveService;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.FileList;
 import org.junit.jupiter.api.DisplayName;
@@ -14,9 +12,6 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

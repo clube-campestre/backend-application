@@ -1,8 +1,9 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Address;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.AddressRepository;
+import com.campestre.clube.backend_application.deprecated.entity.Address;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.AddressRepository;
+import com.campestre.clube.backend_application.deprecated.service.AddressService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

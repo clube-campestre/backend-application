@@ -1,9 +1,10 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.controller.dtos.DetailsAccountDto;
-import com.campestre.clube.backend_application.entity.Account;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.AccountRepository;
+import com.campestre.clube.backend_application.deprecated.controller.dtos.DetailsAccountDto;
+import com.campestre.clube.backend_application.deprecated.entity.Account;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.AccountRepository;
+import com.campestre.clube.backend_application.deprecated.service.AccountAuthenticationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

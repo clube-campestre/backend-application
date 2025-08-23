@@ -1,12 +1,14 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Account;
-import com.campestre.clube.backend_application.entity.Tag;
-import com.campestre.clube.backend_application.entity.Unit;
-import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
-import com.campestre.clube.backend_application.entity.enums.UnitEnum;
-import com.campestre.clube.backend_application.repository.TagRepository;
-import com.campestre.clube.backend_application.repository.UnitRepository;
+import com.campestre.clube.backend_application.deprecated.entity.Account;
+import com.campestre.clube.backend_application.deprecated.entity.Tag;
+import com.campestre.clube.backend_application.deprecated.entity.Unit;
+import com.campestre.clube.backend_application.deprecated.entity.enums.AccessTypeEnum;
+import com.campestre.clube.backend_application.deprecated.entity.enums.UnitEnum;
+import com.campestre.clube.backend_application.deprecated.repository.TagRepository;
+import com.campestre.clube.backend_application.deprecated.repository.UnitRepository;
+import com.campestre.clube.backend_application.deprecated.service.AccountService;
+import com.campestre.clube.backend_application.deprecated.service.InitService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

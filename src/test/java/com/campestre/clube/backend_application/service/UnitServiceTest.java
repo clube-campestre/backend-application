@@ -1,10 +1,10 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Unit;
-import com.campestre.clube.backend_application.entity.enums.UnitEnum;
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.UnitRepository;
+import com.campestre.clube.backend_application.deprecated.entity.Unit;
+import com.campestre.clube.backend_application.deprecated.entity.enums.UnitEnum;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.UnitRepository;
+import com.campestre.clube.backend_application.deprecated.service.UnitService;
 import org.antlr.v4.runtime.misc.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

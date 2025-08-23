@@ -1,9 +1,10 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.entity.Transport;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.TransportRepository;
+import com.campestre.clube.backend_application.deprecated.entity.Transport;
+import com.campestre.clube.backend_application.deprecated.exceptions.ConflictException;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.TransportRepository;
+import com.campestre.clube.backend_application.deprecated.service.TransportService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

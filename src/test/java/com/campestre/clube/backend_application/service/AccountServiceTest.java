@@ -1,13 +1,13 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.config.JwtTokenManager;
-import com.campestre.clube.backend_application.controller.dtos.responses.TokenAccountResponseDto;
-import com.campestre.clube.backend_application.entity.Account;
-import com.campestre.clube.backend_application.entity.enums.AccessTypeEnum;
-import com.campestre.clube.backend_application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.repository.AccountRepository;
+import com.campestre.clube.backend_application.deprecated.config.JwtTokenManager;
+import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.TokenAccountResponseDto;
+import com.campestre.clube.backend_application.deprecated.entity.Account;
+import com.campestre.clube.backend_application.deprecated.entity.enums.AccessTypeEnum;
+import com.campestre.clube.backend_application.deprecated.exceptions.ConflictException;
+import com.campestre.clube.backend_application.deprecated.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.deprecated.repository.AccountRepository;
+import com.campestre.clube.backend_application.deprecated.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
