@@ -99,4 +99,6 @@ public class Account implements UserDetails {
     public void setAccess(AccessTypeEnum access) {
         this.access = access;
     }
+
+
 }

@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.deprecated.controller.mapper;
 
 import com.campestre.clube.backend_application.deprecated.controller.dtos.requests.MemberDataDtoRequest;
-import com.campestre.clube.backend_application.controller.dtos.responses.*;
+import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.*;
 import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.GetByFilterAndPaginationMemberDataResponseDto;
 import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.MemberDataForClassDtoResponse;
 import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.MemberDataForUnitDtoResponse;
