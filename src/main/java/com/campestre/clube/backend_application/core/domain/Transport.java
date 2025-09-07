@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.core.domain.valueobject.Contact;
 
 import java.math.BigDecimal;
 
+
 public class Transport {
     private Integer id;
     private BigDecimal price;
@@ -22,6 +23,19 @@ public class Transport {
         this.company = company;
         this.driver = driver;
         this.rating = rating;
+    }
+
+    public static Transport of(BigDecimal price, Float travelDistance, Integer capacity, String companyName,
+                               String companyNumber, String driverName, String driverNumber, Integer rating) {
+        return new Transport(
+                null,
+                price,
+                travelDistance,
+                capacity,
+                Contact.of(companyName, companyNumber),
+                Contact.of(driverName, driverNumber),
+                rating
+        );
     }
 
     public static Transport of(Integer id, BigDecimal price, Float travelDistance, Integer capacity, String companyName,
