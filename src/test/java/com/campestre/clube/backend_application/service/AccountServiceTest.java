@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.service;
 
-import com.campestre.clube.backend_application.deprecated.config.JwtTokenManager;
+import com.campestre.clube.backend_application.core.config.JwtTokenManager;
 import com.campestre.clube.backend_application.deprecated.controller.dtos.responses.TokenAccountResponseDto;
 import com.campestre.clube.backend_application.deprecated.entity.Account;
 import com.campestre.clube.backend_application.deprecated.entity.enums.AccessTypeEnum;

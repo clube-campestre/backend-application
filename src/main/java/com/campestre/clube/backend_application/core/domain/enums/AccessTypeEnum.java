@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
-import com.campestre.clube.backend_application.deprecated.entity.enums.EnumUtils;
 
 public enum AccessTypeEnum {
     DIRETOR("Diretor"),

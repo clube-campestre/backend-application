@@ -2,6 +2,9 @@ package com.campestre.clube.backend_application.infrastructure.persistence.jpa.t
 
 import com.campestre.clube.backend_application.core.domain.Transport;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TransportEntityMapper {
     public static TransportEntity toEntity(Transport domain) {
         if (domain == null) return null;
@@ -31,5 +34,10 @@ public class TransportEntityMapper {
                 entity.getDriverNumber(),
                 entity.getRating()
         );
+    }
+
+    public static List<Transport> toDomain(List<TransportEntity> entities) {
+        if (entities == null) return null;
+        return entities.stream().map(TransportEntityMapper::toDomain).collect(Collectors.toList());
     }
 }
