@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.config;
+package com.campestre.clube.backend_application.infrastructure.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

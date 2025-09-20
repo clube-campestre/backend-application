@@ -41,6 +41,21 @@ public class Place {
         );
     }
 
+    public static Place of(
+            Address address, String name, BigDecimal price, Integer capacity, String contactName, String contactNumber,
+            Integer rating
+    ) {
+        return new Place(
+                null,
+                address,
+                name,
+                price,
+                capacity,
+                Contact.of(contactName, contactNumber),
+                rating
+        );
+    }
+
     public Integer getId() {
         return id;
     }

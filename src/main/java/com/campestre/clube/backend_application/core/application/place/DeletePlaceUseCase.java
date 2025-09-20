@@ -1,0 +1,22 @@
+package com.campestre.clube.backend_application.core.application.place;
+
+import com.campestre.clube.backend_application.core.adapter.PlaceGateway;
+import com.campestre.clube.backend_application.core.adapter.TransportGateway;
+import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.core.application.place.command.DeletePlaceCommand;
+import com.campestre.clube.backend_application.core.application.transport.command.DeleteTransportCommand;
+
+public class DeletePlaceUseCase {
+
+    private final PlaceGateway gateway;
+
+    public DeletePlaceUseCase(PlaceGateway gateway) {
+        this.gateway = gateway;
+    }
+
+    public void execute(DeletePlaceCommand command) {
+        if (gateway.existsById(command.id()))
+            throw new NotFoundException("O local não foi encontrado");
+        gateway.removeById(command.id());
+    }
+}

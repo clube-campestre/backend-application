@@ -41,4 +41,52 @@ public class Address {
                 referenceHouse
         );
     }
+
+    public static Address of(
+            String street, String houseNumber, String district, String state, String city, String cep,
+            String referenceHouse
+    ) {
+        return new Address(
+                null,
+                street,
+                houseNumber,
+                district,
+                state,
+                city,
+                Cep.of(cep),
+                referenceHouse
+        );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public Cep getCep() {
+        return cep;
+    }
+
+    public String getReferenceHouse() {
+        return referenceHouse;
+    }
 }

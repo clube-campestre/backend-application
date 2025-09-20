@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.config.swagger;
+package com.campestre.clube.backend_application.infrastructure.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

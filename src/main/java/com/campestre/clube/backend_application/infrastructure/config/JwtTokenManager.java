@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.config;
+package com.campestre.clube.backend_application.infrastructure.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

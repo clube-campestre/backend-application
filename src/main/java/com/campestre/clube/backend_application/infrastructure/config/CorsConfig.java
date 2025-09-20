@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.config;
+package com.campestre.clube.backend_application.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
