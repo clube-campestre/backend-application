@@ -15,6 +15,9 @@ public class UpdateTransportUseCase {
     }
 
     public Transport execute(UpdateTransportCommand command) {
+        if (gateway.existsById(command.id()))
+            throw new ConflictException("O transporte não foi encontrado");
+
         if (gateway.existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(
                 Contact.of(command.companyName(), command.companyNumber()),
                 Contact.of(command.driverName(), command.driverNumber()),

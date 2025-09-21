@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.response;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.transport;
 
 import java.math.BigDecimal;
 

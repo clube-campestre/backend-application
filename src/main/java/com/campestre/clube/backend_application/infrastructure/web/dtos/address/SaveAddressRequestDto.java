@@ -1,36 +1,23 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.response;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.address;
 
-public class AddressResponseDto {
-    private Integer id;
+import jakarta.validation.constraints.*;
+
+public class SaveAddressRequestDto {
+    @NotBlank
     private String houseNumber;
+    @NotBlank
+    @Size(min = 2)
     private String district;
+    @NotBlank
     private String city;
+    @NotBlank
     private String state;
+    @NotBlank
     private String street;
+    @NotBlank
+    @Size(min = 8, max = 8)
     private String cep;
     private String referenceHouse;
-
-    public AddressResponseDto(Integer id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
-        this.id = id;
-        this.houseNumber = houseNumber;
-        this.district = district;
-        this.city = city;
-        this.state = state;
-        this.street = street;
-        this.cep = cep;
-        this.referenceHouse = referenceHouse;
-    }
-
-    public AddressResponseDto() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getHouseNumber() {
         return houseNumber;

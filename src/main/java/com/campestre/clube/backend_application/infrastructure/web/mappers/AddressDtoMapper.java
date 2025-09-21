@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.infrastructure.web.mappers;
 
 import com.campestre.clube.backend_application.core.domain.Address;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.response.AddressResponseDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.address.AddressResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

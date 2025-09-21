@@ -6,9 +6,9 @@ import com.campestre.clube.backend_application.core.application.place.command.Ge
 import com.campestre.clube.backend_application.core.application.place.command.SavePlaceCommand;
 import com.campestre.clube.backend_application.core.application.place.command.UpdatePlaceCommand;
 import com.campestre.clube.backend_application.core.domain.Place;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.request.SavePlaceRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.request.UpdatePlaceRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.response.PlaceResponseDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.place.SavePlaceRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.place.UpdatePlaceRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.place.PlaceResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.mappers.PlaceDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.request;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.transport;
 
 import jakarta.validation.constraints.*;
 

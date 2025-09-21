@@ -1,4 +1,6 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.response;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.place;
+
+import com.campestre.clube.backend_application.infrastructure.web.dtos.address.AddressResponseDto;
 
 import java.math.BigDecimal;
 

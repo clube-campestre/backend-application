@@ -3,9 +3,9 @@ package com.campestre.clube.backend_application.infrastructure.web.mappers;
 import com.campestre.clube.backend_application.core.application.transport.command.SaveTransportCommand;
 import com.campestre.clube.backend_application.core.application.transport.command.UpdateTransportCommand;
 import com.campestre.clube.backend_application.core.domain.Transport;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.request.SaveTransportRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.request.UpdateTransportRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.response.TransportResponseDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.SaveTransportRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.UpdateTransportRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.TransportResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

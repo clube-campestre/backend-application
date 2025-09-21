@@ -26,4 +26,34 @@ public class Tag {
                 privateGoal
         );
     }
+
+    public static Tag of(String surname, String color, BigDecimal goal, Boolean privateGoal) {
+        return new Tag(
+                null,
+                surname,
+                color,
+                goal,
+                privateGoal
+        );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public BigDecimal getGoal() {
+        return goal;
+    }
+
+    public Boolean getPrivateGoal() {
+        return privateGoal;
+    }
 }

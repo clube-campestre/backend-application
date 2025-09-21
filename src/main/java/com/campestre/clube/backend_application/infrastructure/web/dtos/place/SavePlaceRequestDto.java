@@ -1,5 +1,6 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.request;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.place;
 
+import com.campestre.clube.backend_application.infrastructure.web.dtos.address.SaveAddressRequestDto;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;

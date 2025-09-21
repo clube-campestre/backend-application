@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.infrastructure.web.dtos.request;
+package com.campestre.clube.backend_application.infrastructure.web.dtos.address;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

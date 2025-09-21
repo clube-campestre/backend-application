@@ -27,8 +27,7 @@ public class Statement {
 
     public static Statement of(
             Integer id, String information, BigDecimal price, LocalDateTime transactionDate,
-            TransactionType transactionType, Integer tagId, String tagSurname, String tagColor, BigDecimal tagGoal,
-            Boolean tagPrivateGoal
+            TransactionType transactionType, Tag tag
     ) {
         return new Statement(
                 id,
@@ -36,13 +35,45 @@ public class Statement {
                 price,
                 transactionDate,
                 transactionType,
-                Tag.of(
-                        tagId,
-                        tagSurname,
-                        tagColor,
-                        tagGoal,
-                        tagPrivateGoal
-                )
+                tag
         );
+    }
+
+    public static Statement of(
+            String information, BigDecimal price, LocalDateTime transactionDate, TransactionType transactionType,
+            Tag tag
+    ) {
+        return new Statement(
+                null,
+                information,
+                price,
+                transactionDate,
+                transactionType,
+                tag
+        );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public Tag getTag() {
+        return tag;
     }
 }

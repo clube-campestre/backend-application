@@ -1,0 +1,88 @@
+package com.campestre.clube.backend_application.infrastructure.persistence.jpa.statement;
+
+import com.campestre.clube.backend_application.core.adapter.StatementGateway;
+import com.campestre.clube.backend_application.core.application.statement.valueobject.Filter;
+import com.campestre.clube.backend_application.core.application.valueobject.Pagination;
+import com.campestre.clube.backend_application.core.domain.Goal;
+import com.campestre.clube.backend_application.core.domain.Statement;
+import com.campestre.clube.backend_application.core.domain.StatementInformations;
+import com.campestre.clube.backend_application.core.domain.Tag;
+import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagJpaAdapter;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Repository;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Repository
+public class StatementJpaAdapter implements StatementGateway {
+
+    private final StatementJpaRepository repository;
+    private final TagJpaAdapter tagAdapter;
+
+    public StatementJpaAdapter(StatementJpaRepository repository,  TagJpaAdapter tagAdapter) {
+        this.repository = repository;
+        this.tagAdapter = tagAdapter;
+    }
+
+    @Override
+    public boolean existsByTagSurname(String tagSurname) {
+        return repository.existsByTagSurname(tagSurname);
+    }
+
+    @Override
+    public boolean existsByTagId(Integer tagId) {
+        return repository.existsByTagId(tagId);
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public boolean existsByInformationAndPriceAndTransactionDateAndTag(
+            String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
+    ) {
+        return repository.existsByInformationAndPriceAndTransactionDateAndTag(information, price, transactionDate, tag);
+    }
+
+    @Override
+    public Statement findById(Integer id) {
+        return StatementEntityMapper.toDomain(repository.findById(id).get());
+    }
+
+    @Override
+    public StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination) {
+        return new StatementInformations(
+                StatementEntityMapper.toDomain(repository.findByFilterAndPagination(
+                        filter.startDate(), filter.endDate(), filter.tagId(), filter.type(), filter.description(),
+                        PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
+                ).getContent()),
+                pagination, repository.findAllPrices()
+        );
+    }
+
+    @Override
+    public Goal findGoalByTagId(Integer tagId) {
+        return Goal.of(
+                repository.findAllPricesByTagId(tagId),
+                tagAdapter.findById(tagId)
+        );
+    }
+
+    @Override
+    public void removeByTagSurname(String tagSurname) {
+        repository.deleteByTag(tagAdapter.findBySurnameIgnoreCase(tagSurname));
+    }
+
+    @Override
+    public Statement save(Statement domain) {
+        return StatementEntityMapper.toDomain(repository.save(StatementEntityMapper.toEntity(domain)));
+    }
+
+    @Override
+    public void removeById(Integer id) {
+        repository.deleteById(id);
+    }
+}
