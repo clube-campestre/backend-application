@@ -11,6 +11,11 @@ public class ExceptionExtensions {
     public static final RuntimeException NOT_FOUND_TRANSPORT =
             new NotFoundException("Não foi possível encontrar o transporte.");
 
+    public static final RuntimeException CONFLICT_ACCOUNT_SAME_EMAIL =
+            new ConflictException("Este email já está sendo utilizado.");
+    public static final RuntimeException NOT_FOUND_ACCOUNT =
+            new NotFoundException("Não foi possível encontrar a conta.");
+
     public static final RuntimeException CONFLICT_LOCAL_SAME_NAME =
             new ConflictException("Não é permitido cadastrar um local com nome duplicado.");
     public static final RuntimeException NOT_FOUND_LOCAL =
