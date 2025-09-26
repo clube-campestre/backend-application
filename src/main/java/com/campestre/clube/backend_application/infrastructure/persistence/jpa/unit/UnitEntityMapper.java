@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit;
 
 import com.campestre.clube.backend_application.core.domain.Unit;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.unit.UnitResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,15 @@ public class UnitEntityMapper {
                 entity.getId(),
                 entity.getSurname(),
                 entity.getScore()
+        );
+    }
+
+    public static UnitResponseDto toResponse(Unit domain) {
+        if (domain == null) return null;
+        return new UnitResponseDto(
+                domain.getId(),
+                domain.getSurname(),
+                domain.getScore()
         );
     }
 

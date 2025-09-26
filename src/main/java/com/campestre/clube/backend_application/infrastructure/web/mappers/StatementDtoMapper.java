@@ -11,15 +11,14 @@ import com.campestre.clube.backend_application.core.domain.StatementInformations
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagEntityMapper;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.goal.GoalResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.GetByFilterAndPaginationStatementResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.SaveStatementRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.UpdateStatementRequestDto;
 
 import java.util.stream.Collectors;
 
 public class StatementDtoMapper {
 
-    public static SaveStatementCommand toCommand(SaveStatementRequestDto dto) {
+    public static SaveStatementCommand toCommand(StatementRequestDto dto) {
         return new SaveStatementCommand(
                 dto.getInformation(),
                 dto.getPrice(),
@@ -29,7 +28,7 @@ public class StatementDtoMapper {
         );
     }
 
-    public static UpdateStatementCommand toCommand(UpdateStatementRequestDto dto, Integer id) {
+    public static UpdateStatementCommand toCommand(StatementRequestDto dto, Integer id) {
         return new UpdateStatementCommand(
                 id,
                 dto.getInformation(),

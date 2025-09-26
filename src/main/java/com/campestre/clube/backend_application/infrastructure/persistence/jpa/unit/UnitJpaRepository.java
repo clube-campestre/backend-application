@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UnitJpaRepository extends JpaRepository<UnitEntity, Integer> {
-    Optional<UnitEntity> findBySurnameIgnoreCase(String unidade);
     Boolean existsBySurnameIgnoreCase(String unidade);
+
+    Optional<UnitEntity> findBySurnameIgnoreCase(String unidade);
+    List<UnitEntity> findByScoreNot(Integer score);
     List<UnitEntity> findAllByOrderByScoreDesc();
+
+    void deleteBySurname(String surname);
 }

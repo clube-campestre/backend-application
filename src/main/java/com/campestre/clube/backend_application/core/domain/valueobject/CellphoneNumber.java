@@ -1,8 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
-
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.INVALID_CELLPHONE_NUMBER;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.INVALID_CELLPHONE_NUMBER;
 
 public class CellphoneNumber {
     private String number;

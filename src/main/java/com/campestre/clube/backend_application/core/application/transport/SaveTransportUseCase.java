@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.application.transport.comman
 import com.campestre.clube.backend_application.core.domain.Transport;
 import com.campestre.clube.backend_application.core.domain.valueobject.Contact;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER;
 
 public class SaveTransportUseCase {
 

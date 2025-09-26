@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.application.extensions;
+package com.campestre.clube.backend_application.core.application.utils;
 
 import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
@@ -29,6 +29,9 @@ public class ExceptionExtensions {
             new BadRequestException("A unidade deve ter pelo menos um conselheiro.");
     public static final RuntimeException BAD_REQUEST_UNIT_MUST_HAVE_ONLY_COUNSELOR =
             new BadRequestException("A unidade não pode ter mais de um conselheiro.");
+    public static final RuntimeException BAD_REQUEST_UNIT_SCORE_MUST_NOT_BE_NULL =
+            new BadRequestException("Não é permitido salvar um valor nulo na pontuação.");
+
     public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_INSTRUCTOR =
             new BadRequestException("A classe deve ter pelo menos um instrutor.");
     public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_ONLY_INSTRUCTOR =
@@ -44,10 +47,25 @@ public class ExceptionExtensions {
     public static final RuntimeException CONFLICT_TAG_SAME_SURNAME_OR_COLOR =
             new ConflictException("Não é permitido cadastrar uma tag com nome ou cor já existente.");
     public static final RuntimeException NOT_FOUND_GOAL_BY_TAG =
-        new NotFoundException("Não foi possível encontrar a tag da meta.");
+            new NotFoundException("Não foi possível encontrar a tag da meta.");
 
     public static final RuntimeException INVALID_CNS =
-        new InvalidRequestException("O número do CNS é inválido.");
+            new InvalidRequestException("O número do CNS é inválido.");
     public static final RuntimeException INVALID_CELLPHONE_NUMBER =
-        new InvalidRequestException("O número de telefone é inválido");
+            new InvalidRequestException("O número de telefone é inválido");
+
+    public static final RuntimeException ERROR_ACCESS_TYPE_ENUM =
+            new BadRequestException("Não foi possível encontrar o acesso da conta.");
+    public static final RuntimeException ERROR_CLASS_CATEGORY_ENUM =
+            new BadRequestException("Não foi possível encontrar a classe do membro.");
+    public static final RuntimeException ERROR_CLASS_ROLE_ENUM =
+            new BadRequestException("Não foi possível encontrar o papel da classe.");
+    public static final RuntimeException ERROR_SEX_ENUM =
+            new BadRequestException("Não foi possível encontrar o sexo do membro.");
+    public static final RuntimeException ERROR_TSHIRT_SIZE_ENUM =
+            new BadRequestException("Não foi possível encontrar o tamanho da camiseta.");
+    public static final RuntimeException ERROR_UNIT_ENUM =
+            new BadRequestException("Não foi possível encontrar a unidade do membro.");
+    public static final RuntimeException ERROR_UNIT_ROLE_ENUM =
+            new BadRequestException("Não foi possível encontrar o papel da unidade.");
 }

@@ -4,7 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.SaveTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
 
 public class SaveTagUseCase {
 

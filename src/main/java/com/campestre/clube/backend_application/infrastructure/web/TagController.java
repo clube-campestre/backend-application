@@ -4,9 +4,8 @@ import com.campestre.clube.backend_application.core.application.tag.*;
 import com.campestre.clube.backend_application.core.application.tag.command.DeleteTagCommand;
 import com.campestre.clube.backend_application.core.application.tag.command.GetTagByIdCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.SaveTagRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.UpdateTagRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.mappers.TagDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class TagController {
 
     @Operation(summary = "Endpoint for create a new tag")
     @PostMapping
-    public ResponseEntity<TagResponseDto> register(@RequestBody SaveTagRequestDto dto) {
+    public ResponseEntity<TagResponseDto> register(@RequestBody TagRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 saveTagUseCase.execute(TagDtoMapper.toCommand(dto))
         ));
@@ -68,7 +67,7 @@ public class TagController {
 
     @Operation(summary = "Endpoint for update tag by id")
     @PutMapping("/{id}")
-    public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody UpdateTagRequestDto tag){
+    public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody TagRequestDto tag){
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 updateTagUseCase.execute(TagDtoMapper.toCommand(tag, id))
         ));

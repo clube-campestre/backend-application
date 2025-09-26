@@ -13,7 +13,7 @@ import com.campestre.clube.backend_application.core.domain.StatementInformations
 import com.campestre.clube.backend_application.core.domain.enums.TransactionType;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.goal.GoalResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.GetByFilterAndPaginationStatementResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.SaveStatementRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.mappers.StatementDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,7 +59,7 @@ public class StatementController {
 
     @Operation(summary = "Endpoint for create statement")
     @PostMapping
-    public ResponseEntity<StatementResponseDto> register(@RequestBody @Valid SaveStatementRequestDto dto) {
+    public ResponseEntity<StatementResponseDto> register(@RequestBody @Valid StatementRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(StatementDtoMapper.toResponse(
                 saveStatementUseCase.execute(StatementDtoMapper.toCommand(dto))
         ));

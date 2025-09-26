@@ -10,30 +10,30 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.valueobject.*;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CPF;
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CNS;
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_UNIT;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CPF;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CNS;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_UNIT;
 
 public class SaveMemberDataUseCase {
 
     private final MemberDataGateway gateway;
-    private final UnitGateway unitGateway;
     private final MedicalDataGateway medicalDataGateway;
+    private final UnitGateway unitGateway;
 
     public SaveMemberDataUseCase(
-            MemberDataGateway gateway, UnitGateway unitGateway, MedicalDataGateway medicalDataGateway
+            MemberDataGateway gateway, MedicalDataGateway medicalDataGateway, UnitGateway unitGateway
     ) {
         this.gateway = gateway;
-        this.unitGateway = unitGateway;
         this.medicalDataGateway = medicalDataGateway;
+        this.unitGateway = unitGateway;
     }
 
     public MemberData execute(SaveMemberDataCommand command) {
         if(gateway.existsByCpf(command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CPF;
         if (medicalDataGateway.existsByCns(command.cns())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
-        if (!unitGateway.existsById(command.unitId())) throw NOT_FOUND_UNIT;
+        if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
 
-        Unit unit = unitGateway.findById(command.unitId());
+        Unit unit = unitGateway.findBySurnameIgnoreCase(command.unitName());
 
         MemberData memberData = MemberData.of(
                 command.cpf(),

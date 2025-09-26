@@ -17,7 +17,7 @@ public record UpdateMemberDataCommand(
         String cellphoneNumber,
         String issuingAuthority,
 
-        Integer unitId,
+        String unitName,
         UnitRole unitRole,
         ClassCategory classCategory,
         ClassRole classRole,

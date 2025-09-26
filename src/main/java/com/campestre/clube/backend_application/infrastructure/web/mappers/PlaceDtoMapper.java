@@ -4,8 +4,8 @@ import com.campestre.clube.backend_application.core.application.place.command.Sa
 import com.campestre.clube.backend_application.core.application.place.command.UpdatePlaceCommand;
 import com.campestre.clube.backend_application.core.domain.Place;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.place.SavePlaceRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.place.UpdatePlaceRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.place.PlaceResponseDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.place.UpdatePlaceRequestDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

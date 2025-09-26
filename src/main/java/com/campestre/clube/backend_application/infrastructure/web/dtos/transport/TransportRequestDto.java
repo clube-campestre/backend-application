@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-public class SaveTransportRequestDto {
+public class TransportRequestDto {
     @NotBlank
     private String enterprise;
     @Positive @NotNull

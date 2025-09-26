@@ -6,8 +6,7 @@ import com.campestre.clube.backend_application.core.application.transport.comman
 import com.campestre.clube.backend_application.core.application.transport.command.SaveTransportCommand;
 import com.campestre.clube.backend_application.core.application.transport.command.UpdateTransportCommand;
 import com.campestre.clube.backend_application.core.domain.Transport;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.SaveTransportRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.UpdateTransportRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.TransportRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.TransportResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.mappers.TransportDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +45,7 @@ public class TransportController {
 
     @Operation(summary = "Endpoint for create transport")
     @PostMapping
-    public ResponseEntity<TransportResponseDto> register(@Valid @RequestBody SaveTransportRequestDto requestDto) {
+    public ResponseEntity<TransportResponseDto> register(@Valid @RequestBody TransportRequestDto requestDto) {
         SaveTransportCommand command = TransportDtoMapper.toCommand(requestDto);
         Transport transport = saveTransportUseCase.execute(command);
         TransportResponseDto responseDto = TransportDtoMapper.toResponse(transport);
@@ -76,7 +75,7 @@ public class TransportController {
     @Operation(summary = "Endpoint for update transport by id")
     @PutMapping("/{id}")
     public ResponseEntity<TransportResponseDto> update(
-            @PathVariable Integer id, @Valid @RequestBody UpdateTransportRequestDto requestDto
+            @PathVariable Integer id, @Valid @RequestBody TransportRequestDto requestDto
     ) {
         UpdateTransportCommand command = TransportDtoMapper.toCommand(requestDto, id);
         Transport transport = updateTransportUseCase.execute(command);

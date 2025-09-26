@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.core.application.tag;
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.DeleteTagCommand;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class DeleteTagUseCase {
 

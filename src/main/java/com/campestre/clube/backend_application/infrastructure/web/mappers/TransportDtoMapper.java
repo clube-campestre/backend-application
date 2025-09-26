@@ -3,8 +3,7 @@ package com.campestre.clube.backend_application.infrastructure.web.mappers;
 import com.campestre.clube.backend_application.core.application.transport.command.SaveTransportCommand;
 import com.campestre.clube.backend_application.core.application.transport.command.UpdateTransportCommand;
 import com.campestre.clube.backend_application.core.domain.Transport;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.SaveTransportRequestDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.UpdateTransportRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.TransportRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.transport.TransportResponseDto;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class TransportDtoMapper {
 
-    public static SaveTransportCommand toCommand(SaveTransportRequestDto dto) {
+    public static SaveTransportCommand toCommand(TransportRequestDto dto) {
         return new SaveTransportCommand(
                 dto.getPrice(),
                 dto.getTravelDistance(),
@@ -25,7 +24,7 @@ public class TransportDtoMapper {
         );
     }
 
-    public static UpdateTransportCommand toCommand(UpdateTransportRequestDto dto, Integer id) {
+    public static UpdateTransportCommand toCommand(TransportRequestDto dto, Integer id) {
         return new UpdateTransportCommand(
                 id,
                 dto.getPrice(),

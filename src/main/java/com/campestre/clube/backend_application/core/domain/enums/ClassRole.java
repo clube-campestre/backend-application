@@ -1,5 +1,9 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
+import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
+
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_CLASS_ROLE_ENUM;
+
 public enum ClassRole {
     NENHUMA("Nenhuma"),
     INSTRUTOR("Instrutor"),
@@ -17,6 +21,6 @@ public enum ClassRole {
     }
 
     public static ClassRole fromString(String value) {
-        return EnumUtils.fromString(ClassRole.class, value, "Papel da classe do membro inválido.");
+        return EnumUtils.fromString(ClassRole.class, value, ERROR_CLASS_ROLE_ENUM);
     }
 }

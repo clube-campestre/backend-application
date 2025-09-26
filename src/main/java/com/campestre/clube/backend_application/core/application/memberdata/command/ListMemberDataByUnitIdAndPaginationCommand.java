@@ -3,6 +3,6 @@ package com.campestre.clube.backend_application.core.application.memberdata.comm
 import com.campestre.clube.backend_application.core.application.valueobject.Pagination;
 
 public record ListMemberDataByUnitIdAndPaginationCommand(
-        Integer unitId,
+        String unitName,
         Pagination pagination
 ){}

@@ -10,28 +10,28 @@ import com.campestre.clube.backend_application.core.domain.enums.UnitRole;
 
 import java.util.List;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
 
-public class ListMemberDataByUnitIdAndPaginationUseCase {
+public class ListMemberDataByUnitNameAndPaginationUseCase {
 
     private final MemberDataGateway gateway;
     private final UnitGateway unitGateway;
 
-    public ListMemberDataByUnitIdAndPaginationUseCase(MemberDataGateway gateway, UnitGateway unitGateway) {
+    public ListMemberDataByUnitNameAndPaginationUseCase(MemberDataGateway gateway, UnitGateway unitGateway) {
         this.gateway = gateway;
         this.unitGateway = unitGateway;
     }
 
     public MemberDataForUnit execute(ListMemberDataByUnitIdAndPaginationCommand command) {
-        if (!unitGateway.existsById(command.unitId())) throw NOT_FOUND_UNIT;
+        if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
 
-        Unit unit = unitGateway.findById(command.unitId());
-        List<MemberData> counselors = gateway.findByUnitIdAndUnitRole(command.unitId(), UnitRole.CONSELHEIRO);
+        Unit unit = unitGateway.findBySurnameIgnoreCase(command.unitName());
+        List<MemberData> counselors = gateway.findByUnitNameAndUnitRole(command.unitName(), UnitRole.CONSELHEIRO);
 
         if (counselors.isEmpty()) throw BAD_REQUEST_UNIT_MUST_HAVE_COUNSELOR;
         if (counselors.size() > 1) throw BAD_REQUEST_UNIT_MUST_HAVE_ONLY_COUNSELOR;
 
-        List<MemberData> result = gateway.findByUnitIdAndPagination(command.unitId(), command.pagination());
+        List<MemberData> result = gateway.findByUnitNameAndPagination(command.unitName(), command.pagination());
 
         return MemberDataForUnit.of(
                 unit.getScore(),

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 
-public class UpdateTagRequestDto {
+public class TagRequestDto {
     @NotBlank
     private String surname;
     @NotBlank
@@ -12,14 +12,14 @@ public class UpdateTagRequestDto {
     private BigDecimal goal;
     private Boolean privateGoal = false;
 
-    public UpdateTagRequestDto(String surname, String color, BigDecimal goal, Boolean privateGoal) {
+    public TagRequestDto(String surname, String color, BigDecimal goal, Boolean privateGoal) {
         this.surname = surname;
         this.color = color;
         this.goal = goal;
         this.privateGoal = privateGoal;
     }
 
-    public UpdateTagRequestDto() {
+    public TagRequestDto() {
     }
 
     public String getSurname() {

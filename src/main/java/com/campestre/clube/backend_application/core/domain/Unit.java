@@ -12,11 +12,11 @@ public class Unit {
     }
 
     public static Unit of(Integer id, String surname, Integer score) {
-        return new Unit(
-                id,
-                surname,
-                score
-        );
+        return new Unit(id, surname, score);
+    }
+
+    public static Unit of(Integer id, String surname) {
+        return new Unit(id, surname, 0);
     }
 
     public Integer getId() {
@@ -29,9 +29,5 @@ public class Unit {
 
     public Integer getScore() {
         return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 }

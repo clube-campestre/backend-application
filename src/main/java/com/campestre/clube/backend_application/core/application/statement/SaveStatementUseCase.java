@@ -6,8 +6,8 @@ import com.campestre.clube.backend_application.core.application.statement.comman
 import com.campestre.clube.backend_application.core.domain.Statement;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG;
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class SaveStatementUseCase {
 

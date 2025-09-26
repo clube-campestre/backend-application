@@ -10,7 +10,7 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.valueobject.MemberContact;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
 
 public class UpdateMemberDataUseCase {
 
@@ -28,10 +28,10 @@ public class UpdateMemberDataUseCase {
 
     public MemberData execute(UpdateMemberDataCommand command) {
         if (!gateway.existsByCpf(command.cpf())) throw NOT_FOUND_MEMBER_DATA;
-        if (!unitGateway.existsById(command.unitId())) throw NOT_FOUND_UNIT;
+        if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
         if (!medicalDataGateway.existsByCnsAndCpfNot(command.cns(), command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
 
-        Unit unit = unitGateway.findById(command.unitId());
+        Unit unit = unitGateway.findBySurnameIgnoreCase(command.unitName());
 
         MemberData memberData = MemberData.of(
                 command.cpf(),

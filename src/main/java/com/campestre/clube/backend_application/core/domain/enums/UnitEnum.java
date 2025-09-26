@@ -1,10 +1,8 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
-import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
 
-import java.util.Arrays;
-import java.util.Objects;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_UNIT_ENUM;
 
 public enum UnitEnum {
     PANDA("Panda", 1),
@@ -34,15 +32,7 @@ public enum UnitEnum {
         return id;
     }
 
-    public static UnitEnum findByIdOrThrow(Integer unitId) {
-        if (unitId == null) throw new BadRequestException("ID da unidade não informado.");
-        return Arrays.stream(values())
-                .filter(unit -> Objects.equals(unit.id, unitId))
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException("Não encontramos o usuário solicitado."));
-    }
-
     public static UnitEnum fromString(String value) {
-        return EnumUtils.fromString(UnitEnum.class, value, "Unidade do membro inválida.");
+        return EnumUtils.fromString(UnitEnum.class, value, ERROR_UNIT_ENUM);
     }
 }

@@ -18,7 +18,7 @@ public interface MemberDataJpaRepository extends JpaRepository<MemberDataEntity,
     boolean existsByCpf(String cpf);
 
     Optional<MemberDataEntity> findByCpf(@CPF String cpf);
-    List<MemberDataEntity> findByUnitIdAndUnitRole(Integer unitId, UnitRole unitRole);
+    List<MemberDataEntity> findByUnitSurnameAndUnitRole(String unitSurname, UnitRole unitRole);
     List<MemberDataEntity> findByClassCategoryAndClassRole(ClassCategory classCategory, ClassRole classRole);
 
     @Query("""
@@ -37,11 +37,11 @@ public interface MemberDataJpaRepository extends JpaRepository<MemberDataEntity,
 
     @Query("""
                 SELECT m FROM MemberDataEntity m
-                WHERE (:unitId IS NULL OR m.unit.id = :unitId)
+                WHERE (:unitSurname IS NULL OR m.unit.surname = :unitSurname)
                 ORDER BY m.username ASC
             """)
-    Page<MemberDataEntity> findByUnitIdAndPagination(
-            @Param("unitId") Integer unitId,
+    Page<MemberDataEntity> findByUnitSurnameAndPagination(
+            @Param("unitSurname") String unitSurname,
             Pageable pageable
     );
 

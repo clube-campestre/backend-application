@@ -37,15 +37,15 @@ public class MemberDataJpaAdapter implements MemberDataGateway {
     }
 
     @Override
-    public List<MemberData> findByUnitIdAndUnitRole(Integer unitId, UnitRole unitRole) {
-        return MemberDataEntityMapper.toDomain(repository.findByUnitIdAndUnitRole(unitId, unitRole));
+    public List<MemberData> findByUnitNameAndUnitRole(String unitName, UnitRole unitRole) {
+        return MemberDataEntityMapper.toDomain(repository.findByUnitSurnameAndUnitRole(unitName, unitRole));
     }
 
     @Override
-    public List<MemberData> findByUnitIdAndPagination(Integer unitId, Pagination pagination) {
+    public List<MemberData> findByUnitNameAndPagination(String unitName, Pagination pagination) {
         return MemberDataEntityMapper.toDomain(
-                repository.findByUnitIdAndPagination(
-                        unitId, PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
+                repository.findByUnitSurnameAndPagination(
+                        unitName, PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
                 ).getContent()
         );
     }

@@ -1,5 +1,9 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
+import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
+
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_UNIT_ROLE_ENUM;
+
 public enum UnitRole {
     CONSELHEIRO("Conselheiro"),
     CONSELHEIRO_AUXILIAR("Conselheiro Auxiliar"),
@@ -24,6 +28,6 @@ public enum UnitRole {
     }
 
     public static UnitRole fromString(String value) {
-        return EnumUtils.fromString(UnitRole.class, value, "Papel da unidade do membro inválido.");
+        return EnumUtils.fromString(UnitRole.class, value, ERROR_UNIT_ROLE_ENUM);
     }
 }

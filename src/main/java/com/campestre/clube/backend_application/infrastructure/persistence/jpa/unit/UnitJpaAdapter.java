@@ -17,11 +17,6 @@ public class UnitJpaAdapter implements UnitGateway {
 
 
     @Override
-    public boolean existsById(Integer id) {
-        return repository.existsById(id);
-    }
-
-    @Override
     public boolean existsBySurnameIgnoreCase(String surname) {
         return repository.existsBySurnameIgnoreCase(surname);
     }
@@ -32,22 +27,17 @@ public class UnitJpaAdapter implements UnitGateway {
     }
 
     @Override
+    public List<Unit> findByScoreNot(Integer score) {
+        return UnitEntityMapper.toDomain(repository.findByScoreNot(score));
+    }
+
+    @Override
     public List<Unit> findOrderByScoreDesc() {
         return UnitEntityMapper.toDomain(repository.findAllByOrderByScoreDesc());
     }
 
     @Override
-    public Unit findById(Integer id) {
-        return UnitEntityMapper.toDomain(repository.findById(id).get());
-    }
-
-    @Override
     public Unit save(Unit unit) {
         return UnitEntityMapper.toDomain(repository.save(UnitEntityMapper.toEntity(unit)));
-    }
-
-    @Override
-    public void removeById(Integer id) {
-        repository.deleteById(id);
     }
 }

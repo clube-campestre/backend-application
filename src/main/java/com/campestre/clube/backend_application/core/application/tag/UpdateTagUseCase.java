@@ -4,8 +4,8 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.UpdateTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class UpdateTagUseCase {
 

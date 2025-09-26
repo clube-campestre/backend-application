@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.application.place.command.Sa
 import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
 
 public class SavePlaceUseCase {
 

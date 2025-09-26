@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class SaveStatementRequestDto {
+public class StatementRequestDto {
     @NotBlank
     private String information;
     @NotNull

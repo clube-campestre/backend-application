@@ -8,7 +8,7 @@ import com.campestre.clube.backend_application.core.domain.enums.ClassRole;
 
 import java.util.List;
 
-import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
 
 public class ListMemberDataByClassCategoryAndPaginationUseCase {
 

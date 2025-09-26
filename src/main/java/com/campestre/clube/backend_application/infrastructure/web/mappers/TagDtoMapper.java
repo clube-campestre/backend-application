@@ -3,16 +3,15 @@ package com.campestre.clube.backend_application.infrastructure.web.mappers;
 import com.campestre.clube.backend_application.core.application.tag.command.SaveTagCommand;
 import com.campestre.clube.backend_application.core.application.tag.command.UpdateTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.SaveTagRequestDto;
+import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.UpdateTagRequestDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TagDtoMapper {
 
-    public static SaveTagCommand toCommand(SaveTagRequestDto dto) {
+    public static SaveTagCommand toCommand(TagRequestDto dto) {
         return new SaveTagCommand(
                 dto.getSurname(),
                 dto.getColor(),
@@ -21,7 +20,7 @@ public class TagDtoMapper {
         );
     }
 
-    public static UpdateTagCommand toCommand(UpdateTagRequestDto dto, Integer id) {
+    public static UpdateTagCommand toCommand(TagRequestDto dto, Integer id) {
         return new UpdateTagCommand(
                 id,
                 dto.getSurname(),

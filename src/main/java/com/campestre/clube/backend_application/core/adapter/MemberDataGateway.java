@@ -14,8 +14,8 @@ public interface MemberDataGateway {
 
     MemberData findByCpf(String cpf);
     List<MemberData> findAll();
-    List<MemberData> findByUnitIdAndUnitRole(Integer unitId, UnitRole unitRole);
-    List<MemberData> findByUnitIdAndPagination(Integer unitId, Pagination pagination);
+    List<MemberData> findByUnitNameAndUnitRole(String unitName, UnitRole unitRole);
+    List<MemberData> findByUnitNameAndPagination(String unitName, Pagination pagination);
     List<MemberData> findByClassCategoryAndClassRole(ClassCategory classCategory, ClassRole classRole);
     List<MemberData> findByClassAndPagination(ClassCategory classCategory, Pagination pagination);
     List<MemberData> findByFilterAndPagination(Filter filter, Pagination pagination);

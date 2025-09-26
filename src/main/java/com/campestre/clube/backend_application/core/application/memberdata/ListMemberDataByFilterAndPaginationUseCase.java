@@ -27,8 +27,8 @@ public class ListMemberDataByFilterAndPaginationUseCase {
         UnitEnum unitEnum = command.unitName() != null ? UnitEnum.fromString(command.unitName()) : null;
         Unit unitEntity = null;
 
-        if (command.unitName() != null && unitGateway.existsById(unitEnum.getId()))
-            unitEntity = unitGateway.findById(unitEnum.getId());
+        if (command.unitName() != null && unitGateway.existsBySurnameIgnoreCase(unitEnum.name()))
+            unitEntity = unitGateway.findBySurnameIgnoreCase(unitEnum.name());
 
         ClassCategory classCategoryEnum =
                 command.className() != null ? ClassCategory.fromString(command.className()) : null;

@@ -1,5 +1,9 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
+import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
+
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_CLASS_CATEGORY_ENUM;
+
 public enum ClassCategory {
     NENHUMA("Nenhuma"),
     AMIGO("Amigo"),
@@ -25,6 +29,6 @@ public enum ClassCategory {
     }
 
     public static ClassCategory fromString(String value) {
-        return EnumUtils.fromString(ClassCategory.class, value, "Classe do membro inválida.");
+        return EnumUtils.fromString(ClassCategory.class, value, ERROR_CLASS_CATEGORY_ENUM);
     }
 }
