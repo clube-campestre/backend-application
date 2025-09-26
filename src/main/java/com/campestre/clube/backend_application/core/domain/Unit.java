@@ -11,11 +11,11 @@ public class Unit {
         this.score = score;
     }
 
-    public static Unit of(Integer id, String surname) {
+    public static Unit of(Integer id, String surname, Integer score) {
         return new Unit(
                 id,
                 surname,
-                0
+                score
         );
     }
 

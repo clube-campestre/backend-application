@@ -31,7 +31,7 @@ public class ListMemberDataByUnitIdAndPaginationUseCase {
         if (counselors.isEmpty()) throw BAD_REQUEST_UNIT_MUST_HAVE_COUNSELOR;
         if (counselors.size() > 1) throw BAD_REQUEST_UNIT_MUST_HAVE_ONLY_COUNSELOR;
 
-        List<MemberData> result = gateway.findByUnitAndPagination(command.unitId(), command.pagination());
+        List<MemberData> result = gateway.findByUnitIdAndPagination(command.unitId(), command.pagination());
 
         return MemberDataForUnit.of(
                 unit.getScore(),

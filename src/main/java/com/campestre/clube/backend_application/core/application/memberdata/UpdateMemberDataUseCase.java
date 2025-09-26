@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.core.application.memberdata;
 
+import com.campestre.clube.backend_application.core.adapter.MedicalDataGateway;
 import com.campestre.clube.backend_application.core.adapter.MemberDataGateway;
 import com.campestre.clube.backend_application.core.adapter.UnitGateway;
 import com.campestre.clube.backend_application.core.application.memberdata.command.UpdateMemberDataCommand;
@@ -14,17 +15,21 @@ import static com.campestre.clube.backend_application.core.application.extension
 public class UpdateMemberDataUseCase {
 
     private final MemberDataGateway gateway;
+    private final MedicalDataGateway medicalDataGateway;
     private final UnitGateway unitGateway;
 
-    public UpdateMemberDataUseCase(MemberDataGateway gateway, UnitGateway unitGateway) {
+    public UpdateMemberDataUseCase(
+            MemberDataGateway gateway, MedicalDataGateway medicalDataGateway, UnitGateway unitGateway
+    ) {
         this.gateway = gateway;
+        this.medicalDataGateway = medicalDataGateway;
         this.unitGateway = unitGateway;
     }
 
     public MemberData execute(UpdateMemberDataCommand command) {
         if (!gateway.existsByCpf(command.cpf())) throw NOT_FOUND_MEMBER_DATA;
         if (!unitGateway.existsById(command.unitId())) throw NOT_FOUND_UNIT;
-        if (!gateway.existsByCnsAndCpfNot(command.cns(), command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
+        if (!medicalDataGateway.existsByCnsAndCpfNot(command.cns(), command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
 
         Unit unit = unitGateway.findById(command.unitId());
 

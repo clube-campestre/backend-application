@@ -11,13 +11,11 @@ import java.util.List;
 
 public interface MemberDataGateway {
     boolean existsByCpf(String cpf);
-    boolean existsByCns(String cns);
-    boolean existsByCnsAndCpfNot(String cns, String cpf);
 
     MemberData findByCpf(String cpf);
     List<MemberData> findAll();
-    List<MemberData> findByUnitIdAndUnitRole(Integer id, UnitRole unitRole);
-    List<MemberData> findByUnitAndPagination(Integer id, Pagination pagination);
+    List<MemberData> findByUnitIdAndUnitRole(Integer unitId, UnitRole unitRole);
+    List<MemberData> findByUnitIdAndPagination(Integer unitId, Pagination pagination);
     List<MemberData> findByClassCategoryAndClassRole(ClassCategory classCategory, ClassRole classRole);
     List<MemberData> findByClassAndPagination(ClassCategory classCategory, Pagination pagination);
     List<MemberData> findByFilterAndPagination(Filter filter, Pagination pagination);

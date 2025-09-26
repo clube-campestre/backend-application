@@ -10,26 +10,26 @@ public class MedicalData {
     private String agreement;
     private String bloodType;
 
-    private Boolean catapora; //chickenpox
-    private Boolean meningite; //meningitis
-    private Boolean hepatite; //hepatitis
-    private Boolean dengue; //dengueFever
-    private Boolean pneumonia; //pneumonia
-    private Boolean malaria; //malaria
-    private Boolean febreAmarela; //yellowFever
-    private Boolean sarampo; //measles
-    private Boolean tetano; //tetanus
-    private Boolean variola; //smallpox
-    private Boolean coqueluche; //whoopingCough
-    private Boolean difteria; //diphtheria
-    private Boolean rinite; //rhinitis
-    private Boolean bronquite; //bronchitis
-    private Boolean asma; //asthma
-    private Boolean rubeola; //rubella
-    private Boolean colera; //cholera
-    private Boolean covid19; //covid19
-    private Boolean h1n1; //h1n1
-    private Boolean caxumba; //mumps
+    private Boolean catapora;
+    private Boolean meningite;
+    private Boolean hepatite;
+    private Boolean dengue;
+    private Boolean pneumonia;
+    private Boolean malaria;
+    private Boolean febreAmarela;
+    private Boolean sarampo;
+    private Boolean tetano;
+    private Boolean variola;
+    private Boolean coqueluche;
+    private Boolean difteria;
+    private Boolean rinite;
+    private Boolean bronquite;
+    private Boolean asma;
+    private Boolean rubeola;
+    private Boolean colera;
+    private Boolean covid19;
+    private Boolean h1n1;
+    private Boolean caxumba;
 
     private String others;
     private String heartProblems;

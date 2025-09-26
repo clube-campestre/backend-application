@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.core.application.memberdata;
 
+import com.campestre.clube.backend_application.core.adapter.MedicalDataGateway;
 import com.campestre.clube.backend_application.core.adapter.MemberDataGateway;
 import com.campestre.clube.backend_application.core.adapter.UnitGateway;
 import com.campestre.clube.backend_application.core.application.memberdata.command.SaveMemberDataCommand;
@@ -17,15 +18,19 @@ public class SaveMemberDataUseCase {
 
     private final MemberDataGateway gateway;
     private final UnitGateway unitGateway;
+    private final MedicalDataGateway medicalDataGateway;
 
-    public SaveMemberDataUseCase(MemberDataGateway gateway, UnitGateway unitGateway) {
+    public SaveMemberDataUseCase(
+            MemberDataGateway gateway, UnitGateway unitGateway, MedicalDataGateway medicalDataGateway
+    ) {
         this.gateway = gateway;
         this.unitGateway = unitGateway;
+        this.medicalDataGateway = medicalDataGateway;
     }
 
     public MemberData execute(SaveMemberDataCommand command) {
         if(gateway.existsByCpf(command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CPF;
-        if (gateway.existsByCns(command.cns())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
+        if (medicalDataGateway.existsByCns(command.cns())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
         if (!unitGateway.existsById(command.unitId())) throw NOT_FOUND_UNIT;
 
         Unit unit = unitGateway.findById(command.unitId());
