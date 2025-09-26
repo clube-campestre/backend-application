@@ -1,10 +1,11 @@
 package com.campestre.clube.backend_application.core.application.transport;
 
 import com.campestre.clube.backend_application.core.adapter.TransportGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.core.application.transport.command.SaveTransportCommand;
 import com.campestre.clube.backend_application.core.domain.Transport;
 import com.campestre.clube.backend_application.core.domain.valueobject.Contact;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER;
 
 public class SaveTransportUseCase {
 
@@ -18,8 +19,8 @@ public class SaveTransportUseCase {
         if (gateway.existsByCompanyIgnoreCaseAndDriverIgnoreCase(
                 Contact.of(command.companyName(), command.companyNumber()),
                 Contact.of(command.driverName(), command.driverNumber())
-        ))
-            throw new ConflictException("A empresa e o motorista do transporte não pode ser repetido");
+        )) throw CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER;
+
         Transport transport = Transport.of(
                 command.price(),
                 command.travelDistance(),

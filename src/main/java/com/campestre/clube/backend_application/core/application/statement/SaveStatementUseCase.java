@@ -2,11 +2,12 @@ package com.campestre.clube.backend_application.core.application.statement;
 
 import com.campestre.clube.backend_application.core.adapter.StatementGateway;
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.core.application.statement.command.SaveStatementCommand;
 import com.campestre.clube.backend_application.core.domain.Statement;
 import com.campestre.clube.backend_application.core.domain.Tag;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG;
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class SaveStatementUseCase {
 
@@ -19,14 +20,13 @@ public class SaveStatementUseCase {
     }
 
     public Statement execute(SaveStatementCommand command) {
-        if(!tagGateway.existsBySurnameIgnoreCase(command.tagSurname()))
-            throw new NotFoundException("A tag da transação não foi encontrada");
+        if(!tagGateway.existsBySurnameIgnoreCase(command.tagSurname())) throw NOT_FOUND_TAG;
 
         Tag tag = tagGateway.findBySurnameIgnoreCase(command.tagSurname());
 
         if (gateway.existsByInformationAndPriceAndTransactionDateAndTag(
                 command.information(), command.price(), command.transactionDate(), tag
-        )) throw new ConflictException("Já existe um lançamento com as mesmas informações, valor, data e tag.");
+        )) throw CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG;
 
         Statement statement = Statement.of(
                 command.information(),

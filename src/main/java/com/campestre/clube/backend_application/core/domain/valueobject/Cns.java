@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.INVALID_CNS;
 
 public class Cns {
     private String number;
@@ -10,7 +10,7 @@ public class Cns {
     }
 
     public static Cns of(String number) {
-        if (number.length() != 15) throw new InvalidRequestException("O número do CNS é inválido");
+        if (number.length() != 15) throw INVALID_CNS;
         return new Cns(number);
     }
 

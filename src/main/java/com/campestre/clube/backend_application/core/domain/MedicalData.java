@@ -101,23 +101,40 @@ public class MedicalData {
     }
 
     public static MedicalData of(
-            Cpf cpf, Cns cns, String agreement, String bloodType, Boolean catapora, Boolean meningite,
+            String cpf, String cns, String agreement, String bloodType, Boolean catapora, Boolean meningite,
             Boolean hepatite, Boolean dengue, Boolean pneumonia, Boolean malaria, Boolean febreAmarela, Boolean sarampo,
             Boolean tetano, Boolean variola, Boolean coqueluche, Boolean difteria, Boolean rinite, Boolean bronquite,
             Boolean asma, Boolean rubeola, Boolean colera, Boolean covid19, Boolean h1n1, Boolean caxumba,
             String others, String heartProblems, String drugAllergy, Boolean lactoseAllergy, String deficiency,
-            Boolean bloodTransfusion, MedicalProblem skinAllergy, MedicalProblem faintingOrConvulsion,
-            String psychologicalDisorder, MedicalProblem allergy, MedicalProblem diabetic, Boolean recentSeriousInjury,
-            String recentFracture, String surgeries, String hospitalizationReasonLast5Years
+            Boolean bloodTransfusion, Boolean haveSkinAllergy, String skinAllergyMedication,
+            Boolean haveFaintingOrConvulsion, String faintingOrConvulsionMedication, String psychologicalDisorder,
+            Boolean haveAllergy, String allergyMedication, Boolean haveDiabetic, String diabeticMedication,
+            Boolean recentSeriousInjury, String recentFracture, String surgeries, String hospitalizationReasonLast5Years
     ) {
         return new MedicalData(
-                cpf, cns, agreement, bloodType,
+                Cpf.of(cpf), Cns.of(cns), agreement, bloodType,
 
                 catapora, meningite, hepatite, dengue, pneumonia, malaria, febreAmarela, sarampo, tetano, variola,
                 coqueluche, difteria, rinite, bronquite, asma, rubeola, colera, covid19, h1n1, caxumba,
 
-                others, heartProblems, drugAllergy, lactoseAllergy, deficiency, bloodTransfusion, skinAllergy,
-                faintingOrConvulsion, psychologicalDisorder, allergy, diabetic, recentSeriousInjury, recentFracture,
+                others, heartProblems, drugAllergy, lactoseAllergy, deficiency, bloodTransfusion,
+                MedicalProblem.of(
+                        haveSkinAllergy,
+                        skinAllergyMedication
+                ),
+                MedicalProblem.of(
+                        haveFaintingOrConvulsion,
+                        faintingOrConvulsionMedication
+                ),
+                psychologicalDisorder,
+                MedicalProblem.of(
+                        haveAllergy,
+                        allergyMedication
+                ),
+                MedicalProblem.of(
+                        haveDiabetic,
+                        diabeticMedication
+                ), recentSeriousInjury, recentFracture,
                 surgeries, hospitalizationReasonLast5Years
         );
     }

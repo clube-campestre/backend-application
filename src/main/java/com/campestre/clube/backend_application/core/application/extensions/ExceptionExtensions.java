@@ -1,0 +1,53 @@
+package com.campestre.clube.backend_application.core.application.extensions;
+
+import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
+import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
+import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
+import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
+
+public class ExceptionExtensions {
+    public static final RuntimeException CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER =
+            new ConflictException("Não é permitido cadastrar a mesma empresa e motorista para o transporte.");
+    public static final RuntimeException NOT_FOUND_TRANSPORT =
+            new NotFoundException("Não foi possível encontrar o transporte.");
+
+    public static final RuntimeException CONFLICT_LOCAL_SAME_NAME =
+            new ConflictException("Não é permitido cadastrar um local com nome duplicado.");
+    public static final RuntimeException NOT_FOUND_LOCAL =
+            new NotFoundException("Não foi possível encontrar o local.");
+
+    public static final RuntimeException CONFLICT_MEMBER_DATA_SAME_CPF =
+            new ConflictException("Não é permitido cadastrar um membro com CPF já existente.");
+    public static final RuntimeException CONFLICT_MEMBER_DATA_SAME_CNS =
+            new ConflictException("Não é permitido cadastrar um membro com CNS já existente.");
+    public static final RuntimeException NOT_FOUND_MEMBER_DATA =
+            new NotFoundException("Não foi possível encontrar o membro.");
+
+    public static final RuntimeException NOT_FOUND_UNIT =
+            new NotFoundException("Não foi possível encontrar a unidade.");
+    public static final RuntimeException BAD_REQUEST_UNIT_MUST_HAVE_COUNSELOR =
+            new BadRequestException("A unidade deve ter pelo menos um conselheiro.");
+    public static final RuntimeException BAD_REQUEST_UNIT_MUST_HAVE_ONLY_COUNSELOR =
+            new BadRequestException("A unidade não pode ter mais de um conselheiro.");
+    public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_INSTRUCTOR =
+            new BadRequestException("A classe deve ter pelo menos um instrutor.");
+    public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_ONLY_INSTRUCTOR =
+            new BadRequestException("A classe não pode ter mais de um instrutor.");
+
+    public static final RuntimeException NOT_FOUND_STATEMENT =
+            new NotFoundException("Não foi possível encontrar a transferência.");
+    public static final RuntimeException CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG =
+            new ConflictException("Não é permitido cadastrar uma transferência com descrição, valor, data e tag já existente.");
+
+    public static final RuntimeException NOT_FOUND_TAG =
+            new NotFoundException("Não foi possível encontrar a tag da transferência.");
+    public static final RuntimeException CONFLICT_TAG_SAME_SURNAME_OR_COLOR =
+            new ConflictException("Não é permitido cadastrar uma tag com nome ou cor já existente.");
+    public static final RuntimeException NOT_FOUND_GOAL_BY_TAG =
+        new NotFoundException("Não foi possível encontrar a tag da meta.");
+
+    public static final RuntimeException INVALID_CNS =
+        new InvalidRequestException("O número do CNS é inválido.");
+    public static final RuntimeException INVALID_CELLPHONE_NUMBER =
+        new InvalidRequestException("O número de telefone é inválido");
+}

@@ -1,10 +1,11 @@
 package com.campestre.clube.backend_application.core.application.place;
 
 import com.campestre.clube.backend_application.core.adapter.PlaceGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.core.application.place.command.SavePlaceCommand;
 import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
 
 public class SavePlaceUseCase {
 
@@ -15,8 +16,7 @@ public class SavePlaceUseCase {
     }
 
     public Place execute(SavePlaceCommand command) {
-        if (gateway.existsByNameIgnoreCase(command.name()))
-            throw new ConflictException("O nome do local não pode ser repetido");
+        if (gateway.existsByNameIgnoreCase(command.name())) throw CONFLICT_LOCAL_SAME_NAME;
 
         Place place = Place.of(
                 Address.of(

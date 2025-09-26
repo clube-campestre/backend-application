@@ -62,16 +62,16 @@ public class MemberData {
     }
 
     public static MemberData of(
-            Cpf cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex,
-            String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, CellphoneNumber cellphoneNumber,
+            String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex,
+            String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
             MedicalData medicalData
     ) {
         return new MemberData(
-                cpf, idImage, imagePath, username, birthDate, sex, birthCertificate, tshirtSize, isBaptized,
-                cellphoneNumber, issuingAuthority, unit, unitRole, classCategory, classRole, fatherContact,
-                motherContact, responsibleContact, address, medicalData
+                Cpf.of(cpf), idImage, imagePath, username, birthDate, sex, birthCertificate, tshirtSize, isBaptized,
+                CellphoneNumber.of(cellphoneNumber), issuingAuthority, unit, unitRole, classCategory, classRole,
+                fatherContact, motherContact, responsibleContact, address, medicalData
         );
     }
 

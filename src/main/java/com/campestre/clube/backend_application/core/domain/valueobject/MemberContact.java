@@ -11,11 +11,11 @@ public class MemberContact {
         this.email = email;
     }
 
-    public static MemberContact of(String name, String number, Email email) {
+    public static MemberContact of(String name, String number, String email) {
         return new MemberContact(
                 name,
                 CellphoneNumber.of(number),
-                email
+                Email.of(email)
         );
     }
 

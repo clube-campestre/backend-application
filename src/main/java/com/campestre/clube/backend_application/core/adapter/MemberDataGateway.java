@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface MemberDataGateway {
     boolean existsByCpf(String cpf);
+    boolean existsByCns(String cns);
+    boolean existsByCnsAndCpfNot(String cns, String cpf);
 
     MemberData findByCpf(String cpf);
     List<MemberData> findAll();

@@ -7,6 +7,9 @@ import com.campestre.clube.backend_application.core.application.place.command.Up
 import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
 
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_LOCAL;
+
 public class UpdatePlaceUseCase {
 
     private final PlaceGateway gateway;
@@ -16,11 +19,8 @@ public class UpdatePlaceUseCase {
     }
 
     public Place execute(UpdatePlaceCommand command) {
-        if (gateway.existsById(command.id()))
-            throw new NotFoundException("O local não foi encontrado");
-
-        if (gateway.existsByNameIgnoreCaseAndIdNot(command.name(), command.id()))
-            throw new ConflictException("O nome ou o endereço do local não pode ser repetido");
+        if (!gateway.existsById(command.id())) throw NOT_FOUND_LOCAL;
+        if (gateway.existsByNameIgnoreCaseAndIdNot(command.name(), command.id())) throw CONFLICT_LOCAL_SAME_NAME;
 
         Place place = Place.of(
                 command.id(),

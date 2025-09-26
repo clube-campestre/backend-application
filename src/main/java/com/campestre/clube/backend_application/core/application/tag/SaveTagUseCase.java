@@ -1,9 +1,10 @@
 package com.campestre.clube.backend_application.core.application.tag;
 
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.core.application.tag.command.SaveTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
 
 public class SaveTagUseCase {
 
@@ -15,7 +16,7 @@ public class SaveTagUseCase {
 
     public Tag execute(SaveTagCommand command) {
         if (gateway.existsBySurnameIgnoreCaseOrColorContains(command.surname(), command.color()))
-            throw new ConflictException("Já existe uma tag com este nome ou cor");
+            throw CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
 
         Tag tag = Tag.of(
                 command.surname(),

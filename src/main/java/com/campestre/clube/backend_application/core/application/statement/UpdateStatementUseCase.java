@@ -2,10 +2,12 @@ package com.campestre.clube.backend_application.core.application.statement;
 
 import com.campestre.clube.backend_application.core.adapter.StatementGateway;
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.core.application.statement.command.UpdateStatementCommand;
 import com.campestre.clube.backend_application.core.domain.Statement;
 import com.campestre.clube.backend_application.core.domain.Tag;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_STATEMENT;
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class UpdateStatementUseCase {
 
@@ -18,10 +20,8 @@ public class UpdateStatementUseCase {
     }
 
     public Statement execute(UpdateStatementCommand command) {
-        if (!gateway.existsById(command.id()))
-            throw new NotFoundException("A transação não foi encontrada");
-        if(!tagGateway.existsBySurnameIgnoreCase(command.tagSurname()))
-            throw new NotFoundException("A tag da transação não foi encontrada");
+        if (!gateway.existsById(command.id())) throw NOT_FOUND_STATEMENT;
+        if(!tagGateway.existsBySurnameIgnoreCase(command.tagSurname())) throw NOT_FOUND_TAG;
 
         Tag tag = tagGateway.findBySurnameIgnoreCase(command.tagSurname());
         Statement statement = Statement.of(

@@ -1,9 +1,10 @@
 package com.campestre.clube.backend_application.core.application.transport;
 
 import com.campestre.clube.backend_application.core.adapter.TransportGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.core.application.transport.command.GetTransportByIdCommand;
 import com.campestre.clube.backend_application.core.domain.Transport;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TRANSPORT;
 
 public class GetTransportByIdUseCase {
 
@@ -14,8 +15,7 @@ public class GetTransportByIdUseCase {
     }
 
     public Transport execute(GetTransportByIdCommand command) {
-        if (gateway.existsById(command.id()))
-            throw new NotFoundException("O transporte não foi encontrado");
+        if (!gateway.existsById(command.id())) throw NOT_FOUND_TRANSPORT;
         return gateway.findById(command.id());
     }
 }

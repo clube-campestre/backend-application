@@ -1,15 +1,15 @@
-package com.campestre.clube.backend_application.core.application.transport;
+package com.campestre.clube.backend_application.core.application.memberdata;
 
 import com.campestre.clube.backend_application.core.adapter.TransportGateway;
 import com.campestre.clube.backend_application.core.application.transport.command.DeleteTransportCommand;
 
 import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TRANSPORT;
 
-public class DeleteTransportUseCase {
+public class DeleteMemberDataUseCase {
 
     private final TransportGateway gateway;
 
-    public DeleteTransportUseCase(TransportGateway gateway) {
+    public DeleteMemberDataUseCase(TransportGateway gateway) {
         this.gateway = gateway;
     }
 

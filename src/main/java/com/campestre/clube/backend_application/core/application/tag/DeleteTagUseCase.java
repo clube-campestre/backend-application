@@ -1,8 +1,9 @@
 package com.campestre.clube.backend_application.core.application.tag;
 
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.core.application.tag.command.DeleteTagCommand;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class DeleteTagUseCase {
 
@@ -13,8 +14,7 @@ public class DeleteTagUseCase {
     }
 
     public void execute(DeleteTagCommand command) {
-        if (gateway.existsById(command.id()))
-            throw new NotFoundException("A tag não foi encontrada");
+        if (gateway.existsById(command.id())) throw NOT_FOUND_TAG;
         gateway.removeById(command.id());
     }
 }

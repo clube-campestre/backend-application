@@ -1,10 +1,11 @@
 package com.campestre.clube.backend_application.core.application.tag;
 
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
 import com.campestre.clube.backend_application.core.application.tag.command.UpdateTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
+
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.NOT_FOUND_TAG;
 
 public class UpdateTagUseCase {
 
@@ -15,13 +16,10 @@ public class UpdateTagUseCase {
     }
 
     public Tag execute(UpdateTagCommand command) {
-        if (gateway.existsById(command.id()))
-            throw new NotFoundException("A tag não foi encontrada");
-
+        if (!gateway.existsById(command.id())) throw NOT_FOUND_TAG;
         if (gateway.existsBySurnameIgnoreCaseOrColorContainsAndIdNot(
                 command.surname(), command.color(), command.id()
-        ))
-            throw new ConflictException("Já existe uma tag com este nome ou cor");
+        )) throw CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
 
         Tag tag = Tag.of(
                 command.id(),

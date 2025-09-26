@@ -2,6 +2,8 @@ package com.campestre.clube.backend_application.core.domain.valueobject;
 
 import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
 
+import static com.campestre.clube.backend_application.core.application.extensions.ExceptionExtensions.INVALID_CELLPHONE_NUMBER;
+
 public class CellphoneNumber {
     private String number;
 
@@ -10,7 +12,7 @@ public class CellphoneNumber {
     }
 
     public static CellphoneNumber of(String number) {
-        if (number.length() != 11) throw new InvalidRequestException("O número de telefone é inválido");
+        if (number.length() != 11) throw INVALID_CELLPHONE_NUMBER;
         return new CellphoneNumber(number);
     }
 
