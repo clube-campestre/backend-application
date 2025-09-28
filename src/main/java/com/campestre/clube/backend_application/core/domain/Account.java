@@ -28,6 +28,16 @@ public class Account {
         );
     }
 
+    public static Account of(String email, String password, String name, AccessTypeEnum access) {
+        return new Account(
+                null,
+                Email.of(email),
+                password,
+                name,
+                access
+        );
+    }
+
     public Integer getId() {
         return id;
     }

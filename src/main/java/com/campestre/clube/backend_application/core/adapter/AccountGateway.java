@@ -1,16 +1,20 @@
 package com.campestre.clube.backend_application.core.adapter;
 
 import com.campestre.clube.backend_application.core.domain.Account;
-import com.campestre.clube.backend_application.core.domain.valueobject.Contact;
+import com.campestre.clube.backend_application.core.domain.valueobject.Email;
 
 import java.util.List;
 
 public interface AccountGateway {
-    boolean existsByCompanyIgnoreCaseAndDriverIgnoreCase(Contact company, Contact driver);
-    boolean existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(Contact company, Contact driver, Integer id);
+    boolean existsByEmail(String email);
+    boolean existsByEmailAndIdNot(String email, Integer id);
     boolean existsById(Integer id);
-    List<Account> findOrderedByRatingDesc();
+
+    List<Account> findAll();
     Account findById(Integer id);
+    Account findByEmail(String email);
+
     Account save(Account account);
+
     void removeById(Integer id);
 }
