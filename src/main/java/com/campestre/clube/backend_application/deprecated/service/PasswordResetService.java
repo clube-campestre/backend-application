@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.deprecated.entity.Account;
 import com.campestre.clube.backend_application.deprecated.entity.PasswordResetCode;
 import com.campestre.clube.backend_application.deprecated.repository.AccountRepository;
 import com.campestre.clube.backend_application.deprecated.repository.PasswordResetCodeRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,17 @@ public class PasswordResetService {
     private final AccountRepository accountRepository;
     private final PasswordResetCodeRepository codeRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService; // você precisa criar um serviço simples para envio de e-mail
+    private final RabbitMQService rabbitMQService;
+    private final String queueName;
+//    private final EmailService emailService; // você precisa criar um serviço simples para envio de e-mail
 
-    public PasswordResetService(AccountRepository accountRepository, PasswordResetCodeRepository codeRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public PasswordResetService(AccountRepository accountRepository, PasswordResetCodeRepository codeRepository, PasswordEncoder passwordEncoder, RabbitMQService rabbitMQService, @Value("${rabbitmq.queuename}") String queueName) {
         this.accountRepository = accountRepository;
         this.codeRepository = codeRepository;
         this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
+        this.rabbitMQService = rabbitMQService;
+        this.queueName = queueName;
+//        this.emailService = emailService;
     }
 
     // 1. Solicitar código
@@ -41,9 +46,10 @@ public class PasswordResetService {
         resetCode.setUsed(false);
 
         codeRepository.save(resetCode);
+        rabbitMQService.publishEmail(email, code, queueName);
 
-        emailService.sendEmail(email, "Código de recuperação de senha",
-                "Seu código é: " + code + "\nEle expira em 10 minutos.");
+//        emailService.sendEmail(email, "Código de recuperação de senha",
+//                "Seu código é: " + code + "\nEle expira em 10 minutos.");
     }
 
     // 2. Validar código
