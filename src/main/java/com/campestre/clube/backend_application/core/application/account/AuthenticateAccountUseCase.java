@@ -38,7 +38,7 @@ public class AuthenticateAccountUseCase {
                 account.getEmail().getValue(),
                 token,
                 account.getName(),
-                account.getAccess().getFormattedValue()
+                account.getAccess().name()
         );
     }
 }
