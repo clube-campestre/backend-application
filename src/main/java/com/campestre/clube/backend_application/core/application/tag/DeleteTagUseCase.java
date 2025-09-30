@@ -14,7 +14,7 @@ public class DeleteTagUseCase {
     }
 
     public void execute(DeleteTagCommand command) {
-        if (gateway.existsById(command.id())) throw NOT_FOUND_TAG;
+        if (!gateway.existsById(command.id())) throw NOT_FOUND_TAG;
         gateway.removeById(command.id());
     }
 }

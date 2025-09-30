@@ -1,14 +1,10 @@
 package com.campestre.clube.backend_application.infrastructure.persistence.jpa.place;
 
 import com.campestre.clube.backend_application.core.adapter.PlaceGateway;
-import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
-import com.campestre.clube.backend_application.core.domain.Transport;
-import com.campestre.clube.backend_application.infrastructure.persistence.jpa.transport.TransportEntityMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class PlaceJpaAdapter implements PlaceGateway {
@@ -26,16 +22,6 @@ public class PlaceJpaAdapter implements PlaceGateway {
     @Override
     public boolean existsByNameIgnoreCaseAndIdNot(String name, Integer id) {
         return repository.existsByNameIgnoreCaseAndIdNot(name, id);
-    }
-
-    @Override
-    public boolean existsByAddress(Address address) {
-        return repository.existsByAddress(address);
-    }
-
-    @Override
-    public boolean existsByAddressAndIdNot(Address address, Integer id) {
-        return repository.existsByAddressAndIdNot(address, id);
     }
 
     @Override

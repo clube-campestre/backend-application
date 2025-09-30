@@ -4,6 +4,7 @@ import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.enums.ClassCategory;
 import com.campestre.clube.backend_application.core.domain.enums.ClassRole;
 import com.campestre.clube.backend_application.core.domain.enums.UnitRole;
+import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntity;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public interface MemberDataJpaRepository extends JpaRepository<MemberDataEntity,
                 ORDER BY m.username ASC
             """)
     Page<MemberDataEntity> findByFilterAndPagination(
-            @Param("unit") Unit unit,
+            @Param("unit") UnitEntity unit,
             @Param("classCategory") ClassCategory classCategory,
             @Param("username") String username,
             Pageable pageable

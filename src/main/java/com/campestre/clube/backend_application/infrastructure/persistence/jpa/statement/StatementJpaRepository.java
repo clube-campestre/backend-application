@@ -17,7 +17,7 @@ public interface StatementJpaRepository extends JpaRepository<StatementEntity, I
     boolean existsByTagId(@Param("tagId") Integer tagId);
     boolean existsByTagSurname(@Param("tagSurname") String tagSurname);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
-            String information, BigDecimal price, LocalDateTime transactionDate, Tag tag);
+            String information, BigDecimal price, LocalDateTime transactionDate, TagEntity tag);
 
     @Query("""
                 SELECT s FROM StatementEntity s

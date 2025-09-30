@@ -7,6 +7,7 @@ import com.campestre.clube.backend_application.core.domain.Goal;
 import com.campestre.clube.backend_application.core.domain.Statement;
 import com.campestre.clube.backend_application.core.domain.StatementInformations;
 import com.campestre.clube.backend_application.core.domain.Tag;
+import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagEntityMapper;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagJpaAdapter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -44,7 +45,9 @@ public class StatementJpaAdapter implements StatementGateway {
     public boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
     ) {
-        return repository.existsByInformationAndPriceAndTransactionDateAndTag(information, price, transactionDate, tag);
+        return repository.existsByInformationAndPriceAndTransactionDateAndTag(
+                information, price, transactionDate, TagEntityMapper.toEntity(tag)
+        );
     }
 
     @Override

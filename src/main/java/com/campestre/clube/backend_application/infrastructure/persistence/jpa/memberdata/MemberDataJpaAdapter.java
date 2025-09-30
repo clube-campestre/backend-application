@@ -7,6 +7,7 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.enums.ClassCategory;
 import com.campestre.clube.backend_application.core.domain.enums.ClassRole;
 import com.campestre.clube.backend_application.core.domain.enums.UnitRole;
+import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntityMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
@@ -70,7 +71,7 @@ public class MemberDataJpaAdapter implements MemberDataGateway {
     public List<MemberData> findByFilterAndPagination(Filter filter, Pagination pagination) {
         return MemberDataEntityMapper.toDomain(
                 repository.findByFilterAndPagination(
-                        filter.unit(),
+                        UnitEntityMapper.toEntity(filter.unit()),
                         filter.classCategory(),
                         filter.username(),
                         PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
