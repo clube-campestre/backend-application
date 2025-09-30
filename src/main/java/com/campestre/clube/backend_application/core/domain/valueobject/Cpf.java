@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
+import com.campestre.clube.backend_application.core.application.exceptions.InvalidRequestException;
 
 public class Cpf {
     private String number;

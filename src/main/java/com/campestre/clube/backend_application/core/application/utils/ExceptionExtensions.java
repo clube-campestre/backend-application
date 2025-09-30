@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.core.application.utils;
 import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
 import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
 import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.core.domain.exception.InvalidRequestException;
+import com.campestre.clube.backend_application.core.application.exceptions.InvalidRequestException;
 
 public class ExceptionExtensions {
     public static final RuntimeException CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER =
@@ -16,7 +16,7 @@ public class ExceptionExtensions {
     public static final RuntimeException NOT_FOUND_ACCOUNT =
             new NotFoundException("Não foi possível encontrar a conta.");
     public static final RuntimeException BAD_REQUEST_ACCOUNT =
-            new NotFoundException("Credenciais inválidas. Verifique seu e-mail e senha.");
+            new BadRequestException("Credenciais inválidas. Verifique seu e-mail e senha.");
 
     public static final RuntimeException CONFLICT_LOCAL_SAME_NAME =
             new ConflictException("Não é permitido cadastrar um local com nome duplicado.");
