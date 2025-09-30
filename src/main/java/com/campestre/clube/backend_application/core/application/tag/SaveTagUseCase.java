@@ -4,6 +4,8 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.SaveTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
+import java.math.BigDecimal;
+
 import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
 
 public class SaveTagUseCase {
@@ -17,6 +19,7 @@ public class SaveTagUseCase {
     public Tag execute(SaveTagCommand command) {
         if (gateway.existsBySurnameIgnoreCaseOrColorContains(command.surname(), command.color()))
             throw CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
+        if (command.goal() != null && command.goal() == BigDecimal.ZERO) throw
 
         Tag tag = Tag.of(
                 command.surname(),
