@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 public interface StatementGateway {
     boolean existsByTagSurname(String tagSurname);
-    boolean existsByTagId(Integer tagId);
     boolean existsById(Integer id);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, BigDecimal price, LocalDateTime transactionDate, Tag tag

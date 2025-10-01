@@ -36,8 +36,8 @@ public class StatementBeanConfig {
     }
 
     @Bean
-    public GetGoalByTagIdUseCase getGoalByTagIdUseCase(StatementJpaAdapter adapter) {
-        return new GetGoalByTagIdUseCase(adapter);
+    public GetGoalByTagIdUseCase getGoalByTagIdUseCase(StatementJpaAdapter adapter, TagJpaAdapter tagAdapter) {
+        return new GetGoalByTagIdUseCase(adapter, tagAdapter);
     }
 
     @Bean

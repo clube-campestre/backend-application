@@ -11,28 +11,44 @@ public class MedicalDataEntity {
     @Id
     @CPF
     @Size(min = 11, max = 11)
+    @Column(name = "cpf", unique = true, nullable = false, length = 11)
     private String cpf;
     @NotBlank
     @Size(min = 15, max = 15)
+    @Column(name = "cns", unique = true, nullable = false, lenghth = 15)
     private String cns;
     @NotBlank
     @Size(max = 20)
+    @Column(name = "agreement", nullable = false, lenghth = 20)
     private String agreement;
     @NotBlank
     @Size(min = 2, max = 3)
+    @Column(name = "blood_type", nullable = false, lenghth = 3)
     private String bloodType;
 
+    @Column(name = "catapora", nullable = false)
     private Boolean catapora;
+    @Column(name = "meningite", nullable = false)
     private Boolean meningite;
+    @Column(name = "hepatite", nullable = false)
     private Boolean hepatite;
+    @Column(name = "dengue", nullable = false)
     private Boolean dengue;
+    @Column(name = "pneumonia", nullable = false)
     private Boolean pneumonia;
+    @Column(name = "malaria", nullable = false)
     private Boolean malaria;
+    @Column(name = "febre_amarela", nullable = false)
     private Boolean febreAmarela;
+    @Column(name = "sarampo", nullable = false)
     private Boolean sarampo;
+    @Column(name = "tetano", nullable = false)
     private Boolean tetano;
+    @Column(name = "variola", nullable = false)
     private Boolean variola;
+    @Column(name = "coqueluche", nullable = false)
     private Boolean coqueluche;
+    @Column(name = "difteria", nullable = false)
     private Boolean difteria;
     private Boolean rinite;
     private Boolean bronquite;

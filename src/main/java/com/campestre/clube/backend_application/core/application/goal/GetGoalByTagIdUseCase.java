@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.core.application.goal;
 
 import com.campestre.clube.backend_application.core.adapter.StatementGateway;
+import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.goal.command.GetGoalByTagIdCommand;
 import com.campestre.clube.backend_application.core.domain.Goal;
 
@@ -8,14 +9,16 @@ import static com.campestre.clube.backend_application.core.application.utils.Exc
 
 public class GetGoalByTagIdUseCase {
 
-    private final StatementGateway gateway;
+    private final StatementGateway statementGateway;
+    private final TagGateway tagGateway;
 
-    public GetGoalByTagIdUseCase(StatementGateway gateway) {
-        this.gateway = gateway;
+    public GetGoalByTagIdUseCase(StatementGateway statementGateway, TagGateway tagGateway) {
+        this.statementGateway = statementGateway;
+        this.tagGateway = tagGateway;
     }
 
     public Goal execute(GetGoalByTagIdCommand command) {
-        if (!gateway.existsByTagId(command.tagId())) throw NOT_FOUND_GOAL_BY_TAG;
-        return gateway.findGoalByTagId(command.tagId());
+        if (!tagGateway.existsById(command.tagId())) throw NOT_FOUND_GOAL_BY_TAG;
+        return statementGateway.findGoalByTagId(command.tagId());
     }
 }

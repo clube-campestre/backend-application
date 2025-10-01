@@ -8,12 +8,19 @@ public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "street", nullable = false)
     private String street;
+    @Column(name = "house_number", nullable = false)
     private String houseNumber;
+    @Column(name = "district", nullable = false)
     private String district;
+    @Column(name = "state", nullable = false)
     private String state;
+    @Column(name = "city", nullable = false)
     private String city;
+    @Column(name = "cep", nullable = false)
     private String cep;
+    @Column(name = "reference_house", nullable = true)
     private String referenceHouse;
 
     public Integer getId() {

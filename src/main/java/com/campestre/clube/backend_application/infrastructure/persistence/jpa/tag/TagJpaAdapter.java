@@ -26,13 +26,18 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
-    public boolean existsBySurnameIgnoreCaseOrColorContains(String surname, String color) {
-        return repository.existsBySurnameIgnoreCaseOrColorContains(surname, color);
+    public boolean existsByColor(String color) {
+        return repository.existsByColor(color);
     }
 
     @Override
-    public boolean existsBySurnameIgnoreCaseOrColorContainsAndIdNot(String surname, String color, Integer id) {
-        return repository.existsBySurnameIgnoreCaseOrColorContainsAndIdNot(surname, color, id);
+    public boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Integer id) {
+        return repository.existsBySurnameIgnoreCaseAndIdNot(surname, id);
+    }
+
+    @Override
+    public boolean existsByColorAndIdNot(String color, Integer id) {
+        return repository.existsByColorAndIdNot(color, id);
     }
 
     @Override

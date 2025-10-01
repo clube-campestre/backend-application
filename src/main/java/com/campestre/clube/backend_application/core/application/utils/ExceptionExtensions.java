@@ -51,8 +51,10 @@ public class ExceptionExtensions {
 
     public static final RuntimeException NOT_FOUND_TAG =
             new NotFoundException("Não foi possível encontrar a tag da transferência.");
-    public static final RuntimeException CONFLICT_TAG_SAME_SURNAME_OR_COLOR =
-            new ConflictException("Não é permitido cadastrar uma tag com nome ou cor já existente.");
+    public static final RuntimeException CONFLICT_TAG_SAME_SURNAME =
+            new ConflictException("Nome já utilizado em outra tag.");
+    public static final RuntimeException CONFLICT_TAG_SAME_COLOR =
+            new ConflictException("Cor já utilizada em outra tag.");
     public static final RuntimeException INVALID_REQUEST_TAG_WITH_ZERO_GOAL =
             new InvalidRequestException("Não é permitido cadastrar uma tag com meta zerada.");
     public static final RuntimeException NOT_FOUND_GOAL_BY_TAG =

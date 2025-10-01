@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StatementJpaRepository extends JpaRepository<StatementEntity, Integer> {
-    boolean existsByTagId(@Param("tagId") Integer tagId);
     boolean existsByTagSurname(@Param("tagSurname") String tagSurname);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, BigDecimal price, LocalDateTime transactionDate, TagEntity tag);

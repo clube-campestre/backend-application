@@ -17,9 +17,9 @@ public class SaveTagUseCase {
     }
 
     public Tag execute(SaveTagCommand command) {
-        if (gateway.existsBySurnameIgnoreCaseOrColorContains(command.surname(), command.color()))
-            throw CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
-        if (command.goal() != null && command.goal() == BigDecimal.ZERO) throw INVALID_REQUEST_TAG_WITH_ZERO_GOAL;
+        if (gateway.existsBySurnameIgnoreCase(command.surname())) throw CONFLICT_TAG_SAME_SURNAME;
+        if (gateway.existsByColor(command.color())) throw CONFLICT_TAG_SAME_COLOR;
+        if (command.goal() != null && command.goal().equals(BigDecimal.ZERO)) throw INVALID_REQUEST_TAG_WITH_ZERO_GOAL;
 
         Tag tag = Tag.of(
                 command.surname(),

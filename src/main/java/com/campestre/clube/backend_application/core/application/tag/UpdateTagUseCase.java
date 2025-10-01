@@ -4,8 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.UpdateTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_TAG;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
 
 public class UpdateTagUseCase {
 
@@ -17,9 +16,8 @@ public class UpdateTagUseCase {
 
     public Tag execute(UpdateTagCommand command) {
         if (!gateway.existsById(command.id())) throw NOT_FOUND_TAG;
-        if (gateway.existsBySurnameIgnoreCaseOrColorContainsAndIdNot(
-                command.surname(), command.color(), command.id()
-        )) throw CONFLICT_TAG_SAME_SURNAME_OR_COLOR;
+        if (gateway.existsBySurnameIgnoreCaseIdNot(command.surname(), command.id())) throw CONFLICT_TAG_SAME_SURNAME;
+        if (gateway.existsByColorAndIdNot(command.color(), command.id())) throw CONFLICT_TAG_SAME_COLOR;
 
         Tag tag = Tag.of(
                 command.id(),

@@ -14,11 +14,13 @@ public class AccountEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "passwd")
+    @Column(name = "passwd", nullable = false)
     private String password;
-    @Column(name = "user_name")
+    @Column(name = "user_name", nullable = false)
     private String name;
+    @Column(name = "access", nullable = false)
     private AccessTypeEnum access;
 
     public AccountEntity() {}

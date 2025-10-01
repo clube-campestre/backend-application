@@ -7,8 +7,9 @@ import java.util.List;
 public interface TagGateway {
     boolean existsById(Integer id);
     boolean existsBySurnameIgnoreCase(String surname);
-    boolean existsBySurnameIgnoreCaseOrColorContains(String surname, String color);
-    boolean existsBySurnameIgnoreCaseOrColorContainsAndIdNot(String surname, String color, Integer id);
+    boolean existsByColor(String color);
+    boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Integer id);
+    boolean existsByColorAndIdNot(String color, Integer id);
 
     Tag findBySurnameIgnoreCase(String surname);
     Tag findById(Integer id);
