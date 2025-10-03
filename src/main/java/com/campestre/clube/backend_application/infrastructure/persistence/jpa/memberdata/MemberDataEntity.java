@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Table(name= "member_data")
 public class MemberDataEntity {
     @Id
-    @CPF
-    private String cpf;
+//    @CPF
+    private String cpf; //TODO
     private String idImage;
     private String imagePath;
     private String username;

@@ -143,8 +143,16 @@ public class MedicalData {
         return cpf;
     }
 
+    public void setCpf(Cpf cpf) {
+        this.cpf = cpf;
+    }
+
     public Cns getCns() {
         return cns;
+    }
+
+    public void setCns(Cns cns) {
+        this.cns = cns;
     }
 
     public String getAgreement() {

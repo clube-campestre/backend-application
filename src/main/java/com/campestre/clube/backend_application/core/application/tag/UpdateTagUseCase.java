@@ -16,7 +16,7 @@ public class UpdateTagUseCase {
 
     public Tag execute(UpdateTagCommand command) {
         if (!gateway.existsById(command.id())) throw NOT_FOUND_TAG;
-        if (gateway.existsBySurnameIgnoreCaseIdNot(command.surname(), command.id())) throw CONFLICT_TAG_SAME_SURNAME;
+        if (gateway.existsBySurnameIgnoreCaseAndIdNot(command.surname(), command.id())) throw CONFLICT_TAG_SAME_SURNAME;
         if (gateway.existsByColorAndIdNot(command.color(), command.id())) throw CONFLICT_TAG_SAME_COLOR;
 
         Tag tag = Tag.of(

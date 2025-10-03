@@ -9,21 +9,21 @@ import org.hibernate.validator.constraints.br.CPF;
 @Table(name = "medical_data")
 public class MedicalDataEntity {
     @Id
-    @CPF
-    @Size(min = 11, max = 11)
-    @Column(name = "cpf", unique = true, nullable = false, length = 11)
-    private String cpf;
+//    @CPF
+//    @Size(min = 11, max = 11)
+    @Column(name = "cpf", unique = true, nullable = false/*, length = 11*/)
+    private String cpf; //TODO
     @NotBlank
-    @Size(min = 15, max = 15)
-    @Column(name = "cns", unique = true, nullable = false, lenghth = 15)
-    private String cns;
+//    @Size(min = 15, max = 15)
+    @Column(name = "cns", unique = true, nullable = false/*, length = 15*/)
+    private String cns; // carteira sus //TODO
     @NotBlank
     @Size(max = 20)
-    @Column(name = "agreement", nullable = false, lenghth = 20)
-    private String agreement;
+    @Column(name = "agreement", nullable = false, length = 20)
+    private String agreement; // convenio
     @NotBlank
     @Size(min = 2, max = 3)
-    @Column(name = "blood_type", nullable = false, lenghth = 3)
+    @Column(name = "blood_type", nullable = false, length = 3)
     private String bloodType;
 
     @Column(name = "catapora", nullable = false)

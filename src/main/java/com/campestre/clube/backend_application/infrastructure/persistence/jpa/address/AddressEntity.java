@@ -11,7 +11,7 @@ public class AddressEntity {
     @Column(name = "street", nullable = false)
     private String street;
     @Column(name = "house_number", nullable = false)
-    private String houseNumber;
+    private String houseNumber; //TODO
     @Column(name = "district", nullable = false)
     private String district;
     @Column(name = "state", nullable = false)
@@ -21,7 +21,7 @@ public class AddressEntity {
     @Column(name = "cep", nullable = false)
     private String cep;
     @Column(name = "reference_house", nullable = true)
-    private String referenceHouse;
+    private String referenceHouse; //TODO
 
     public Integer getId() {
         return id;

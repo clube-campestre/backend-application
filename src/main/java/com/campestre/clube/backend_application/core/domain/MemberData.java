@@ -79,6 +79,10 @@ public class MemberData {
         return cpf;
     }
 
+    public void setCpf(Cpf cpf) {
+        this.cpf = cpf;
+    }
+
     public String getIdImage() {
         return idImage;
     }
