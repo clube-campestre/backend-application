@@ -11,7 +11,7 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.valueobject.MemberContact;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class UpdateMemberDataUseCase {
 
@@ -31,8 +31,8 @@ public class UpdateMemberDataUseCase {
     }
 
     public MemberData execute(UpdateMemberDataCommand command) {
-        String cpfHash = hasherGateway.crypt(command.cpf());
-        String cnsHash = hasherGateway.crypt(command.cns());
+        String cpfHash = hasherGateway.encrypt(command.cpf());
+        String cnsHash = hasherGateway.encrypt(command.cns());
 
         if (!gateway.existsByCpf(cpfHash)) throw NOT_FOUND_MEMBER_DATA;
         if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
@@ -73,12 +73,12 @@ public class UpdateMemberDataUseCase {
                 ),
                 Address.of(
                         command.addressStreet(),
-                        hasherGateway.crypt(command.addressHouseNumber()),
+                        hasherGateway.encrypt(command.addressHouseNumber()),
                         command.addressDistrict(),
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        hasherGateway.crypt(command.addressReferenceHouse())
+                        hasherGateway.encrypt(command.addressReferenceHouse())
                 ),
                 MedicalData.of(
                         cpfHash,

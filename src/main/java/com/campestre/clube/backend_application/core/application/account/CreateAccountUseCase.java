@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.adapter.PasswordHasherGatewa
 import com.campestre.clube.backend_application.core.application.account.command.CreateAccountCommand;
 import com.campestre.clube.backend_application.core.domain.Account;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_ACCOUNT_SAME_EMAIL;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.CONFLICT_ACCOUNT_SAME_EMAIL;
 
 public class CreateAccountUseCase {
 

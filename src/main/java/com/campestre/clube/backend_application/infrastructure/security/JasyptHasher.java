@@ -15,7 +15,7 @@ public class JasyptHasher implements HasherGateway {
     }
 
     @Override
-    public String crypt(String value) {
+    public String encrypt(String value) {
         return encryptor.encrypt(value);
     }
 

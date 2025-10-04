@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.INVALID_CEP;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.INVALID_CEP;
 
 public class Cep {
     private String number;

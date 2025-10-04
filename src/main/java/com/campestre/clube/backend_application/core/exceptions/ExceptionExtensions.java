@@ -1,9 +1,4 @@
-package com.campestre.clube.backend_application.core.application.utils;
-
-import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.core.application.exceptions.InvalidRequestException;
+package com.campestre.clube.backend_application.core.exceptions;
 
 public class ExceptionExtensions {
     public static final RuntimeException CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER =

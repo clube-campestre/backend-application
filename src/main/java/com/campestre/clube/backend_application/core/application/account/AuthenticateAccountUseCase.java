@@ -7,7 +7,7 @@ import com.campestre.clube.backend_application.core.application.account.command.
 import com.campestre.clube.backend_application.core.domain.Account;
 import com.campestre.clube.backend_application.core.domain.LoginAccount;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class AuthenticateAccountUseCase {
 

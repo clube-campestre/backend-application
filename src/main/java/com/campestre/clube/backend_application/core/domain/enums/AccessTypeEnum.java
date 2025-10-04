@@ -1,9 +1,7 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
 
-import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
-
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_ACCESS_TYPE_ENUM;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_ACCESS_TYPE_ENUM;
 
 public enum AccessTypeEnum {
     DIRETOR("Diretor"),

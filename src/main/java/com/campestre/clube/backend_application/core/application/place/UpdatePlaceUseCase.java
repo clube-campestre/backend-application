@@ -6,8 +6,8 @@ import com.campestre.clube.backend_application.core.application.place.command.Up
 import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_LOCAL;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_LOCAL;
 
 public class UpdatePlaceUseCase {
 
@@ -20,8 +20,8 @@ public class UpdatePlaceUseCase {
     }
 
     public Place execute(UpdatePlaceCommand command) {
-        String addressHouseNumberHash = hasherGateway.crypt(command.addressHouseNumber());
-        String addressReferenceHouseHash = hasherGateway.crypt(command.addressReferenceHouse());
+        String addressHouseNumberHash = hasherGateway.encrypt(command.addressHouseNumber());
+        String addressReferenceHouseHash = hasherGateway.encrypt(command.addressReferenceHouse());
 
         if (!gateway.existsById(command.id())) throw NOT_FOUND_LOCAL;
         if (gateway.existsByNameIgnoreCaseAndIdNot(command.name(), command.id())) throw CONFLICT_LOCAL_SAME_NAME;

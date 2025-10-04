@@ -11,9 +11,9 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.valueobject.*;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CPF;
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CNS;
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_UNIT;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CPF;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.CONFLICT_MEMBER_DATA_SAME_CNS;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_UNIT;
 
 public class SaveMemberDataUseCase {
 
@@ -33,8 +33,8 @@ public class SaveMemberDataUseCase {
     }
 
     public MemberData execute(SaveMemberDataCommand command) {
-        String cpfHash = hasherGateway.crypt(command.cpf());
-        String cnsHash = hasherGateway.crypt(command.cns());
+        String cpfHash = hasherGateway.encrypt(command.cpf());
+        String cnsHash = hasherGateway.encrypt(command.cns());
 
         if(gateway.existsByCpf(cpfHash)) throw CONFLICT_MEMBER_DATA_SAME_CPF;
         if (medicalDataGateway.existsByCns(cnsHash)) throw CONFLICT_MEMBER_DATA_SAME_CNS;
@@ -75,12 +75,12 @@ public class SaveMemberDataUseCase {
                 ),
                 Address.of(
                         command.addressStreet(),
-                        hasherGateway.crypt(command.addressHouseNumber()),
+                        hasherGateway.encrypt(command.addressHouseNumber()),
                         command.addressDistrict(),
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        hasherGateway.crypt(command.addressReferenceHouse())
+                        hasherGateway.encrypt(command.addressReferenceHouse())
                 ),
                 MedicalData.of(
                         cpfHash,

@@ -1,7 +1,5 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.INVALID_CPF;
-
 public class Cpf {
     private String number;
 

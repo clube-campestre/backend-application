@@ -4,7 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.HasherGateway;
 import com.campestre.clube.backend_application.core.adapter.MemberDataGateway;
 import com.campestre.clube.backend_application.core.application.memberdata.command.DeleteMemberDataCommand;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_MEMBER_DATA;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_MEMBER_DATA;
 
 public class DeleteMemberDataUseCase {
 
@@ -17,7 +17,7 @@ public class DeleteMemberDataUseCase {
     }
 
     public void execute(DeleteMemberDataCommand command) {
-        String cpfHash = hasherGateway.crypt(command.cpf());
+        String cpfHash = hasherGateway.encrypt(command.cpf());
         if (!gateway.existsByCpf(cpfHash)) throw NOT_FOUND_MEMBER_DATA;
         gateway.removeByCpf(cpfHash);
     }

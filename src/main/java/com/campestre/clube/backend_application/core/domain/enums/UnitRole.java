@@ -1,8 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
-import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
-
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_UNIT_ROLE_ENUM;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_UNIT_ROLE_ENUM;
 
 public enum UnitRole {
     CONSELHEIRO("Conselheiro"),

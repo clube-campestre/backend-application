@@ -9,7 +9,7 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.valueobject.Cns;
 import com.campestre.clube.backend_application.core.domain.valueobject.Cpf;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_MEMBER_DATA;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_MEMBER_DATA;
 
 public class GetMemberDataByCpfUseCase {
 
@@ -22,7 +22,7 @@ public class GetMemberDataByCpfUseCase {
     }
 
     public MemberData execute(GetMemberDataByCpfCommand command) {
-        String cpfHash = hasherGateway.crypt(command.cpf());
+        String cpfHash = hasherGateway.encrypt(command.cpf());
         if (!gateway.existsByCpf(cpfHash)) throw NOT_FOUND_MEMBER_DATA;
 
         MemberData memberData = gateway.findByCpf(cpfHash);

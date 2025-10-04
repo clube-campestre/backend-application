@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.BAD_REQUEST_MEDICAL_PROBLEM;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.BAD_REQUEST_MEDICAL_PROBLEM;
 
 public class MedicalProblem {
     private Boolean haveProblem;

@@ -1,4 +1,4 @@
-package com.campestre.clube.backend_application.core.application.utils;
+package com.campestre.clube.backend_application.core.domain.enums;
 
 import java.text.Normalizer;
 import java.util.Locale;

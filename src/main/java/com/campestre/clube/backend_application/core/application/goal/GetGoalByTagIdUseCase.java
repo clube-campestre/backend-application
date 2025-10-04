@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.goal.command.GetGoalByTagIdCommand;
 import com.campestre.clube.backend_application.core.domain.Goal;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_GOAL_BY_TAG;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_GOAL_BY_TAG;
 
 public class GetGoalByTagIdUseCase {
 

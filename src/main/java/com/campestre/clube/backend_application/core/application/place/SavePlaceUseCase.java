@@ -6,7 +6,7 @@ import com.campestre.clube.backend_application.core.application.place.command.Sa
 import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Place;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.CONFLICT_LOCAL_SAME_NAME;
 
 public class SavePlaceUseCase {
 
@@ -19,8 +19,8 @@ public class SavePlaceUseCase {
     }
 
     public Place execute(SavePlaceCommand command) {
-        String addressHouseNumberHash = hasherGateway.crypt(command.addressHouseNumber());
-        String addressReferenceHouseHash = hasherGateway.crypt(command.addressReferenceHouse());
+        String addressHouseNumberHash = hasherGateway.encrypt(command.addressHouseNumber());
+        String addressReferenceHouseHash = hasherGateway.encrypt(command.addressReferenceHouse());
 
         if (gateway.existsByNameIgnoreCase(command.name())) throw CONFLICT_LOCAL_SAME_NAME;
 

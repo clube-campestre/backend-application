@@ -13,7 +13,7 @@ import com.campestre.clube.backend_application.core.domain.valueobject.Cpf;
 
 import java.util.List;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class ListMemberDataByUnitNameAndPaginationUseCase {
 

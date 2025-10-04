@@ -5,8 +5,8 @@ import com.campestre.clube.backend_application.core.application.unit.command.Upd
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.enums.UnitEnum;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.BAD_REQUEST_UNIT_SCORE_MUST_NOT_BE_NULL;
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_UNIT;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.BAD_REQUEST_UNIT_SCORE_MUST_NOT_BE_NULL;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_UNIT;
 
 public class UpdateUnitScoreUseCase {
 

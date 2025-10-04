@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.application.unit.command.Cha
 import com.campestre.clube.backend_application.core.domain.Unit;
 import com.campestre.clube.backend_application.core.domain.enums.UnitEnum;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class ChangeUnitScoreUseCase {
 

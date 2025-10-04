@@ -1,8 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.enums;
 
-import com.campestre.clube.backend_application.core.application.utils.EnumUtils;
-
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.ERROR_TSHIRT_SIZE_ENUM;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_TSHIRT_SIZE_ENUM;
 
 public enum TshirtSize {
     PP,

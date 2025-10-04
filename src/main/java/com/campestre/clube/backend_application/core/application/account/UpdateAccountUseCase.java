@@ -4,7 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.AccountGateway;
 import com.campestre.clube.backend_application.core.application.account.command.UpdateAccountCommand;
 import com.campestre.clube.backend_application.core.domain.Account;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class UpdateAccountUseCase {
 

@@ -4,7 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.AccountGateway;
 import com.campestre.clube.backend_application.core.application.account.command.GetAccountByIdCommand;
 import com.campestre.clube.backend_application.core.domain.Account;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.NOT_FOUND_ACCOUNT;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_ACCOUNT;
 
 public class GetAccountByIdUseCase {
 

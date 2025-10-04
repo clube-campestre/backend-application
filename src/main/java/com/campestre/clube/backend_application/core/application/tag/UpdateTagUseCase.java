@@ -4,7 +4,7 @@ import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.application.tag.command.UpdateTagCommand;
 import com.campestre.clube.backend_application.core.domain.Tag;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class UpdateTagUseCase {
 

@@ -6,7 +6,7 @@ import com.campestre.clube.backend_application.core.domain.Tag;
 
 import java.math.BigDecimal;
 
-import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.*;
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class SaveTagUseCase {
 

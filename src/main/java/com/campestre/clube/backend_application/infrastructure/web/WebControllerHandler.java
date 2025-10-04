@@ -1,9 +1,6 @@
 package com.campestre.clube.backend_application.infrastructure.web;
 
-import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
-import com.campestre.clube.backend_application.core.application.exceptions.InternalServerException;
-import com.campestre.clube.backend_application.core.application.exceptions.NotFoundException;
-import com.campestre.clube.backend_application.core.application.exceptions.ConflictException;
+import com.campestre.clube.backend_application.core.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,5 +32,10 @@ public class WebControllerHandler {
     @ExceptionHandler(InternalServerException.class)
     public ResponseEntity<RestErrorMessage> internalServerHandler(InternalServerException exception){
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<RestErrorMessage> invalidRequestHandler(InvalidRequestException exception){
+        return buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 }
