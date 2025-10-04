@@ -45,17 +45,23 @@ public class ListMemberDataByFilterAndPaginationUseCase {
         );
 
         List<MemberData> hashedResult = result.stream().map(member -> {
-                    member.setCpf(Cpf.of(hasherGateway.decrypt(member.getCpf().getNumber())));
+            member.setCpf(Cpf.of(hasherGateway.decrypt(member.getCpf().getNumber())));
 
-                    if (member.getMedicalData() != null) {
-                        if (member.getMedicalData().getCpf() != null) member.getMedicalData()
-                                .setCpf(Cpf.of(hasherGateway.decrypt(member.getMedicalData().getCpf().getNumber())));
-                        if (member.getMedicalData().getCns() != null) member.getMedicalData()
-                                .setCns(Cns.of(hasherGateway.decrypt(member.getMedicalData().getCns().getNumber())));
-                    }
+            if (member.getMedicalData() != null) {
+                if (member.getMedicalData().getCpf() != null) member.getMedicalData()
+                        .setCpf(Cpf.of(hasherGateway.decrypt(member.getMedicalData().getCpf().getNumber())));
+                if (member.getMedicalData().getCns() != null) member.getMedicalData()
+                        .setCns(Cns.of(hasherGateway.decrypt(member.getMedicalData().getCns().getNumber())));
+            }
+            if (member.getAddress() != null) {
+                if (member.getAddress().getHouseNumber() != null) member.getAddress()
+                        .setHouseNumber(hasherGateway.decrypt(member.getAddress().getHouseNumber()));
+                if (member.getAddress().getReferenceHouse() != null) member.getAddress()
+                        .setReferenceHouse(hasherGateway.decrypt(member.getAddress().getReferenceHouse()));
+            }
 
-                    return member;
-                }).toList();
+            return member;
+        }).toList();
 
         return new Pair<>(hashedResult, command.pagination());
     }

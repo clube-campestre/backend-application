@@ -29,6 +29,8 @@ public class ExceptionExtensions {
             new ConflictException("Não é permitido cadastrar um membro com CNS já existente.");
     public static final RuntimeException NOT_FOUND_MEMBER_DATA =
             new NotFoundException("Não foi possível encontrar o membro.");
+    public static final RuntimeException BAD_REQUEST_MEDICAL_PROBLEM =
+            new BadRequestException("O membro não pode ter medicação de um problema que ele não tem");
 
     public static final RuntimeException NOT_FOUND_UNIT =
             new NotFoundException("Não foi possível encontrar a unidade.");
@@ -62,6 +64,10 @@ public class ExceptionExtensions {
 
     public static final RuntimeException INVALID_CNS =
             new InvalidRequestException("O número do CNS é inválido.");
+    public static final RuntimeException INVALID_CEP =
+            new InvalidRequestException("O número do CEP é inválido.");
+    public static final RuntimeException INVALID_CPF =
+            new InvalidRequestException("O número do CPF é inválido.");
     public static final RuntimeException INVALID_CELLPHONE_NUMBER =
             new InvalidRequestException("O número de telefone é inválido");
 

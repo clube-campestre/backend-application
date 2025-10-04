@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.core.application.memberdata;
 
+import com.campestre.clube.backend_application.core.adapter.HasherGateway;
 import com.campestre.clube.backend_application.core.adapter.MedicalDataGateway;
 import com.campestre.clube.backend_application.core.adapter.MemberDataGateway;
 import com.campestre.clube.backend_application.core.adapter.UnitGateway;
@@ -17,24 +18,30 @@ public class UpdateMemberDataUseCase {
     private final MemberDataGateway gateway;
     private final MedicalDataGateway medicalDataGateway;
     private final UnitGateway unitGateway;
+    private final HasherGateway hasherGateway;
 
     public UpdateMemberDataUseCase(
-            MemberDataGateway gateway, MedicalDataGateway medicalDataGateway, UnitGateway unitGateway
+            MemberDataGateway gateway, MedicalDataGateway medicalDataGateway, UnitGateway unitGateway,
+            HasherGateway hasherGateway
     ) {
         this.gateway = gateway;
         this.medicalDataGateway = medicalDataGateway;
         this.unitGateway = unitGateway;
+        this.hasherGateway = hasherGateway;
     }
 
     public MemberData execute(UpdateMemberDataCommand command) {
-        if (!gateway.existsByCpf(command.cpf())) throw NOT_FOUND_MEMBER_DATA;
+        String cpfHash = hasherGateway.crypt(command.cpf());
+        String cnsHash = hasherGateway.crypt(command.cns());
+
+        if (!gateway.existsByCpf(cpfHash)) throw NOT_FOUND_MEMBER_DATA;
         if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
-        if (!medicalDataGateway.existsByCnsAndCpfNot(command.cns(), command.cpf())) throw CONFLICT_MEMBER_DATA_SAME_CNS;
+        if (!medicalDataGateway.existsByCnsAndCpfNot(cnsHash, cpfHash)) throw CONFLICT_MEMBER_DATA_SAME_CNS;
 
         Unit unit = unitGateway.findBySurnameIgnoreCase(command.unitName());
 
         MemberData memberData = MemberData.of(
-                command.cpf(),
+                cpfHash,
                 command.idImage(),
                 command.imagePath(),
                 command.username(),
@@ -66,16 +73,16 @@ public class UpdateMemberDataUseCase {
                 ),
                 Address.of(
                         command.addressStreet(),
-                        command.addressHouseNumber(),
+                        hasherGateway.crypt(command.addressHouseNumber()),
                         command.addressDistrict(),
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        command.addressReferenceHouse()
+                        hasherGateway.crypt(command.addressReferenceHouse())
                 ),
                 MedicalData.of(
-                        command.cpf(),
-                        command.cns(),
+                        cpfHash,
+                        cnsHash,
                         command.agreement(),
                         command.bloodType(),
                         command.catapora(),

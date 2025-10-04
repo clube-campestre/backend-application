@@ -70,6 +70,10 @@ public class Address {
         return houseNumber;
     }
 
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
     public String getDistrict() {
         return district;
     }
@@ -88,5 +92,9 @@ public class Address {
 
     public String getReferenceHouse() {
         return referenceHouse;
+    }
+
+    public void setReferenceHouse(String referenceHouse) {
+        this.referenceHouse = referenceHouse;
     }
 }

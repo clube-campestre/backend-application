@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import com.campestre.clube.backend_application.core.application.exceptions.BadRequestException;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.BAD_REQUEST_MEDICAL_PROBLEM;
 
 public class MedicalProblem {
     private Boolean haveProblem;
@@ -12,8 +12,7 @@ public class MedicalProblem {
     }
 
     public static MedicalProblem of(Boolean haveProblem, String medication) {
-        if (!haveProblem && !medication.isEmpty())
-            throw new BadRequestException("O membro não pode ter medicação de um problema que ele não tem");
+        if (!haveProblem && !medication.isEmpty()) throw BAD_REQUEST_MEDICAL_PROBLEM;
         return new MedicalProblem(haveProblem, medication);
     }
 

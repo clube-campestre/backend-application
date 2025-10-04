@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.core.application.place;
 
+import com.campestre.clube.backend_application.core.adapter.HasherGateway;
 import com.campestre.clube.backend_application.core.adapter.PlaceGateway;
 import com.campestre.clube.backend_application.core.application.place.command.SavePlaceCommand;
 import com.campestre.clube.backend_application.core.domain.Address;
@@ -10,23 +11,28 @@ import static com.campestre.clube.backend_application.core.application.utils.Exc
 public class SavePlaceUseCase {
 
     private final PlaceGateway gateway;
+    private final HasherGateway hasherGateway;
 
-    public SavePlaceUseCase(PlaceGateway gateway) {
+    public SavePlaceUseCase(PlaceGateway gateway, HasherGateway hasherGateway) {
         this.gateway = gateway;
+        this.hasherGateway = hasherGateway;
     }
 
     public Place execute(SavePlaceCommand command) {
+        String addressHouseNumberHash = hasherGateway.crypt(command.addressHouseNumber());
+        String addressReferenceHouseHash = hasherGateway.crypt(command.addressReferenceHouse());
+
         if (gateway.existsByNameIgnoreCase(command.name())) throw CONFLICT_LOCAL_SAME_NAME;
 
         Place place = Place.of(
                 Address.of(
                         command.addressStreet(),
-                        command.addressHouseNumber(),
+                        addressHouseNumberHash,
                         command.addressDistrict(),
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        command.addressReferenceHouse()
+                        addressReferenceHouseHash
                 ),
                 command.name(),
                 command.price(),

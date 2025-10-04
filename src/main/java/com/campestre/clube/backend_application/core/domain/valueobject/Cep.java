@@ -1,6 +1,6 @@
 package com.campestre.clube.backend_application.core.domain.valueobject;
 
-import com.campestre.clube.backend_application.core.application.exceptions.InvalidRequestException;
+import static com.campestre.clube.backend_application.core.application.utils.ExceptionExtensions.INVALID_CEP;
 
 public class Cep {
     private String number;
@@ -10,7 +10,7 @@ public class Cep {
     }
 
     public static Cep of(String number) {
-        if (number.length() != 8) throw new InvalidRequestException("O número do CEP é inválido");
+        if (number.length() != 8) throw INVALID_CEP;
         return new Cep(number);
     }
 
