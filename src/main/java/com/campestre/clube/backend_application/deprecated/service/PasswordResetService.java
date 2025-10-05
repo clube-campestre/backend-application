@@ -1,5 +1,6 @@
 package com.campestre.clube.backend_application.deprecated.service;
 
+import com.campestre.clube.backend_application.deprecated.controller.dtos.EmailMessageDto;
 import com.campestre.clube.backend_application.deprecated.entity.Account;
 import com.campestre.clube.backend_application.deprecated.entity.PasswordResetCode;
 import com.campestre.clube.backend_application.deprecated.repository.AccountRepository;
@@ -44,7 +45,6 @@ public class PasswordResetService {
         resetCode.setCode(code);
         resetCode.setExpiration(LocalDateTime.now().plusMinutes(10));
         resetCode.setUsed(false);
-
         codeRepository.save(resetCode);
         rabbitMQService.publishEmail(email, code, queueName);
 
