@@ -10,8 +10,9 @@ public class Cep {
     }
 
     public static Cep of(String number) {
-        if (number.length() != 8) throw INVALID_CEP;
-        return new Cep(number);
+        String formatedValue = number.replace("-", "");
+        if (formatedValue.length() != 8) throw INVALID_CEP;
+        return new Cep(formatedValue);
     }
 
     public String getNumber() {
