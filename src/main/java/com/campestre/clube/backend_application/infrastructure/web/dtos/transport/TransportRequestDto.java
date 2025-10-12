@@ -5,8 +5,6 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class TransportRequestDto {
-    @NotBlank
-    private String enterprise;
     @Positive @NotNull
     private BigDecimal price;
     @Positive @NotNull
@@ -23,14 +21,6 @@ public class TransportRequestDto {
     private String driverNumber;
     @NotNull @Min(1) @Max(5)
     private Integer rating;
-
-    public String getEnterprise() {
-        return enterprise;
-    }
-
-    public void setEnterprise(String enterprise) {
-        this.enterprise = enterprise;
-    }
 
     public BigDecimal getPrice() {
         return price;
