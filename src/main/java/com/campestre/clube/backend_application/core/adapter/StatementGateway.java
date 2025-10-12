@@ -9,6 +9,7 @@ import com.campestre.clube.backend_application.core.domain.Tag;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface StatementGateway {
     boolean existsByTagSurname(String tagSurname);
@@ -18,6 +19,7 @@ public interface StatementGateway {
     );
 
     Statement findById(Integer id);
+    List<Statement> findByTagId(Integer tagId);
     StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination);
     Goal findGoalByTagId(Integer tagId);
 

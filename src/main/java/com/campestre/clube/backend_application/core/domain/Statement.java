@@ -76,4 +76,8 @@ public class Statement {
     public Tag getTag() {
         return tag;
     }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
 }

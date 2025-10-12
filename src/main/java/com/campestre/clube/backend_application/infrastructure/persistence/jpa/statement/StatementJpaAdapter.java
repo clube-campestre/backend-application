@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class StatementJpaAdapter implements StatementGateway {
@@ -48,6 +49,11 @@ public class StatementJpaAdapter implements StatementGateway {
     @Override
     public Statement findById(Integer id) {
         return StatementEntityMapper.toDomain(repository.findById(id).get());
+    }
+
+    @Override
+    public List<Statement> findByTagId(Integer tagId) {
+        return StatementEntityMapper.toDomain(repository.findAllByTag(tagAdapter.findById(tagId)));
     }
 
     @Override

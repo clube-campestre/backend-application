@@ -1,6 +1,7 @@
 package com.campestre.clube.backend_application.infrastructure.di;
 
 import com.campestre.clube.backend_application.core.application.tag.*;
+import com.campestre.clube.backend_application.infrastructure.persistence.jpa.statement.StatementJpaAdapter;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagJpaAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +20,8 @@ public class TagBeanConfig {
     }
 
     @Bean
-    public DeleteTagUseCase deleteTagUseCase(TagJpaAdapter adapter) {
-        return new DeleteTagUseCase(adapter);
+    public DeleteTagUseCase deleteTagUseCase(TagJpaAdapter adapter, StatementJpaAdapter statementAdapter) {
+        return new DeleteTagUseCase(adapter, statementAdapter);
     }
 
     @Bean
