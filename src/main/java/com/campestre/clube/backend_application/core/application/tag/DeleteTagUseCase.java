@@ -20,7 +20,7 @@ public class DeleteTagUseCase {
     public void execute(DeleteTagCommand command) {
         if (!gateway.existsById(command.id())) throw NOT_FOUND_TAG;
 
-        Tag genericTag =gateway.findBySurnameIgnoreCase("OUTROS");
+        Tag genericTag = gateway.findBySurnameIgnoreCase("OUTROS");
         statementGateway.findByTagId(command.id()).stream().forEach(statement -> {
             statement.setTag(genericTag);
             statementGateway.save(statement);

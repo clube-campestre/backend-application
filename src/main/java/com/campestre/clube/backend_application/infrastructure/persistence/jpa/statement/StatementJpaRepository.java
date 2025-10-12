@@ -42,9 +42,7 @@ public interface StatementJpaRepository extends JpaRepository<StatementEntity, I
     @Query("SELECT SUM(CASE WHEN s.transactionType = 'SAIDA' THEN -s.price ELSE s.price END) FROM StatementEntity s WHERE s.tag.id = :tagId")
     BigDecimal findAllPricesByTagId(@Param("tagId") Integer tagId);
 
-    List<StatementEntity> findAllByTag(Tag tag);
+    List<StatementEntity> findAllByTag(TagEntity tag);
 
-    void deleteByTag(Tag tag);
-
-    String tag(TagEntity tag);
+    void deleteByTag(TagEntity tag);
 }

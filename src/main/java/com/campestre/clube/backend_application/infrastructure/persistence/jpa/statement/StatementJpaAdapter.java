@@ -53,7 +53,9 @@ public class StatementJpaAdapter implements StatementGateway {
 
     @Override
     public List<Statement> findByTagId(Integer tagId) {
-        return StatementEntityMapper.toDomain(repository.findAllByTag(tagAdapter.findById(tagId)));
+        return StatementEntityMapper.toDomain(repository.findAllByTag(
+                TagEntityMapper.toEntity(tagAdapter.findById(tagId))
+        ));
     }
 
     @Override
@@ -77,7 +79,7 @@ public class StatementJpaAdapter implements StatementGateway {
 
     @Override
     public void removeByTagSurname(String tagSurname) {
-        repository.deleteByTag(tagAdapter.findBySurnameIgnoreCase(tagSurname));
+        repository.deleteByTag(TagEntityMapper.toEntity(tagAdapter.findBySurnameIgnoreCase(tagSurname)));
     }
 
     @Override
