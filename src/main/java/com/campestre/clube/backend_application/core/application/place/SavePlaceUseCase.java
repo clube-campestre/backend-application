@@ -43,23 +43,9 @@ public class SavePlaceUseCase {
         );
 
         Place savedPlace = gateway.save(place);
+        savedPlace.getAddress().setHouseNumber(hasherGateway.decrypt(savedPlace.getAddress().getHouseNumber()));
+        savedPlace.getAddress().setReferenceHouse(hasherGateway.decrypt(savedPlace.getAddress().getReferenceHouse()));
 
-        return Place.of(
-                Address.of(
-                        savedPlace.getAddress().getStreet(),
-                        hasherGateway.decrypt(savedPlace.getAddress().getHouseNumber()),
-                        savedPlace.getAddress().getDistrict(),
-                        savedPlace.getAddress().getState(),
-                        savedPlace.getAddress().getCity(),
-                        savedPlace.getAddress().getCep().getNumber(),
-                        hasherGateway.decrypt(savedPlace.getAddress().getReferenceHouse())
-                ),
-                savedPlace.getName(),
-                savedPlace.getPrice(),
-                savedPlace.getCapacity(),
-                savedPlace.getContact().getName(),
-                savedPlace.getContact().getCellphoneNumber().getNumber(),
-                savedPlace.getRating()
-        );
+        return savedPlace;
     }
 }

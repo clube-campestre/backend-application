@@ -5,10 +5,9 @@ import com.campestre.clube.backend_application.core.adapter.MedicalDataGateway;
 import com.campestre.clube.backend_application.core.adapter.MemberDataGateway;
 import com.campestre.clube.backend_application.core.adapter.UnitGateway;
 import com.campestre.clube.backend_application.core.application.memberdata.command.UpdateMemberDataCommand;
-import com.campestre.clube.backend_application.core.domain.Address;
-import com.campestre.clube.backend_application.core.domain.MedicalData;
-import com.campestre.clube.backend_application.core.domain.MemberData;
-import com.campestre.clube.backend_application.core.domain.Unit;
+import com.campestre.clube.backend_application.core.domain.*;
+import com.campestre.clube.backend_application.core.domain.valueobject.Cns;
+import com.campestre.clube.backend_application.core.domain.valueobject.Cpf;
 import com.campestre.clube.backend_application.core.domain.valueobject.MemberContact;
 
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
@@ -126,6 +125,24 @@ public class UpdateMemberDataUseCase {
                         command.hospitalizationReasonLast5Years()
                 )
         );
-        return gateway.save(memberData);
+
+        MemberData savedMemberData = gateway.save(memberData);
+        savedMemberData.setCpf(Cpf.of(
+                hasherGateway.decrypt(savedMemberData.getAddress().getHouseNumber())
+        ));
+        savedMemberData.getMedicalData().setCpf(Cpf.of(
+                hasherGateway.decrypt(savedMemberData.getMedicalData().getCpf().getNumber())
+        ));
+        savedMemberData.getMedicalData().setCns(Cns.of(
+                hasherGateway.decrypt(savedMemberData.getMedicalData().getCns().getNumber())
+        ));
+        savedMemberData.getAddress().setHouseNumber(
+                hasherGateway.decrypt(savedMemberData.getAddress().getHouseNumber())
+        );
+        savedMemberData.getAddress().setReferenceHouse(
+                hasherGateway.decrypt(savedMemberData.getAddress().getReferenceHouse())
+        );
+
+        return savedMemberData;
     }
 }

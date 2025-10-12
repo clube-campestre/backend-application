@@ -46,6 +46,10 @@ public class UpdatePlaceUseCase {
                 command.rating()
         );
 
-        return gateway.save(place);
+        Place savedPlace = gateway.save(place);
+        savedPlace.getAddress().setHouseNumber(hasherGateway.decrypt(savedPlace.getAddress().getHouseNumber()));
+        savedPlace.getAddress().setReferenceHouse(hasherGateway.decrypt(savedPlace.getAddress().getReferenceHouse()));
+
+        return savedPlace;
     }
 }

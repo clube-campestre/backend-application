@@ -127,6 +127,24 @@ public class SaveMemberDataUseCase {
                         command.hospitalizationReasonLast5Years()
                 )
         );
-        return gateway.save(memberData);
+
+        MemberData savedMemberData = gateway.save(memberData);
+        savedMemberData.setCpf(Cpf.of(
+                hasherGateway.decrypt(savedMemberData.getAddress().getHouseNumber())
+        ));
+        savedMemberData.getMedicalData().setCpf(Cpf.of(
+                hasherGateway.decrypt(savedMemberData.getMedicalData().getCpf().getNumber())
+        ));
+        savedMemberData.getMedicalData().setCns(Cns.of(
+                hasherGateway.decrypt(savedMemberData.getMedicalData().getCns().getNumber())
+        ));
+        savedMemberData.getAddress().setHouseNumber(
+                hasherGateway.decrypt(savedMemberData.getAddress().getHouseNumber())
+        );
+        savedMemberData.getAddress().setReferenceHouse(
+                hasherGateway.decrypt(savedMemberData.getAddress().getReferenceHouse())
+        );
+
+        return savedMemberData;
     }
 }
