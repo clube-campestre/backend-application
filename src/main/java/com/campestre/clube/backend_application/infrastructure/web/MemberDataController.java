@@ -16,6 +16,7 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -55,9 +56,11 @@ public class MemberDataController {
 
     @PostMapping()
     @Operation(summary = "Endpoint for create member")
-    public ResponseEntity<MemberDataResponseDto> register(@RequestBody @Valid MemberDataRequestDto dto){
+    public ResponseEntity<MemberDataResponseDto> register(
+            @RequestBody @Valid MemberDataRequestDto dto, @RequestParam MultipartFile image
+    ){
         return ResponseEntity.status(HttpStatus.CREATED).body(MemberDataDtoMapper.toResponse(
-                saveMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto))
+                saveMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto, image))
         ));
     }
 
@@ -104,10 +107,10 @@ public class MemberDataController {
     @PutMapping("/{cpf}")
     @Operation(summary = "Endpoint for update member data by cpf")
     public ResponseEntity<MemberDataResponseDto> update(
-            @Valid @RequestBody MemberDataRequestDto dto, @PathVariable String cpf
+            @Valid @RequestBody MemberDataRequestDto dto, @PathVariable String cpf, @RequestParam MultipartFile image
     ){
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
-                updateMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto, cpf))
+                updateMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto, cpf, image))
         ));
     }
 

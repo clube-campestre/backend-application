@@ -16,7 +16,6 @@ import static com.campestre.clube.backend_application.core.exceptions.ExceptionE
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.NOT_FOUND_UNIT;
 
 public class SaveMemberDataUseCase {
-
     private final MemberDataGateway gateway;
     private final MedicalDataGateway medicalDataGateway;
     private final UnitGateway unitGateway;
@@ -44,8 +43,8 @@ public class SaveMemberDataUseCase {
 
         MemberData memberData = MemberData.of(
                 cpfHash,
-                command.idImage(),
-                command.imagePath(),
+                command.image(),
+                command.imageFormat(),
                 command.username(),
                 command.birthDate(),
                 command.sex(),

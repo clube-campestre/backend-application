@@ -65,6 +65,8 @@ public class ExceptionExtensions {
             new InvalidRequestException("O número do CPF é inválido.");
     public static final RuntimeException INVALID_CELLPHONE_NUMBER =
             new InvalidRequestException("O número de telefone é inválido");
+    public static final RuntimeException INVALID_IMAGE_FORMAT =
+            new InvalidRequestException("O formato da imagem do membro é inválido.");
 
     public static final RuntimeException ERROR_ACCESS_TYPE_ENUM =
             new BadRequestException("Não foi possível encontrar o acesso da conta.");
@@ -80,4 +82,9 @@ public class ExceptionExtensions {
             new BadRequestException("Não foi possível encontrar a unidade do membro.");
     public static final RuntimeException ERROR_UNIT_ROLE_ENUM =
             new BadRequestException("Não foi possível encontrar o papel da unidade.");
+
+    public static final RuntimeException INTERNAL_ERROR_IMAGE_FORMAT =
+            new InternalServerException("Erro ao tentar encontrar o formato da imagem.");
+    public static final RuntimeException INTERNAL_ERROR_CONVERT_IMAGE =
+            new InternalServerException("Erro ao tentar converter a imagem.");
 }

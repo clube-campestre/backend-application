@@ -7,20 +7,23 @@ import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.MemberDataForClass;
 import com.campestre.clube.backend_application.core.domain.MemberDataForUnit;
 import com.campestre.clube.backend_application.core.domain.enums.*;
+import com.campestre.clube.backend_application.core.domain.valueobject.Image;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntityMapper;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.memberdata.*;
 import org.antlr.v4.runtime.misc.Pair;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MemberDataDtoMapper {
 
-    public static SaveMemberDataCommand toCommand(MemberDataRequestDto dto) {
+    public static SaveMemberDataCommand toCommand(MemberDataRequestDto dto, MultipartFile file) {
+        Image image = ImageMapper.toImage(file);
         return new SaveMemberDataCommand(
                 dto.getCpf(),
-                dto.getIdImage(),
-                dto.getImagePath(),
+                image.getValue(),
+                image.getFormat(),
                 dto.getUsername(),
                 dto.getBirthDate(),
                 Sex.fromString(dto.getSex()),
@@ -100,11 +103,12 @@ public class MemberDataDtoMapper {
         );
     }
 
-    public static UpdateMemberDataCommand toCommand(MemberDataRequestDto dto, String cpf) {
+    public static UpdateMemberDataCommand toCommand(MemberDataRequestDto dto, String cpf, MultipartFile file) {
+        Image image = ImageMapper.toImage(file);
         return new UpdateMemberDataCommand(
                 cpf,
-                dto.getIdImage(),
-                dto.getImagePath(),
+                image.getValue(),
+                image.getFormat(),
                 dto.getUsername(),
                 dto.getBirthDate(),
                 Sex.fromString(dto.getSex()),
@@ -187,8 +191,8 @@ public class MemberDataDtoMapper {
     public static MemberDataResponseDto toResponse(MemberData domain) {
         return new MemberDataResponseDto(
                 domain.getCpf().getNumber(),
-                domain.getIdImage(),
-                domain.getImagePath(),
+                domain.getImage().getValue(),
+                domain.getImage().getFormat(),
                 domain.getUsername(),
                 domain.getBirthDate(),
                 domain.getSex(),

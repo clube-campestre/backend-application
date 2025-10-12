@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 public record UpdateMemberDataCommand(
         String cpf,
-        String idImage,
-        String imagePath,
+        byte[] image,
+        String imageFormat,
         String username,
         LocalDate birthDate,
         Sex sex,

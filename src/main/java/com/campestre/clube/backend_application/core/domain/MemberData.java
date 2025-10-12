@@ -3,14 +3,14 @@ package com.campestre.clube.backend_application.core.domain;
 import com.campestre.clube.backend_application.core.domain.enums.*;
 import com.campestre.clube.backend_application.core.domain.valueobject.CellphoneNumber;
 import com.campestre.clube.backend_application.core.domain.valueobject.Cpf;
+import com.campestre.clube.backend_application.core.domain.valueobject.Image;
 import com.campestre.clube.backend_application.core.domain.valueobject.MemberContact;
 
 import java.time.LocalDate;
 
 public class MemberData {
     private Cpf cpf;
-    private String idImage;
-    private String imagePath;
+    private Image image;
     private String username;
     private LocalDate birthDate;
     private Sex sex;
@@ -33,15 +33,14 @@ public class MemberData {
     private MedicalData medicalData;
 
     public MemberData(
-            Cpf cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex,
+            Cpf cpf, Image image, String username, LocalDate birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, CellphoneNumber cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
             MedicalData medicalData
     ) {
         this.cpf = cpf;
-        this.idImage = idImage;
-        this.imagePath = imagePath;
+        this.image = image;
         this.username = username;
         this.birthDate = birthDate;
         this.sex = sex;
@@ -62,14 +61,14 @@ public class MemberData {
     }
 
     public static MemberData of(
-            String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex,
+            String cpf, byte[] image, String imageFormat, String username, LocalDate birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
             MedicalData medicalData
     ) {
         return new MemberData(
-                Cpf.of(cpf), idImage, imagePath, username, birthDate, sex, birthCertificate, tshirtSize, isBaptized,
+                Cpf.of(cpf), Image.of(image, imageFormat), username, birthDate, sex, birthCertificate, tshirtSize, isBaptized,
                 CellphoneNumber.of(cellphoneNumber), issuingAuthority, unit, unitRole, classCategory, classRole,
                 fatherContact, motherContact, responsibleContact, address, medicalData
         );
@@ -83,12 +82,8 @@ public class MemberData {
         this.cpf = cpf;
     }
 
-    public String getIdImage() {
-        return idImage;
-    }
-
-    public String getImagePath() {
-        return imagePath;
+    public Image getImage() {
+        return image;
     }
 
     public String getUsername() {

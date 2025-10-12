@@ -14,8 +14,8 @@ public class MemberDataEntityMapper {
         if (domain == null) return null;
         MemberDataEntity entity = new MemberDataEntity();
         entity.setCpf(domain.getCpf().getNumber());
-        entity.setIdImage(domain.getIdImage());
-        entity.setImagePath(domain.getImagePath());
+        entity.setImage(domain.getImage().getValue());
+        entity.setImageFormat(domain.getImage().getFormat());
         entity.setUsername(domain.getUsername());
         entity.setBirthDate(domain.getBirthDate());
         entity.setSex(domain.getSex());
@@ -46,8 +46,8 @@ public class MemberDataEntityMapper {
         if (entity == null) return null;
         return MemberData.of(
                 entity.getCpf(),
-                entity.getIdImage(),
-                entity.getImagePath(),
+                entity.getImage(),
+                entity.getImageFormat(),
                 entity.getUsername(),
                 entity.getBirthDate(),
                 entity.getSex(),

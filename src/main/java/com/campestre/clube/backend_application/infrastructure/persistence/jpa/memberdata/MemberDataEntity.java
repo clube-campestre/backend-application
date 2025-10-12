@@ -5,7 +5,6 @@ import com.campestre.clube.backend_application.infrastructure.persistence.jpa.ad
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.medicaldata.MedicalDataEntity;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntity;
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
@@ -13,10 +12,7 @@ import java.time.LocalDate;
 @Table(name= "member_data")
 public class MemberDataEntity {
     @Id
-//    @CPF
-    private String cpf; //TODO
-    private String idImage;
-    private String imagePath;
+    private String cpf;
     private String username;
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
@@ -27,6 +23,12 @@ public class MemberDataEntity {
     private Boolean isBaptized;
     private String contact;
     private String issuingAuthority;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+    @Column(name = "image_format", length = 50)
+    private String imageFormat;
 
     @ManyToOne
     @JoinColumn(name = "fk_unit")
@@ -63,20 +65,20 @@ public class MemberDataEntity {
         this.cpf = cpf;
     }
 
-    public String getIdImage() {
-        return idImage;
+    public String getImageFormat() {
+        return imageFormat;
     }
 
-    public void setIdImage(String idImage) {
-        this.idImage = idImage;
+    public void setImageFormat(String imageFormat) {
+        this.imageFormat = imageFormat;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getUsername() {

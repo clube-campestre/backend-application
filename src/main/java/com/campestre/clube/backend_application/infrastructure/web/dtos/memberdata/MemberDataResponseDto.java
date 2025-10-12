@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 public class MemberDataResponseDto {
     private String cpf;
-    private String idImage;
-    private String imagePath;
+    private byte[] image;
+    private String imageFormat;
     private String username;
     private LocalDate birthDate;
     private Sex sex;
@@ -42,7 +42,7 @@ public class MemberDataResponseDto {
     }
 
     public MemberDataResponseDto(
-            String cpf, String idImage, String imagePath, String username, LocalDate birthDate, Sex sex,
+            String cpf, byte[] image, String imageFormat, String username, LocalDate birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority,
             UnitResponseDto unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact,
@@ -50,8 +50,8 @@ public class MemberDataResponseDto {
             AddressResponseDto address, MedicalDataResponseDto medicalData
     ) {
         this.cpf = cpf;
-        this.idImage = idImage;
-        this.imagePath = imagePath;
+        this.image = image;
+        this.imageFormat = imageFormat;
         this.username = username;
         this.birthDate = birthDate;
         this.sex = sex;
@@ -85,20 +85,20 @@ public class MemberDataResponseDto {
         this.cpf = cpf;
     }
 
-    public String getIdImage() {
-        return idImage;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setIdImage(String idImage) {
-        this.idImage = idImage;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageFormat() {
+        return imageFormat;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageFormat(String imageFormat) {
+        this.imageFormat = imageFormat;
     }
 
     public String getUsername() {

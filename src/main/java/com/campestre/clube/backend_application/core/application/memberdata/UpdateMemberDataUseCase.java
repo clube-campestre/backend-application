@@ -42,8 +42,8 @@ public class UpdateMemberDataUseCase {
 
         MemberData memberData = MemberData.of(
                 cpfHash,
-                command.idImage(),
-                command.imagePath(),
+                command.image(),
+                command.imageFormat(),
                 command.username(),
                 command.birthDate(),
                 command.sex(),

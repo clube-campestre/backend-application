@@ -9,11 +9,6 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class MemberDataRequestDto {
-
-    private String idImage;
-
-    private String imagePath;
-
     @NotBlank
     @Size(max = 255)
     private String username;
@@ -95,15 +90,13 @@ public class MemberDataRequestDto {
     }
 
     public MemberDataRequestDto(
-            String idImage, String imagePath, String username, String birthCertificate, String cpf,
-            String issuingAuthority, String contact, LocalDate birthDate, String sex, String tshirtSize,
-            Boolean isBaptized, SaveAddressRequestDto address, MedicalDataRequestDto medicalData, String fatherName,
-            String fatherContact, String fatherEmail, String motherName, String motherContact, String motherEmail,
-            String responsibleName, String responsibleContact, String responsibleEmail, String unitRole,
-            String unitName, String classCategory, String classRole
+            String username, String birthCertificate, String cpf, String issuingAuthority, String contact,
+            LocalDate birthDate, String sex, String tshirtSize, Boolean isBaptized, SaveAddressRequestDto address,
+            MedicalDataRequestDto medicalData, String fatherName, String fatherContact, String fatherEmail,
+            String motherName, String motherContact, String motherEmail, String responsibleName,
+            String responsibleContact, String responsibleEmail, String unitRole, String unitName, String classCategory,
+            String classRole
     ) {
-        this.idImage = idImage;
-        this.imagePath = imagePath;
         this.username = username;
         this.birthCertificate = birthCertificate;
         this.cpf = cpf;
@@ -128,22 +121,6 @@ public class MemberDataRequestDto {
         this.unitName = unitName;
         this.classCategory = classCategory;
         this.classRole = classRole;
-    }
-
-    public String getIdImage() {
-        return idImage;
-    }
-
-    public void setIdImage(String idImage) {
-        this.idImage = idImage;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public String getUsername() {
