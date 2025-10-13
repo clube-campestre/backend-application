@@ -1,13 +1,7 @@
 package com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag;
 
-import com.campestre.clube.backend_application.core.domain.Address;
 import com.campestre.clube.backend_application.core.domain.Tag;
-import com.campestre.clube.backend_application.core.domain.Transport;
-import com.campestre.clube.backend_application.infrastructure.persistence.jpa.transport.TransportEntity;
-import com.campestre.clube.backend_application.infrastructure.persistence.jpa.transport.TransportEntityMapper;
-import com.campestre.clube.backend_application.infrastructure.web.dtos.address.AddressResponseDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagResponseDto;
-import com.campestre.clube.backend_application.infrastructure.web.mappers.AddressDtoMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.core.domain.enums;
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_UNIT_ENUM;
 
 public enum UnitEnum {
+    NENHUMA("Nenhuma", 11),
     PANDA("Panda", 1),
     FALCAO("Falcão", 2),
     LINCE("Lince", 3),

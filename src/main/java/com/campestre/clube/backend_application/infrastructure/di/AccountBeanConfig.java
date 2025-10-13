@@ -1,9 +1,9 @@
 package com.campestre.clube.backend_application.infrastructure.di;
 
-import com.campestre.clube.backend_application.core.adapter.PasswordHasherGateway;
-import com.campestre.clube.backend_application.core.adapter.TokenGeneratorGateway;
 import com.campestre.clube.backend_application.core.application.account.*;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.account.AccountJpaAdapter;
+import com.campestre.clube.backend_application.infrastructure.security.BCryptPasswordHasher;
+import com.campestre.clube.backend_application.infrastructure.security.JwtTokenManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class AccountBeanConfig {
 
     @Bean
-    public CreateAccountUseCase createAccountUseCase(AccountJpaAdapter adapter, PasswordHasherGateway passwordHasherGateway) {
-        return new CreateAccountUseCase(adapter, passwordHasherGateway);
+    public CreateAccountUseCase createAccountUseCase(
+            AccountJpaAdapter adapter, BCryptPasswordHasher bCryptPasswordHasher
+    ) {
+        return new CreateAccountUseCase(adapter, bCryptPasswordHasher);
     }
 
     @Bean
@@ -37,9 +39,8 @@ public class AccountBeanConfig {
 
     @Bean
     public AuthenticateAccountUseCase authenticateAccountUseCase(
-            AccountJpaAdapter adapter, PasswordHasherGateway passwordHasherGateway,
-            TokenGeneratorGateway tokenGeneratorGateway
+            AccountJpaAdapter adapter, BCryptPasswordHasher bCryptPasswordHasher, JwtTokenManager jwtTokenManager
     ) {
-        return new AuthenticateAccountUseCase(adapter, passwordHasherGateway, tokenGeneratorGateway);
+        return new AuthenticateAccountUseCase(adapter, bCryptPasswordHasher, jwtTokenManager);
     }
 }

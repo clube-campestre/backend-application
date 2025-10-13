@@ -1,8 +1,8 @@
 package com.campestre.clube.backend_application.infrastructure.di;
 
-import com.campestre.clube.backend_application.core.adapter.HasherGateway;
 import com.campestre.clube.backend_application.core.application.place.*;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.place.PlaceJpaAdapter;
+import com.campestre.clube.backend_application.infrastructure.security.JasyptHasher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Configuration;
 public class PlaceBeanConfig {
 
     @Bean
-    public SavePlaceUseCase savePlaceUseCase(PlaceJpaAdapter adapter, HasherGateway hasherGateway) {
-        return new SavePlaceUseCase(adapter, hasherGateway);
+    public SavePlaceUseCase savePlaceUseCase(PlaceJpaAdapter adapter, JasyptHasher hasher) {
+        return new SavePlaceUseCase(adapter, hasher);
     }
 
     @Bean
-    public UpdatePlaceUseCase updatePlaceUseCase(PlaceJpaAdapter adapter, HasherGateway hasherGateway) {
-        return new UpdatePlaceUseCase(adapter, hasherGateway);
+    public UpdatePlaceUseCase updatePlaceUseCase(PlaceJpaAdapter adapter, JasyptHasher hasher) {
+        return new UpdatePlaceUseCase(adapter, hasher);
     }
 
     @Bean
@@ -25,14 +25,14 @@ public class PlaceBeanConfig {
     }
 
     @Bean
-    public GetPlaceByIdUseCase getPlaceByIdUseCase(PlaceJpaAdapter adapter, HasherGateway hasherGateway) {
-        return new GetPlaceByIdUseCase(adapter, hasherGateway);
+    public GetPlaceByIdUseCase getPlaceByIdUseCase(PlaceJpaAdapter adapter, JasyptHasher hasher) {
+        return new GetPlaceByIdUseCase(adapter, hasher);
     }
 
     @Bean
     public ListPlaceOrderedByRatingUseCase listPlaceOrderedByRatingUseCase(
-            PlaceJpaAdapter adapter, HasherGateway hasherGateway
+            PlaceJpaAdapter adapter, JasyptHasher hasher
     ) {
-        return new ListPlaceOrderedByRatingUseCase(adapter, hasherGateway);
+        return new ListPlaceOrderedByRatingUseCase(adapter, hasher);
     }
 }

@@ -24,6 +24,8 @@ public class ExceptionExtensions {
             new ConflictException("Não é permitido cadastrar um membro com CNS já existente.");
     public static final RuntimeException NOT_FOUND_MEMBER_DATA =
             new NotFoundException("Não foi possível encontrar o membro.");
+    public static final RuntimeException NOT_FOUND_MEMBER_DATA_BY_EMAIL =
+            new NotFoundException("Email do membro não encontrado.");
     public static final RuntimeException BAD_REQUEST_MEDICAL_PROBLEM =
             new BadRequestException("O membro não pode ter medicação de um problema que ele não tem");
 
@@ -57,6 +59,11 @@ public class ExceptionExtensions {
     public static final RuntimeException NOT_FOUND_GOAL_BY_TAG =
             new NotFoundException("Não foi possível encontrar a tag da meta.");
 
+    public static final RuntimeException INVALID_CODE_RESET_PASSWORD =
+            new InvalidRequestException("Código de recuperação de senha inválido.");
+    public static final RuntimeException INVALID_CODE_EXPIRED_RESET_PASSWORD =
+            new InvalidRequestException("Código de recuperação de senha expirado.");
+
     public static final RuntimeException INVALID_CNS =
             new InvalidRequestException("O número do CNS é inválido.");
     public static final RuntimeException INVALID_CEP =
@@ -87,4 +94,6 @@ public class ExceptionExtensions {
             new InternalServerException("Erro ao tentar encontrar o formato da imagem.");
     public static final RuntimeException INTERNAL_ERROR_CONVERT_IMAGE =
             new InternalServerException("Erro ao tentar converter a imagem.");
+    public static final RuntimeException INTERNAL_ERROR_SEND_EMAIL =
+            new InternalServerException("Erro ao tentar enviar o email.");
 }

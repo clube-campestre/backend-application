@@ -3,6 +3,7 @@ package com.campestre.clube.backend_application.core.domain.enums;
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_UNIT_ROLE_ENUM;
 
 public enum UnitRole {
+    NENHUM("Nenhum"),
     CONSELHEIRO("Conselheiro"),
     CONSELHEIRO_AUXILIAR("Conselheiro Auxiliar"),
     CAPITAO("Capitão"),

@@ -1,10 +1,10 @@
 package com.campestre.clube.backend_application.infrastructure.di;
 
-import com.campestre.clube.backend_application.core.adapter.HasherGateway;
 import com.campestre.clube.backend_application.core.application.memberdata.*;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.medicaldata.MedicalDataJpaAdapter;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.memberdata.MemberDataJpaAdapter;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitJpaAdapter;
+import com.campestre.clube.backend_application.infrastructure.security.JasyptHasher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,54 +14,54 @@ public class MemberDataBeanConfig {
     @Bean
     public SaveMemberDataUseCase saveMemberDataUseCase(
             MemberDataJpaAdapter adapter, MedicalDataJpaAdapter medicalDataAdapter, UnitJpaAdapter unitAdapter,
-            HasherGateway hasherGateway
+            JasyptHasher jasyptHasher
     ) {
-        return new SaveMemberDataUseCase(adapter, medicalDataAdapter, unitAdapter, hasherGateway);
+        return new SaveMemberDataUseCase(adapter, medicalDataAdapter, unitAdapter, jasyptHasher);
     }
 
     @Bean
     public UpdateMemberDataUseCase updateMemberDataUseCase(
             MemberDataJpaAdapter adapter, MedicalDataJpaAdapter medicalDataAdapter, UnitJpaAdapter unitAdapter,
-            HasherGateway hasherGateway
+            JasyptHasher jasyptHasher
     ) {
-        return new UpdateMemberDataUseCase(adapter, medicalDataAdapter, unitAdapter, hasherGateway);
+        return new UpdateMemberDataUseCase(adapter, medicalDataAdapter, unitAdapter, jasyptHasher);
     }
 
     @Bean
-    public DeleteMemberDataUseCase deleteMemberDataUseCase(MemberDataJpaAdapter adapter, HasherGateway hasherGateway) {
-        return new DeleteMemberDataUseCase(adapter, hasherGateway);
+    public DeleteMemberDataUseCase deleteMemberDataUseCase(MemberDataJpaAdapter adapter, JasyptHasher jasyptHasher) {
+        return new DeleteMemberDataUseCase(adapter, jasyptHasher);
     }
 
     @Bean
     public GetMemberDataByCpfUseCase getMemberDataByCpfUseCase(
-            MemberDataJpaAdapter adapter, HasherGateway hasherGateway
+            MemberDataJpaAdapter adapter, JasyptHasher jasyptHasher
     ) {
-        return new GetMemberDataByCpfUseCase(adapter, hasherGateway);
+        return new GetMemberDataByCpfUseCase(adapter, jasyptHasher);
     }
 
     @Bean
     public ListMemberDataByClassCategoryAndPaginationUseCase listMemberDataByClassCategoryAndPaginationUseCase(
-            MemberDataJpaAdapter adapter, HasherGateway hasherGateway
+            MemberDataJpaAdapter adapter, JasyptHasher jasyptHasher
     ) {
-        return new ListMemberDataByClassCategoryAndPaginationUseCase(adapter, hasherGateway);
+        return new ListMemberDataByClassCategoryAndPaginationUseCase(adapter, jasyptHasher);
     }
 
     @Bean
     public ListMemberDataByFilterAndPaginationUseCase listMemberDataByFilterAndPaginationUseCase(
-            MemberDataJpaAdapter adapter, UnitJpaAdapter unitAdapter, HasherGateway hasherGateway
+            MemberDataJpaAdapter adapter, UnitJpaAdapter unitAdapter, JasyptHasher jasyptHasher
     ) {
-        return new ListMemberDataByFilterAndPaginationUseCase(adapter, unitAdapter, hasherGateway);
+        return new ListMemberDataByFilterAndPaginationUseCase(adapter, unitAdapter, jasyptHasher);
     }
 
     @Bean
     public ListMemberDataByUnitNameAndPaginationUseCase listMemberDataByUnitIdAndPaginationUseCase(
-            MemberDataJpaAdapter adapter, UnitJpaAdapter unitAdapter, HasherGateway hasherGateway
+            MemberDataJpaAdapter adapter, UnitJpaAdapter unitAdapter, JasyptHasher jasyptHasher
     ) {
-        return new ListMemberDataByUnitNameAndPaginationUseCase(adapter, unitAdapter, hasherGateway);
+        return new ListMemberDataByUnitNameAndPaginationUseCase(adapter, unitAdapter, jasyptHasher);
     }
 
     @Bean
-    public ListMemberDataUseCase listMemberDataUseCase(MemberDataJpaAdapter adapter, HasherGateway hasherGateway) {
-        return new ListMemberDataUseCase(adapter, hasherGateway);
+    public ListMemberDataUseCase listMemberDataUseCase(MemberDataJpaAdapter adapter, JasyptHasher jasyptHasher) {
+        return new ListMemberDataUseCase(adapter, jasyptHasher);
     }
 }

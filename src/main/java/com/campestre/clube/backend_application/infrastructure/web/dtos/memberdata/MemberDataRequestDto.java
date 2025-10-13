@@ -65,8 +65,8 @@ public class MemberDataRequestDto {
 
     @NotNull
     @Schema(description = "Member data unit role", example = "CONSELHEIRO", allowableValues = {
-            "CONSELHEIRO", "CONSELHEIRO_AUXILIAR", "CAPITAO", "VICE_CAPITAO", "TESOUREIRO", "VICE_TESOUREIRO",
-            "SECRETARIO", "VICE_SECRETARIO", "PADIOLEIRO", "CAPELAO", "ALMO_XARIFADO"
+            "NENHUM", "CONSELHEIRO", "CONSELHEIRO_AUXILIAR", "CAPITAO", "VICE_CAPITAO", "TESOUREIRO",
+            "VICE_TESOUREIRO", "SECRETARIO", "VICE_SECRETARIO", "PADIOLEIRO", "CAPELAO", "ALMO_XARIFADO"
     })
     private String unitRole;
 
@@ -75,14 +75,14 @@ public class MemberDataRequestDto {
 
     @NotNull
     @Schema(description = "Member data class category", example = "AMIGO", allowableValues = {
-            "NENHUM", "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
+            "NENHUMA", "AMIGO", "COMPANHEIRO", "PESQUISADOR", "PIONEIRO", "EXCURSIONISTA", "GUIA", "AGRUPADAS",
             "DESBRAVADORES_COMPLETO", "LIDER", "LIDER_MASTER", "LIDER_MASTER_AVANCADO"
     })
     private String classCategory;
 
     @NotNull
     @Schema(description = "Member data class role", example = "INSTRUTOR", allowableValues = {
-            "NENHUM", "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
+            "NENHUMA", "INSTRUTOR", "INSTRUTOR_AUXILIAR", "MEMBRO"
     })
     private String classRole;
 
