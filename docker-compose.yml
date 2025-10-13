@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"   # Porta para comunicação (AMQP)
+      - "15672:15672" # Porta para o painel de administração
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DATA_DIR: /var/lib/rabbitmq
+      LANG: C.UTF-8
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_net
+    restart: unless-stopped
+
+volumes:
+  rabbitmq_data:
+
+networks:
+  rabbitmq_net:
+    driver: bridge

@@ -51,6 +51,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+<!--		TODO validar se ainda precisa desse mail de cima-->
 
 		<!--Tests-->
 		<dependency>
@@ -123,6 +124,17 @@
 			<groupId>org.jasypt</groupId>
 			<artifactId>jasypt</artifactId>
 			<version>1.9.3</version>
+		</dependency>
+
+		<!--RabbitMQ-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

@@ -81,6 +81,8 @@ public class ExceptionExtensions {
             new BadRequestException("Não foi possível encontrar a classe do membro.");
     public static final RuntimeException ERROR_CLASS_ROLE_ENUM =
             new BadRequestException("Não foi possível encontrar o papel da classe.");
+    public static final RuntimeException ERROR_NOTIFICATION_TYPE_ENUM =
+            new BadRequestException("Não foi possível encontrar o tipo de notificação.");
     public static final RuntimeException ERROR_SEX_ENUM =
             new BadRequestException("Não foi possível encontrar o sexo do membro.");
     public static final RuntimeException ERROR_TSHIRT_SIZE_ENUM =
@@ -94,6 +96,4 @@ public class ExceptionExtensions {
             new InternalServerException("Erro ao tentar encontrar o formato da imagem.");
     public static final RuntimeException INTERNAL_ERROR_CONVERT_IMAGE =
             new InternalServerException("Erro ao tentar converter a imagem.");
-    public static final RuntimeException INTERNAL_ERROR_SEND_EMAIL =
-            new InternalServerException("Erro ao tentar enviar o email.");
 }

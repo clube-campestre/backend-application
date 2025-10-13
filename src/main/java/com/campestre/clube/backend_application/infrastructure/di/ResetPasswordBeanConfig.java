@@ -6,7 +6,7 @@ import com.campestre.clube.backend_application.core.application.resetpassword.Va
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.account.AccountJpaAdapter;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.resetpassword.ResetPasswordJpaAdapter;
 import com.campestre.clube.backend_application.infrastructure.security.BCryptPasswordHasher;
-import com.campestre.clube.backend_application.infrastructure.security.NotificationSender;
+import com.campestre.clube.backend_application.infrastructure.notification.RabbitMQService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +15,7 @@ public class ResetPasswordBeanConfig {
 
     @Bean
     public GenerateResetPasswordCodeUseCase generateResetPasswordCodeUseCase(
-            ResetPasswordJpaAdapter adapter, NotificationSender notificationSender, AccountJpaAdapter accountAdapter
+            ResetPasswordJpaAdapter adapter, RabbitMQService notificationSender, AccountJpaAdapter accountAdapter
     ) {
         return new GenerateResetPasswordCodeUseCase(adapter, notificationSender, accountAdapter);
     }
