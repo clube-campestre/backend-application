@@ -51,7 +51,7 @@ public class TagController {
 
     @Operation(summary = "Endpoint for get tag by id")
     @GetMapping("/{id}")
-    public ResponseEntity<TagResponseDto> getById(@PathVariable Integer id){
+    public ResponseEntity<TagResponseDto> getById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 getTagByIdUseCase.execute(new GetTagByIdCommand(id))
         ));
@@ -67,7 +67,7 @@ public class TagController {
 
     @Operation(summary = "Endpoint for update tag by id")
     @PutMapping("/{id}")
-    public ResponseEntity<TagResponseDto> update(@PathVariable Integer id, @Valid @RequestBody TagRequestDto tag){
+    public ResponseEntity<TagResponseDto> update(@PathVariable Long id, @Valid @RequestBody TagRequestDto tag){
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 updateTagUseCase.execute(TagDtoMapper.toCommand(tag, id))
         ));
@@ -75,7 +75,7 @@ public class TagController {
 
     @Operation(summary = "Endpoint for remove tag by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteTagUseCase.execute(new DeleteTagCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

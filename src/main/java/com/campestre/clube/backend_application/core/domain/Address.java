@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.core.domain;
 import com.campestre.clube.backend_application.core.domain.valueobject.Cep;
 
 public class Address {
-    private Integer id;
+    private Long id;
     private String street;
     private String houseNumber;
     private String district;
@@ -13,7 +13,7 @@ public class Address {
     private String referenceHouse;
 
     private Address(
-            Integer id, String street, String houseNumber, String district, String state, String city, Cep cep,
+            Long id, String street, String houseNumber, String district, String state, String city, Cep cep,
             String referenceHouse
     ) {
         this.id = id;
@@ -27,7 +27,7 @@ public class Address {
     }
 
     public static Address of(
-            Integer id, String street, String houseNumber, String district, String state, String city, String cep,
+            Long id, String street, String houseNumber, String district, String state, String city, String cep,
             String referenceHouse
     ) {
         return new Address(
@@ -58,7 +58,7 @@ public class Address {
         );
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

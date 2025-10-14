@@ -1,3 +1,3 @@
 package com.campestre.clube.backend_application.core.application.account.command;
 
-public record DeleteAccountCommand(Integer id){}
+public record DeleteAccountCommand(Long id){}

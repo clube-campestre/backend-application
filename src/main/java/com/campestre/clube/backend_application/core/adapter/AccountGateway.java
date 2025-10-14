@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface AccountGateway {
     boolean existsByEmail(String email);
-    boolean existsByEmailAndIdNot(String email, Integer id);
-    boolean existsById(Integer id);
+    boolean existsByEmailAndIdNot(String email, Long id);
+    boolean existsById(Long id);
 
     List<Account> findAll();
-    Account findById(Integer id);
+    Account findById(Long id);
     Account findByEmail(String email);
 
     Account save(Account account);
 
-    void removeById(Integer id);
+    void removeById(Long id);
 }

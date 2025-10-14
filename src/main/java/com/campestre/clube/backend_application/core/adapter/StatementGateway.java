@@ -13,18 +13,18 @@ import java.util.List;
 
 public interface StatementGateway {
     boolean existsByTagSurname(String tagSurname);
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
     );
 
-    Statement findById(Integer id);
-    List<Statement> findByTagId(Integer tagId);
+    Statement findById(Long id);
+    List<Statement> findByTagId(Long tagId);
     StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination);
-    Goal findGoalByTagId(Integer tagId);
+    Goal findGoalByTagId(Long tagId);
 
     Statement save(Statement domain);
 
-    void removeById(Integer id);
+    void removeById(Long id);
     void removeByTagSurname(String tagSurname);
 }

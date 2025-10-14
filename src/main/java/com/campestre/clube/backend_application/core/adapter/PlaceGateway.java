@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface PlaceGateway {
     boolean existsByNameIgnoreCase(String name);
-    boolean existsByNameIgnoreCaseAndIdNot(String name, Integer id);
-    boolean existsById(Integer id);
-    Place findById(Integer id);
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
+    boolean existsById(Long id);
+    Place findById(Long id);
     List<Place> findOrderedByRatingDesc();
     Place save(Place place);
-    void removeById(Integer id);
+    void removeById(Long id);
 }

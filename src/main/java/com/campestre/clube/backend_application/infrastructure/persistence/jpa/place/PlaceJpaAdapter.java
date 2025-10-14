@@ -20,12 +20,12 @@ public class PlaceJpaAdapter implements PlaceGateway {
     }
 
     @Override
-    public boolean existsByNameIgnoreCaseAndIdNot(String name, Integer id) {
+    public boolean existsByNameIgnoreCaseAndIdNot(String name, Long id) {
         return repository.existsByNameIgnoreCaseAndIdNot(name, id);
     }
 
     @Override
-    public Place findById(Integer id) {
+    public Place findById(Long id) {
         return repository.findById(id).map(PlaceEntityMapper::toDomain).get();
     }
 
@@ -42,12 +42,12 @@ public class PlaceJpaAdapter implements PlaceGateway {
     }
 
     @Override
-    public void removeById(Integer id) {
+    public void removeById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 }

@@ -8,15 +8,15 @@ import jakarta.persistence.Table;
 @Table(name = "unit")
 public class UnitEntity {
     @Id
-    private Integer id;
+    private Long id;
     private String surname;
     private Integer score = 0;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

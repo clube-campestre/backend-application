@@ -27,54 +27,54 @@ public class MedicalDataEntity {
     private String bloodType;
 
     @Column(name = "catapora", nullable = false)
-    private Boolean catapora;
+    private Boolean catapora = false;
     @Column(name = "meningite", nullable = false)
-    private Boolean meningite;
+    private Boolean meningite = false;
     @Column(name = "hepatite", nullable = false)
-    private Boolean hepatite;
+    private Boolean hepatite = false;
     @Column(name = "dengue", nullable = false)
-    private Boolean dengue;
+    private Boolean dengue = false;
     @Column(name = "pneumonia", nullable = false)
-    private Boolean pneumonia;
+    private Boolean pneumonia = false;
     @Column(name = "malaria", nullable = false)
-    private Boolean malaria;
+    private Boolean malaria = false;
     @Column(name = "febre_amarela", nullable = false)
-    private Boolean febreAmarela;
+    private Boolean febreAmarela = false;
     @Column(name = "sarampo", nullable = false)
-    private Boolean sarampo;
+    private Boolean sarampo = false;
     @Column(name = "tetano", nullable = false)
-    private Boolean tetano;
+    private Boolean tetano = false;
     @Column(name = "variola", nullable = false)
-    private Boolean variola;
+    private Boolean variola = false;
     @Column(name = "coqueluche", nullable = false)
-    private Boolean coqueluche;
+    private Boolean coqueluche = false;
     @Column(name = "difteria", nullable = false)
-    private Boolean difteria;
-    private Boolean rinite;
-    private Boolean bronquite;
-    private Boolean asma;
-    private Boolean rubeola;
-    private Boolean colera;
-    private Boolean covid19;
-    private Boolean h1n1;
-    private Boolean caxumba;
+    private Boolean difteria = false;
+    private Boolean rinite = false;
+    private Boolean bronquite = false;
+    private Boolean asma = false;
+    private Boolean rubeola = false;
+    private Boolean colera = false;
+    private Boolean covid19 = false;
+    private Boolean h1n1 = false;
+    private Boolean caxumba = false;
     private String others;
 
     private String heartProblems;
     private String drugAllergy;
-    private Boolean lactoseAllergy;
+    private Boolean lactoseAllergy = false;
     private String deficiency;
-    private Boolean bloodTransfusion;
-    private Boolean skinAllergy;
+    private Boolean bloodTransfusion = false;
+    private Boolean skinAllergy = false;
     private String skinAllergyMedications;
-    private Boolean faintingOrConvulsion;
+    private Boolean faintingOrConvulsion = false;
     private String faintingOrSeizuresMedications;
     private String psychologicalDisorder;
-    private Boolean allergy;
+    private Boolean allergy = false;
     private String allergyMedications;
-    private Boolean diabetic;
+    private Boolean diabetic = false;
     private String diabeticMedications;
-    private Boolean recentSeriousInjury;
+    private Boolean recentSeriousInjury = false;
     private String recentFracture;
     private String surgeries;
     private String hospitalizationReasonLast5Years;

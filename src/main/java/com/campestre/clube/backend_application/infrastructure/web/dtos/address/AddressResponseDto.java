@@ -1,7 +1,7 @@
 package com.campestre.clube.backend_application.infrastructure.web.dtos.address;
 
 public class AddressResponseDto {
-    private Integer id;
+    private Long id;
     private String houseNumber;
     private String district;
     private String city;
@@ -10,7 +10,7 @@ public class AddressResponseDto {
     private String cep;
     private String referenceHouse;
 
-    public AddressResponseDto(Integer id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
+    public AddressResponseDto(Long id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
         this.id = id;
         this.houseNumber = houseNumber;
         this.district = district;
@@ -24,11 +24,11 @@ public class AddressResponseDto {
     public AddressResponseDto() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

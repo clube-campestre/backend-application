@@ -1,3 +1,3 @@
 package com.campestre.clube.backend_application.core.application.statement.command;
 
-public record DeleteStatementByIdCommand(Integer id){}
+public record DeleteStatementByIdCommand(Long id){}

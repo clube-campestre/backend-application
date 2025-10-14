@@ -20,7 +20,7 @@ public class GenerateUnitsUseCase {
         Arrays.stream(UnitEnum.values()).forEach(unit -> saveUnitIfNotExist(unit.getId(), unit.name()));
     }
 
-    private void saveUnitIfNotExist(Integer id, String name) {
+    private void saveUnitIfNotExist(Long id, String name) {
         if (!unitGateway.existsBySurnameIgnoreCase(name)) unitGateway.save(Unit.of(id, name, 0));
     }
 }

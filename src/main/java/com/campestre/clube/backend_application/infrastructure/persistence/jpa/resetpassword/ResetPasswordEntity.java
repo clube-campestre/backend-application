@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "reset_password")
 public class ResetPasswordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class ResetPasswordEntity {
     private AccountEntity account;
 
     @Column(name = "code", nullable = false, length = 10)
-    private String code;
+    private String code = "";
 
     @Column(name = "expiration", nullable = false)
     private LocalDateTime expiration;

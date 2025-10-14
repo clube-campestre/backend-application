@@ -1,11 +1,11 @@
 package com.campestre.clube.backend_application.infrastructure.web.dtos.unit;
 
 public class UnitResponseDto {
-    private Integer id;
+    private Long id;
     private String surname;
     private Integer score;
 
-    public UnitResponseDto(Integer id, String surname, Integer score) {
+    public UnitResponseDto(Long id, String surname, Integer score) {
         this.id = id;
         this.surname = surname;
         this.score = score;
@@ -14,11 +14,11 @@ public class UnitResponseDto {
     public UnitResponseDto() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

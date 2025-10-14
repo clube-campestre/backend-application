@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public record Filter(
         LocalDateTime startDate,
         LocalDateTime endDate,
-        Integer tagId,
+        Long tagId,
         TransactionType type,
         String description
 ) {}

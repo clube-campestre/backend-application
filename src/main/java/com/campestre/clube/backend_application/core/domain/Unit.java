@@ -1,25 +1,25 @@
 package com.campestre.clube.backend_application.core.domain;
 
 public class Unit {
-    private Integer id;
+    private Long id;
     private String surname;
     private Integer score;
 
-    private Unit(Integer id, String surname, Integer score) {
+    private Unit(Long id, String surname, Integer score) {
         this.id = id;
         this.surname = surname;
         this.score = score;
     }
 
-    public static Unit of(Integer id, String surname, Integer score) {
+    public static Unit of(Long id, String surname, Integer score) {
         return new Unit(id, surname, score);
     }
 
-    public static Unit of(Integer id, String surname) {
+    public static Unit of(Long id, String surname) {
         return new Unit(id, surname, 0);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

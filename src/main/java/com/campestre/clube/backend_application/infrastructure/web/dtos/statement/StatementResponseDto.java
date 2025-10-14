@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record StatementResponseDto(
-    Integer id,
+    Long id,
     String information,
     BigDecimal price,
     LocalDateTime transactionDate,

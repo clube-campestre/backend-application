@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.infrastructure.web.dtos.transpor
 import java.math.BigDecimal;
 
 public record TransportResponseDto(
-    Integer id,
+    Long id,
     BigDecimal price,
     Float travelDistance,
     Integer capacity,

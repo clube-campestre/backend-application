@@ -30,7 +30,7 @@ public class PlaceDtoMapper {
         );
     }
 
-    public static UpdatePlaceCommand toCommand(UpdatePlaceRequestDto dto, Integer id) {
+    public static UpdatePlaceCommand toCommand(UpdatePlaceRequestDto dto, Long id) {
         return new UpdatePlaceCommand(
                 id,
                 dto.getName(),

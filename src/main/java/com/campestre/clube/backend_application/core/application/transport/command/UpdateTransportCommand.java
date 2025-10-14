@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.core.application.transport.comma
 import java.math.BigDecimal;
 
 public record UpdateTransportCommand(
-        Integer id,
+        Long id,
         BigDecimal price,
         Float travelDistance,
         Integer capacity,

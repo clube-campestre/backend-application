@@ -1,13 +1,13 @@
 package com.campestre.clube.backend_application.infrastructure.web.dtos.account;
 
 public class TokenAccountResponseDto {
-    private Integer userId;
+    private Long userId;
     private String email;
     private String token;
     private String name;
     private String access;
 
-    public TokenAccountResponseDto(Integer userId, String email, String token, String name, String access) {
+    public TokenAccountResponseDto(Long userId, String email, String token, String name, String access) {
         this.userId = userId;
         this.email = email;
         this.token = token;
@@ -18,11 +18,11 @@ public class TokenAccountResponseDto {
     public TokenAccountResponseDto() {
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

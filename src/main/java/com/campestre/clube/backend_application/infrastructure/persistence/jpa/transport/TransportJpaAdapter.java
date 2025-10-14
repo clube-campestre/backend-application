@@ -25,7 +25,7 @@ public class TransportJpaAdapter implements TransportGateway {
     }
 
     @Override
-    public boolean existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(Contact company, Contact driver, Integer id) {
+    public boolean existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(Contact company, Contact driver, Long id) {
         return repository.existsByCompanyNameContainsIgnoreCaseAndCompanyNumberAndDriverNameContainsIgnoreCaseAndDriverNumberAndIdNot(
                 company.getName(), company.getCellphoneNumber().getNumber(),
                 driver.getName(), driver.getCellphoneNumber().getNumber(),
@@ -34,7 +34,7 @@ public class TransportJpaAdapter implements TransportGateway {
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
@@ -44,7 +44,7 @@ public class TransportJpaAdapter implements TransportGateway {
     }
 
     @Override
-    public Transport findById(Integer id) {
+    public Transport findById(Long id) {
         return TransportEntityMapper.toDomain(repository.findById(id).get());
     }
 
@@ -54,7 +54,7 @@ public class TransportJpaAdapter implements TransportGateway {
     }
 
     @Override
-    public void removeById(Integer id) {
+    public void removeById(Long id) {
         repository.deleteById(id);
     }
 }

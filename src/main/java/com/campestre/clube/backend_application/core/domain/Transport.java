@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 
 public class Transport {
-    private Integer id;
+    private Long id;
     private BigDecimal price;
     private Float travelDistance;
     private Integer capacity;
@@ -14,7 +14,7 @@ public class Transport {
     private Contact driver;
     private Integer rating;
 
-    private Transport(Integer id, BigDecimal price, Float travelDistance, Integer capacity, Contact company,
+    private Transport(Long id, BigDecimal price, Float travelDistance, Integer capacity, Contact company,
                       Contact driver, Integer rating) {
         this.id = id;
         this.price = price;
@@ -38,7 +38,7 @@ public class Transport {
         );
     }
 
-    public static Transport of(Integer id, BigDecimal price, Float travelDistance, Integer capacity, String companyName,
+    public static Transport of(Long id, BigDecimal price, Float travelDistance, Integer capacity, String companyName,
                                String companyNumber, String driverName, String driverNumber, Integer rating) {
         return new Transport(
                 id,
@@ -51,7 +51,7 @@ public class Transport {
         );
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

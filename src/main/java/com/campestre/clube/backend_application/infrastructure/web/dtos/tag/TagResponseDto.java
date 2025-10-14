@@ -3,13 +3,13 @@ package com.campestre.clube.backend_application.infrastructure.web.dtos.tag;
 import java.math.BigDecimal;
 
 public class TagResponseDto {
-    private Integer id;
+    private Long id;
     private String surname;
     private String color;
     private BigDecimal goal;
     private Boolean privateGoal;
 
-    public TagResponseDto(Integer id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
+    public TagResponseDto(Long id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
         this.id = id;
         this.surname = surname;
         this.color = color;
@@ -20,11 +20,11 @@ public class TagResponseDto {
     public TagResponseDto() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

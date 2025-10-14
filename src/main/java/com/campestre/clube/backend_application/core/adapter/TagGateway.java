@@ -5,17 +5,17 @@ import com.campestre.clube.backend_application.core.domain.Tag;
 import java.util.List;
 
 public interface TagGateway {
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
     boolean existsBySurnameIgnoreCase(String surname);
     boolean existsByColor(String color);
-    boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Integer id);
-    boolean existsByColorAndIdNot(String color, Integer id);
+    boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Long id);
+    boolean existsByColorAndIdNot(String color, Long id);
 
     Tag findBySurnameIgnoreCase(String surname);
-    Tag findById(Integer id);
+    Tag findById(Long id);
     List<Tag> findAll();
 
-    void removeById(Integer id);
+    void removeById(Long id);
 
     Tag save(Tag tag);
 }

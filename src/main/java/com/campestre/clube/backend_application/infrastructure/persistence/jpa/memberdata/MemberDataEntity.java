@@ -20,7 +20,7 @@ public class MemberDataEntity {
     private String birthCertificate;
     @Enumerated(EnumType.STRING)
     private TshirtSize tshirtSize;
-    private Boolean isBaptized;
+    private Boolean isBaptized = false;
     private String contact;
     private String issuingAuthority;
 
@@ -31,7 +31,7 @@ public class MemberDataEntity {
     private String imageFormat;
 
     @ManyToOne
-    @JoinColumn(name = "fk_unit")
+    @JoinColumn(name = "fk_unit", nullable = false)
     private UnitEntity unit;
     private UnitRole unitRole;
     @Enumerated(EnumType.STRING)
@@ -50,11 +50,11 @@ public class MemberDataEntity {
     private String responsibleEmail;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "fk_address")
+    @JoinColumn(name = "fk_address", nullable = false)
     private AddressEntity address;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "fk_medical_data")
+    @JoinColumn(name = "fk_medical_data", nullable = false)
     private MedicalDataEntity medicalData;
 
     public String getCpf() {

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Statement {
-    private Integer id;
+    private Long id;
     private String information;
     private BigDecimal price;
     private LocalDateTime transactionDate;
@@ -14,7 +14,7 @@ public class Statement {
     private Tag tag;
 
     public Statement(
-            Integer id, String information, BigDecimal price, LocalDateTime transactionDate,
+            Long id, String information, BigDecimal price, LocalDateTime transactionDate,
             TransactionType transactionType, Tag tag
     ) {
         this.id = id;
@@ -26,7 +26,7 @@ public class Statement {
     }
 
     public static Statement of(
-            Integer id, String information, BigDecimal price, LocalDateTime transactionDate,
+            Long id, String information, BigDecimal price, LocalDateTime transactionDate,
             TransactionType transactionType, Tag tag
     ) {
         return new Statement(
@@ -53,7 +53,7 @@ public class Statement {
         );
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

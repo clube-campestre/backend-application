@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.core.domain.valueobject.Contact;
 import java.math.BigDecimal;
 
 public class Place {
-    private Integer id;
+    private Long id;
     private Address address;
     private String name;
     private BigDecimal price;
@@ -14,7 +14,7 @@ public class Place {
     private Integer rating;
 
     private Place(
-            Integer id, Address address, String name, BigDecimal price, Integer capacity, Contact contact,
+            Long id, Address address, String name, BigDecimal price, Integer capacity, Contact contact,
             Integer rating
     ) {
         this.id = id;
@@ -27,7 +27,7 @@ public class Place {
     }
 
     public static Place of(
-            Integer id, Address address, String name, BigDecimal price, Integer capacity, String contactName,
+            Long id, Address address, String name, BigDecimal price, Integer capacity, String contactName,
             String contactNumber, Integer rating
     ) {
         return new Place(
@@ -56,7 +56,7 @@ public class Place {
         );
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

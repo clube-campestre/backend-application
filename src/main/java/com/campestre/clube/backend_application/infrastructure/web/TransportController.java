@@ -65,7 +65,7 @@ public class TransportController {
 
     @Operation(summary = "Endpoint for get transport by id")
     @GetMapping("/{id}")
-    public ResponseEntity<TransportResponseDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<TransportResponseDto> getById(@PathVariable Long id) {
         Transport transport = getTransportByIdUseCase.execute(new GetTransportByIdCommand(id));
         TransportResponseDto responseDto = TransportDtoMapper.toResponse(transport);
 
@@ -75,7 +75,7 @@ public class TransportController {
     @Operation(summary = "Endpoint for update transport by id")
     @PutMapping("/{id}")
     public ResponseEntity<TransportResponseDto> update(
-            @PathVariable Integer id, @Valid @RequestBody TransportRequestDto requestDto
+            @PathVariable Long id, @Valid @RequestBody TransportRequestDto requestDto
     ) {
         UpdateTransportCommand command = TransportDtoMapper.toCommand(requestDto, id);
         Transport transport = updateTransportUseCase.execute(command);
@@ -86,7 +86,7 @@ public class TransportController {
 
     @Operation(summary = "Endpoint for remove transport by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteTransportUseCase.execute(new DeleteTransportCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface TransportGateway {
     boolean existsByCompanyIgnoreCaseAndDriverIgnoreCase(Contact company, Contact driver);
-    boolean existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(Contact company, Contact driver, Integer id);
-    boolean existsById(Integer id);
+    boolean existsByCompanyIgnoreCaseAndDriverIgnoreCaseAndIdNot(Contact company, Contact driver, Long id);
+    boolean existsById(Long id);
     List<Transport> findOrderedByRatingDesc();
-    Transport findById(Integer id);
+    Transport findById(Long id);
     Transport save(Transport transport);
-    void removeById(Integer id);
+    void removeById(Long id);
 }

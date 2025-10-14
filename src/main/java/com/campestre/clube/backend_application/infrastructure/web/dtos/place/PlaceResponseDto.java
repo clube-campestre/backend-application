@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.infrastructure.web.dtos.address.A
 import java.math.BigDecimal;
 
 public class PlaceResponseDto {
-    private Integer id;
+    private Long id;
     private String name;
     private BigDecimal price;
     private Integer capacity;
@@ -14,7 +14,7 @@ public class PlaceResponseDto {
     private Integer rating;
     private AddressResponseDto address;
 
-    public PlaceResponseDto(Integer id, String name, BigDecimal price, Integer capacity, String contactName, String contactCellphoneNumber, Integer rating, AddressResponseDto address) {
+    public PlaceResponseDto(Long id, String name, BigDecimal price, Integer capacity, String contactName, String contactCellphoneNumber, Integer rating, AddressResponseDto address) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -25,11 +25,11 @@ public class PlaceResponseDto {
         this.address = address;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

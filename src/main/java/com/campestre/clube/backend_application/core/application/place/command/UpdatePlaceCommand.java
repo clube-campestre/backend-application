@@ -3,14 +3,14 @@ package com.campestre.clube.backend_application.core.application.place.command;
 import java.math.BigDecimal;
 
 public record UpdatePlaceCommand(
-        Integer id,
+        Long id,
         String name,
         BigDecimal price,
         Integer capacity,
         String contactName,
         String contactCellphoneNumber,
         Integer rating,
-        Integer addressId,
+        Long addressId,
         String addressStreet,
         String addressHouseNumber,
         String addressDistrict,

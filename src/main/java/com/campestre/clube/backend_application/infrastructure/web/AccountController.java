@@ -68,7 +68,7 @@ public class AccountController {
 
     @Operation(summary = "Endpoint for get account by id")
     @GetMapping("/{id}")
-    public ResponseEntity<GetAccountResponseDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<GetAccountResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(AccountDtoMapper.toResponse(
                 getAccountByIdUseCase.execute(new GetAccountByIdCommand(id))
         ));
@@ -77,7 +77,7 @@ public class AccountController {
     @Operation(summary = "Endpoint for update account by id")
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(
-            @PathVariable Integer id, @Valid @RequestBody UpdateAccountRequestDto dto
+            @PathVariable Long id, @Valid @RequestBody UpdateAccountRequestDto dto
     ) {
         updateAccountUseCase.execute(AccountDtoMapper.toCommand(dto, id));
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -85,7 +85,7 @@ public class AccountController {
 
     @Operation(summary = "Endpoint for remove account by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteAccountUseCase.execute(new DeleteAccountCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

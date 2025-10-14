@@ -28,7 +28,7 @@ public class StatementDtoMapper {
         );
     }
 
-    public static UpdateStatementCommand toCommand(StatementRequestDto dto, Integer id) {
+    public static UpdateStatementCommand toCommand(StatementRequestDto dto, Long id) {
         return new UpdateStatementCommand(
                 id,
                 dto.getInformation(),

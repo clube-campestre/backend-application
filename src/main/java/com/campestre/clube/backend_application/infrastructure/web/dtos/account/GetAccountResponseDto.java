@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class GetAccountResponseDto {
     @Schema(description = "Account ID", example = "1")
-    private Integer id;
+    private Long id;
     @Schema(description = "Account e-mail", example = "test@email.com")
     private String email;
     @Schema(description = "Account name", example = "Test")
@@ -14,18 +14,18 @@ public class GetAccountResponseDto {
 
     public GetAccountResponseDto() {}
 
-    public GetAccountResponseDto(Integer id, String email, String name, String access) {
+    public GetAccountResponseDto(Long id, String email, String name, String access) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.access = access;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

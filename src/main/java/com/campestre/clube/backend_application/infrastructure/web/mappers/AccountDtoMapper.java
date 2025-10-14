@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class AccountDtoMapper {
 
-    public static UpdateAccountCommand toCommand(UpdateAccountRequestDto dto, Integer id) {
+    public static UpdateAccountCommand toCommand(UpdateAccountRequestDto dto, Long id) {
         if (dto == null) return null;
         return new UpdateAccountCommand(
                 id,

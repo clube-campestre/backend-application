@@ -24,7 +24,7 @@ public class TransportDtoMapper {
         );
     }
 
-    public static UpdateTransportCommand toCommand(TransportRequestDto dto, Integer id) {
+    public static UpdateTransportCommand toCommand(TransportRequestDto dto, Long id) {
         return new UpdateTransportCommand(
                 id,
                 dto.getPrice(),

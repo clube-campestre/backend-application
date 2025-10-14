@@ -66,7 +66,7 @@ public class PlaceController {
 
     @Operation(summary = "Endpoint for get place by id")
     @GetMapping("/{id}")
-    public ResponseEntity<PlaceResponseDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<PlaceResponseDto> getById(@PathVariable Long id) {
         Place place = getPlaceByIdUseCase.execute(new GetPlaceByIdCommand(id));
         PlaceResponseDto responseDto = PlaceDtoMapper.toResponse(place);
 
@@ -76,7 +76,7 @@ public class PlaceController {
     @Operation(summary = "Endpoint for update place by id")
     @PutMapping("/{id}")
     public ResponseEntity<PlaceResponseDto> update(
-            @PathVariable Integer id, @Valid @RequestBody UpdatePlaceRequestDto requestDto
+            @PathVariable Long id, @Valid @RequestBody UpdatePlaceRequestDto requestDto
     ) {
         UpdatePlaceCommand command = PlaceDtoMapper.toCommand(requestDto, id);
         Place place = updatePlaceUseCase.execute(command);
@@ -87,7 +87,7 @@ public class PlaceController {
 
     @Operation(summary = "Endpoint for remove place by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deletePlaceUseCase.execute(new DeletePlaceCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

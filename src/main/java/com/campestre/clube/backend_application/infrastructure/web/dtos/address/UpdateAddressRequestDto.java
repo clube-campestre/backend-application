@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class UpdateAddressRequestDto {
     @NotBlank
-    private Integer id;
+    private Long id;
     @NotBlank
     private String houseNumber;
     @NotBlank
@@ -22,11 +22,11 @@ public class UpdateAddressRequestDto {
     private String cep;
     private String referenceHouse;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,6 +1,5 @@
 package com.campestre.clube.backend_application.infrastructure.persistence.jpa.statement;
 
-import com.campestre.clube.backend_application.core.domain.Tag;
 import com.campestre.clube.backend_application.core.domain.enums.TransactionType;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagEntity;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface StatementJpaRepository extends JpaRepository<StatementEntity, Integer> {
+public interface StatementJpaRepository extends JpaRepository<StatementEntity, Long> {
     boolean existsByTagSurname(@Param("tagSurname") String tagSurname);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
             String information, BigDecimal price, LocalDateTime transactionDate, TagEntity tag);
@@ -30,7 +29,7 @@ public interface StatementJpaRepository extends JpaRepository<StatementEntity, I
     Page<StatementEntity> findByFilterAndPagination(
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate,
-            @Param("tagId") Integer tagId,
+            @Param("tagId") Long tagId,
             @Param("type") TransactionType type,
             @Param("info") String info,
             Pageable pageable
@@ -40,7 +39,7 @@ public interface StatementJpaRepository extends JpaRepository<StatementEntity, I
     BigDecimal findAllPrices();
 
     @Query("SELECT SUM(CASE WHEN s.transactionType = 'SAIDA' THEN -s.price ELSE s.price END) FROM StatementEntity s WHERE s.tag.id = :tagId")
-    BigDecimal findAllPricesByTagId(@Param("tagId") Integer tagId);
+    BigDecimal findAllPricesByTagId(@Param("tagId") Long tagId);
 
     List<StatementEntity> findAllByTag(TagEntity tag);
 

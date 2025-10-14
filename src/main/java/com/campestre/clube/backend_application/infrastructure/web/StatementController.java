@@ -70,7 +70,7 @@ public class StatementController {
     public ResponseEntity<GetByFilterAndPaginationStatementResponseDto> getByFilterAndPagination(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-            @RequestParam(required = false) Integer tagId,
+            @RequestParam(required = false) Long tagId,
             @RequestParam(required = false) TransactionType type,
             @RequestParam(required = false) String description,
 
@@ -87,7 +87,7 @@ public class StatementController {
 
     @Operation(summary = "Endpoint for get statement by id")
     @GetMapping("/{id}")
-    public ResponseEntity<StatementResponseDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<StatementResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(
                 getStatementByIdUseCase.execute(new GetStatementByIdCommand(id))
         ));
@@ -95,7 +95,7 @@ public class StatementController {
 
     @Operation(summary = "Endpoint for get goal by tag id")
     @GetMapping("/goal")
-    public ResponseEntity<GoalResponseDto> getGoalByTagId(@RequestParam Integer tagId) {
+    public ResponseEntity<GoalResponseDto> getGoalByTagId(@RequestParam Long tagId) {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(
                 getGoalByTagIdUseCase.execute(new GetGoalByTagIdCommand(tagId))
         ));
@@ -111,7 +111,7 @@ public class StatementController {
 
     @Operation(summary = "Endpoint for remove statement by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteStatementByIdUseCase.execute(new DeleteStatementByIdCommand(id));
         return ResponseEntity.ok().build();
     }

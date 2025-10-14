@@ -7,11 +7,11 @@ import jakarta.persistence.*;
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name = "street", nullable = false)
     private String street;
     @Column(name = "house_number", nullable = false)
-    private String houseNumber; //TODO
+    private String houseNumber;
     @Column(name = "district", nullable = false)
     private String district;
     @Column(name = "state", nullable = false)
@@ -21,13 +21,13 @@ public class AddressEntity {
     @Column(name = "cep", nullable = false)
     private String cep;
     @Column(name = "reference_house", nullable = true)
-    private String referenceHouse; //TODO
+    private String referenceHouse;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -8,11 +8,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "statement")
+@Table(name = "statements")
 public class StatementEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String information;
     private BigDecimal price;
@@ -28,11 +28,11 @@ public class StatementEntity {
     @JoinColumn(name = "fk_tags", nullable = false)
     private TagEntity tag;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

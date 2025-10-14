@@ -3,13 +3,13 @@ package com.campestre.clube.backend_application.core.domain;
 import java.math.BigDecimal;
 
 public class Tag {
-    private Integer id;
+    private Long id;
     private String surname;
     private String color;
     private BigDecimal goal;
     private Boolean privateGoal;
 
-    public Tag(Integer id, String surname , String color , BigDecimal goal , Boolean privateGoal) {
+    public Tag(Long id, String surname , String color , BigDecimal goal , Boolean privateGoal) {
         this.id = id;
         this.surname = surname;
         this.color = color;
@@ -17,7 +17,7 @@ public class Tag {
         this.privateGoal = privateGoal;
     }
 
-    public static Tag of(Integer id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
+    public static Tag of(Long id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
         return new Tag(
                 id,
                 surname,
@@ -37,7 +37,7 @@ public class Tag {
         );
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

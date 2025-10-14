@@ -3,22 +3,22 @@ package com.campestre.clube.backend_application.core.domain.enums;
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.ERROR_UNIT_ENUM;
 
 public enum UnitEnum {
-    NENHUMA("Nenhuma", 11),
-    PANDA("Panda", 1),
-    FALCAO("Falcão", 2),
-    LINCE("Lince", 3),
-    LEAO("Leão", 4),
-    AGUIA_REAL("Águia Real", 5),
-    TIGRE("Tigre", 6),
-    RAPOSA("Raposa", 7),
-    URSO("Urso", 8),
-    PANTERA("Pantera", 9),
-    LOBO("Lobo", 10);
+    NENHUMA("Nenhuma", 1L),
+    PANDA("Panda", 2L),
+    FALCAO("Falcão", 3L),
+    LINCE("Lince", 4L),
+    LEAO("Leão", 5L),
+    AGUIA_REAL("Águia Real", 6L),
+    TIGRE("Tigre", 7L),
+    RAPOSA("Raposa", 8L),
+    URSO("Urso", 9L),
+    PANTERA("Pantera", 10L),
+    LOBO("Lobo", 11L);
 
     private final String formattedValue;
-    private final Integer id;
+    private final Long id;
 
-    UnitEnum(String formattedValue, Integer id) {
+    UnitEnum(String formattedValue, Long id) {
         this.formattedValue = formattedValue;
         this.id = id;
     }
@@ -27,7 +27,7 @@ public enum UnitEnum {
         return formattedValue;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

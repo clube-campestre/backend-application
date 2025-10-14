@@ -20,7 +20,7 @@ public class TagDtoMapper {
         );
     }
 
-    public static UpdateTagCommand toCommand(TagRequestDto dto, Integer id) {
+    public static UpdateTagCommand toCommand(TagRequestDto dto, Long id) {
         return new UpdateTagCommand(
                 id,
                 dto.getSurname(),

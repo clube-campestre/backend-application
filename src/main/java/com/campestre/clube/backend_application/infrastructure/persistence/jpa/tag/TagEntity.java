@@ -9,17 +9,17 @@ import java.math.BigDecimal;
 public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String surname;
     private String color;
     private BigDecimal goal;
-    private Boolean privateGoal;
+    private Boolean privateGoal = true;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

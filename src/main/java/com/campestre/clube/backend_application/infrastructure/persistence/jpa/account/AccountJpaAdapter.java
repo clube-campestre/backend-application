@@ -22,12 +22,12 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
-    public boolean existsByEmailAndIdNot(String email, Integer id) {
+    public boolean existsByEmailAndIdNot(String email, Long id) {
         return repository.existsByEmailAndIdNot(email, id);
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
@@ -37,7 +37,7 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
-    public Account findById(Integer id) {
+    public Account findById(Long id) {
         return AccountEntityMapper.toDomain(repository.findById(id).get());
     }
 
@@ -52,7 +52,7 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
-    public void removeById(Integer id) {
+    public void removeById(Long id) {
         repository.deleteById(id);
     }
 }

@@ -10,12 +10,12 @@ import org.springframework.amqp.core.Queue;
 
 @Configuration
 public class RabbitMQConfig {
-    @Value("${rabbitmq.queuename}")
-    private String queueName;
+    @Value("${rabbitmq.queuename.resetpassword}")
+    private String resetPasswordQueueName;
 
     @Bean
-    public Queue myQueue() {
-        return new Queue(queueName, true);
+    public Queue resetPasswordQueueName() {
+        return new Queue(resetPasswordQueueName, true);
     }
 
     @Bean

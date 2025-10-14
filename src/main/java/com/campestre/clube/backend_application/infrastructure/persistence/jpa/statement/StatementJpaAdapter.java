@@ -33,7 +33,7 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
@@ -47,12 +47,12 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    public Statement findById(Integer id) {
+    public Statement findById(Long id) {
         return StatementEntityMapper.toDomain(repository.findById(id).get());
     }
 
     @Override
-    public List<Statement> findByTagId(Integer tagId) {
+    public List<Statement> findByTagId(Long tagId) {
         return StatementEntityMapper.toDomain(repository.findAllByTag(
                 TagEntityMapper.toEntity(tagAdapter.findById(tagId))
         ));
@@ -70,7 +70,7 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    public Goal findGoalByTagId(Integer tagId) {
+    public Goal findGoalByTagId(Long tagId) {
         return Goal.of(
                 repository.findAllPricesByTagId(tagId),
                 tagAdapter.findById(tagId)
@@ -88,7 +88,7 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    public void removeById(Integer id) {
+    public void removeById(Long id) {
         repository.deleteById(id);
     }
 }

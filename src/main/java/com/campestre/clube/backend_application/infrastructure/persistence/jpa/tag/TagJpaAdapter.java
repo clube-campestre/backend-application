@@ -16,7 +16,7 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
@@ -31,12 +31,12 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
-    public boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Integer id) {
+    public boolean existsBySurnameIgnoreCaseAndIdNot(String surname, Long id) {
         return repository.existsBySurnameIgnoreCaseAndIdNot(surname, id);
     }
 
     @Override
-    public boolean existsByColorAndIdNot(String color, Integer id) {
+    public boolean existsByColorAndIdNot(String color, Long id) {
         return repository.existsByColorAndIdNot(color, id);
     }
 
@@ -46,7 +46,7 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
-    public Tag findById(Integer id) {
+    public Tag findById(Long id) {
         return TagEntityMapper.toDomain(repository.findById(id).get());
     }
 
@@ -56,7 +56,7 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
-    public void removeById(Integer id) {
+    public void removeById(Long id) {
         repository.deleteById(id);
     }
 

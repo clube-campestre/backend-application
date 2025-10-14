@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class TransportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private BigDecimal price;
     private Float travelDistance;
     private Integer capacity;
@@ -19,11 +19,11 @@ public class TransportEntity {
     private String driverNumber;
     private Integer rating;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
