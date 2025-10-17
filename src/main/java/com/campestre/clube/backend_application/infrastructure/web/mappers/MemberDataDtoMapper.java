@@ -9,6 +9,7 @@ import com.campestre.clube.backend_application.core.domain.MemberDataForUnit;
 import com.campestre.clube.backend_application.core.domain.enums.*;
 import com.campestre.clube.backend_application.core.domain.valueobject.Image;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntityMapper;
+import com.campestre.clube.backend_application.infrastructure.utils.MultipartConverter;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.memberdata.*;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,8 +19,9 @@ import java.util.stream.Collectors;
 
 public class MemberDataDtoMapper {
 
-    public static SaveMemberDataCommand toCommand(MemberDataRequestDto dto, MultipartFile file) {
-        Image image = ImageMapper.toImage(file);
+    public static SaveMemberDataCommand toCommand(String jsonDto, MultipartFile file) {
+        Image image = MultipartConverter.toImage(file);
+        MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
         return new SaveMemberDataCommand(
                 dto.getCpf(),
                 image.getValue(),
@@ -103,8 +105,9 @@ public class MemberDataDtoMapper {
         );
     }
 
-    public static UpdateMemberDataCommand toCommand(MemberDataRequestDto dto, String cpf, MultipartFile file) {
-        Image image = ImageMapper.toImage(file);
+    public static UpdateMemberDataCommand toCommand(String jsonDto, String cpf, MultipartFile file) {
+        Image image = MultipartConverter.toImage(file);
+        MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
         return new UpdateMemberDataCommand(
                 cpf,
                 image.getValue(),
@@ -258,5 +261,4 @@ public class MemberDataDtoMapper {
     public static List<MemberDataResponseDto> toResponse(List<MemberData> domains) {
         return domains.stream().map(MemberDataDtoMapper::toResponse).collect(Collectors.toList());
     }
-
 }

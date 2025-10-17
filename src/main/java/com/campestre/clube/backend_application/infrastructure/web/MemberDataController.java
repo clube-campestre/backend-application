@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,13 +55,13 @@ public class MemberDataController {
         this.listMemberDataUseCase = listMemberDataUseCase;
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint for create member")
     public ResponseEntity<MemberDataResponseDto> register(
-            @RequestBody @Valid MemberDataRequestDto dto, @RequestParam MultipartFile image
+            @RequestPart("data") @Valid String jsonDto, @RequestPart("file") MultipartFile file
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(MemberDataDtoMapper.toResponse(
-                saveMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto, image))
+                saveMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(jsonDto, file))
         ));
     }
 
@@ -107,10 +108,12 @@ public class MemberDataController {
     @PutMapping("/{cpf}")
     @Operation(summary = "Endpoint for update member data by cpf")
     public ResponseEntity<MemberDataResponseDto> update(
-            @Valid @RequestBody MemberDataRequestDto dto, @PathVariable String cpf, @RequestParam MultipartFile image
+            @PathVariable String cpf,
+            @RequestPart("data") @Valid String jsonDto,
+            @RequestPart("file") MultipartFile image
     ){
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
-                updateMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(dto, cpf, image))
+                updateMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(jsonDto, cpf, image))
         ));
     }
 

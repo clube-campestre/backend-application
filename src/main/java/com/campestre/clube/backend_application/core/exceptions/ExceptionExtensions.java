@@ -96,4 +96,6 @@ public class ExceptionExtensions {
             new InternalServerException("Erro ao tentar encontrar o formato da imagem.");
     public static final RuntimeException INTERNAL_ERROR_CONVERT_IMAGE =
             new InternalServerException("Erro ao tentar converter a imagem.");
+    public static final RuntimeException INTERNAL_ERROR_CONVERT_JSON =
+            new InternalServerException("Erro ao tentar converter o JSON.");
 }
