@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,8 +44,9 @@ public class TransportController {
         this.listTransportOrderedByRatingUseCase = listTransportOrderedByRatingUseCase;
     }
 
-    @Operation(summary = "Endpoint for create transport")
     @PostMapping
+    @Operation(summary = "Endpoint for create transport")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TransportResponseDto> register(@Valid @RequestBody TransportRequestDto requestDto) {
         SaveTransportCommand command = TransportDtoMapper.toCommand(requestDto);
         Transport transport = saveTransportUseCase.execute(command);
@@ -53,8 +55,9 @@ public class TransportController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    @Operation(summary = "Endpoint to get transports ranked by rating")
     @GetMapping
+    @Operation(summary = "Endpoint to get transports ranked by rating")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<List<TransportResponseDto>> getAllOrderedByRating() {
         List<Transport> transports = listTransportOrderedByRatingUseCase.execute();
         if (transports.isEmpty()) return ResponseEntity.noContent().build();
@@ -63,8 +66,9 @@ public class TransportController {
         return ResponseEntity.ok(responseDtos);
     }
 
-    @Operation(summary = "Endpoint for get transport by id")
     @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get transport by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TransportResponseDto> getById(@PathVariable Long id) {
         Transport transport = getTransportByIdUseCase.execute(new GetTransportByIdCommand(id));
         TransportResponseDto responseDto = TransportDtoMapper.toResponse(transport);
@@ -72,8 +76,9 @@ public class TransportController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
-    @Operation(summary = "Endpoint for update transport by id")
     @PutMapping("/{id}")
+    @Operation(summary = "Endpoint for update transport by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TransportResponseDto> update(
             @PathVariable Long id, @Valid @RequestBody TransportRequestDto requestDto
     ) {
@@ -84,8 +89,9 @@ public class TransportController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
-    @Operation(summary = "Endpoint for remove transport by id")
     @DeleteMapping("/{id}")
+    @Operation(summary = "Endpoint for remove transport by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteTransportUseCase.execute(new DeleteTransportCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

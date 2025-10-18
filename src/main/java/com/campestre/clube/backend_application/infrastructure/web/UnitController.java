@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class UnitController {
 
     @PutMapping("/score")
     @Operation(summary = "Endpoint for update unit score by unit id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String surname, @RequestParam Integer newScore) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 UnitDtoMapper.toResponse(updateUnitScoreUseCase.execute(new UpdateUnitScoreCommand(surname, newScore)))
@@ -46,6 +48,7 @@ public class UnitController {
 
     @PostMapping("/score")
     @Operation(summary = "Endpoint for increase or descrease unit score by unit id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<UnitResponseDto> increaseOrDecreaseTheScoreById(
             @RequestParam String surname, @RequestParam Integer score, @RequestParam Boolean isSum
     ) {
@@ -56,12 +59,14 @@ public class UnitController {
 
     @PostMapping("/reseted")
     @Operation(summary = "Endpoint for reset all unit score")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Boolean> resetAllScores() {
         return ResponseEntity.status(HttpStatus.OK).body(resetUnitScoresUseCase.execute());
     }
 
     @GetMapping("/ranking")
     @Operation(summary = "Endpoint for get units by ranking")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<List<UnitResponseDto>> getRanked() {
         return ResponseEntity.status(HttpStatus.OK).body(UnitDtoMapper.toResponse(getUnitRankingUseCase.execute()));
     }

@@ -38,4 +38,14 @@ public class WebControllerHandler {
     public ResponseEntity<RestErrorMessage> invalidRequestHandler(InvalidRequestException exception){
         return buildResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<RestErrorMessage> unauthorizedHandler(UnauthorizedException exception){
+        return buildResponse(HttpStatus.UNAUTHORIZED, exception.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<RestErrorMessage> forbiddenHandler(ForbiddenException exception){
+        return buildResponse(HttpStatus.FORBIDDEN, exception.getMessage());
+    }
 }

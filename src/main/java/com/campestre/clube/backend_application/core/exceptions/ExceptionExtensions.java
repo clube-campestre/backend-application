@@ -1,11 +1,15 @@
 package com.campestre.clube.backend_application.core.exceptions;
 
 public class ExceptionExtensions {
+    private ExceptionExtensions() {}
+
+//    TRANSPORT
     public static final RuntimeException CONFLICT_TRANSPORT_SAME_COMPANY_AND_DRIVER =
             new ConflictException("Não é permitido cadastrar a mesma empresa e motorista para o transporte.");
     public static final RuntimeException NOT_FOUND_TRANSPORT =
             new NotFoundException("Não foi possível encontrar o transporte.");
 
+//    ACCOUNT
     public static final RuntimeException CONFLICT_ACCOUNT_SAME_EMAIL =
             new ConflictException("Este email já está sendo utilizado.");
     public static final RuntimeException NOT_FOUND_ACCOUNT =
@@ -13,11 +17,13 @@ public class ExceptionExtensions {
     public static final RuntimeException BAD_REQUEST_ACCOUNT =
             new BadRequestException("Credenciais inválidas. Verifique seu e-mail e senha.");
 
+//    LOCAL
     public static final RuntimeException CONFLICT_LOCAL_SAME_NAME =
             new ConflictException("Não é permitido cadastrar um local com nome duplicado.");
     public static final RuntimeException NOT_FOUND_LOCAL =
             new NotFoundException("Não foi possível encontrar o local.");
 
+//    MEMBER DATA
     public static final RuntimeException CONFLICT_MEMBER_DATA_SAME_CPF =
             new ConflictException("Não é permitido cadastrar um membro com CPF já existente.");
     public static final RuntimeException CONFLICT_MEMBER_DATA_SAME_CNS =
@@ -29,6 +35,7 @@ public class ExceptionExtensions {
     public static final RuntimeException BAD_REQUEST_MEDICAL_PROBLEM =
             new BadRequestException("O membro não pode ter medicação de um problema que ele não tem");
 
+//    UNIT
     public static final RuntimeException NOT_FOUND_UNIT =
             new NotFoundException("Não foi possível encontrar a unidade.");
     public static final RuntimeException BAD_REQUEST_UNIT_MUST_HAVE_COUNSELOR =
@@ -38,16 +45,19 @@ public class ExceptionExtensions {
     public static final RuntimeException BAD_REQUEST_UNIT_SCORE_MUST_NOT_BE_NULL =
             new BadRequestException("Não é permitido salvar um valor nulo na pontuação.");
 
+//    CLASS
     public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_INSTRUCTOR =
             new BadRequestException("A classe deve ter pelo menos um instrutor.");
     public static final RuntimeException BAD_REQUEST_CLASS_MUST_HAVE_ONLY_INSTRUCTOR =
             new BadRequestException("A classe não pode ter mais de um instrutor.");
 
+//    STATEMENT
     public static final RuntimeException NOT_FOUND_STATEMENT =
             new NotFoundException("Não foi possível encontrar a transferência.");
     public static final RuntimeException CONFLICT_STATEMENT_SAME_INFORMATION_AND_PRICE_AND_TRANSACTION_DATE_AND_TAG =
             new ConflictException("Não é permitido cadastrar uma transferência com descrição, valor, data e tag já existente.");
 
+//    TAG
     public static final RuntimeException NOT_FOUND_TAG =
             new NotFoundException("Não foi possível encontrar a tag da transferência.");
     public static final RuntimeException CONFLICT_TAG_SAME_SURNAME =
@@ -59,11 +69,13 @@ public class ExceptionExtensions {
     public static final RuntimeException NOT_FOUND_GOAL_BY_TAG =
             new NotFoundException("Não foi possível encontrar a tag da meta.");
 
+//    RESET PASSWORD
     public static final RuntimeException INVALID_CODE_RESET_PASSWORD =
             new InvalidRequestException("Código de recuperação de senha inválido.");
     public static final RuntimeException INVALID_CODE_EXPIRED_RESET_PASSWORD =
             new InvalidRequestException("Código de recuperação de senha expirado.");
 
+//    INVALID DATA
     public static final RuntimeException INVALID_CNS =
             new InvalidRequestException("O número do CNS é inválido.");
     public static final RuntimeException INVALID_CEP =
@@ -75,6 +87,7 @@ public class ExceptionExtensions {
     public static final RuntimeException INVALID_IMAGE_FORMAT =
             new InvalidRequestException("O formato da imagem do membro é inválido.");
 
+//    ENUMS
     public static final RuntimeException ERROR_ACCESS_TYPE_ENUM =
             new BadRequestException("Não foi possível encontrar o acesso da conta.");
     public static final RuntimeException ERROR_CLASS_CATEGORY_ENUM =
@@ -92,10 +105,23 @@ public class ExceptionExtensions {
     public static final RuntimeException ERROR_UNIT_ROLE_ENUM =
             new BadRequestException("Não foi possível encontrar o papel da unidade.");
 
+//    INTERNAL ERROR
     public static final RuntimeException INTERNAL_ERROR_IMAGE_FORMAT =
             new InternalServerException("Erro ao tentar encontrar o formato da imagem.");
     public static final RuntimeException INTERNAL_ERROR_CONVERT_IMAGE =
             new InternalServerException("Erro ao tentar converter a imagem.");
     public static final RuntimeException INTERNAL_ERROR_CONVERT_JSON =
             new InternalServerException("Erro ao tentar converter o JSON.");
+
+//    INVALID ACCESS
+    public static final RuntimeException INVALID_TOKEN =
+            new InvalidRequestException("Token ausente ou mal formatado.");
+    public static final RuntimeException UNAUTHORIZED_EXPIRED_TOKEN =
+            new UnauthorizedException("Token expirado. Faça login novamente.");
+    public static final RuntimeException UNAUTHORIZED_INVALID_TOKEN =
+            new UnauthorizedException("Token inválido.");
+    public static final RuntimeException INTERNAL_ERROR_AUTHENTICATE_PROCESS =
+            new InternalServerException("Erro ao processar autenticação do usuário.");
+    public static final RuntimeException FORBIDDEN_ACCESS_DENIED =
+            new ForbiddenException("Você não tem permissão para acessar este recurso.");
 }

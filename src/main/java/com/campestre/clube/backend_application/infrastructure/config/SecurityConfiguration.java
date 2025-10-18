@@ -3,11 +3,14 @@ package com.campestre.clube.backend_application.infrastructure.config;
 import com.campestre.clube.backend_application.infrastructure.security.AccountAuthenticationService;
 import com.campestre.clube.backend_application.infrastructure.security.JwtTokenManager;
 import com.campestre.clube.backend_application.infrastructure.security.filter.JwtAuthenticationFilter;
+import com.campestre.clube.backend_application.infrastructure.web.WebControllerHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,14 +21,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 @Configuration
 @EnableWebSecurity
@@ -82,12 +89,29 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(entryPointAuthentication))
+                .exceptionHandling(
+                        handling -> handling
+                                .accessDeniedHandler(customAccessDeniedHandler())
+                                .authenticationEntryPoint(entryPointAuthentication)
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public AccessDeniedHandler customAccessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setContentType("application/json");
+            try {
+                new ObjectMapper().writeValue(response.getOutputStream(), FORBIDDEN_ACCESS_DENIED);
+            } catch (IOException e) {
+                throw INTERNAL_ERROR_AUTHENTICATE_PROCESS;
+            }
+        };
     }
 
     @Bean

@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -57,16 +58,18 @@ public class StatementController {
         this.listStatementByFilterAndPaginationUseCase = listStatementByFilterAndPaginationUseCase;
     }
 
-    @Operation(summary = "Endpoint for create statement")
     @PostMapping
+    @Operation(summary = "Endpoint for create statement")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<StatementResponseDto> register(@RequestBody @Valid StatementRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(StatementDtoMapper.toResponse(
                 saveStatementUseCase.execute(StatementDtoMapper.toCommand(dto))
         ));
     }
 
-    @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
+    @Operation(summary = "Endpoint for get statement by filter and pagination")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<GetByFilterAndPaginationStatementResponseDto> getByFilterAndPagination(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
@@ -85,39 +88,44 @@ public class StatementController {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(statementInformations));
     }
 
-    @Operation(summary = "Endpoint for get statement by id")
     @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get statement by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<StatementResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(
                 getStatementByIdUseCase.execute(new GetStatementByIdCommand(id))
         ));
     }
 
-    @Operation(summary = "Endpoint for get goal by tag id")
     @GetMapping("/goal")
+    @Operation(summary = "Endpoint for get goal by tag id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<GoalResponseDto> getGoalByTagId(@RequestParam Long tagId) {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(
                 getGoalByTagIdUseCase.execute(new GetGoalByTagIdCommand(tagId))
         ));
     }
 
-    @Operation(summary = "Endpoint for update statement by id")
     @PutMapping("/{id}")
+    @Operation(summary = "Endpoint for update statement by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<StatementResponseDto> update(@RequestBody @Valid UpdateStatementCommand dto) {
         return ResponseEntity.ok(StatementDtoMapper.toResponse(
                 updateStatementUseCase.execute(dto)
         ));
     }
 
-    @Operation(summary = "Endpoint for remove statement by id")
     @DeleteMapping("/{id}")
+    @Operation(summary = "Endpoint for remove statement by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteStatementByIdUseCase.execute(new DeleteStatementByIdCommand(id));
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Endpoint for remove statement by tag")
     @DeleteMapping("/tag")
+    @Operation(summary = "Endpoint for remove statement by tag")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> deleteByTag(@RequestParam String tagName) {
         deleteStatementByTagSurnameUseCase.execute(new DeleteStatementByTagSurnameCommand(tagName));
         return ResponseEntity.ok().build();

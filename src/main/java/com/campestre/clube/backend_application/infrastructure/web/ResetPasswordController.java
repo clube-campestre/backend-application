@@ -9,6 +9,7 @@ import com.campestre.clube.backend_application.core.application.resetpassword.co
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
@@ -30,23 +31,26 @@ public class ResetPasswordController {
         this.validateResetPasswordCodeUseCase = validateResetPasswordCodeUseCase;
     }
 
-    @Operation(summary = "Endpoint for generate reset password code")
     @PostMapping("/reset")
+    @Operation(summary = "Endpoint for generate reset password code")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> resetPassword(@RequestParam String email) {
         generateResetPasswordCodeUseCase.execute(new GenerateResetPasswordCodeCommand(email));
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Endpoint for verify reset password code")
     @PostMapping("/verify-code")
+    @Operation(summary = "Endpoint for verify reset password code")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Boolean> verifyCode(@RequestParam String email, @RequestParam String code) {
         if (validateResetPasswordCodeUseCase.execute(new ValidateResetPasswordCodeCommand(email, code)))
             return ResponseEntity.ok(true);
         return ResponseEntity.badRequest().body(false);
     }
 
-    @Operation(summary = "Endpoint for update password")
     @PostMapping("/update-password")
+    @Operation(summary = "Endpoint for update password")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> updatePassword(
             @RequestParam String email, @RequestParam String code, @RequestParam String newPassword
     ) {

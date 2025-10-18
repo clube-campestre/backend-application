@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
 
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
+
 @Component
 public class JwtTokenManager implements TokenGeneratorGateway {
     @Value("${jwt.secret}")
@@ -25,15 +27,21 @@ public class JwtTokenManager implements TokenGeneratorGateway {
     public String generate(Account account) {
         return Jwts.builder()
                 .setSubject(account.getEmail().getValue())
+                .claim("role", account.getAccess().name())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity))
                 .signWith(parseSecret())
                 .compact();
     }
 
     @Override
     public String getUsernameFromToken(String token) {
+        if (isTokenExpired(token)) throw UNAUTHORIZED_EXPIRED_TOKEN;
         return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    public String getRoleFromToken(String token) {
+        return getClaimFromToken(token, claims -> claims.get("role", String.class));
     }
 
     @Override

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,39 +44,44 @@ public class AccountController {
         this.createAccountUseCase = createAccountUseCase;
     }
 
-    @Operation(summary = "Endpoint for account register")
     @PostMapping("/register")
+    @Operation(summary = "Endpoint for account register")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> register(@Valid @RequestBody SaveAccountRequestDto dto) {
         createAccountUseCase.execute(AccountDtoMapper.toCommand(dto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @Operation(summary = "Endpoint for account login")
     @PostMapping("/login")
+    @Operation(summary = "Endpoint for account login")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TokenAccountResponseDto> login(@RequestBody LoginAccountRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(AccountDtoMapper.toResponse(
                 authenticateAccountUseCase.execute(AccountDtoMapper.toCommand(dto))
         ));
     }
 
-    @Operation(summary = "Endpoint for list all accounts")
     @GetMapping
+    @Operation(summary = "Endpoint for list all accounts")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<List<GetAccountResponseDto>> getAll() {
         List<Account> accounts = listAccountUseCase.execute();
         if (accounts.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         return ResponseEntity.status(HttpStatus.OK).body(AccountDtoMapper.toResponse(accounts));
     }
 
-    @Operation(summary = "Endpoint for get account by id")
     @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get account by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<GetAccountResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(AccountDtoMapper.toResponse(
                 getAccountByIdUseCase.execute(new GetAccountByIdCommand(id))
         ));
     }
 
-    @Operation(summary = "Endpoint for update account by id")
     @PutMapping("/{id}")
+    @Operation(summary = "Endpoint for update account by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> update(
             @PathVariable Long id, @Valid @RequestBody UpdateAccountRequestDto dto
     ) {
@@ -83,8 +89,9 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @Operation(summary = "Endpoint for remove account by id")
     @DeleteMapping("/{id}")
+    @Operation(summary = "Endpoint for remove account by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteAccountUseCase.execute(new DeleteAccountCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

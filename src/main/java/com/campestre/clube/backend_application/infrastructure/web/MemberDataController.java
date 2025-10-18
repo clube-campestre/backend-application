@@ -16,6 +16,7 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,6 +58,7 @@ public class MemberDataController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint for create member")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<MemberDataResponseDto> register(
             @RequestPart("data") @Valid String jsonDto, @RequestPart("file") MultipartFile file
     ){
@@ -67,6 +69,7 @@ public class MemberDataController {
 
     @GetMapping
     @Operation(summary = "Endpoint for list all member data")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<List<MemberDataResponseDto>> getAll(){
         List<MemberData> members = listMemberDataUseCase.execute();
         if(members.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -75,6 +78,7 @@ public class MemberDataController {
 
     @GetMapping("/{cpf}")
     @Operation(summary = "Endpoint for get member data by cpf")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<MemberDataResponseDto> getById(@PathVariable String cpf){
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
                 getMemberDataByIdUseCase.execute(new GetMemberDataByCpfCommand(cpf))
@@ -83,6 +87,7 @@ public class MemberDataController {
 
     @GetMapping("/unit")
     @Operation(summary = "Endpoint for list member data by unit")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<MemberDataForUnitResponseDto> getByUnit(
             @RequestParam(required = false) String unitName, @RequestParam Integer page, @RequestParam Integer size
     ){
@@ -94,6 +99,7 @@ public class MemberDataController {
 
     @GetMapping("/class")
     @Operation(summary = "Endpoint for list member data by class")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<MemberDataForClassResponseDto> getByClass(
             @RequestParam(required = false) ClassCategory classCategory,
             @RequestParam Integer page,
@@ -107,6 +113,7 @@ public class MemberDataController {
 
     @PutMapping("/{cpf}")
     @Operation(summary = "Endpoint for update member data by cpf")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<MemberDataResponseDto> update(
             @PathVariable String cpf,
             @RequestPart("data") @Valid String jsonDto,
@@ -119,13 +126,15 @@ public class MemberDataController {
 
     @DeleteMapping("/{cpf}")
     @Operation(summary = "Endpoint for remove member data by cpf")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> delete(@PathVariable String cpf) {
         deleteMemberDataUseCase.execute(new DeleteMemberDataCommand(cpf));
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @Operation(summary = "Endpoint for get member data by filter and pagination")
     @GetMapping("/filter")
+    @Operation(summary = "Endpoint for get member data by filter and pagination")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<GetByFilterAndPaginationMemberDataResponseDto> getByFilterAndPagination(
             @RequestParam(required = false)
             String unit,

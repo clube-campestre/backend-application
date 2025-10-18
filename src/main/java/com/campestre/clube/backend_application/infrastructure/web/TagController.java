@@ -10,6 +10,7 @@ import com.campestre.clube.backend_application.infrastructure.web.mappers.TagDto
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -41,40 +42,45 @@ public class TagController {
         this.listTagUseCase = listTagUseCase;
     }
 
-    @Operation(summary = "Endpoint for create a new tag")
     @PostMapping
+    @Operation(summary = "Endpoint for create a new tag")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TagResponseDto> register(@RequestBody TagRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 saveTagUseCase.execute(TagDtoMapper.toCommand(dto))
         ));
     }
 
-    @Operation(summary = "Endpoint for get tag by id")
     @GetMapping("/{id}")
+    @Operation(summary = "Endpoint for get tag by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TagResponseDto> getById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 getTagByIdUseCase.execute(new GetTagByIdCommand(id))
         ));
     }
 
-    @Operation(summary = "Endpoint for list all tags")
     @GetMapping
+    @Operation(summary = "Endpoint for list all tags")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<List<TagResponseDto>> getAll() {
         List<Tag> tags = listTagUseCase.execute();
         if(tags.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(tags));
     }
 
-    @Operation(summary = "Endpoint for update tag by id")
     @PutMapping("/{id}")
+    @Operation(summary = "Endpoint for update tag by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<TagResponseDto> update(@PathVariable Long id, @Valid @RequestBody TagRequestDto tag){
         return ResponseEntity.status(HttpStatus.OK).body(TagDtoMapper.toResponse(
                 updateTagUseCase.execute(TagDtoMapper.toCommand(tag, id))
         ));
     }
 
-    @Operation(summary = "Endpoint for remove tag by id")
     @DeleteMapping("/{id}")
+    @Operation(summary = "Endpoint for remove tag by id")
+    @PreAuthorize("hasAnyRole('DIRETOR', 'EXECUTIVO', 'TESOURARIA', 'SUPERVISOR')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteTagUseCase.execute(new DeleteTagCommand(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
