@@ -6,8 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
-import java.time.LocalDate;
-
 public class MemberDataRequestDto {
     @NotBlank
     @Size(max = 255)
@@ -29,8 +27,8 @@ public class MemberDataRequestDto {
     private String contact;
 
     @NotNull
-    @Past
-    private LocalDate birthDate;
+//    @Past
+    private String birthDate;
 
     @NotNull
     @Schema(description = "Member data sex", example = "MASCULINO", allowableValues = {"OUTRO", "FEMININO", "MASCULINO"})
@@ -91,7 +89,7 @@ public class MemberDataRequestDto {
 
     public MemberDataRequestDto(
             String username, String birthCertificate, String cpf, String issuingAuthority, String contact,
-            LocalDate birthDate, String sex, String tshirtSize, Boolean isBaptized, SaveAddressRequestDto address,
+            String birthDate, String sex, String tshirtSize, Boolean isBaptized, SaveAddressRequestDto address,
             MedicalDataRequestDto medicalData, String fatherName, String fatherContact, String fatherEmail,
             String motherName, String motherContact, String motherEmail, String responsibleName,
             String responsibleContact, String responsibleEmail, String unitRole, String unitName, String classCategory,
@@ -163,11 +161,11 @@ public class MemberDataRequestDto {
         this.contact = contact;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

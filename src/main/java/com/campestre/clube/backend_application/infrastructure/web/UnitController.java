@@ -38,14 +38,16 @@ public class UnitController {
 
     @PutMapping("/score")
     @Operation(summary = "Endpoint for update unit score by unit id")
-    public ResponseEntity<UnitResponseDto> updateScoreById(@RequestParam String surname, @RequestParam Integer newScore) {
+    public ResponseEntity<UnitResponseDto> updateScoreById(
+            @RequestParam String surname, @RequestParam Integer newScore
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 UnitDtoMapper.toResponse(updateUnitScoreUseCase.execute(new UpdateUnitScoreCommand(surname, newScore)))
         );
     }
 
     @PostMapping("/score")
-    @Operation(summary = "Endpoint for increase or descrease unit score by unit id")
+    @Operation(summary = "Endpoint for increase or decrease unit score by unit id")
     public ResponseEntity<UnitResponseDto> increaseOrDecreaseTheScoreById(
             @RequestParam String surname, @RequestParam Integer score, @RequestParam Boolean isSum
     ) {

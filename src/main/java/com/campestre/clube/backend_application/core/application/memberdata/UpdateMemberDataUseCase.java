@@ -35,7 +35,7 @@ public class UpdateMemberDataUseCase {
 
         if (!gateway.existsByCpf(cpfHash)) throw NOT_FOUND_MEMBER_DATA;
         if (!unitGateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
-        if (!medicalDataGateway.existsByCnsAndCpfNot(cnsHash, cpfHash)) throw CONFLICT_MEMBER_DATA_SAME_CNS;
+        if (medicalDataGateway.existsByCnsAndCpfNot(cnsHash, cpfHash)) throw CONFLICT_MEMBER_DATA_SAME_CNS;
 
         Unit unit = unitGateway.findBySurnameIgnoreCase(command.unitName());
 

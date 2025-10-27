@@ -28,6 +28,8 @@ public class ExceptionExtensions {
             new NotFoundException("Email do membro não encontrado.");
     public static final RuntimeException BAD_REQUEST_MEDICAL_PROBLEM =
             new BadRequestException("O membro não pode ter medicação de um problema que ele não tem");
+    public static final RuntimeException INVALID_MEMBER_DATA_BIRTH_DATE =
+            new InvalidRequestException("A data de nascimento do membro é inválida");
 
     public static final RuntimeException NOT_FOUND_UNIT =
             new NotFoundException("Não foi possível encontrar a unidade.");

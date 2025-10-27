@@ -10,7 +10,8 @@ public class CellphoneNumber {
     }
 
     public static CellphoneNumber of(String number) {
-        if (number.length() != 11) throw INVALID_CELLPHONE_NUMBER;
+//        TODO criar lógica de opcional caso ele cadastre pai ou mãe
+//        if (number.length() != 11) throw INVALID_CELLPHONE_NUMBER;
         return new CellphoneNumber(number);
     }
 

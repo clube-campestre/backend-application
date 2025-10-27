@@ -14,20 +14,28 @@ import com.campestre.clube.backend_application.infrastructure.web.dtos.memberdat
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
+
 public class MemberDataDtoMapper {
 
-    public static SaveMemberDataCommand toCommand(String jsonDto, MultipartFile file) {
-        Image image = MultipartConverter.toImage(file);
+    public static SaveMemberDataCommand toSaveCommand(String jsonDto, MultipartFile file) {
+        Image image;
+        if (file == null || file.isEmpty()) image = Image.byDefault();
+        else image = MultipartConverter.toImage(file);
         MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
+        LocalDate birthDate = LocalDate.parse(dto.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        if (!birthDate.isBefore(LocalDate.now())) throw INVALID_MEMBER_DATA_BIRTH_DATE;
         return new SaveMemberDataCommand(
                 dto.getCpf(),
                 image.getValue(),
                 image.getFormat(),
                 dto.getUsername(),
-                dto.getBirthDate(),
+                birthDate,
                 Sex.fromString(dto.getSex()),
                 dto.getBirthCertificate(),
                 TshirtSize.fromString(dto.getTshirtSize()),
@@ -105,15 +113,19 @@ public class MemberDataDtoMapper {
         );
     }
 
-    public static UpdateMemberDataCommand toCommand(String jsonDto, String cpf, MultipartFile file) {
-        Image image = MultipartConverter.toImage(file);
+    public static UpdateMemberDataCommand toUpdateCommand(String jsonDto, MultipartFile file) {
+        Image image;
+        if (file == null || file.isEmpty()) image = Image.byDefault();
+        else image = MultipartConverter.toImage(file);
         MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
+        LocalDate birthDate = LocalDate.parse(dto.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        if (!birthDate.isBefore(LocalDate.now())) throw INVALID_MEMBER_DATA_BIRTH_DATE;
         return new UpdateMemberDataCommand(
-                cpf,
+                dto.getCpf(),
                 image.getValue(),
                 image.getFormat(),
                 dto.getUsername(),
-                dto.getBirthDate(),
+                birthDate,
                 Sex.fromString(dto.getSex()),
                 dto.getBirthCertificate(),
                 TshirtSize.fromString(dto.getTshirtSize()),

@@ -35,6 +35,12 @@ public class MemberDataController {
     private final ListMemberDataByUnitNameAndPaginationUseCase listMemberDataByUnitNameAndPaginationUseCase;
     private final ListMemberDataUseCase listMemberDataUseCase;
 
+//    TODO não baixar imagem caso seja a default
+//    TODO não calcular valor total no extrato em toda visualização
+//    TODO arrumar parte de formatar birthdate
+//    TODO arrumar acesso no token
+//    TODO arrumar validação denúmero de celular
+
     public MemberDataController(
             SaveMemberDataUseCase saveMemberDataUseCase,
             UpdateMemberDataUseCase updateMemberDataUseCase,
@@ -58,10 +64,11 @@ public class MemberDataController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint for create member")
     public ResponseEntity<MemberDataResponseDto> register(
-            @RequestPart("data") @Valid String jsonDto, @RequestPart("file") MultipartFile file
+            @RequestPart("data") @Valid String jsonDto,
+            @RequestPart(value = "file", required = false) MultipartFile file
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(MemberDataDtoMapper.toResponse(
-                saveMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(jsonDto, file))
+                saveMemberDataUseCase.execute(MemberDataDtoMapper.toSaveCommand(jsonDto, file))
         ));
     }
 
@@ -105,15 +112,14 @@ public class MemberDataController {
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(memberDataForClass));
     }
 
-    @PutMapping("/{cpf}")
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Endpoint for update member data by cpf")
     public ResponseEntity<MemberDataResponseDto> update(
-            @PathVariable String cpf,
             @RequestPart("data") @Valid String jsonDto,
-            @RequestPart("file") MultipartFile image
+            @RequestPart(value = "file", required = false) MultipartFile file
     ){
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
-                updateMemberDataUseCase.execute(MemberDataDtoMapper.toCommand(jsonDto, cpf, image))
+                updateMemberDataUseCase.execute(MemberDataDtoMapper.toUpdateCommand(jsonDto, file))
         ));
     }
 

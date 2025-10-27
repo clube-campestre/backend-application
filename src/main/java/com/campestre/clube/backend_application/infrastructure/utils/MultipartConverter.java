@@ -13,6 +13,7 @@ public class MultipartConverter {
         try {
             return objectMapper.readValue(json, clazz);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw INTERNAL_ERROR_CONVERT_JSON;
         }
     }
@@ -22,6 +23,7 @@ public class MultipartConverter {
             if(file.getContentType() == null) throw INTERNAL_ERROR_IMAGE_FORMAT;
             return Image.of(file.getBytes(), file.getContentType());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw INTERNAL_ERROR_CONVERT_IMAGE;
         }
     }
