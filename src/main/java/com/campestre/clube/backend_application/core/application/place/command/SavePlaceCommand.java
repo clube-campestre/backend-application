@@ -15,5 +15,6 @@ public record SavePlaceCommand(
         String addressState,
         String addressCity,
         String addressCepNumber,
-        String addressReferenceHouse
+        String addressReferenceHouse,
+        String addressComplement
 ){}

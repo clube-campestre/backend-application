@@ -2,6 +2,7 @@ package com.campestre.clube.backend_application.infrastructure.web.mappers;
 
 import com.campestre.clube.backend_application.core.application.memberdata.command.SaveMemberDataCommand;
 import com.campestre.clube.backend_application.core.application.memberdata.command.UpdateMemberDataCommand;
+import com.campestre.clube.backend_application.core.application.memberdata.command.UpdateMemberUnitAndClassCommand;
 import com.campestre.clube.backend_application.core.application.valueobject.Pagination;
 import com.campestre.clube.backend_application.core.domain.MemberData;
 import com.campestre.clube.backend_application.core.domain.MemberDataForClass;
@@ -65,6 +66,7 @@ public class MemberDataDtoMapper {
                 dto.getAddress().getCity(),
                 dto.getAddress().getCep(),
                 dto.getAddress().getReferenceHouse(),
+                dto.getAddress().getComplement(),
 
                 dto.getMedicalData().getCns(),
                 dto.getMedicalData().getAgreement(),
@@ -155,6 +157,7 @@ public class MemberDataDtoMapper {
                 dto.getAddress().getCity(),
                 dto.getAddress().getCep(),
                 dto.getAddress().getReferenceHouse(),
+                dto.getAddress().getComplement(),
 
                 dto.getMedicalData().getCns(),
                 dto.getMedicalData().getAgreement(),
@@ -203,13 +206,23 @@ public class MemberDataDtoMapper {
         );
     }
 
+    public static UpdateMemberUnitAndClassCommand toCommand(String cpf, UpdateMemberUnitAndClassRequestDto dto) {
+        return new UpdateMemberUnitAndClassCommand(
+                cpf,
+                dto.getUnitName(),
+                UnitRole.fromString(dto.getUnitRole()),
+                ClassCategory.fromString(dto.getClassCategory()),
+                ClassRole.fromString(dto.getClassRole())
+        );
+    }
+
     public static MemberDataResponseDto toResponse(MemberData domain) {
         return new MemberDataResponseDto(
                 domain.getCpf().getNumber(),
                 domain.getImage().getValue(),
                 domain.getImage().getFormat(),
                 domain.getUsername(),
-                domain.getBirthDate(),
+                domain.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 domain.getSex(),
                 domain.getBirthCertificate(),
                 domain.getTshirtSize(),

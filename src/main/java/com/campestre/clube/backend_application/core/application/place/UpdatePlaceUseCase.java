@@ -36,7 +36,8 @@ public class UpdatePlaceUseCase {
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        addressReferenceHouseHash
+                        addressReferenceHouseHash,
+                        command.addressComplement()
                 ),
                 command.name(),
                 command.price(),

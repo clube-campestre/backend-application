@@ -12,7 +12,7 @@ public class MemberDataResponseDto {
     private byte[] image;
     private String imageFormat;
     private String username;
-    private LocalDate birthDate;
+    private String birthDate;
     private Sex sex;
     private String birthCertificate;
     private TshirtSize tshirtSize;
@@ -42,7 +42,7 @@ public class MemberDataResponseDto {
     }
 
     public MemberDataResponseDto(
-            String cpf, byte[] image, String imageFormat, String username, LocalDate birthDate, Sex sex,
+            String cpf, byte[] image, String imageFormat, String username, String birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String contact, String issuingAuthority,
             UnitResponseDto unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact,
@@ -109,11 +109,11 @@ public class MemberDataResponseDto {
         this.username = username;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

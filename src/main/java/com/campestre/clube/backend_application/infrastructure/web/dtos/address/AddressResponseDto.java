@@ -9,8 +9,12 @@ public class AddressResponseDto {
     private String street;
     private String cep;
     private String referenceHouse;
+    private String complement;
 
-    public AddressResponseDto(Long id, String houseNumber, String district, String city, String state, String street, String cep, String referenceHouse) {
+    public AddressResponseDto(
+            Long id, String houseNumber, String district, String city, String state, String street, String cep,
+            String referenceHouse, String complement
+    ) {
         this.id = id;
         this.houseNumber = houseNumber;
         this.district = district;
@@ -19,6 +23,7 @@ public class AddressResponseDto {
         this.street = street;
         this.cep = cep;
         this.referenceHouse = referenceHouse;
+        this.complement = complement;
     }
 
     public AddressResponseDto() {
@@ -86,5 +91,13 @@ public class AddressResponseDto {
 
     public void setReferenceHouse(String referenceHouse) {
         this.referenceHouse = referenceHouse;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 }

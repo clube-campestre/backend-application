@@ -17,7 +17,8 @@ public class AddressDtoMapper {
                 address.getState(),
                 address.getStreet(),
                 address.getCep().getNumber(),
-                address.getReferenceHouse()
+                address.getReferenceHouse(),
+                address.getComplement()
         );
     }
 

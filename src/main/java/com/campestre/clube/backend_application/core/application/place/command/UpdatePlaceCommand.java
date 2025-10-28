@@ -17,5 +17,6 @@ public record UpdatePlaceCommand(
         String addressState,
         String addressCity,
         String addressCepNumber,
-        String addressReferenceHouse
+        String addressReferenceHouse,
+        String addressComplement
 ){}

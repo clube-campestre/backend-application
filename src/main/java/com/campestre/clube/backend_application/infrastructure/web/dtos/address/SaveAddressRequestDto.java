@@ -18,6 +18,7 @@ public class SaveAddressRequestDto {
     @Size(min = 8, max = 8)
     private String cep;
     private String referenceHouse;
+    private String complement;
 
     public String getHouseNumber() {
         return houseNumber;
@@ -73,5 +74,13 @@ public class SaveAddressRequestDto {
 
     public void setReferenceHouse(String referenceHouse) {
         this.referenceHouse = referenceHouse;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 }

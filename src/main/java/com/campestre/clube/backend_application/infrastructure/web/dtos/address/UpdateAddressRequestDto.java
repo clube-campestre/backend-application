@@ -21,6 +21,7 @@ public class UpdateAddressRequestDto {
     @Size(max = 8)
     private String cep;
     private String referenceHouse;
+    private String complement;
 
     public Long getId() {
         return id;
@@ -84,5 +85,13 @@ public class UpdateAddressRequestDto {
 
     public void setReferenceHouse(String referenceHouse) {
         this.referenceHouse = referenceHouse;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 }

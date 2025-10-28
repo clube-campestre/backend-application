@@ -26,7 +26,8 @@ public class PlaceDtoMapper {
                 dto.getAddress().getState(),
                 dto.getAddress().getCity(),
                 dto.getAddress().getCep(),
-                dto.getAddress().getReferenceHouse()
+                dto.getAddress().getReferenceHouse(),
+                dto.getAddress().getComplement()
         );
     }
 
@@ -46,7 +47,8 @@ public class PlaceDtoMapper {
                 dto.getAddress().getState(),
                 dto.getAddress().getCity(),
                 dto.getAddress().getCep(),
-                dto.getAddress().getReferenceHouse()
+                dto.getAddress().getReferenceHouse(),
+                dto.getAddress().getComplement()
         );
     }
 

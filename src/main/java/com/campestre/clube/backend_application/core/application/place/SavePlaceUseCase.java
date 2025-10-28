@@ -32,7 +32,8 @@ public class SavePlaceUseCase {
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        addressReferenceHouseHash
+                        addressReferenceHouseHash,
+                        command.addressComplement()
                 ),
                 command.name(),
                 command.price(),

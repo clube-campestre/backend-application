@@ -21,6 +21,7 @@ public class AddressEntityMapper {
         entity.setCity(domain.getCity());
         entity.setCep(domain.getCep().getNumber());
         entity.setReferenceHouse(domain.getReferenceHouse());
+        entity.setComplement(domain.getComplement());
         return entity;
     }
 
@@ -34,7 +35,8 @@ public class AddressEntityMapper {
                 entity.getState(),
                 entity.getCity(),
                 entity.getCep(),
-                entity.getReferenceHouse()
+                entity.getReferenceHouse(),
+                entity.getComplement()
         );
     }
 }

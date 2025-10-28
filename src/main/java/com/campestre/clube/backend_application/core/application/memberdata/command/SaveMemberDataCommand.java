@@ -39,6 +39,7 @@ public record SaveMemberDataCommand(
         String addressCity,
         String addressCepNumber,
         String addressReferenceHouse,
+        String addressComplement,
 
         String cns,
         String agreement,

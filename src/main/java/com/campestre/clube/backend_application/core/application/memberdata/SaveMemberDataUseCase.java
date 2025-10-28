@@ -79,7 +79,8 @@ public class SaveMemberDataUseCase {
                         command.addressState(),
                         command.addressCity(),
                         command.addressCepNumber(),
-                        hasherGateway.encrypt(command.addressReferenceHouse())
+                        hasherGateway.encrypt(command.addressReferenceHouse()),
+                        command.addressComplement()
                 ),
                 MedicalData.of(
                         cpfHash,

@@ -11,10 +11,11 @@ public class Address {
     private String city;
     private Cep cep;
     private String referenceHouse;
+    private String complement;
 
     private Address(
             Long id, String street, String houseNumber, String district, String state, String city, Cep cep,
-            String referenceHouse
+            String referenceHouse, String complement
     ) {
         this.id = id;
         this.street = street;
@@ -24,11 +25,12 @@ public class Address {
         this.city = city;
         this.cep = cep;
         this.referenceHouse = referenceHouse;
+        this.complement = complement;
     }
 
     public static Address of(
             Long id, String street, String houseNumber, String district, String state, String city, String cep,
-            String referenceHouse
+            String referenceHouse, String complement
     ) {
         return new Address(
                 id,
@@ -38,13 +40,14 @@ public class Address {
                 state,
                 city,
                 Cep.of(cep),
-                referenceHouse
+                referenceHouse,
+                complement
         );
     }
 
     public static Address of(
             String street, String houseNumber, String district, String state, String city, String cep,
-            String referenceHouse
+            String referenceHouse, String complement
     ) {
         return new Address(
                 null,
@@ -54,7 +57,8 @@ public class Address {
                 state,
                 city,
                 Cep.of(cep),
-                referenceHouse
+                referenceHouse,
+                complement
         );
     }
 
@@ -96,5 +100,9 @@ public class Address {
 
     public void setReferenceHouse(String referenceHouse) {
         this.referenceHouse = referenceHouse;
+    }
+
+    public String getComplement() {
+        return complement;
     }
 }

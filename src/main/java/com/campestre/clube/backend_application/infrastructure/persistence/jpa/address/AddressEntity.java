@@ -22,6 +22,8 @@ public class AddressEntity {
     private String cep;
     @Column(name = "reference_house", nullable = true)
     private String referenceHouse;
+    @Column(name = "complement", nullable = true)
+    private String complement;
 
     public Long getId() {
         return id;
@@ -85,5 +87,13 @@ public class AddressEntity {
 
     public void setReferenceHouse(String referenceHouse) {
         this.referenceHouse = referenceHouse;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 }

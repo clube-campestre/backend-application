@@ -28,6 +28,13 @@ public class MemberDataBeanConfig {
     }
 
     @Bean
+    public UpdateMemberUnitAndClassUseCase updateMemberUnitAndClassUseCase(
+            MemberDataJpaAdapter adapter, UnitJpaAdapter unitAdapter, JasyptHasher jasyptHasher
+    ) {
+        return new UpdateMemberUnitAndClassUseCase(adapter, unitAdapter, jasyptHasher);
+    }
+
+    @Bean
     public DeleteMemberDataUseCase deleteMemberDataUseCase(MemberDataJpaAdapter adapter, JasyptHasher jasyptHasher) {
         return new DeleteMemberDataUseCase(adapter, jasyptHasher);
     }

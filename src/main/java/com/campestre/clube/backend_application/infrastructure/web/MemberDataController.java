@@ -28,6 +28,7 @@ import java.util.List;
 public class MemberDataController {
     private final SaveMemberDataUseCase saveMemberDataUseCase;
     private final UpdateMemberDataUseCase updateMemberDataUseCase;
+    private final UpdateMemberUnitAndClassUseCase updateMemberUnitAndClassUseCase;
     private final DeleteMemberDataUseCase deleteMemberDataUseCase;
     private final GetMemberDataByCpfUseCase getMemberDataByIdUseCase;
     private final ListMemberDataByClassCategoryAndPaginationUseCase listMemberDataByClassCategoryAndPaginationUseCase;
@@ -40,10 +41,12 @@ public class MemberDataController {
 //    TODO arrumar parte de formatar birthdate
 //    TODO arrumar acesso no token
 //    TODO arrumar validação denúmero de celular
+//    TODO criptografia na foto
 
     public MemberDataController(
             SaveMemberDataUseCase saveMemberDataUseCase,
             UpdateMemberDataUseCase updateMemberDataUseCase,
+            UpdateMemberUnitAndClassUseCase updateMemberUnitAndClassUseCase,
             DeleteMemberDataUseCase deleteMemberDataUseCase,
             GetMemberDataByCpfUseCase getMemberDataByIdUseCase,
             ListMemberDataByClassCategoryAndPaginationUseCase listMemberDataByClassCategoryAndPaginationUseCase,
@@ -53,6 +56,7 @@ public class MemberDataController {
     ) {
         this.saveMemberDataUseCase = saveMemberDataUseCase;
         this.updateMemberDataUseCase = updateMemberDataUseCase;
+        this.updateMemberUnitAndClassUseCase = updateMemberUnitAndClassUseCase;
         this.deleteMemberDataUseCase = deleteMemberDataUseCase;
         this.getMemberDataByIdUseCase = getMemberDataByIdUseCase;
         this.listMemberDataByClassCategoryAndPaginationUseCase = listMemberDataByClassCategoryAndPaginationUseCase;
@@ -120,6 +124,16 @@ public class MemberDataController {
     ){
         return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
                 updateMemberDataUseCase.execute(MemberDataDtoMapper.toUpdateCommand(jsonDto, file))
+        ));
+    }
+
+    @PutMapping("/unit-and-class/{cpf}")
+    @Operation(summary = "Endpoint for update member unit and class by cpf")
+    public ResponseEntity<MemberDataResponseDto> updateUnitAndClass(
+            @PathVariable String cpf, @RequestBody UpdateMemberUnitAndClassRequestDto dto
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(MemberDataDtoMapper.toResponse(
+                updateMemberUnitAndClassUseCase.execute(MemberDataDtoMapper.toCommand(cpf, dto))
         ));
     }
 
