@@ -78,7 +78,8 @@ public class SecurityConfiguration {
                                 "/webjars/**",
                                 "/actuator/*",
                                 "/error/**",
-                                "/accounts/login/**"
+                                "/accounts/login/**",
+                                "/reset-password/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
