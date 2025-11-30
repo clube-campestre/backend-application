@@ -111,7 +111,8 @@ public class MemberDataDtoMapper {
                 dto.getMedicalData().getRecentSeriousInjury(),
                 dto.getMedicalData().getRecentFracture(),
                 dto.getMedicalData().getSurgeries(),
-                dto.getMedicalData().getHospitalizationReasonLast5Years()
+                dto.getMedicalData().getHospitalizationReasonLast5Years(),
+                dto.getAcceptTerms()
         );
     }
 
@@ -202,7 +203,8 @@ public class MemberDataDtoMapper {
                 dto.getMedicalData().getRecentSeriousInjury(),
                 dto.getMedicalData().getRecentFracture(),
                 dto.getMedicalData().getSurgeries(),
-                dto.getMedicalData().getHospitalizationReasonLast5Years()
+                dto.getMedicalData().getHospitalizationReasonLast5Years(),
+                dto.getAcceptTerms()
         );
     }
 
@@ -246,7 +248,8 @@ public class MemberDataDtoMapper {
                 domain.getResponsibleContact().getEmail().getValue(),
 
                 AddressDtoMapper.toResponse(domain.getAddress()),
-                MedicalDataDtoMapper.toResponse(domain.getMedicalData())
+                MedicalDataDtoMapper.toResponse(domain.getMedicalData()),
+                domain.getAcceptTerms()
         );
     }
 

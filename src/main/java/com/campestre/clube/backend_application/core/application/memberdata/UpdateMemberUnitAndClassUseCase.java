@@ -54,7 +54,8 @@ public class UpdateMemberUnitAndClassUseCase {
                 memberData.getMotherContact(),
                 memberData.getResponsibleContact(),
                 memberData.getAddress(),
-                memberData.getMedicalData()
+                memberData.getMedicalData(),
+                memberData.getAcceptTerms()
         );
 
         MemberData savedMemberData = gateway.save(newMemberData);

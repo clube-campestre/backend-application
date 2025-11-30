@@ -124,7 +124,8 @@ public class UpdateMemberDataUseCase {
                         command.recentFracture(),
                         command.surgeries(),
                         command.hospitalizationReasonLast5Years()
-                )
+                ),
+                command.acceptTerms()
         );
 
         MemberData savedMemberData = gateway.save(memberData);
