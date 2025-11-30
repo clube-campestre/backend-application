@@ -7,6 +7,7 @@ public enum AccessTypeEnum {
     DIRETOR("Diretor"),
     EXECUTIVO("Executivo"),
     TESOURARIA("Tesouraria"),
+    SECRETARIA("Secretaria"),
     SUPERVISOR("Supervisor");
 
     private final String formattedValue;

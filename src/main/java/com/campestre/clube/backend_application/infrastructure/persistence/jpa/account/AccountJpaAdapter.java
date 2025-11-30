@@ -2,10 +2,11 @@ package com.campestre.clube.backend_application.infrastructure.persistence.jpa.a
 
 import com.campestre.clube.backend_application.core.adapter.AccountGateway;
 import com.campestre.clube.backend_application.core.domain.Account;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 
 @Repository
 public class AccountJpaAdapter implements AccountGateway {
@@ -32,11 +33,13 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "account.list")
     public List<Account> findAll() {
         return AccountEntityMapper.toDomain(repository.findAll());
     }
 
     @Override
+    @Cacheable(cacheNames = "account.byId", key = "#id")
     public Account findById(Long id) {
         return AccountEntityMapper.toDomain(repository.findById(id).get());
     }
@@ -47,11 +50,13 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
+    @CacheEvict(cacheNames = {"account.byId", "account.list"}, allEntries = true)
     public Account save(Account domain) {
         return AccountEntityMapper.toDomain(repository.save(AccountEntityMapper.toEntity(domain)));
     }
 
     @Override
+    @CacheEvict(cacheNames = {"account.byId", "account.list"}, allEntries = true)
     public void removeById(Long id) {
         repository.deleteById(id);
     }

@@ -2,6 +2,8 @@ package com.campestre.clube.backend_application.infrastructure.persistence.jpa.t
 
 import com.campestre.clube.backend_application.core.adapter.TagGateway;
 import com.campestre.clube.backend_application.core.domain.Tag;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,26 +43,31 @@ public class TagJpaAdapter implements TagGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "tag.BySurnameIgnoreCase", key = "#surname")
     public Tag findBySurnameIgnoreCase(String surname) {
         return TagEntityMapper.toDomain(repository.findBySurnameIgnoreCase(surname));
     }
 
     @Override
+    @Cacheable(cacheNames = "tag.byId", key = "#id")
     public Tag findById(Long id) {
         return TagEntityMapper.toDomain(repository.findById(id).get());
     }
 
     @Override
+    @Cacheable(cacheNames = "tag.list")
     public List<Tag> findAll() {
         return TagEntityMapper.toDomain(repository.findAll());
     }
 
     @Override
+    @CacheEvict(cacheNames = {"tag.BySurnameIgnoreCase", "tag.byId", "tag.list"}, allEntries = true)
     public void removeById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
+    @CacheEvict(cacheNames = {"tag.BySurnameIgnoreCase", "tag.byId", "tag.list"}, allEntries = true)
     public Tag save(Tag tag) {
         return TagEntityMapper.toDomain(repository.save(TagEntityMapper.toEntity(tag)));
     }

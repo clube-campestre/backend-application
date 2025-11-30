@@ -2,6 +2,8 @@ package com.campestre.clube.backend_application.infrastructure.persistence.jpa.p
 
 import com.campestre.clube.backend_application.core.adapter.PlaceGateway;
 import com.campestre.clube.backend_application.core.domain.Place;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +17,11 @@ public class PlaceJpaAdapter implements PlaceGateway {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public boolean existsByNameIgnoreCase(String name) {
         return repository.existsByNameIgnoreCase(name);
     }
@@ -25,16 +32,19 @@ public class PlaceJpaAdapter implements PlaceGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "place.byId", key = "#id")
     public Place findById(Long id) {
         return repository.findById(id).map(PlaceEntityMapper::toDomain).get();
     }
 
     @Override
+    @Cacheable(cacheNames = "place.list")
     public List<Place> findOrderedByRatingDesc() {
         return PlaceEntityMapper.toDomain(repository.findAllByOrderByRatingDesc());
     }
 
     @Override
+    @CacheEvict(cacheNames = {"place.byId", "place.list"}, allEntries = true)
     public Place save(Place place) {
         return PlaceEntityMapper.toDomain(
                 repository.save(PlaceEntityMapper.toEntity(place))
@@ -42,12 +52,8 @@ public class PlaceJpaAdapter implements PlaceGateway {
     }
 
     @Override
+    @CacheEvict(cacheNames = {"place.byId", "place.list"}, allEntries = true)
     public void removeById(Long id) {
         repository.deleteById(id);
-    }
-
-    @Override
-    public boolean existsById(Long id) {
-        return repository.existsById(id);
     }
 }

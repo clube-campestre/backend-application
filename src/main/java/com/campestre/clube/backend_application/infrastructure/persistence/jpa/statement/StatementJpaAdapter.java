@@ -9,6 +9,8 @@ import com.campestre.clube.backend_application.core.domain.StatementInformations
 import com.campestre.clube.backend_application.core.domain.Tag;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagEntityMapper;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.tag.TagJpaAdapter;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
@@ -47,11 +49,13 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "statement.byId", key = "#id")
     public Statement findById(Long id) {
         return StatementEntityMapper.toDomain(repository.findById(id).get());
     }
 
     @Override
+    @Cacheable(cacheNames = "statement.byTagId", key = "#tagId")
     public List<Statement> findByTagId(Long tagId) {
         return StatementEntityMapper.toDomain(repository.findAllByTag(
                 TagEntityMapper.toEntity(tagAdapter.findById(tagId))
@@ -59,6 +63,10 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
+    @Cacheable(
+            cacheNames = "statementInformation.byFilterAndPagination",
+            key = "#filter + '-' + #pagination.pageNumber + '-' + #pagination.pageSize"
+    )
     public StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination) {
         return new StatementInformations(
                 StatementEntityMapper.toDomain(repository.findByFilterAndPagination(
@@ -70,6 +78,7 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "goal.byTagId", key = "#tagId")
     public Goal findGoalByTagId(Long tagId) {
         return Goal.of(
                 repository.findAllPricesByTagId(tagId),
@@ -78,16 +87,25 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
+    @CacheEvict(cacheNames = {
+            "statement.byId", "statement.byTagId", "statementInformation.byFilterAndPagination", "goal.byTagId"
+    }, allEntries = true)
     public void removeByTagSurname(String tagSurname) {
         repository.deleteByTag(TagEntityMapper.toEntity(tagAdapter.findBySurnameIgnoreCase(tagSurname)));
     }
 
     @Override
+    @CacheEvict(cacheNames = {
+            "statement.byId", "statement.byTagId", "statementInformation.byFilterAndPagination", "goal.byTagId"
+    }, allEntries = true)
     public Statement save(Statement domain) {
         return StatementEntityMapper.toDomain(repository.save(StatementEntityMapper.toEntity(domain)));
     }
 
     @Override
+    @CacheEvict(cacheNames = {
+            "statement.byId", "statement.byTagId", "statementInformation.byFilterAndPagination", "goal.byTagId"
+    }, allEntries = true)
     public void removeById(Long id) {
         repository.deleteById(id);
     }
