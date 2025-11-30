@@ -57,6 +57,8 @@ public class MemberDataEntity {
     @JoinColumn(name = "fk_medical_data", nullable = false)
     private MedicalDataEntity medicalData;
 
+    private Boolean acceptTerms;
+
     public String getCpf() {
         return cpf;
     }
@@ -263,5 +265,13 @@ public class MemberDataEntity {
 
     public void setMedicalData(MedicalDataEntity medicalData) {
         this.medicalData = medicalData;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(Boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
     }
 }

@@ -32,12 +32,14 @@ public class MemberData {
     private Address address;
     private MedicalData medicalData;
 
+    private Boolean acceptTerms;
+
     public MemberData(
             Cpf cpf, Image image, String username, LocalDate birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, CellphoneNumber cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
-            MedicalData medicalData
+            MedicalData medicalData, Boolean acceptTerms
     ) {
         this.cpf = cpf;
         this.image = image;
@@ -58,6 +60,7 @@ public class MemberData {
         this.responsibleContact = responsibleContact;
         this.address = address;
         this.medicalData = medicalData;
+        this.acceptTerms = acceptTerms;
     }
 
     public static MemberData of(
@@ -65,12 +68,12 @@ public class MemberData {
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
-            MedicalData medicalData
+            MedicalData medicalData, Boolean acceptTerms
     ) {
         return new MemberData(
                 Cpf.of(cpf), Image.of(image, imageFormat), username, birthDate, sex, birthCertificate, tshirtSize, isBaptized,
                 CellphoneNumber.of(cellphoneNumber), issuingAuthority, unit, unitRole, classCategory, classRole,
-                fatherContact, motherContact, responsibleContact, address, medicalData
+                fatherContact, motherContact, responsibleContact, address, medicalData, acceptTerms
         );
     }
 
@@ -152,5 +155,9 @@ public class MemberData {
 
     public MedicalData getMedicalData() {
         return medicalData;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
     }
 }

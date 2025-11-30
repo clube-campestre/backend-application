@@ -39,6 +39,7 @@ public class MemberDataEntityMapper {
         entity.setResponsibleEmail(domain.getResponsibleContact().getEmail().getValue());
         entity.setAddress(AddressEntityMapper.toEntity(domain.getAddress()));
         entity.setMedicalData(MedicalDataEntityMapper.toEntity(domain.getMedicalData()));
+        entity.setAcceptTerms(domain.getAcceptTerms());
         return entity;
     }
 
@@ -76,7 +77,8 @@ public class MemberDataEntityMapper {
                         entity.getResponsibleEmail()
                 ),
                 AddressEntityMapper.toDomain(entity.getAddress()),
-                MedicalDataEntityMapper.toDomain(entity.getMedicalData())
+                MedicalDataEntityMapper.toDomain(entity.getMedicalData()),
+                entity.getAcceptTerms()
         );
     }
 

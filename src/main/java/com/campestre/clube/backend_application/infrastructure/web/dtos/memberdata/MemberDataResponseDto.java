@@ -38,6 +38,8 @@ public class MemberDataResponseDto {
     private AddressResponseDto address;
     private MedicalDataResponseDto medicalData;
 
+    private Boolean acceptTerms;
+
     public MemberDataResponseDto() {
     }
 
@@ -47,7 +49,7 @@ public class MemberDataResponseDto {
             UnitResponseDto unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             String fatherName, String fatherContact, String fatherEmail, String motherName, String motherContact,
             String motherEmail, String responsibleName, String responsibleContact, String responsibleEmail,
-            AddressResponseDto address, MedicalDataResponseDto medicalData
+            AddressResponseDto address, MedicalDataResponseDto medicalData, Boolean acceptTerms
     ) {
         this.cpf = cpf;
         this.image = image;
@@ -75,6 +77,7 @@ public class MemberDataResponseDto {
         this.responsibleEmail = responsibleEmail;
         this.address = address;
         this.medicalData = medicalData;
+        this.acceptTerms = acceptTerms;
     }
 
     public String getCpf() {
@@ -283,5 +286,21 @@ public class MemberDataResponseDto {
 
     public void setMedicalData(MedicalDataResponseDto medicalData) {
         this.medicalData = medicalData;
+    }
+
+    public Boolean getBaptized() {
+        return isBaptized;
+    }
+
+    public void setBaptized(Boolean baptized) {
+        isBaptized = baptized;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(Boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
     }
 }

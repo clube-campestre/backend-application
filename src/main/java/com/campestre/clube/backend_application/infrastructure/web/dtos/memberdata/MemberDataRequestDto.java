@@ -84,6 +84,10 @@ public class MemberDataRequestDto {
     })
     private String classRole;
 
+    @AssertTrue
+    @NotNull
+    private Boolean acceptTerms;
+
     public MemberDataRequestDto() {
     }
 
@@ -93,7 +97,7 @@ public class MemberDataRequestDto {
             MedicalDataRequestDto medicalData, String fatherName, String fatherContact, String fatherEmail,
             String motherName, String motherContact, String motherEmail, String responsibleName,
             String responsibleContact, String responsibleEmail, String unitRole, String unitName, String classCategory,
-            String classRole
+            String classRole, Boolean acceptTerms
     ) {
         this.username = username;
         this.birthCertificate = birthCertificate;
@@ -119,6 +123,7 @@ public class MemberDataRequestDto {
         this.unitName = unitName;
         this.classCategory = classCategory;
         this.classRole = classRole;
+        this.acceptTerms = acceptTerms;
     }
 
     public String getUsername() {
@@ -311,5 +316,13 @@ public class MemberDataRequestDto {
 
     public void setClassRole(String classRole) {
         this.classRole = classRole;
+    }
+
+    public Boolean getAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(Boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
     }
 }

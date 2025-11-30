@@ -84,5 +84,7 @@ public record UpdateMemberDataCommand(
         Boolean recentSeriousInjury,
         String recentFracture,
         String surgeries,
-        String hospitalizationReasonLast5Years
+        String hospitalizationReasonLast5Years,
+
+        Boolean acceptTerms
 ){}

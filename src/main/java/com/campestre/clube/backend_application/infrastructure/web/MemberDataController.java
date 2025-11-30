@@ -40,7 +40,7 @@ public class MemberDataController {
 //    TODO não calcular valor total no extrato em toda visualização
 //    TODO arrumar parte de formatar birthdate
 //    TODO arrumar acesso no token
-//    TODO arrumar validação denúmero de celular
+//    TODO arrumar validação de número de celular
 //    TODO criptografia na foto
 
     public MemberDataController(
