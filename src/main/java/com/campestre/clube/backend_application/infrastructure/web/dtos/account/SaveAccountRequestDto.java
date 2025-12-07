@@ -22,6 +22,8 @@ public class SaveAccountRequestDto {
     @Schema(description = "Account access", example = "DIRETOR", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
 
+    public SaveAccountRequestDto() {}
+
     public String getEmail() {
         return email;
     }

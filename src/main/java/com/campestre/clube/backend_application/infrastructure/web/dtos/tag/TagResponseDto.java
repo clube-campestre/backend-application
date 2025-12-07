@@ -17,8 +17,7 @@ public class TagResponseDto {
         this.privateGoal = privateGoal;
     }
 
-    public TagResponseDto() {
-    }
+    public TagResponseDto() {}
 
     public Long getId() {
         return id;

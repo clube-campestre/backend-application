@@ -88,8 +88,7 @@ public class MemberDataRequestDto {
     @NotNull
     private Boolean acceptTerms;
 
-    public MemberDataRequestDto() {
-    }
+    public MemberDataRequestDto() {}
 
     public MemberDataRequestDto(
             String username, String birthCertificate, String cpf, String issuingAuthority, String contact,

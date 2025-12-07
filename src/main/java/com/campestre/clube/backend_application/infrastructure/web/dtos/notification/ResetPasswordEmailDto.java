@@ -9,7 +9,7 @@ public class ResetPasswordEmailDto implements Serializable {
     private String email;
     private String code;
 
-    public ResetPasswordEmailDto() {} // necessário para Jackson
+    public ResetPasswordEmailDto() {}
 
     public ResetPasswordEmailDto(NotificationTypeEnum notificationType, String email, String code) {
         this.notificationType = notificationType;

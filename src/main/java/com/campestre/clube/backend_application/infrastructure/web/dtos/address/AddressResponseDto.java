@@ -26,8 +26,7 @@ public class AddressResponseDto {
         this.complement = complement;
     }
 
-    public AddressResponseDto() {
-    }
+    public AddressResponseDto() {}
 
     public Long getId() {
         return id;

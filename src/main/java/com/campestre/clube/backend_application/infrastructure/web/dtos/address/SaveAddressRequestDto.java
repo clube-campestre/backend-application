@@ -20,6 +20,8 @@ public class SaveAddressRequestDto {
     private String referenceHouse;
     private String complement;
 
+    public SaveAddressRequestDto() {}
+
     public String getHouseNumber() {
         return houseNumber;
     }

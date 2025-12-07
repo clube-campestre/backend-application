@@ -19,6 +19,8 @@ public class StatementRequestDto {
     @NotBlank
     private String tagSurname;
 
+    public StatementRequestDto() {}
+
     public String getInformation() {
         return information;
     }

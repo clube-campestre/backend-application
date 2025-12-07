@@ -13,6 +13,8 @@ public class GoalResponseDto {
         this.tag = tag;
     }
 
+    public GoalResponseDto() {}
+
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }

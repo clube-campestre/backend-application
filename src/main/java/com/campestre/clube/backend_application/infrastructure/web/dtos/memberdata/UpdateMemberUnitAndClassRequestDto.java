@@ -6,6 +6,8 @@ public class UpdateMemberUnitAndClassRequestDto {
     private String classCategory;
     private String classRole;
 
+    public UpdateMemberUnitAndClassRequestDto() {}
+
     public String getUnitRole() {
         return unitRole;
     }

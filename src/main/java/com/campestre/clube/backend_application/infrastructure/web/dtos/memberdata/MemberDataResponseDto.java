@@ -40,8 +40,7 @@ public class MemberDataResponseDto {
 
     private Boolean acceptTerms;
 
-    public MemberDataResponseDto() {
-    }
+    public MemberDataResponseDto() {}
 
     public MemberDataResponseDto(
             String cpf, byte[] image, String imageFormat, String username, String birthDate, Sex sex,

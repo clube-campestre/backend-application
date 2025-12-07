@@ -23,6 +23,8 @@ public class UpdateAddressRequestDto {
     private String referenceHouse;
     private String complement;
 
+    public UpdateAddressRequestDto() {}
+
     public Long getId() {
         return id;
     }
