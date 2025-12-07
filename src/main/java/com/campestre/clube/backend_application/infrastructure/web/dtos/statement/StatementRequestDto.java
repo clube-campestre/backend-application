@@ -14,7 +14,7 @@ public class StatementRequestDto {
     @NotNull
     private BigDecimal price;
     @NotNull
-    private Instant transactionDate;
+    private String transactionDate;
     @NotNull
     private TransactionType transactionType;
     @NotBlank
@@ -36,11 +36,11 @@ public class StatementRequestDto {
         this.price = price;
     }
 
-    public Instant getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Instant transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 

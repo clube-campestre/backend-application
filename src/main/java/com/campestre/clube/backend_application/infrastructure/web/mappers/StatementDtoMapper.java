@@ -14,6 +14,7 @@ import com.campestre.clube.backend_application.infrastructure.web.dtos.statement
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementRequestDto;
 import com.campestre.clube.backend_application.infrastructure.web.dtos.statement.StatementResponseDto;
 
+import java.time.Instant;
 import java.util.stream.Collectors;
 
 public class StatementDtoMapper {
@@ -22,7 +23,7 @@ public class StatementDtoMapper {
         return new SaveStatementCommand(
                 dto.getInformation(),
                 dto.getPrice(),
-                dto.getTransactionDate(),
+                Instant.parse(dto.getTransactionDate()),
                 dto.getTransactionType(),
                 dto.getTagSurname()
         );
@@ -33,7 +34,7 @@ public class StatementDtoMapper {
                 id,
                 dto.getInformation(),
                 dto.getPrice(),
-                dto.getTransactionDate(),
+                Instant.parse(dto.getTransactionDate()),
                 dto.getTransactionType(),
                 dto.getTagSurname()
         );
