@@ -35,6 +35,8 @@ public class SavePlaceRequestDto {
         this.address = address;
     }
 
+    public SavePlaceRequestDto() {}
+
     public String getName() {
         return name;
     }
