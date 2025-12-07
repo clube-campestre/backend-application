@@ -28,8 +28,7 @@ public class RedisCacheConfig {
 
         // Configurações específicas por cache
         var perCache = Map.of(
-                "produtoPorId", defaults.entryTtl(Duration.ofMinutes(10)),
-                "listaProdutos", defaults.entryTtl(Duration.ofSeconds(30))
+                "account.byEmail", defaults.entryTtl(Duration.ofMinutes(5))
         );
 
         return RedisCacheManager.builder(cf)
