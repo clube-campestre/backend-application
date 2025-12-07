@@ -287,14 +287,6 @@ public class MemberDataResponseDto {
         this.medicalData = medicalData;
     }
 
-    public Boolean getBaptized() {
-        return isBaptized;
-    }
-
-    public void setBaptized(Boolean baptized) {
-        isBaptized = baptized;
-    }
-
     public Boolean getAcceptTerms() {
         return acceptTerms;
     }

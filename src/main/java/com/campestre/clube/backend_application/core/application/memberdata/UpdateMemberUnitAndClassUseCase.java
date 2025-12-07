@@ -43,7 +43,7 @@ public class UpdateMemberUnitAndClassUseCase {
                 memberData.getSex(),
                 memberData.getBirthCertificate(),
                 memberData.getTshirtSize(),
-                memberData.getBaptized(),
+                memberData.getIsBaptized(),
                 memberData.getCellphoneNumber().getNumber(),
                 memberData.getIssuingAuthority(),
                 unit,

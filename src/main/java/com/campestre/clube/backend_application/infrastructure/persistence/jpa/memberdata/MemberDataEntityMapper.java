@@ -21,7 +21,7 @@ public class MemberDataEntityMapper {
         entity.setSex(domain.getSex());
         entity.setBirthCertificate(domain.getBirthCertificate());
         entity.setTshirtSize(domain.getTshirtSize());
-        entity.setBaptized(domain.getBaptized());
+        entity.setIsBaptized(domain.getIsBaptized());
         entity.setContact(domain.getCellphoneNumber().getNumber());
         entity.setIssuingAuthority(domain.getIssuingAuthority());
         entity.setUnit(UnitEntityMapper.toEntity(domain.getUnit()));
@@ -54,7 +54,7 @@ public class MemberDataEntityMapper {
                 entity.getSex(),
                 entity.getBirthCertificate(),
                 entity.getTshirtSize(),
-                entity.getBaptized(),
+                entity.getIsBaptized(),
                 entity.getContact(),
                 entity.getIssuingAuthority(),
                 UnitEntityMapper.toDomain(entity.getUnit()),

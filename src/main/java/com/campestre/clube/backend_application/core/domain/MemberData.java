@@ -111,7 +111,7 @@ public class MemberData {
         return tshirtSize;
     }
 
-    public Boolean getBaptized() {
+    public Boolean getIsBaptized() {
         return isBaptized;
     }
 
