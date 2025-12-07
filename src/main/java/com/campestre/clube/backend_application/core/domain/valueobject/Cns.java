@@ -7,6 +7,8 @@ public class Cns {
         this.number = number;
     }
 
+    public Cns() {}
+
     public static Cns of(String number) {
 //        if (number.length() != 15) throw INVALID_CNS;
         return new Cns(number);

@@ -7,6 +7,8 @@ public class Cpf {
         this.number = number;
     }
 
+    public Cpf() {}
+
     public static Cpf of(String number) {
 //        if (number.length() != 11) throw INVALID_CPF;
         return new Cpf(number);

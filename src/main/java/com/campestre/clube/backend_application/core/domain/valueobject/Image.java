@@ -11,6 +11,8 @@ public class Image {
         this.format = format;
     }
 
+    public Image() {}
+
     public static Image of(byte[] value, String format) {
         if (!format.contains("image/")) throw INVALID_IMAGE_FORMAT;
         return new Image(value, format);

@@ -7,6 +7,8 @@ public class Email {
         this.value = value;
     }
 
+    public Email() {}
+
     public static Email of(String value) {
         return new Email(value);
     }
