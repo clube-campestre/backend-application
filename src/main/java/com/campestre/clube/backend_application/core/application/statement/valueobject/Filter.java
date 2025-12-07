@@ -22,7 +22,11 @@ public class Filter{
     public Filter() {}
 
     public static Filter of(String startDate, String endDate, Long tagId, TransactionType type, String description) {
-        return new Filter(Instant.parse(startDate), Instant.parse(endDate), tagId, type, description);
+        Instant startDateFormated = null;
+        Instant endDateFormated = null;
+        if (!startDate.isBlank()) startDateFormated = Instant.parse(startDate);
+        if (!endDate.isBlank()) endDateFormated = Instant.parse(endDate);
+        return new Filter(startDateFormated, endDateFormated, tagId, type, description);
     }
 
     public Instant getStartDate() {
