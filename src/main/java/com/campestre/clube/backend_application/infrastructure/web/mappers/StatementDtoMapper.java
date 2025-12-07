@@ -63,12 +63,12 @@ public class StatementDtoMapper {
 
     public static GetByFilterAndPaginationStatementResponseDto toResponse(StatementInformations statementInformations) {
         return new GetByFilterAndPaginationStatementResponseDto(
-                statementInformations.pagination().getPageNumber(),
-                statementInformations.pagination().getPageSize(),
-                statementInformations.pagination().getTotalItems(),
-                statementInformations.pagination().getTotalPages(),
-                statementInformations.totalPrice(),
-                statementInformations.statements()
+                statementInformations.getPagination().getPageNumber(),
+                statementInformations.getPagination().getPageSize(),
+                statementInformations.getPagination().getTotalItems(),
+                statementInformations.getPagination().getTotalPages(),
+                statementInformations.getTotalPrice(),
+                statementInformations.getStatements()
                         .stream().map(StatementDtoMapper::toResponse).collect(Collectors.toList())
         );
     }

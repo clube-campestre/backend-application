@@ -63,12 +63,8 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    @Cacheable(
-            cacheNames = "statementInformation.byFilterAndPagination",
-            key = "#filter + '-' + #pagination.pageNumber + '-' + #pagination.pageSize"
-    )
     public StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination) {
-        return new StatementInformations(
+        return StatementInformations.of(
                 StatementEntityMapper.toDomain(repository.findByFilterAndPagination(
                         filter.getStartDate(),
                         filter.getEndDate(),
