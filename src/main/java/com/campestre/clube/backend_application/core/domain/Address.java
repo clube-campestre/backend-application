@@ -28,6 +28,8 @@ public class Address {
         this.complement = complement;
     }
 
+    public Address() {}
+
     public static Address of(
             Long id, String street, String houseNumber, String district, String state, String city, String cep,
             String referenceHouse, String complement

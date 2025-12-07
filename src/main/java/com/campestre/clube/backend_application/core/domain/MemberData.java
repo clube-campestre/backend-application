@@ -34,7 +34,7 @@ public class MemberData {
 
     private Boolean acceptTerms;
 
-    public MemberData(
+    private MemberData(
             Cpf cpf, Image image, String username, LocalDate birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, CellphoneNumber cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
@@ -62,6 +62,8 @@ public class MemberData {
         this.medicalData = medicalData;
         this.acceptTerms = acceptTerms;
     }
+
+    public MemberData() {}
 
     public static MemberData of(
             String cpf, byte[] image, String imageFormat, String username, LocalDate birthDate, Sex sex,

@@ -9,13 +9,15 @@ public class Tag {
     private BigDecimal goal;
     private Boolean privateGoal;
 
-    public Tag(Long id, String surname , String color , BigDecimal goal , Boolean privateGoal) {
+    private Tag(Long id, String surname , String color , BigDecimal goal , Boolean privateGoal) {
         this.id = id;
         this.surname = surname;
         this.color = color;
         this.goal = goal;
         this.privateGoal = privateGoal;
     }
+
+    public Tag() {}
 
     public static Tag of(Long id, String surname, String color, BigDecimal goal, Boolean privateGoal) {
         return new Tag(

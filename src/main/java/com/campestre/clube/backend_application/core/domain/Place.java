@@ -26,6 +26,8 @@ public class Place {
         this.rating = rating;
     }
 
+    public Place() {}
+
     public static Place of(
             Long id, Address address, String name, BigDecimal price, Integer capacity, String contactName,
             String contactNumber, Integer rating

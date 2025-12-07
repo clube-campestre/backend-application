@@ -13,7 +13,7 @@ public class Statement {
     private TransactionType transactionType;
     private Tag tag;
 
-    public Statement(
+    private Statement(
             Long id, String information, BigDecimal price, LocalDateTime transactionDate,
             TransactionType transactionType, Tag tag
     ) {
@@ -24,6 +24,8 @@ public class Statement {
         this.transactionType = transactionType;
         this.tag = tag;
     }
+
+    public Statement() {}
 
     public static Statement of(
             Long id, String information, BigDecimal price, LocalDateTime transactionDate,

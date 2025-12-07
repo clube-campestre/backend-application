@@ -11,6 +11,8 @@ public class Goal {
         this.tag = tag;
     }
 
+    public Goal() {}
+
     public static Goal of(BigDecimal totalPrice, Tag tag) {
         return new Goal(totalPrice, tag);
     }

@@ -100,6 +100,8 @@ public class MedicalData {
         this.hospitalizationReasonLast5Years = hospitalizationReasonLast5Years;
     }
 
+    public MedicalData() {}
+
     public static MedicalData of(
             String cpf, String cns, String agreement, String bloodType, Boolean catapora, Boolean meningite,
             Boolean hepatite, Boolean dengue, Boolean pneumonia, Boolean malaria, Boolean febreAmarela, Boolean sarampo,

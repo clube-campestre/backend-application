@@ -11,6 +11,8 @@ public class Unit {
         this.score = score;
     }
 
+    public Unit() {}
+
     public static Unit of(Long id, String surname, Integer score) {
         return new Unit(id, surname, score);
     }

@@ -22,6 +22,8 @@ public class MemberDataForClass {
         this.members = members;
     }
 
+    public MemberDataForClass() {}
+
     public static MemberDataForClass of(
             String instructorName, Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages,
             List<MemberData> members
