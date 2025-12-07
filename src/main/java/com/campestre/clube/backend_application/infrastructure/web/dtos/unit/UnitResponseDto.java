@@ -11,8 +11,7 @@ public class UnitResponseDto {
         this.score = score;
     }
 
-    public UnitResponseDto() {
-    }
+    public UnitResponseDto() {}
 
     public Long getId() {
         return id;

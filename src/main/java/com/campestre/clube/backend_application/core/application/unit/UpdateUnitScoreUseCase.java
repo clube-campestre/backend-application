@@ -23,7 +23,7 @@ public class UpdateUnitScoreUseCase {
         if (!gateway.existsBySurnameIgnoreCase(command.unitName())) throw NOT_FOUND_UNIT;
 
         Unit unit = gateway.findBySurnameIgnoreCase(command.unitName());
-        Unit newUnit = Unit.of(unit.getId(), unit.getSurname(), command.newScore());
+        Unit newUnit = Unit.of(unit.getId(), unit.getSurname(), command.newScore(), unit.getHasRanking());
         return gateway.save(newUnit);
     }
 }

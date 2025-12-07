@@ -13,6 +13,7 @@ public class UnitEntityMapper {
         entity.setId(domain.getId());
         entity.setSurname(domain.getSurname());
         entity.setScore(domain.getScore());
+        entity.setHasRanking(domain.getHasRanking());
         return entity;
     }
 
@@ -21,7 +22,8 @@ public class UnitEntityMapper {
         return Unit.of(
                 entity.getId(),
                 entity.getSurname(),
-                entity.getScore()
+                entity.getScore(),
+                entity.getHasRanking()
         );
     }
 

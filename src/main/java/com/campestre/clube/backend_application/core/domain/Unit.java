@@ -4,21 +4,23 @@ public class Unit {
     private Long id;
     private String surname;
     private Integer score;
+    private Boolean hasRanking;
 
-    private Unit(Long id, String surname, Integer score) {
+    private Unit(Long id, String surname, Integer score, Boolean hasRanking) {
         this.id = id;
         this.surname = surname;
         this.score = score;
+        this.hasRanking = hasRanking;
     }
 
     public Unit() {}
 
-    public static Unit of(Long id, String surname, Integer score) {
-        return new Unit(id, surname, score);
+    public static Unit of(Long id, String surname, Integer score, Boolean hasRanking) {
+        return new Unit(id, surname, score, hasRanking);
     }
 
-    public static Unit of(Long id, String surname) {
-        return new Unit(id, surname, 0);
+    public static Unit of(Long id, String surname, Boolean hasRanking) {
+        return new Unit(id, surname, 0, hasRanking);
     }
 
     public Long getId() {
@@ -31,5 +33,9 @@ public class Unit {
 
     public Integer getScore() {
         return score;
+    }
+
+    public Boolean getHasRanking() {
+        return hasRanking;
     }
 }
