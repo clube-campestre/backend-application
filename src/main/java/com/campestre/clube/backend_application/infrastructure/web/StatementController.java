@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/statements")
@@ -68,8 +68,8 @@ public class StatementController {
     @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
     public ResponseEntity<GetByFilterAndPaginationStatementResponseDto> getByFilterAndPagination(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant endDate,
             @RequestParam(required = false) Long tagId,
             @RequestParam(required = false) TransactionType type,
             @RequestParam(required = false) String description,

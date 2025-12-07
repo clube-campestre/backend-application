@@ -3,7 +3,7 @@ package com.campestre.clube.backend_application.infrastructure.persistence.jpa.r
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.account.AccountEntity;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "reset_password")
@@ -20,7 +20,7 @@ public class ResetPasswordEntity {
     private String code = "";
 
     @Column(name = "expiration", nullable = false)
-    private LocalDateTime expiration;
+    private Instant expiration;
 
     @Column(name = "used", nullable = false)
     private boolean used = false;
@@ -49,11 +49,11 @@ public class ResetPasswordEntity {
         this.code = code;
     }
 
-    public LocalDateTime getExpiration() {
+    public Instant getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(LocalDateTime expiration) {
+    public void setExpiration(Instant expiration) {
         this.expiration = expiration;
     }
 

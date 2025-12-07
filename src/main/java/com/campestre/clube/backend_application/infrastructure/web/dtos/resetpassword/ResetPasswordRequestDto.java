@@ -2,15 +2,15 @@ package com.campestre.clube.backend_application.infrastructure.web.dtos.resetpas
 
 import com.campestre.clube.backend_application.core.domain.Account;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class ResetPasswordRequestDto {
     private Account account;
     private String code;
-    private LocalDateTime expiration;
+    private Instant expiration;
     private Boolean used;
 
-    public ResetPasswordRequestDto(Account account, String code, LocalDateTime expiration, Boolean used) {
+    public ResetPasswordRequestDto(Account account, String code, Instant expiration, Boolean used) {
         this.account = account;
         this.code = code;
         this.expiration = expiration;
@@ -36,11 +36,11 @@ public class ResetPasswordRequestDto {
         this.code = code;
     }
 
-    public LocalDateTime getExpiration() {
+    public Instant getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(LocalDateTime expiration) {
+    public void setExpiration(Instant expiration) {
         this.expiration = expiration;
     }
 

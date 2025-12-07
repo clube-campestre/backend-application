@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class StatementRequestDto {
     @NotBlank
@@ -14,7 +14,7 @@ public class StatementRequestDto {
     @NotNull
     private BigDecimal price;
     @NotNull
-    private LocalDateTime transactionDate;
+    private Instant transactionDate;
     @NotNull
     private TransactionType transactionType;
     @NotBlank
@@ -36,11 +36,11 @@ public class StatementRequestDto {
         this.price = price;
     }
 
-    public LocalDateTime getTransactionDate() {
+    public Instant getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
+    public void setTransactionDate(Instant transactionDate) {
         this.transactionDate = transactionDate;
     }
 

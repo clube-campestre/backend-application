@@ -3,18 +3,18 @@ package com.campestre.clube.backend_application.core.domain;
 import com.campestre.clube.backend_application.core.domain.enums.TransactionType;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class Statement {
     private Long id;
     private String information;
     private BigDecimal price;
-    private LocalDateTime transactionDate;
+    private Instant transactionDate;
     private TransactionType transactionType;
     private Tag tag;
 
     private Statement(
-            Long id, String information, BigDecimal price, LocalDateTime transactionDate,
+            Long id, String information, BigDecimal price, Instant transactionDate,
             TransactionType transactionType, Tag tag
     ) {
         this.id = id;
@@ -28,7 +28,7 @@ public class Statement {
     public Statement() {}
 
     public static Statement of(
-            Long id, String information, BigDecimal price, LocalDateTime transactionDate,
+            Long id, String information, BigDecimal price, Instant transactionDate,
             TransactionType transactionType, Tag tag
     ) {
         return new Statement(
@@ -42,7 +42,7 @@ public class Statement {
     }
 
     public static Statement of(
-            String information, BigDecimal price, LocalDateTime transactionDate, TransactionType transactionType,
+            String information, BigDecimal price, Instant transactionDate, TransactionType transactionType,
             Tag tag
     ) {
         return new Statement(
@@ -67,7 +67,7 @@ public class Statement {
         return price;
     }
 
-    public LocalDateTime getTransactionDate() {
+    public Instant getTransactionDate() {
         return transactionDate;
     }
 

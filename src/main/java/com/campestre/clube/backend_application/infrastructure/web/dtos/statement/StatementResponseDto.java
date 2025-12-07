@@ -4,13 +4,13 @@ import com.campestre.clube.backend_application.core.domain.enums.TransactionType
 import com.campestre.clube.backend_application.infrastructure.web.dtos.tag.TagResponseDto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record StatementResponseDto(
     Long id,
     String information,
     BigDecimal price,
-    LocalDateTime transactionDate,
+    Instant transactionDate,
     TransactionType transactionType,
     TagResponseDto tag
 ){}

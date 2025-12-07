@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -41,7 +41,7 @@ public class StatementJpaAdapter implements StatementGateway {
 
     @Override
     public boolean existsByInformationAndPriceAndTransactionDateAndTag(
-            String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
+            String information, BigDecimal price, Instant transactionDate, Tag tag
     ) {
         return repository.existsByInformationAndPriceAndTransactionDateAndTag(
                 information, price, transactionDate, TagEntityMapper.toEntity(tag)

@@ -8,14 +8,14 @@ import com.campestre.clube.backend_application.core.domain.StatementInformations
 import com.campestre.clube.backend_application.core.domain.Tag;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 public interface StatementGateway {
     boolean existsByTagSurname(String tagSurname);
     boolean existsById(Long id);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
-            String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
+            String information, BigDecimal price, Instant transactionDate, Tag tag
     );
 
     Statement findById(Long id);

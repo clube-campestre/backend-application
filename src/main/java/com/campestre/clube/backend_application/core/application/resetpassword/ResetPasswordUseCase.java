@@ -7,7 +7,8 @@ import com.campestre.clube.backend_application.core.application.resetpassword.co
 import com.campestre.clube.backend_application.core.domain.Account;
 import com.campestre.clube.backend_application.core.domain.ResetPassword;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
 
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
@@ -32,7 +33,8 @@ public class ResetPasswordUseCase {
 
         ResetPassword resetPassword = gateway.findByAccountEmailAndCodeAndNotUsed(command.email(), command.code());
 
-        if (resetPassword.getExpiration().isBefore(LocalDateTime.now())) throw INVALID_CODE_EXPIRED_RESET_PASSWORD;
+        if (resetPassword.getExpiration().atZone(ZoneId.systemDefault()).toInstant().isBefore(Instant.now()))
+            throw INVALID_CODE_EXPIRED_RESET_PASSWORD;
 
         Account account = Account.of(
                 resetPassword.getAccount().getId(),

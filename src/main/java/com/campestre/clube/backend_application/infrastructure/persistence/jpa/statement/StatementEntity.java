@@ -5,7 +5,7 @@ import com.campestre.clube.backend_application.infrastructure.persistence.jpa.ta
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "statements")
@@ -18,7 +18,7 @@ public class StatementEntity {
     private BigDecimal price;
 
     @Column(name = "transaction_date")
-    private LocalDateTime transactionDate;
+    private Instant transactionDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type")
@@ -52,11 +52,11 @@ public class StatementEntity {
         this.price = price;
     }
 
-    public LocalDateTime getTransactionDate() {
+    public Instant getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
+    public void setTransactionDate(Instant transactionDate) {
         this.transactionDate = transactionDate;
     }
 

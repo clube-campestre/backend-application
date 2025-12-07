@@ -2,11 +2,11 @@ package com.campestre.clube.backend_application.core.application.statement.value
 
 import com.campestre.clube.backend_application.core.domain.enums.TransactionType;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record Filter(
-        LocalDateTime startDate,
-        LocalDateTime endDate,
+        Instant startDate,
+        Instant endDate,
         Long tagId,
         TransactionType type,
         String description
