@@ -68,8 +68,8 @@ public class StatementController {
     @Operation(summary = "Endpoint for get statement by filter and pagination")
     @GetMapping
     public ResponseEntity<GetByFilterAndPaginationStatementResponseDto> getByFilterAndPagination(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant endDate,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
             @RequestParam(required = false) Long tagId,
             @RequestParam(required = false) TransactionType type,
             @RequestParam(required = false) String description,
@@ -79,7 +79,7 @@ public class StatementController {
     ) {
         StatementInformations statementInformations = listStatementByFilterAndPaginationUseCase.execute(
                 StatementDtoMapper.toCommand(
-                        new Filter(startDate, endDate, tagId, type, description), Pagination.of(page, size)
+                        Filter.of(startDate, endDate, tagId, type, description), Pagination.of(page, size)
                 )
         );
         return ResponseEntity.ok(StatementDtoMapper.toResponse(statementInformations));

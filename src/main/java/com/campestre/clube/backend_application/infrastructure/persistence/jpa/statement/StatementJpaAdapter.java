@@ -70,7 +70,11 @@ public class StatementJpaAdapter implements StatementGateway {
     public StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination) {
         return new StatementInformations(
                 StatementEntityMapper.toDomain(repository.findByFilterAndPagination(
-                        filter.startDate(), filter.endDate(), filter.tagId(), filter.type(), filter.description(),
+                        filter.getStartDate(),
+                        filter.getEndDate(),
+                        filter.getTagId(),
+                        filter.getType(),
+                        filter.getDescription(),
                         PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
                 ).getContent()),
                 pagination, repository.findAllPrices()
