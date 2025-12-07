@@ -24,8 +24,8 @@ public class Filter{
     public static Filter of(String startDate, String endDate, Long tagId, TransactionType type, String description) {
         Instant startDateFormated = null;
         Instant endDateFormated = null;
-        if (!startDate.isBlank()) startDateFormated = Instant.parse(startDate);
-        if (!endDate.isBlank()) endDateFormated = Instant.parse(endDate);
+        if (startDate != null && !startDate.isBlank()) startDateFormated = Instant.parse(startDate);
+        if (startDate != null && !endDate.isBlank()) endDateFormated = Instant.parse(endDate);
         return new Filter(startDateFormated, endDateFormated, tagId, type, description);
     }
 
