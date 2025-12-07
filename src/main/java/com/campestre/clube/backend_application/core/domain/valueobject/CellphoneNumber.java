@@ -12,8 +12,8 @@ public class CellphoneNumber {
     public CellphoneNumber() {}
 
     public static CellphoneNumber of(String number) {
-        if (number.length() != 11 || !number.isBlank()) throw INVALID_CELLPHONE_NUMBER;
-        return new CellphoneNumber(number);
+        if (number.length() == 11 || number.isBlank()) return new CellphoneNumber(number);
+        throw INVALID_CELLPHONE_NUMBER;
     }
 
     public String getNumber() {
