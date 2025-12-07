@@ -10,7 +10,7 @@ public record StatementResponseDto(
     Long id,
     String information,
     BigDecimal price,
-    Instant transactionDate,
+    String transactionDate,
     TransactionType transactionType,
     TagResponseDto tag
 ){}

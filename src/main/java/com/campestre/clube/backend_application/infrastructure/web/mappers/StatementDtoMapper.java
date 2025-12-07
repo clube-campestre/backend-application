@@ -51,7 +51,7 @@ public class StatementDtoMapper {
                 statement.getId(),
                 statement.getInformation(),
                 statement.getPrice(),
-                statement.getTransactionDate(),
+                statement.getTransactionDate().toString(),
                 statement.getTransactionType(),
                 TagEntityMapper.toResponse(statement.getTag())
         );
