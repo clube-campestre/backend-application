@@ -14,6 +14,6 @@ public class GetUnitRankingUseCase {
     }
 
     public List<Unit> execute() {
-        return gateway.findOrderByScoreDesc();
+        return gateway.findByHasRankingOrderByScoreDesc(true);
     }
 }
