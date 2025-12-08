@@ -2,7 +2,7 @@ name: Build and Deploy Backend
 
 on:
   push:
-    branches: [ "ci_implement_test" ]
+    branches: [ "develop" ]
 
 jobs:
   deploy-backend:
