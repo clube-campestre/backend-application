@@ -13,6 +13,8 @@ public class Pagination {
         this.totalPages = totalPages;
     }
 
+    public Pagination() {}
+
     public Pagination of(Integer pageNumber, Integer pageSize, Long totalItems, Integer totalPages) {
         return new Pagination(pageNumber, pageSize, totalItems, totalPages);
     }

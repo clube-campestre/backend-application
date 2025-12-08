@@ -12,7 +12,9 @@ public class ResetUnitScoresUseCase {
     }
 
     public Boolean execute() {
-        gateway.findOrderByScoreDesc().forEach(unit -> { gateway.save(Unit.of(unit.getId(), unit.getSurname())); });
+        gateway.findByHasRankingOrderByScoreDesc(true).forEach(unit ->
+                gateway.save(Unit.of(unit.getId(), unit.getSurname(), unit.getHasRanking()))
+        );
         return gateway.findByScoreNot(0).isEmpty();
     }
 }

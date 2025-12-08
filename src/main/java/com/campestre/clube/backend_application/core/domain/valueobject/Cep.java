@@ -9,6 +9,8 @@ public class Cep {
         this.number = number;
     }
 
+    public Cep() {}
+
     public static Cep of(String number) {
         String formatedValue = number.replace("-", "");
         if (formatedValue.length() != 8) throw INVALID_CEP;

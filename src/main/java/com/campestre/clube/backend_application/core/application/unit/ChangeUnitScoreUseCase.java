@@ -25,7 +25,8 @@ public class ChangeUnitScoreUseCase {
         Unit newUnit = Unit.of(
                 unit.getId(),
                 unit.getSurname(),
-                (command.isSum() ? (unit.getScore() + command.score()) : (unit.getScore() - command.score()))
+                (command.isSum() ? (unit.getScore() + command.score()) : (unit.getScore() - command.score())),
+                unit.getHasRanking()
         );
         return gateway.save(newUnit);
     }

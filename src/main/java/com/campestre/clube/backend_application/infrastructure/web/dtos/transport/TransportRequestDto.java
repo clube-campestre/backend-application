@@ -22,6 +22,8 @@ public class TransportRequestDto {
     @NotNull @Min(1) @Max(5)
     private Integer rating;
 
+    public TransportRequestDto() {}
+
     public BigDecimal getPrice() {
         return price;
     }

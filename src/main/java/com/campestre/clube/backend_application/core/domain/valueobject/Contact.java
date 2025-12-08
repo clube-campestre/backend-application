@@ -9,6 +9,8 @@ public class Contact {
         this.cellphoneNumber = cellphoneNumber;
     }
 
+    public Contact() {}
+
     public static Contact of(String name, String number) {
         return new Contact(
                 name,

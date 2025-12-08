@@ -9,10 +9,11 @@ public class CellphoneNumber {
         this.number = number;
     }
 
+    public CellphoneNumber() {}
+
     public static CellphoneNumber of(String number) {
-//        TODO criar lógica de opcional caso ele cadastre pai ou mãe
-//        if (number.length() != 11) throw INVALID_CELLPHONE_NUMBER;
-        return new CellphoneNumber(number);
+        if (number.length() == 11 || number.isBlank()) return new CellphoneNumber(number);
+        throw INVALID_CELLPHONE_NUMBER;
     }
 
     public String getNumber() {

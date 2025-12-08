@@ -17,8 +17,7 @@ public class GetByFilterAndPaginationMemberDataResponseDto {
         this.items = items;
     }
 
-    public GetByFilterAndPaginationMemberDataResponseDto() {
-    }
+    public GetByFilterAndPaginationMemberDataResponseDto() {}
 
     public Integer getPageNumber() {
         return pageNumber;

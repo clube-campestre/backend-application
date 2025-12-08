@@ -10,5 +10,5 @@ public interface UnitJpaRepository extends JpaRepository<UnitEntity, Long> {
 
     Optional<UnitEntity> findBySurnameIgnoreCase(String unidade);
     List<UnitEntity> findByScoreNot(Integer score);
-    List<UnitEntity> findAllByOrderByScoreDesc();
+    List<UnitEntity> findByHasRankingOrderByScoreDesc(Boolean hasRanking);
 }

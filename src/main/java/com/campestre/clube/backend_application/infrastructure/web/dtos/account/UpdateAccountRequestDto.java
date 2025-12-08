@@ -17,6 +17,8 @@ public class UpdateAccountRequestDto {
     @Schema(description = "Account access", example = "DIRETOR", allowableValues = {"DIRETOR", "EXECUTIVO", "TESOURARIA", "SUPERVISOR"})
     private String access;
 
+    public UpdateAccountRequestDto() {}
+
     public String getEmail() {
         return email;
     }

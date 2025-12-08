@@ -37,8 +37,8 @@ public class UnitJpaAdapter implements UnitGateway {
 
     @Override
     @Cacheable(cacheNames = "unit.list")
-    public List<Unit> findOrderByScoreDesc() {
-        return UnitEntityMapper.toDomain(repository.findAllByOrderByScoreDesc());
+    public List<Unit> findByHasRankingOrderByScoreDesc(Boolean hasRanking) {
+        return UnitEntityMapper.toDomain(repository.findByHasRankingOrderByScoreDesc(hasRanking));
     }
 
     @Override

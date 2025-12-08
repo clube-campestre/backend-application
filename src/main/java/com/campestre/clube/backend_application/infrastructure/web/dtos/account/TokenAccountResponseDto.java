@@ -15,8 +15,7 @@ public class TokenAccountResponseDto {
         this.access = access;
     }
 
-    public TokenAccountResponseDto() {
-    }
+    public TokenAccountResponseDto() {}
 
     public Long getUserId() {
         return userId;

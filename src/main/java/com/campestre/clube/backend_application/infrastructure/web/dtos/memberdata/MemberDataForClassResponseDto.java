@@ -19,8 +19,7 @@ public class MemberDataForClassResponseDto {
         this.members = members;
     }
 
-    public MemberDataForClassResponseDto() {
-    }
+    public MemberDataForClassResponseDto() {}
 
     public Integer getPageNumber() {
         return pageNumber;

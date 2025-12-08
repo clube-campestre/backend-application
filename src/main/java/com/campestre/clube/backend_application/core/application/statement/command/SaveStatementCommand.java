@@ -3,12 +3,12 @@ package com.campestre.clube.backend_application.core.application.statement.comma
 import com.campestre.clube.backend_application.core.domain.enums.TransactionType;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record SaveStatementCommand(
         String information,
         BigDecimal price,
-        LocalDateTime transactionDate,
+        Instant transactionDate,
         TransactionType transactionType,
         String tagSurname
 ){}

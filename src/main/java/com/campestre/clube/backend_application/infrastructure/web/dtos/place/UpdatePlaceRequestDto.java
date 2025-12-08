@@ -35,6 +35,8 @@ public class UpdatePlaceRequestDto {
         this.address = address;
     }
 
+    public UpdatePlaceRequestDto() {}
+
     public String getName() {
         return name;
     }

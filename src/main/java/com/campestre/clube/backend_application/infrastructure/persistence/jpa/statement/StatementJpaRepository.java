@@ -9,13 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 public interface StatementJpaRepository extends JpaRepository<StatementEntity, Long> {
     boolean existsByTagSurname(@Param("tagSurname") String tagSurname);
     boolean existsByInformationAndPriceAndTransactionDateAndTag(
-            String information, BigDecimal price, LocalDateTime transactionDate, TagEntity tag);
+            String information, BigDecimal price, Instant transactionDate, TagEntity tag);
 
     @Query("""
                 SELECT s FROM StatementEntity s
@@ -27,8 +27,8 @@ public interface StatementJpaRepository extends JpaRepository<StatementEntity, L
                 ORDER BY s.transactionDate DESC
             """)
     Page<StatementEntity> findByFilterAndPagination(
-            @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate,
+            @Param("startDate") Instant startDate,
+            @Param("endDate") Instant endDate,
             @Param("tagId") Long tagId,
             @Param("type") TransactionType type,
             @Param("info") String info,

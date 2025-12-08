@@ -37,22 +37,9 @@ services:
     networks:
       - redis-net
 
-  redisinsight:
-    image: redis/redisinsight:latest
-    container_name: redisinsight
-    ports:
-      - "5540:5540"
-    depends_on:
-      - redis
-    networks:
-      - redis-net
-    volumes:
-      - redisinsight_data:/data
-
 volumes:
   rabbitmq_data:
   redis_data:
-  redisinsight_data:
 
 networks:
   rabbitmq_net:

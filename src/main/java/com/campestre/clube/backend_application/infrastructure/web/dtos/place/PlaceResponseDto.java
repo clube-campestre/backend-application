@@ -25,6 +25,8 @@ public class PlaceResponseDto {
         this.address = address;
     }
 
+    public PlaceResponseDto() {}
+
     public Long getId() {
         return id;
     }

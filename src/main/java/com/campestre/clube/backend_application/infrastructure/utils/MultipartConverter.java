@@ -1,13 +1,17 @@
 package com.campestre.clube.backend_application.infrastructure.utils;
 
 import com.campestre.clube.backend_application.core.domain.valueobject.Image;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
 
 public class MultipartConverter {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static <T> T fromJson(String json, Class<T> clazz) {
         try {

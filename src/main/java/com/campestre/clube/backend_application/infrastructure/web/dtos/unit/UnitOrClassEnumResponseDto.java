@@ -9,8 +9,7 @@ public class UnitOrClassEnumResponseDto {
         this.formattedValue = formattedValue;
     }
 
-    public UnitOrClassEnumResponseDto() {
-    }
+    public UnitOrClassEnumResponseDto() {}
 
     public String getUnitOrClass() {
         return unitOrClass;

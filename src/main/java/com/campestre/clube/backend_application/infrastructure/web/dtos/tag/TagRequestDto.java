@@ -19,8 +19,7 @@ public class TagRequestDto {
         this.privateGoal = privateGoal;
     }
 
-    public TagRequestDto() {
-    }
+    public TagRequestDto() {}
 
     public String getSurname() {
         return surname;

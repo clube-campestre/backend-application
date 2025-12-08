@@ -11,6 +11,8 @@ public class MemberContact {
         this.email = email;
     }
 
+    public MemberContact() {}
+
     public static MemberContact of(String name, String number, String email) {
         return new MemberContact(
                 name,

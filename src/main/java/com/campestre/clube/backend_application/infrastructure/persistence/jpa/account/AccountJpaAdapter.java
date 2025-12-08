@@ -45,18 +45,19 @@ public class AccountJpaAdapter implements AccountGateway {
     }
 
     @Override
+    @Cacheable(cacheNames = "account.byEmail", key = "#email")
     public Account findByEmail(String email) {
         return AccountEntityMapper.toDomain(repository.findByEmail(email));
     }
 
     @Override
-    @CacheEvict(cacheNames = {"account.byId", "account.list"}, allEntries = true)
+    @CacheEvict(cacheNames = {"account.byId", "account.list", "account.email"}, allEntries = true)
     public Account save(Account domain) {
         return AccountEntityMapper.toDomain(repository.save(AccountEntityMapper.toEntity(domain)));
     }
 
     @Override
-    @CacheEvict(cacheNames = {"account.byId", "account.list"}, allEntries = true)
+    @CacheEvict(cacheNames = {"account.byId", "account.list", "account.email"}, allEntries = true)
     public void removeById(Long id) {
         repository.deleteById(id);
     }

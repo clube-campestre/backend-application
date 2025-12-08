@@ -6,6 +6,8 @@ import com.campestre.clube.backend_application.infrastructure.persistence.jpa.ad
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.medicaldata.MedicalDataEntityMapper;
 import com.campestre.clube.backend_application.infrastructure.persistence.jpa.unit.UnitEntityMapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +19,11 @@ public class MemberDataEntityMapper {
         entity.setImage(domain.getImage().getValue());
         entity.setImageFormat(domain.getImage().getFormat());
         entity.setUsername(domain.getUsername());
-        entity.setBirthDate(domain.getBirthDate());
+        entity.setBirthDate(LocalDate.parse(domain.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         entity.setSex(domain.getSex());
         entity.setBirthCertificate(domain.getBirthCertificate());
         entity.setTshirtSize(domain.getTshirtSize());
-        entity.setBaptized(domain.getBaptized());
+        entity.setIsBaptized(domain.getIsBaptized());
         entity.setContact(domain.getCellphoneNumber().getNumber());
         entity.setIssuingAuthority(domain.getIssuingAuthority());
         entity.setUnit(UnitEntityMapper.toEntity(domain.getUnit()));
@@ -50,11 +52,11 @@ public class MemberDataEntityMapper {
                 entity.getImage(),
                 entity.getImageFormat(),
                 entity.getUsername(),
-                entity.getBirthDate(),
+                entity.getBirthDate().toString(),
                 entity.getSex(),
                 entity.getBirthCertificate(),
                 entity.getTshirtSize(),
-                entity.getBaptized(),
+                entity.getIsBaptized(),
                 entity.getContact(),
                 entity.getIssuingAuthority(),
                 UnitEntityMapper.toDomain(entity.getUnit()),

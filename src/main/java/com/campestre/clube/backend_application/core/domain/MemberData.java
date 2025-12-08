@@ -6,13 +6,11 @@ import com.campestre.clube.backend_application.core.domain.valueobject.Cpf;
 import com.campestre.clube.backend_application.core.domain.valueobject.Image;
 import com.campestre.clube.backend_application.core.domain.valueobject.MemberContact;
 
-import java.time.LocalDate;
-
 public class MemberData {
     private Cpf cpf;
     private Image image;
     private String username;
-    private LocalDate birthDate;
+    private String birthDate;
     private Sex sex;
     private String birthCertificate;
     private TshirtSize tshirtSize;
@@ -34,8 +32,8 @@ public class MemberData {
 
     private Boolean acceptTerms;
 
-    public MemberData(
-            Cpf cpf, Image image, String username, LocalDate birthDate, Sex sex,
+    private MemberData(
+            Cpf cpf, Image image, String username, String birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, CellphoneNumber cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
@@ -63,8 +61,10 @@ public class MemberData {
         this.acceptTerms = acceptTerms;
     }
 
+    public MemberData() {}
+
     public static MemberData of(
-            String cpf, byte[] image, String imageFormat, String username, LocalDate birthDate, Sex sex,
+            String cpf, byte[] image, String imageFormat, String username, String birthDate, Sex sex,
             String birthCertificate, TshirtSize tshirtSize, Boolean isBaptized, String cellphoneNumber,
             String issuingAuthority, Unit unit, UnitRole unitRole, ClassCategory classCategory, ClassRole classRole,
             MemberContact fatherContact, MemberContact motherContact, MemberContact responsibleContact, Address address,
@@ -93,7 +93,7 @@ public class MemberData {
         return username;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
@@ -109,7 +109,7 @@ public class MemberData {
         return tshirtSize;
     }
 
-    public Boolean getBaptized() {
+    public Boolean getIsBaptized() {
         return isBaptized;
     }
 

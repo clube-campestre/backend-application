@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -41,7 +41,7 @@ public class StatementJpaAdapter implements StatementGateway {
 
     @Override
     public boolean existsByInformationAndPriceAndTransactionDateAndTag(
-            String information, BigDecimal price, LocalDateTime transactionDate, Tag tag
+            String information, BigDecimal price, Instant transactionDate, Tag tag
     ) {
         return repository.existsByInformationAndPriceAndTransactionDateAndTag(
                 information, price, transactionDate, TagEntityMapper.toEntity(tag)
@@ -63,14 +63,14 @@ public class StatementJpaAdapter implements StatementGateway {
     }
 
     @Override
-    @Cacheable(
-            cacheNames = "statementInformation.byFilterAndPagination",
-            key = "#filter + '-' + #pagination.pageNumber + '-' + #pagination.pageSize"
-    )
     public StatementInformations findStatementInformationsByFilterAndPagination(Filter filter, Pagination pagination) {
-        return new StatementInformations(
+        return StatementInformations.of(
                 StatementEntityMapper.toDomain(repository.findByFilterAndPagination(
-                        filter.startDate(), filter.endDate(), filter.tagId(), filter.type(), filter.description(),
+                        filter.getStartDate(),
+                        filter.getEndDate(),
+                        filter.getTagId(),
+                        filter.getType(),
+                        filter.getDescription(),
                         PageRequest.of(pagination.getPageNumber(), pagination.getPageSize())
                 ).getContent()),
                 pagination, repository.findAllPrices()

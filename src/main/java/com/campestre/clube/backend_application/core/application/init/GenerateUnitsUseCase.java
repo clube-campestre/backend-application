@@ -17,11 +17,13 @@ public class GenerateUnitsUseCase {
     }
 
     public void execute() {
-        Arrays.stream(UnitEnum.values()).forEach(unit -> saveUnitIfNotExist(unit.getId(), unit.name()));
+        Arrays.stream(UnitEnum.values()).forEach(unit ->
+                saveUnitIfNotExist(unit.getId(), unit.name(), unit.getHasRanking())
+        );
     }
 
-    private void saveUnitIfNotExist(Long id, String name) {
-        if (!unitGateway.existsBySurnameIgnoreCase(name)) unitGateway.save(Unit.of(id, name, 0));
+    private void saveUnitIfNotExist(Long id, String name, Boolean hasRanking) {
+        if (!unitGateway.existsBySurnameIgnoreCase(name)) unitGateway.save(Unit.of(id, name, 0, hasRanking));
     }
 }
 

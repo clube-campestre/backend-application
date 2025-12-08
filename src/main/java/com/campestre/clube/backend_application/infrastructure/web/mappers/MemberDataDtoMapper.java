@@ -28,9 +28,11 @@ public class MemberDataDtoMapper {
         Image image;
         if (file == null || file.isEmpty()) image = Image.byDefault();
         else image = MultipartConverter.toImage(file);
+
         MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
         LocalDate birthDate = LocalDate.parse(dto.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         if (!birthDate.isBefore(LocalDate.now())) throw INVALID_MEMBER_DATA_BIRTH_DATE;
+
         return new SaveMemberDataCommand(
                 dto.getCpf(),
                 image.getValue(),
@@ -40,7 +42,7 @@ public class MemberDataDtoMapper {
                 Sex.fromString(dto.getSex()),
                 dto.getBirthCertificate(),
                 TshirtSize.fromString(dto.getTshirtSize()),
-                dto.getBaptized(),
+                dto.getIsBaptized(),
                 dto.getContact(),
                 dto.getIssuingAuthority(),
 
@@ -120,9 +122,11 @@ public class MemberDataDtoMapper {
         Image image;
         if (file == null || file.isEmpty()) image = Image.byDefault();
         else image = MultipartConverter.toImage(file);
+
         MemberDataRequestDto dto = MultipartConverter.fromJson(jsonDto, MemberDataRequestDto.class);
         LocalDate birthDate = LocalDate.parse(dto.getBirthDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         if (!birthDate.isBefore(LocalDate.now())) throw INVALID_MEMBER_DATA_BIRTH_DATE;
+
         return new UpdateMemberDataCommand(
                 dto.getCpf(),
                 image.getValue(),
@@ -132,7 +136,7 @@ public class MemberDataDtoMapper {
                 Sex.fromString(dto.getSex()),
                 dto.getBirthCertificate(),
                 TshirtSize.fromString(dto.getTshirtSize()),
-                dto.getBaptized(),
+                dto.getIsBaptized(),
                 dto.getContact(),
                 dto.getIssuingAuthority(),
 
@@ -224,11 +228,11 @@ public class MemberDataDtoMapper {
                 domain.getImage().getValue(),
                 domain.getImage().getFormat(),
                 domain.getUsername(),
-                domain.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                domain.getBirthDate(),
                 domain.getSex(),
                 domain.getBirthCertificate(),
                 domain.getTshirtSize(),
-                domain.getBaptized(),
+                domain.getIsBaptized(),
                 domain.getCellphoneNumber().getNumber(),
                 domain.getIssuingAuthority(),
 

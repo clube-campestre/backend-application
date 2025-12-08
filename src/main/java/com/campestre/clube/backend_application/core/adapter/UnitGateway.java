@@ -9,7 +9,7 @@ public interface UnitGateway {
 
     Unit findBySurnameIgnoreCase(String surname);
     List<Unit> findByScoreNot(Integer score);
-    List<Unit> findOrderByScoreDesc();
+    List<Unit> findByHasRankingOrderByScoreDesc(Boolean hasRanking);
 
     Unit save(Unit unit);
 }

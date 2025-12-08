@@ -88,8 +88,7 @@ public class MemberDataRequestDto {
     @NotNull
     private Boolean acceptTerms;
 
-    public MemberDataRequestDto() {
-    }
+    public MemberDataRequestDto() {}
 
     public MemberDataRequestDto(
             String username, String birthCertificate, String cpf, String issuingAuthority, String contact,
@@ -190,12 +189,12 @@ public class MemberDataRequestDto {
         this.tshirtSize = tshirtSize;
     }
 
-    public Boolean getBaptized() {
+    public Boolean getIsBaptized() {
         return isBaptized;
     }
 
-    public void setBaptized(Boolean baptized) {
-        isBaptized = baptized;
+    public void setIsBaptized(Boolean isBaptized) {
+        this.isBaptized = isBaptized;
     }
 
     public SaveAddressRequestDto getAddress() {

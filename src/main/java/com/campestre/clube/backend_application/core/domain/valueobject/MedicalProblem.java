@@ -11,6 +11,8 @@ public class MedicalProblem {
         this.medication = medication;
     }
 
+    public MedicalProblem() {}
+
     public static MedicalProblem of(Boolean haveProblem, String medication) {
         if (!haveProblem && !medication.isEmpty()) throw BAD_REQUEST_MEDICAL_PROBLEM;
         return new MedicalProblem(haveProblem, medication);

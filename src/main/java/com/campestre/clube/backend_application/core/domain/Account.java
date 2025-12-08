@@ -18,6 +18,8 @@ public class Account {
         this.access = access;
     }
 
+    public Account() {}
+
     public static Account of(Long id, String email, String password, String name, AccessTypeEnum access) {
         return new Account(
                 id,

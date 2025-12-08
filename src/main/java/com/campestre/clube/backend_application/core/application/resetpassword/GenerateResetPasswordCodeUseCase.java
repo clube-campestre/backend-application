@@ -7,7 +7,8 @@ import com.campestre.clube.backend_application.core.application.resetpassword.co
 import com.campestre.clube.backend_application.core.domain.Account;
 import com.campestre.clube.backend_application.core.domain.ResetPassword;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 import static com.campestre.clube.backend_application.core.exceptions.ExceptionExtensions.*;
@@ -33,7 +34,9 @@ public class GenerateResetPasswordCodeUseCase {
         Account account = accountGateway.findByEmail(command.email());
         String code = String.format("%06d", new Random().nextInt(999999));
 
-        ResetPassword resetCode = ResetPassword.of(account, code, LocalDateTime.now().plusMinutes(10), false);
+        ResetPassword resetCode = ResetPassword.of(
+                account, code, Instant.now().plus(10, ChronoUnit.MINUTES), false
+        );
 
         gateway.save(resetCode);
         notificationGateway.sendResetPasswordEmail(command.email(), code);

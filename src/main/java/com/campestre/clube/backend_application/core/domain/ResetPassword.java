@@ -1,15 +1,15 @@
 package com.campestre.clube.backend_application.core.domain;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public class ResetPassword {
     private Long id;
     private Account account;
     private String code;
-    private LocalDateTime expiration;
+    private Instant expiration;
     private Boolean used = false;
 
-    private ResetPassword(Long id, Account account, String code, LocalDateTime expiration, Boolean used) {
+    private ResetPassword(Long id, Account account, String code, Instant expiration, Boolean used) {
         this.id = id;
         this.account = account;
         this.code = code;
@@ -17,11 +17,11 @@ public class ResetPassword {
         this.used = used;
     }
 
-    public static ResetPassword of(Long id, Account account, String code, LocalDateTime expiration, Boolean used) {
+    public static ResetPassword of(Long id, Account account, String code, Instant expiration, Boolean used) {
         return new ResetPassword(id, account, code, expiration, used);
     }
 
-    public static ResetPassword of(Account account, String code, LocalDateTime expiration, Boolean used) {
+    public static ResetPassword of(Account account, String code, Instant expiration, Boolean used) {
         return new ResetPassword(null, account, code, expiration, used);
     }
 
@@ -37,7 +37,7 @@ public class ResetPassword {
         return code;
     }
 
-    public LocalDateTime getExpiration() {
+    public Instant getExpiration() {
         return expiration;
     }
 

@@ -24,6 +24,8 @@ public class MemberDataForUnit {
         this.members = members;
     }
 
+    public MemberDataForUnit() {}
+
     public static MemberDataForUnit of(
             Integer score, String counselorName, Integer pageNumber, Integer pageSize, Long totalItems,
             Integer totalPages, List<MemberData> members

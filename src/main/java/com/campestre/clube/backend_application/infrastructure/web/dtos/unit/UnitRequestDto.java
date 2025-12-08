@@ -9,6 +9,8 @@ public class UnitRequestDto {
     @Positive
     private Integer score;
 
+    public UnitRequestDto() {}
+
     public String getSurname() {
         return surname;
     }

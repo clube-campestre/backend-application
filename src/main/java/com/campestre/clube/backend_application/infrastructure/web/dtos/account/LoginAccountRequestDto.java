@@ -13,6 +13,8 @@ public class LoginAccountRequestDto {
     @Schema(description = "Account password", example = "1234")
     private String password;
 
+    public LoginAccountRequestDto() {}
+
     public String getEmail() {
         return email;
     }

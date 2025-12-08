@@ -40,8 +40,7 @@ public class MemberDataResponseDto {
 
     private Boolean acceptTerms;
 
-    public MemberDataResponseDto() {
-    }
+    public MemberDataResponseDto() {}
 
     public MemberDataResponseDto(
             String cpf, byte[] image, String imageFormat, String username, String birthDate, Sex sex,
@@ -286,14 +285,6 @@ public class MemberDataResponseDto {
 
     public void setMedicalData(MedicalDataResponseDto medicalData) {
         this.medicalData = medicalData;
-    }
-
-    public Boolean getBaptized() {
-        return isBaptized;
-    }
-
-    public void setBaptized(Boolean baptized) {
-        isBaptized = baptized;
     }
 
     public Boolean getAcceptTerms() {

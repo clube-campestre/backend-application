@@ -25,6 +25,8 @@ public class Transport {
         this.rating = rating;
     }
 
+    public Transport() {}
+
     public static Transport of(BigDecimal price, Float travelDistance, Integer capacity, String companyName,
                                String companyNumber, String driverName, String driverNumber, Integer rating) {
         return new Transport(

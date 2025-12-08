@@ -11,6 +11,7 @@ public class UnitEntity {
     private Long id;
     private String surname;
     private Integer score = 0;
+    private Boolean hasRanking;
 
     public Long getId() {
         return id;
@@ -34,5 +35,13 @@ public class UnitEntity {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Boolean getHasRanking() {
+        return hasRanking;
+    }
+
+    public void setHasRanking(Boolean hasRanking) {
+        this.hasRanking = hasRanking;
     }
 }
