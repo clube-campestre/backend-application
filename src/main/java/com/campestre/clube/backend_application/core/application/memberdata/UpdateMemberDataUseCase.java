@@ -44,7 +44,7 @@ public class UpdateMemberDataUseCase {
                 command.image(),
                 command.imageFormat(),
                 command.username(),
-                command.birthDate(),
+                command.birthDate().toString(),
                 command.sex(),
                 command.birthCertificate(),
                 command.tshirtSize(),

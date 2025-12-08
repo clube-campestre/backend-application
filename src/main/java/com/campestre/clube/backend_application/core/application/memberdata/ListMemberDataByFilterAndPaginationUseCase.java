@@ -31,14 +31,15 @@ public class ListMemberDataByFilterAndPaginationUseCase {
     }
 
     public Pair<List<MemberData>, Pagination> execute(ListMemberDataByFilterAndPaginationCommand command) {
-        UnitEnum unitEnum = command.unitName() != null ? UnitEnum.fromString(command.unitName()) : null;
+        UnitEnum unitEnum = command.unitName() != null && !command.unitName().isBlank()
+                ? UnitEnum.fromString(command.unitName()) : null;
         Unit unitEntity = null;
 
-        if (command.unitName() != null && unitGateway.existsBySurnameIgnoreCase(unitEnum.name()))
+        if (command.unitName() != null && !command.unitName().isBlank() && unitGateway.existsBySurnameIgnoreCase(unitEnum.name()))
             unitEntity = unitGateway.findBySurnameIgnoreCase(unitEnum.name());
 
-        ClassCategory classCategoryEnum =
-                command.className() != null ? ClassCategory.fromString(command.className()) : null;
+        ClassCategory classCategoryEnum = command.className() != null && !command.className().isBlank()
+                ? ClassCategory.fromString(command.className()) : null;
 
         List<MemberData> result = gateway.findByFilterAndPagination(
                 new Filter(unitEntity, classCategoryEnum, command.memberName()), command.pagination()
